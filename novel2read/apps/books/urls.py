@@ -26,6 +26,11 @@ urlpatterns = [
         TemplateView.as_view(template_name="books/browse.html"),
         name="book"
     ),
+    path(
+        "books/<slug:book_slug>/<int:bookchapter_pk>/",
+        TemplateView.as_view(template_name="books/browse.html"),
+        name="bookchapter"
+    ),
     path("ranking/", TemplateView.as_view(template_name="books/ranking.html"), name="ranking"),
     path("search/", TemplateView.as_view(template_name="books/search.html"), name="search"),
 ]

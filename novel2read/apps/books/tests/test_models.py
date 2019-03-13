@@ -35,7 +35,7 @@ class BookGenreModelTest(TestCase):
         reverse_url = reverse('books:genre', kwargs={'bookgenre_slug': self.bookgenre.slug})
 
         self.assertNotEqual(abs_url, '')
-        self.assertNotEqual('', reverse_url)
+        self.assertNotEqual(reverse_url, '')
 
     def test_bookgenre_save_unique_slug(self):
         self.assertEqual(self.bookgenre.slug, 'test-genre')
@@ -87,7 +87,7 @@ class BookTagModelTest(TestCase):
         abs_url = self.booktag.get_absolute_url()
         reverse_url = reverse('books:tag', kwargs={'booktag_slug': self.booktag.slug})
         self.assertNotEqual(abs_url, '')
-        self.assertNotEqual('', reverse_url)
+        self.assertNotEqual(reverse_url, '')
 
     def test_booktag_save_unique_slug(self):
         self.assertEqual(self.booktag.slug, 'test-tag')
@@ -144,7 +144,7 @@ class BookModelTest(TestCase):
         abs_url = self.book.get_absolute_url()
         reverse_url = reverse('books:book', kwargs={'book_slug': self.book.slug})
         self.assertNotEqual(abs_url, '')
-        self.assertNotEqual('', reverse_url)
+        self.assertNotEqual(reverse_url, '')
 
     def test_book_save_unique_slug(self):
         self.assertEqual(self.book.slug, 'test-book')
@@ -179,3 +179,47 @@ class BookModelTest(TestCase):
         book_taglist = list(self.book.booktag.all())
         self.assertEqual(len(book_taglist), 1)
         self.assertEqual(book_taglist[0].name, 'test tag 1')
+
+
+class BookChapterTest(TestCase):
+    def setUp(self):
+        self.book = Book.objects.create(title='test book')
+        self.book_1 = Book.objects.create(title='test book 1')
+        self.bookchapter = BookChapter.objects.create(title='test chapter', book=self.book)
+        self.bookchapter_1 = BookChapter.objects.create(title='test chapter', book=self.book_1)
+
+    def test_book_data(self):
+        self.assertEqual(self.bookchapter.title, 'test chapter')
+        self.assertEqual(self.bookchapter.slug, 'test-chapter')
+        self.assertEqual(self.bookchapter.book.title, 'test book')
+        self.assertEqual(self.bookchapter_1.title, 'test chapter')
+        self.assertEqual(self.bookchapter_1.slug, 'test-chapter-1')
+        self.assertEqual(self.bookchapter_1.book.title, 'test book 1')
+
+    def test_book_data_invalid(self):
+        self.assertNotEqual(self.bookchapter.title, '')
+        self.assertNotEqual(self.bookchapter.slug, '')
+        self.assertNotEqual(self.bookchapter.book.title, '')
+        self.assertNotEqual(self.bookchapter_1.title, '')
+        self.assertNotEqual(self.bookchapter_1.slug, '')
+        self.assertNotEqual(self.bookchapter_1.book.title, '')
+
+    def test_book_abs_url(self):
+        abs_url = self.bookchapter.get_absolute_url()
+        abs_url_1 = self.bookchapter_1.get_absolute_url()
+        reverse_url = reverse(
+            'books:bookchapter',
+            kwargs={'book_slug': self.book.slug, 'bookchapter_pk': self.bookchapter.pk})
+        reverse_url_1 = reverse(
+            'books:bookchapter',
+            kwargs={'book_slug': self.book_1.slug, 'bookchapter_pk': self.bookchapter_1.pk})
+        self.assertEqual(abs_url, reverse_url)
+        self.assertEqual(abs_url_1, reverse_url_1)
+
+    def test_book_abs_url_invalid(self):
+        abs_url = self.book.get_absolute_url()
+        reverse_url = reverse(
+            'books:bookchapter',
+            kwargs={'book_slug': self.book.slug, 'bookchapter_pk': self.bookchapter.pk})
+        self.assertNotEqual(abs_url, '')
+        self.assertNotEqual(reverse_url, '')

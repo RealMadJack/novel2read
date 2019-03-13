@@ -114,7 +114,7 @@ class BookChapter(TimeStampedModel):
 
     def get_absolute_url(self):
         return reverse('books:bookchapter', kwargs={
-            'book_slug': self.book.slug, 'chapter_id': self.pk})
+            'book_slug': self.book.slug, 'bookchapter_pk': self.pk})
 
     def save(self, *args, **kwargs):
         if not self.slug or self.title != self.tracker.previous('title'):
