@@ -2,12 +2,12 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from .apps import BooksConfig
-from .views import *
+from .views import FrontPageView
 
 app_name = BooksConfig.name
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="books/front_page.html"), name="front_page"),
+    path("", FrontPageView.as_view(), name="front_page"),
     path("category/", TemplateView.as_view(template_name="books/browse.html"), name="browse"),
     path(
         "category/<slug:bookgenre_slug>/",
