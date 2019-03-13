@@ -112,8 +112,13 @@ class BookTagModelTest(TestCase):
 
 class BookModelTest(TestCase):
     def setUp(self):
-        self.book = Book.objects.create(title='test book')
-        self.book_1 = Book.objects.create(title='test book')
+        self.bookgenre = BookGenre.objects.create(name='test genre')
+        self.booktag = BookTag.objects.create(name='test tag')
+        self.booktag_1 = BookTag.objects.create(name='test tag 1')
+        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre)
+        self.book_1 = Book.objects.create(title='test book', bookgenre=self.bookgenre)
+        self.book.booktag.add(self.booktag, self.booktag_1)
+        self.book_1.booktag.add(self.booktag)
 
     def test_book_data(self):
         self.assertEqual(self.book.title, 'test book')
@@ -160,3 +165,17 @@ class BookModelTest(TestCase):
         self.book_1.save()
         self.assertNotEqual(self.book.slug, 'test-book')
         self.assertNotEqual(self.book_1.slug, 'test-book-1')
+
+    def test_movie_tag_m2m(self):
+        book_taglist = list(self.book.booktag.all())
+        book_taglist_1 = list(self.book_1.booktag.all())
+        self.assertEqual(len(book_taglist), 2)
+        self.assertEqual(len(book_taglist_1), 1)
+        self.assertEqual(book_taglist[0].name, 'test tag')
+        self.assertEqual(book_taglist[-1].name, 'test tag 1')
+        self.assertEqual(book_taglist_1[0].name, 'test tag')
+        # m2m remove test
+        self.book.booktag.remove(book_taglist[0])
+        book_taglist = list(self.book.booktag.all())
+        self.assertEqual(len(book_taglist), 1)
+        self.assertEqual(book_taglist[0].name, 'test tag 1')
