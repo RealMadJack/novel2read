@@ -14,6 +14,12 @@ urlpatterns = [
         TemplateView.as_view(template_name="books/browse.html"),
         name="genre"
     ),
+    path("tags/", TemplateView.as_view(template_name="books/browse.html"), name="browse1"),
+    path(
+        "tags/<slug:booktag_slug>/",
+        TemplateView.as_view(template_name="books/browse.html"),
+        name="tag"
+    ),
     path("ranking/", TemplateView.as_view(template_name="books/ranking.html"), name="ranking"),
     path("search/", TemplateView.as_view(template_name="books/search.html"), name="search"),
 ]
