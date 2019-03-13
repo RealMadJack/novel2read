@@ -190,6 +190,8 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                # custom
+                'novel2read.apps.books.context_processor.bookgenres_processor',
             ],
         },
     },

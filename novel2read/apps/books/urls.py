@@ -8,7 +8,7 @@ app_name = BooksConfig.name
 
 urlpatterns = [
     path("", FrontPageView.as_view(), name="front_page"),
-    path("category/", TemplateView.as_view(template_name="books/browse.html"), name="browse"),
+    path("category/all/", TemplateView.as_view(template_name="books/browse.html"), name="browse"),
     path(
         "category/<slug:bookgenre_slug>/",
         TemplateView.as_view(template_name="books/browse.html"),
