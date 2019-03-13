@@ -108,3 +108,55 @@ class BookTagModelTest(TestCase):
         self.booktag_1.save()
         self.assertNotEqual(self.booktag.slug, 'test-tag')
         self.assertNotEqual(self.booktag_1.slug, 'test-tag-1')
+
+
+class BookModelTest(TestCase):
+    def setUp(self):
+        self.book = Book.objects.create(title='test book')
+        self.book_1 = Book.objects.create(title='test book')
+
+    def test_book_data(self):
+        self.assertEqual(self.book.title, 'test book')
+        self.assertEqual(self.book.slug, 'test-book')
+        self.assertEqual(self.book_1.title, 'test book')
+        self.assertEqual(self.book_1.slug, 'test-book-1')
+
+    def test_book_data_invalid(self):
+        self.assertNotEqual(self.book.title, '')
+        self.assertNotEqual(self.book.slug, '')
+        self.assertNotEqual(self.book_1.title, '')
+        self.assertNotEqual(self.book_1.slug, '')
+
+    def test_book_abs_url(self):
+        abs_url = self.book.get_absolute_url()
+        abs_url_1 = self.book_1.get_absolute_url()
+        reverse_url = reverse('books:book', kwargs={'book_slug': self.book.slug})
+        reverse_url_1 = reverse('books:book', kwargs={'book_slug': self.book_1.slug})
+        self.assertEqual(abs_url, reverse_url)
+        self.assertEqual(abs_url_1, reverse_url_1)
+
+    def test_book_abs_url_invalid(self):
+        abs_url = self.book.get_absolute_url()
+        reverse_url = reverse('books:book', kwargs={'book_slug': self.book.slug})
+        self.assertNotEqual(abs_url, '')
+        self.assertNotEqual('', reverse_url)
+
+    def test_book_save_unique_slug(self):
+        self.assertEqual(self.book.slug, 'test-book')
+        self.assertEqual(self.book_1.slug, 'test-book-1')
+        self.book.title = 'test new book'
+        self.book.save()
+        self.book_1.title = 'test new book'
+        self.book_1.save()
+        self.assertEqual(self.book.slug, 'test-new-book')
+        self.assertEqual(self.book_1.slug, 'test-new-book-1')
+
+    def test_book_save_unique_slug_invalid(self):
+        self.assertEqual(self.book.slug, 'test-book')
+        self.assertEqual(self.book_1.slug, 'test-book-1')
+        self.book.title = 'test new book'
+        self.book.save()
+        self.book_1.title = 'test new book'
+        self.book_1.save()
+        self.assertNotEqual(self.book.slug, 'test-book')
+        self.assertNotEqual(self.book_1.slug, 'test-book-1')
