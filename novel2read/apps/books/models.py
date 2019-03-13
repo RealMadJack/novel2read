@@ -1,5 +1,8 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.db.models import Count
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices, FieldTracker
@@ -85,6 +88,9 @@ class Book(TimeStampedModel):
             self.slug = get_unique_slug(Book, self.title)
         return super().save(*args, **kwargs)
 
+    def get_chapters_count(self):
+        return self.bookchapters.count()
+
 
 class BookChapter(TimeStampedModel):
     book = models.ForeignKey(
@@ -114,6 +120,23 @@ class BookChapter(TimeStampedModel):
         if not self.slug or self.title != self.tracker.previous('title'):
             self.slug = get_unique_slug(BookChapter, self.title)
         return super().save(*args, **kwargs)
+
+
+@receiver([post_save, post_delete], sender=BookChapter)
+def save_book_chapters(sender, instance, **kwargs):
+    chapters_count = instance.book.get_chapters_count()
+    chapters_count_previous = instance.book.tracker.previous('chapters')
+    if chapters_count != chapters_count_previous:
+        instance.book.chapters = chapters_count
+        instance.book.save()
+
+
+# book = Book.objects.get(pk=self.book.pk)
+# chapters_count = self.book.get_chapters_count()
+# print(f'{self.book.tracker.previous("chapters")} - {book.chapters}')
+# if book.chapters != book.tracker.previous('chapters'):
+#     print('saved')
+#     self.book.save()
 
 
 class BookVolume(TimeStampedModel):
