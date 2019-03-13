@@ -26,7 +26,7 @@ class BookGenre(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         if not self.slug or self.name != self.tracker.previous('name'):
-            self.slug = get_unique_slug(self.name)
+            self.slug = get_unique_slug(BookGenre, self.name)
         return super().save(*args, **kwargs)
 
 
@@ -47,7 +47,7 @@ class BookTag(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         if not self.slug or self.name != self.tracker.previous('name'):
-            self.slug = get_unique_slug(self.name)
+            self.slug = get_unique_slug(BookTag, self.name)
         return super().save(*args, **kwargs)
 
 
@@ -67,6 +67,7 @@ class Book(TimeStampedModel):
     country = models.CharField(default='', max_length=255, blank=True)
     description = models.TextField(_('Description'), blank=False, default='', max_length=1024)
     chapters = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
+    tracker = FieldTracker()
 
     class Meta:
         ordering = ['-created']
@@ -74,19 +75,19 @@ class Book(TimeStampedModel):
         verbose_name_plural = _('Books')
 
     def __str__(self):
-        return f'Book: {self.name}'
+        return self.title
 
     def get_absolute_url(self):
         return reverse('books:book', kwargs={'book_slug': self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug or self.title != self.tracker.previous('title'):
-            self.slug = get_unique_slug(self.title)
+            self.slug = get_unique_slug(Book, self.title)
         return super().save(*args, **kwargs)
 
 
 class BookChapter(TimeStampedModel):
-    book = models.OneToOneField(
+    book = models.ForeignKey(
         Book,
         on_delete=models.CASCADE,  # test cascade delete book or chapter
         related_name='%(class)ss',
@@ -95,6 +96,7 @@ class BookChapter(TimeStampedModel):
     title = models.CharField(_('Title'), blank=False, default='', max_length=255)
     slug = models.SlugField(default='', max_length=255, unique=True)
     text = models.TextField(blank=False, default='')
+    tracker = FieldTracker()
 
     class Meta:
         ordering = ['-created']
@@ -102,7 +104,7 @@ class BookChapter(TimeStampedModel):
         verbose_name_plural = _('Chapters')
 
     def __str__(self):
-        return f'Chapter: {self.title}, Book: {self.book}'
+        return f'Book: {self.book.title} - Chapter: {self.title}'
 
     def get_absolute_url(self):
         return reverse('books:bookchapter', kwargs={
@@ -110,7 +112,7 @@ class BookChapter(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         if not self.slug or self.title != self.tracker.previous('title'):
-            self.slug = get_unique_slug(self.title)
+            self.slug = get_unique_slug(BookChapter, self.title)
         return super().save(*args, **kwargs)
 
 
