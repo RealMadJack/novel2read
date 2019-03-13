@@ -9,6 +9,11 @@ app_name = BooksConfig.name
 urlpatterns = [
     path("", TemplateView.as_view(template_name="books/front_page.html"), name="front_page"),
     path("category/", TemplateView.as_view(template_name="books/browse.html"), name="browse"),
+    path(
+        "category/<slug:bookgenre_slug>/",
+        TemplateView.as_view(template_name="books/browse.html"),
+        name="genre"
+    ),
     path("ranking/", TemplateView.as_view(template_name="books/ranking.html"), name="ranking"),
     path("search/", TemplateView.as_view(template_name="books/search.html"), name="search"),
 ]

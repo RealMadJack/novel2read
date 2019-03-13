@@ -25,7 +25,7 @@ class BookGenre(TimeStampedModel):
         return f'Genre: {self.name}'
 
     def get_absolute_url(self):
-        return reverse('books:category', kwargs={'bookgenre_slug': self.slug})
+        return reverse('books:genre', kwargs={'bookgenre_slug': self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug or self.name != self.tracker.previous('name'):
