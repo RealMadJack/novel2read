@@ -1,5 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <p>browse</p>
+  <div class="bookbrowse">
+    <h1 class="bookbrowse__title">
+      {% if request.resolver_match.url_name == 'genre-all' %}
+        All Genre
+      {% else %}
+        {% for bookgenre in bookgenres %}
+          {% if request.path == bookgenre.get_absolute_url %}
+            {{bookgenre.name}}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </h1>
+    <div class="bookbrowse__filters">
+    </div>
+    <div class="bookbrowse__book"></div>
+  </div>
+
+  {% for book in books %}
+    <p>{{book.title}}</p>
+  {% endfor %}
+
 {% endblock content %}
