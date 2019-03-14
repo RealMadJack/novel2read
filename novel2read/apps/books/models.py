@@ -63,13 +63,22 @@ class Book(TimeStampedModel):
         related_query_name='%(class)s',
     )
     booktag = models.ManyToManyField(BookTag, related_name='%(class)ss')
-    # volume = models.PositiveIntegerField()
     title = models.CharField(_('Title'), blank=False, default='', max_length=255)
     slug = models.SlugField(default='', max_length=255, unique=True)
     author = ArrayField(models.CharField(max_length=112), blank=True, default=list)
     country = models.CharField(default='', max_length=255, blank=True)
     description = models.TextField(_('Description'), blank=False, default='', max_length=1024)
     chapters = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
+    # poster = models.URLField(_('Poster'), blank=True, null=True, upload_to='posters')
+    poster_url = models.URLField(_('Poster URL'), blank=True, default='https://media.istockphoto.com/vectors/blank-book-cover-vector-id466036957?k=6&m=466036957&s=612x612&w=0&h=SHDzHMVV6CHMNk6P-7igrYcZTfGryYdk_J7jzf7MwyY=', max_length=255)
+    votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
+    votes_external = models.PositiveIntegerField(
+        _('Votes External'), blank=True, null=True, default=0)
+    rating = models.FloatField(_('Rating'), blank=True, default=0.0)
+    # ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
+    STATUS = Choices('unpublished', 'published')
+    status = StatusField()
+    published_at = MonitorField(monitor='status', when=['published'])
     tracker = FieldTracker()
 
     class Meta:
@@ -129,14 +138,6 @@ def save_book_chapters(sender, instance, **kwargs):
     if chapters_count != chapters_count_previous:
         instance.book.chapters = chapters_count
         instance.book.save()
-
-
-# book = Book.objects.get(pk=self.book.pk)
-# chapters_count = self.book.get_chapters_count()
-# print(f'{self.book.tracker.previous("chapters")} - {book.chapters}')
-# if book.chapters != book.tracker.previous('chapters'):
-#     print('saved')
-#     self.book.save()
 
 
 class BookVolume(TimeStampedModel):
