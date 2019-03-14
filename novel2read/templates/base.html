@@ -48,9 +48,9 @@
             {% with url_name=request.resolver_match.url_name %}
             <ul class="navbar-nav mr-auto">
               <li class="nav-item btn-group">
-                <a class="nav-link dropdown-toggle{% if url_name == 'browse' or url_name == 'genre' %} active{% endif %}" href="{% url 'books:browse' %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse</a>
+                <a class="nav-link dropdown-toggle{% if url_name == 'genre-all' or url_name == 'genre' %} active{% endif %}" href="{% url 'books:genre-all' %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse</a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item {% if url_name == 'browse' %} active{% endif %}" href="{% url 'books:browse' %}">All Genre</a>
+                  <a class="dropdown-item {% if url_name == 'genre-all' %} active{% endif %}" href="{% url 'books:genre-all' %}">All Genre</a>
 
                   {% for bookgenre in bookgenres %}
                     <a class="dropdown-item{% if request.path == bookgenre.get_absolute_url %} active{% endif %}" href="{{bookgenre.get_absolute_url}}">{{bookgenre.name}}</a>
