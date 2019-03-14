@@ -3,8 +3,8 @@
 {% load static %}
 
 {% block content %}
-  <div class="bookbrowse">
-    <h1 class="bookbrowse__title">
+  <div class="browsebooks">
+    <h1 class="browsebooks__title">
       {% if request.resolver_match.url_name == 'genre-all' %}
         All Genre
       {% else %}
@@ -15,9 +15,9 @@
         {% endfor %}
       {% endif %}
     </h1>
-    <div class="bookbrowse__filters">
+    <div class="browsebooks__filters">
     </div>
-    <div class="bookbrowse__books">
+    <div class="browsebooks__books">
       <div class="row">
         {% for book in books %}
         <div class="col-md-6 col-sm-12">

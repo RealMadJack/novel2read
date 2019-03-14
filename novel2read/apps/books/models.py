@@ -22,7 +22,7 @@ class BookGenre(TimeStampedModel):
         verbose_name_plural = _('Book Genres')
 
     def __str__(self):
-        return f'Genre: {self.name}'
+        return self.name
 
     def get_absolute_url(self):
         return reverse('books:genre', kwargs={'bookgenre_slug': self.slug})
@@ -43,7 +43,7 @@ class BookTag(TimeStampedModel):
         verbose_name_plural = _('Book Tags')
 
     def __str__(self):
-        return f'Tag: {self.name}'
+        return self.name
 
     def get_absolute_url(self):
         return reverse('books:tag', kwargs={'booktag_slug': self.slug})
@@ -70,7 +70,7 @@ class Book(TimeStampedModel):
     description = models.TextField(_('Description'), blank=False, default='', max_length=1024)
     chapters = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
     # poster = models.URLField(_('Poster'), blank=True, null=True, upload_to='posters')
-    poster_url = models.URLField(_('Poster URL'), blank=True, default='https://image.freepik.com/free-vector/blank-book-cover-template-with-pages-front-side-standing_47649-397.jpg', max_length=255)
+    poster_url = models.URLField(_('Poster URL'), blank=True, default='https://media.istockphoto.com/vectors/blank-book-cover-vector-id466036957?k=6&m=466036957&s=612x612&w=0&h=SHDzHMVV6CHMNk6P-7igrYcZTfGryYdk_J7jzf7MwyY=', max_length=255)
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
     votes_external = models.PositiveIntegerField(
         _('Votes External'), blank=True, null=True, default=0)

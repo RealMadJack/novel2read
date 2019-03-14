@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import View, ListView
+from django.views.generic import View, DetailView, ListView
 
 from .models import Book
 
@@ -31,3 +31,7 @@ class GenrePageView(ListView):
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
             return redirect('/404/')
+
+
+class BookView(DetailView):
+    pass
