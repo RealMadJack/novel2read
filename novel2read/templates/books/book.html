@@ -3,4 +3,32 @@
 {% load static %}
 
 {% block content %}
+
+<div class="book">
+  <div class="book__poster">
+    <img class="book__poster--image" src="{{book.poster_url}}" alt="{{book.title}}">
+  </div>
+  <div class="book__info">
+    <div class="book__info--title">
+      <h1>{{book.title}}</h1>
+    </div>
+    <div class="book__info--desc">
+      <p>{{book.description}}</p>
+    </div>
+    <div class="book__info--tags">
+      <a class="booktag" href="{{book.bookgenre.get_absolute_url}}">
+        <span>{{book.bookgenre.name}}</span>
+      </a>
+      {% for booktag in book.booktag.all %}
+        <a class="booktag" href="{{booktag.get_absolute_url}}">
+          <span>{{booktag.name}}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="book__nav"></div>
+  <div class="book__vote"></div>
+  <div class="book__promo"></div>
+</div>
+
 {% endblock content %}

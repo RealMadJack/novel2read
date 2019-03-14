@@ -24,9 +24,7 @@ class GenrePageView(ListView):
         try:
             books = Book.objects.select_related('bookgenre').prefetch_related('booktag')
             if kwargs:
-                print(f'kwargs: {kwargs}')
                 books = Book.objects.filter(bookgenre__slug=kwargs['bookgenre_slug'])
-                print(books)
             context = {'books': books}
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
@@ -34,4 +32,13 @@ class GenrePageView(ListView):
 
 
 class BookView(DetailView):
-    pass
+    template_name = 'books/book.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            books = Book.objects.select_related('bookgenre').prefetch_related('booktag')
+            book = Book.objects.get(slug=kwargs['book_slug'])
+            context = {'books': books, 'book': book}
+            return render(request, template_name=self.template_name, context=context)
+        except Book.DoesNotExist:
+            return redirect('/404/')
