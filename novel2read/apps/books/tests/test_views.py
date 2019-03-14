@@ -26,7 +26,9 @@ class GenrePageViewTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.bookgenre = BookGenre.objects.create(name='test genre')
+        self.bookgenre_1 = BookGenre.objects.create(name='test genre other')
         self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre)
+        self.book_1 = Book.objects.create(title='test book other', bookgenre=self.bookgenre_1)
         self.response_all = self.client.get(reverse('books:genre-all'))
         self.response_solo = self.client.get(
             reverse('books:genre', kwargs={'bookgenre_slug': self.bookgenre.slug}))
@@ -42,6 +44,10 @@ class GenrePageViewTest(TestCase):
     def test_frontpage_content(self):
         self.assertIn('html', self.response_all.content.decode('utf-8'))
         self.assertIn(self.bookgenre.name, self.response_solo.content.decode('utf-8'))
+        self.assertIn(self.book.title, self.response_all.content.decode('utf-8'))
+        self.assertIn(self.book_1.title, self.response_all.content.decode('utf-8'))
+        self.assertIn(self.book.title, self.response_solo.content.decode('utf-8'))
+        self.assertNotIn(self.book_1.title, self.response_solo.content.decode('utf-8'))
 
     def test_frontpage_content_invalid(self):
         self.assertNotEqual(self.response_all.content.decode('utf-8'), {})
