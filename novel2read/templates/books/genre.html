@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
   <div class="bookbrowse">
     <h1 class="bookbrowse__title">
@@ -15,11 +17,48 @@
     </h1>
     <div class="bookbrowse__filters">
     </div>
-    <div class="bookbrowse__book"></div>
+    <div class="bookbrowse__books">
+      <div class="row">
+        {% for book in books %}
+        <div class="col-md-6 col-sm-12">
+          <div class="book-lg-wide">
+            <div class="book-lg-wide__poster">
+              <a class="book-lg-wide__poster--link" href="{{book.get_absolute_url}}">
+                <img class="book-lg-wide__poster--image" src="{{book.poster_url}}" alt="{{book.title}}">
+              </a>
+            </div>
+            <div class="book-lg-wide__info">
+              <h2 class="book-lg-wide__info--title">
+                <a href="{{book.get_absolute_url}}">{{book.title}}</a>
+              </h2>
+              <div class="book-lg-wide__info--tags">
+                <a class="booktag" href="{{book.bookgenre.get_absolute_url}}">
+                  <span>{{book.bookgenre.name}}</span>
+                </a>
+                {% for booktag in book.booktag.all %}
+                  <a class="booktag" href="{{booktag.get_absolute_url}}">
+                    <span>{{booktag.name}}</span>
+                  </a>
+                {% endfor %}
+              </div>
+              <div class="book-lg-wide__info--stars">
+                <img src="{% static 'images/star.png' %}" alt="star">
+                <img src="{% static 'images/star.png' %}" alt="star">
+                <img src="{% static 'images/star.png' %}" alt="star">
+                <img src="{% static 'images/star.png' %}" alt="star">
+                <img src="{% static 'images/half-star.png' %}" alt="star">
+                <span>{{book.rating}}</span>
+              </div>
+              <div class="book-lg-wide__info--descr">
+                <a href="{{book.get_absolute_url}}">{{book.description}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 
-  {% for book in books %}
-    <p>{{book.title}}</p>
-  {% endfor %}
 
 {% endblock content %}
