@@ -29,7 +29,7 @@ class GenrePageViewTest(TestCase):
         self.bookgenre_1 = BookGenre.objects.create(name='test genre other')
         self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre)
         self.book_1 = Book.objects.create(title='test book other', bookgenre=self.bookgenre_1)
-        self.response_all = self.client.get(reverse('books:genre-all'))
+        self.response_all = self.client.get(reverse('books:genre-list'))
         self.response_solo = self.client.get(
             reverse('books:genre', kwargs={'bookgenre_slug': self.bookgenre.slug}))
 

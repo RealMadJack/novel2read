@@ -5,7 +5,7 @@
 {% block content %}
   <div class="browsebooks">
     <h1 class="browsebooks__title h1-title">
-      {% if request.resolver_match.url_name == 'genre-all' %}
+      {% if request.resolver_match.url_name == 'genre-list' %}
         All Genre
       {% else %}
         {% for bookgenre in bookgenres %}

@@ -8,7 +8,7 @@ class BookGenreUrlTest(TestCase):
         self.resolver_solo = resolve('/category/test-genre/')
 
     def test_bookgenre_resolve(self):
-        self.assertEqual(self.resolver_all.view_name, 'books:genre-all')
+        self.assertEqual(self.resolver_all.view_name, 'books:genre-list')
         self.assertEqual(self.resolver_solo.view_name, 'books:genre')
 
     def test_bookgenre_resolve_invalid(self):

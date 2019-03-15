@@ -8,12 +8,13 @@ app_name = BooksConfig.name
 
 urlpatterns = [
     path("", FrontPageView.as_view(), name="front_page"),
-    path("category/all/", BookGenreView.as_view(), name="genre-all"),
+    path("category/all/", BookGenreView.as_view(), name="genre-list"),
     path(
         "category/<slug:bookgenre_slug>/",
         BookGenreView.as_view(),
         name="genre"
     ),
+    path("tags/all/", BookTagView.as_view(), name="tag-list"),
     path("tags/<slug:booktag_slug>/", BookTagView.as_view(), name="tag"),
     path("books/<slug:book_slug>/", BookView.as_view(), name="book"),
     path("books/<slug:book_slug>/<int:bookchapter_pk>/", BookChapterView.as_view(), name="bookchapter"),
