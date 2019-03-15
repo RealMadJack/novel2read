@@ -29,28 +29,60 @@ class GenrePageViewTest(TestCase):
         self.bookgenre_1 = BookGenre.objects.create(name='test genre other')
         self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre)
         self.book_1 = Book.objects.create(title='test book other', bookgenre=self.bookgenre_1)
-        self.response_all = self.client.get(reverse('books:genre-list'))
+        self.response_list = self.client.get(reverse('books:genre-list'))
         self.response_solo = self.client.get(
             reverse('books:genre', kwargs={'bookgenre_slug': self.bookgenre.slug}))
 
-    def test_frontpage_response(self):
-        self.assertEqual(self.response_all.status_code, 200)
+    def test_bookgenre_response(self):
+        self.assertEqual(self.response_list.status_code, 200)
         self.assertEqual(self.response_solo.status_code, 200)
 
-    def test_frontpage_response_invalid(self):
-        self.assertNotEqual(self.response_all.status_code, 404)
+    def test_bookgenre_response_invalid(self):
+        self.assertNotEqual(self.response_list.status_code, 404)
         self.assertNotEqual(self.response_solo.status_code, 404)
 
-    def test_frontpage_content(self):
-        self.assertIn('html', self.response_all.content.decode('utf-8'))
-        self.assertIn(self.bookgenre.name, self.response_solo.content.decode('utf-8'))
-        self.assertIn(self.book.title, self.response_all.content.decode('utf-8'))
-        self.assertIn(self.book_1.title, self.response_all.content.decode('utf-8'))
+    def test_bookgenre_content(self):
+        self.assertIn('html', self.response_list.content.decode('utf-8'))
+        self.assertIn(self.book.title, self.response_list.content.decode('utf-8'))
+        self.assertIn(self.book_1.title, self.response_list.content.decode('utf-8'))
         self.assertIn(self.book.title, self.response_solo.content.decode('utf-8'))
         self.assertNotIn(self.book_1.title, self.response_solo.content.decode('utf-8'))
+        self.assertIn(self.bookgenre.name, self.response_solo.content.decode('utf-8'))
 
-    def test_frontpage_content_invalid(self):
-        self.assertNotEqual(self.response_all.content.decode('utf-8'), {})
+    def test_bookgenre_content_invalid(self):
+        self.assertNotEqual(self.response_list.content.decode('utf-8'), {})
+        self.assertNotEqual(self.response_solo.content.decode('utf-8'), {})
+
+
+class TagPageViewTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.bookgenre = BookGenre.objects.create(name='test genre')
+        self.booktag = BookTag.objects.create(name='test tag')
+        self.booktag_1 = BookTag.objects.create(name='test tag other')
+        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre)
+        self.book.booktag.add(self.booktag, self.booktag_1)
+        self.response_list = self.client.get(reverse('books:tag-list'))
+        self.response_solo = self.client.get(
+            reverse('books:tag', kwargs={'booktag_slug': self.booktag.slug}))
+
+    def test_booktag_response(self):
+        self.assertEqual(self.response_list.status_code, 200)
+        self.assertEqual(self.response_solo.status_code, 200)
+
+    def test_booktag_response_invalid(self):
+        self.assertNotEqual(self.response_list.status_code, 404)
+        self.assertNotEqual(self.response_solo.status_code, 404)
+
+    def test_booktag_content(self):
+        self.assertIn('html', self.response_list.content.decode('utf-8'))
+        self.assertIn(self.booktag.name, self.response_list.content.decode('utf-8'))
+        self.assertIn(self.booktag_1.name, self.response_list.content.decode('utf-8'))
+        self.assertIn(self.book.title, self.response_solo.content.decode('utf-8'))
+        self.assertIn(self.booktag.name, self.response_solo.content.decode('utf-8'))
+
+    def test_booktag_content_invalid(self):
+        self.assertNotEqual(self.response_list.content.decode('utf-8'), {})
         self.assertNotEqual(self.response_solo.content.decode('utf-8'), {})
 
 

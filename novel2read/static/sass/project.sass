@@ -52,8 +52,9 @@ li, a, button
 	display: inline-block
 	padding: 3px 10px
 	font-size: .8rem
-	background-color: transparent
-	border: 1px solid $accent
+	color: $accent!important
+	background-color: transparent!important
+	border: 1px solid $accent!important
 	border-radius: 14px
 	margin:
 		right: 5px
@@ -64,8 +65,9 @@ li, a, button
 		position: relative
 		top: -1px
 	&:hover, &:focus, &:active
-		background-color: $accent
-		color: white
+		color: white!important
+		background-color: $accent!important
+		border: 1px solid $accent!important
 
 .tag-card
 	display: inline-block
@@ -74,7 +76,7 @@ li, a, button
 	&:last-of-type
 		margin-right: 0
 	a
-		color: $default
+		color: $default!important
 		display: block
 		text-decoration: none
 		outline: none
@@ -82,7 +84,7 @@ li, a, button
 			text-decoration: none
 			outline: none
 .tag-card.active
-	border-bottom: 4px solid $accent
+	border-bottom: 4px solid $accent!important
 
 .stars-rating-sm
 	max-height: 15px

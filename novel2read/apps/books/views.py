@@ -43,7 +43,6 @@ class BookTagView(ListView):
                 books = Book.objects.filter(booktag__slug=kwargs['booktag_slug'])
                 context['tag'] = tag
                 context['books'] = books
-                print(context)
             return render(request, template_name=self.template_name, context=context)
         except BookTag.DoesNotExist:
             return redirect('/404/')

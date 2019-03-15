@@ -4,20 +4,30 @@ from django.urls import resolve
 
 class BookGenreUrlTest(TestCase):
     def setUp(self):
-        self.resolver_all = resolve('/category/all/')
+        self.resolver_list = resolve('/category/all/')
         self.resolver_solo = resolve('/category/test-genre/')
 
     def test_bookgenre_resolve(self):
-        self.assertEqual(self.resolver_all.view_name, 'books:genre-list')
+        self.assertEqual(self.resolver_list.view_name, 'books:genre-list')
         self.assertEqual(self.resolver_solo.view_name, 'books:genre')
 
     def test_bookgenre_resolve_invalid(self):
-        self.assertNotEqual(self.resolver_all.view_name, '')
+        self.assertNotEqual(self.resolver_list.view_name, '')
         self.assertNotEqual(self.resolver_solo.view_name, '')
 
 
 class BookTagUrlTest(TestCase):
-    pass
+    def setUp(self):
+        self.resolver_list = resolve('/tags/all/')
+        self.resolver_solo = resolve('/tags/test-genre/')
+
+    def test_bookgenre_resolve(self):
+        self.assertEqual(self.resolver_list.view_name, 'books:tag-list')
+        self.assertEqual(self.resolver_solo.view_name, 'books:tag')
+
+    def test_bookgenre_resolve_invalid(self):
+        self.assertNotEqual(self.resolver_list.view_name, '')
+        self.assertNotEqual(self.resolver_solo.view_name, '')
 
 
 class BookUrlTest(TestCase):
