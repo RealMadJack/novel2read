@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView, ListView
 
-from .models import Book
+from .models import Book, BookTag
 
 
 class FrontPageView(View):
@@ -32,7 +32,21 @@ class BookGenreView(ListView):
 
 
 class BookTagView(ListView):
-    pass
+    template_name = 'books/tag.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            tags = BookTag.objects.all()
+            context = {'tags': tags}
+            if kwargs:
+                tag = BookTag.objects.prefetch_related('books').get(slug=kwargs['booktag_slug'])
+                books = Book.objects.filter(booktag__slug=kwargs['booktag_slug'])
+                context['tag'] = tag
+                context['books'] = books
+                print(context)
+            return render(request, template_name=self.template_name, context=context)
+        except BookTag.DoesNotExist:
+            return redirect('/404/')
 
 
 class BookView(DetailView):
