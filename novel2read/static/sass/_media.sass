@@ -4,7 +4,21 @@
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px)
-	/**/
+	.book
+		.bookhead
+			&__poster
+				&--image
+			&__info
+				&--title
+				&--row
+					flex-direction: column
+					justify-content: auto
+					align-items: flex-start
+					.info-row
+						margin-bottom: 10px
+					.stars-rating-sm
+				&--tags
+				&--read
 
 
 /* Medium Devices, Desktops */
@@ -27,6 +41,22 @@
 					&--descr
 						height: 100px
 
+	.book
+		.bookhead
+			&__poster
+				&--image
+			&__info
+				&--title
+				&--row
+					.info-row
+						flex-direction: column
+					.stars-rating-sm
+				&--tags
+				&--read
+					.btn
+						font-size: 1.1rem
+						padding: 8px 25px
+
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px)
 	.browsebooks
@@ -48,6 +78,26 @@
 						span
 					&--descr
 
+	.book
+		.bookhead
+			grid-template-columns: 1fr
+			&__poster
+				&--image
+			&__info
+				&--title
+				&--row
+					.info-row
+						display: block
+						font-size: .9rem
+						p
+							display: inline-block
+					.stars-rating-sm
+				&--tags
+					margin-bottom: 20px
+				&--read
+					.btn
+						font-size: 1rem
+						padding: 7px 23px
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px)

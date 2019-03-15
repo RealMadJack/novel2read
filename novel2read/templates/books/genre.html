@@ -4,7 +4,7 @@
 
 {% block content %}
   <div class="browsebooks">
-    <h1 class="browsebooks__title">
+    <h1 class="browsebooks__title h1-title">
       {% if request.resolver_match.url_name == 'genre-all' %}
         All Genre
       {% else %}
@@ -28,7 +28,7 @@
               </a>
             </div>
             <div class="book-lg-wide__info">
-              <h2 class="book-lg-wide__info--title">
+              <h2 class="book-lg-wide__info--title h2-title-sm">
                 <a href="{{book.get_absolute_url}}">{{book.title}}</a>
               </h2>
               <div class="book-lg-wide__info--tags">
@@ -41,7 +41,7 @@
                   </a>
                 {% endfor %}
               </div>
-              <div class="book-lg-wide__info--stars">
+              <div class="book-lg-wide__info--stars stars-rating-sm">
                 <img src="{% static 'images/star.png' %}" alt="star">
                 <img src="{% static 'images/star.png' %}" alt="star">
                 <img src="{% static 'images/star.png' %}" alt="star">

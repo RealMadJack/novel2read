@@ -5,29 +5,30 @@
 {% block content %}
 
 <div class="book">
+
   <div class="bookhead">
     <div class="bookhead__poster">
       <img class="bookhead__poster--image" src="{{book.poster_url}}" alt="{{book.title}}">
     </div>
     <div class="bookhead__info">
       <div class="bookhead__info--title">
-        <h1>{{book.title}}</h1>
+        <h1 class="h1-title-sm">{{book.title}}</h1>
       </div>
       <div class="bookhead__info--row">
-        <span>Chapters: {{book.chapters}}</span>
-        <span>Views: 0</span>
-      </div>
-      <div class="bookhead__info--author">
-        Author: {% for author in book.author %}<span>{{author}}</span>{% endfor %}
-        <span>Country: {{book.country}}</span>
-      </div>
-      <div class="bookhead__info--stars">
-        <img src="{% static 'images/star.png' %}" alt="star">
-        <img src="{% static 'images/star.png' %}" alt="star">
-        <img src="{% static 'images/star.png' %}" alt="star">
-        <img src="{% static 'images/star.png' %}" alt="star">
-        <img src="{% static 'images/half-star.png' %}" alt="star">
-        <span>{{book.rating}} ({{book.votes}} votes)</span>
+        <div class="info-row">
+          <p>Author: {% for author in book.author %}<span>{{author}}</span>{% endfor %}</p>
+          <p>Country: {{book.country}}</p>
+          <p>Chapters: {{book.chapters}}</p>
+          <p>Views: 0</p>
+        </div>
+        <div class="stars-rating-sm">
+          <img src="{% static 'images/star.png' %}" alt="star">
+          <img src="{% static 'images/star.png' %}" alt="star">
+          <img src="{% static 'images/star.png' %}" alt="star">
+          <img src="{% static 'images/star.png' %}" alt="star">
+          <img src="{% static 'images/half-star.png' %}" alt="star">
+          <span>{{book.rating}} ({{book.votes}} votes)</span>
+        </div>
       </div>
       <div class="bookhead__info--tags">
         <a class="booktag" href="{{book.bookgenre.get_absolute_url}}">
@@ -45,6 +46,7 @@
       </div>
     </div>
   </div>
+
   <div class="bookbody">
     <div class="bookbody__tabs">
       <nav>
@@ -65,8 +67,11 @@
       </div>
     </div>
   </div>
-  <div class="book__vote"></div>
-  <div class="book__promo"></div>
+
+  <div class="bookfooter">
+    <div class="book__vote"></div>
+    <div class="book__promo"></div>
+  </div>
 </div>
 
 {% endblock content %}
