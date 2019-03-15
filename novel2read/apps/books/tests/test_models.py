@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from ..models import BookGenre, BookTag, Book, BookChapter, BookVolume
+from ..models import BookGenre, BookTag, Book, BookChapter
 
 
 class BookGenreModelTest(TestCase):

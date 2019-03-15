@@ -16,6 +16,10 @@ class BookGenreUrlTest(TestCase):
         self.assertNotEqual(self.resolver_solo.view_name, '')
 
 
+class BookTagUrlTest(TestCase):
+    pass
+
+
 class BookUrlTest(TestCase):
     def setUp(self):
         self.resolver = resolve('/books/test-book/')
@@ -25,3 +29,7 @@ class BookUrlTest(TestCase):
 
     def test_book_resolve_invalid(self):
         self.assertNotEqual(self.resolver.view_name, '')
+
+
+class BookChapterUrlTest(TestCase):
+    pass

@@ -10,7 +10,7 @@ class FrontPageView(View):
         return render(request, template_name='books/front_page.html', context=context)
 
 
-class GenrePageView(ListView):
+class BookGenreView(ListView):
     # model = Book
     template_name = 'books/genre.html'
     # paginate_by = 20
@@ -31,6 +31,10 @@ class GenrePageView(ListView):
             return redirect('/404/')
 
 
+class BookTagView(ListView):
+    pass
+
+
 class BookView(DetailView):
     template_name = 'books/book.html'
 
@@ -42,3 +46,10 @@ class BookView(DetailView):
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
             return redirect('/404/')
+
+
+class BookChapterView(DetailView):
+    template_name = 'books/chapter.html'
+
+    def get(self, request, *args, **kwargs):
+        pass
