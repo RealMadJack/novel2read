@@ -10,12 +10,15 @@
       <div class="bookchapter__nav--link">
         <a href=""><button type="button" class="btn btn-dark">Prev</button></a>
       </div>
+      <div class="bookchapter__nav--link">
+        <a href=""><button type="button" class="btn btn-dark">Next</button></a>
+      </div>
 
       <div class="bookchapter__nav--select">
         <select class="chapter-select">
-          {% for chapter in chapters %}
+          {% for chapter in book.bookchapters.all %}
             <option class="{% if request.path == chapter.get_absolute_url %}active{% endif %}">
-              <a href="{{chapter.get_absolute_url}}">{{chapter.pk}}: {{chapter.title}}</a>
+              {{chapter.pk}}: {{chapter.title}}
             </option>
           {% endfor %}
         </select>
@@ -25,9 +28,6 @@
         </div>
       </div>
 
-      <div class="bookchapter__nav--link">
-        <a href=""><button type="button" class="btn btn-dark">Next</button></a>
-      </div>
     </div>
 
     <div class="bookchapter__styles">
