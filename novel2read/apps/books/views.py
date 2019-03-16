@@ -68,8 +68,9 @@ class BookChapterView(DetailView):
     def get(self, request, *args, **kwargs):
         try:
             book = Book.objects.filter(slug=kwargs['book_slug']).prefetch_related('bookchapters')
-            bookchapter = BookChapter.objects.get(created=kwargs['bookchapter_created'])
-            context = {'book': book[0], 'bookchapter': bookchapter}
+            bookchapter = BookChapter.objects.get(pk=kwargs['bookchapter_pk'])
+            bookchapters = book[0].bookchapters.all()
+            context = {'book': book[0], 'bookchapter': bookchapter, 'bookchapters': bookchapters}
             return render(request, template_name=self.template_name, context=context)
         except (Book.DoesNotExist, BookChapter.DoesNotExist):
             return redirect('/404/')

@@ -15,12 +15,15 @@
       </div>
 
       <div class="bookchapter__nav--select">
-        <select class="chapter-select">
-          {% for chapter in book.bookchapters.all %}
-            <option class="{% if request.path == chapter.get_absolute_url %}active{% endif %}">
-              {{chapter.pk}}: {{chapter.title}}
-            </option>
-          {% endfor %}
+          <ul>
+            {% for chapter in bookchapters %}
+              <li>
+                <a href="{{chapter.get_absolute_url}}" class="{% if request.path == chapter.get_absolute_url %}active{% endif %}">
+                  <span>{{chapter.pk}}: {{chapter.title}}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
         </select>
 
         <div class="bookchapter__styles">
@@ -50,3 +53,9 @@
 
   </div>
 {% endblock content %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script>
+  </script>
+{% endblock javascript %}

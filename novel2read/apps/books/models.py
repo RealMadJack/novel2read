@@ -115,7 +115,6 @@ class BookChapter(TimeStampedModel):
     title = models.CharField(_('Title'), blank=False, default='', max_length=255)
     slug = models.SlugField(default='', max_length=255, unique=True)
     text = models.TextField(blank=False, default='')
-    created_at = models.DateTimeField(auto_now_add=True)
     tracker = FieldTracker()
 
     class Meta:
@@ -144,4 +143,6 @@ def save_book_chapters_count(sender, instance, created=False, **kwargs):
         instance.book.chapters = chapters_count
         # if created:
         # instance.count_id = chapters_count
+        # else:
+        # range through chapters_id field
         instance.book.save()

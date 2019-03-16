@@ -32,9 +32,8 @@ class BookAdmin(admin.ModelAdmin):
 @admin.register(BookChapter)
 class BookChapterAdmin(admin.ModelAdmin):
     model = BookChapter
-    readonly_fields = ('slug', )
+    readonly_fields = ('slug', 'pk', )
     list_display = ('title', 'get_book', 'created', 'modified', )
-    exclude = ['created_at', ]
 
     def get_book(self, obj):
         return obj.book.title

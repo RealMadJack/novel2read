@@ -41,9 +41,11 @@
         {% endfor %}
       </div>
       <div class="bookhead__info--read">
-        <a href="{% url 'books:bookchapter' book_slug=book.slug bookchapter_created=book.bookchapters.first.created %}">
-          <button type="button" class="btn btn-dark" >Read</button>
-        </a>
+        {% if book.bookchapters.first.pk %}
+          <a href="{% url 'books:bookchapter' book_slug=book.slug bookchapter_pk=book.bookchapters.first.pk %}">
+            <button type="button" class="btn btn-dark" >Read</button>
+          </a>
+        {% endif %}
         <a href="#">
           <button type="button" class="btn btn-dark">Add to Library</button>
         </a>
