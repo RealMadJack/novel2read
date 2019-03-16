@@ -228,5 +228,26 @@ class BookChapterTest(TestCase):
         self.assertNotEqual(abs_url, '')
         self.assertNotEqual(reverse_url, '')
 
-    def test_chapter_count_id_signal(self):
+    def test_id_signal(self):
+        self.assertEqual(1, self.bookchapter._id)
+        self.assertEqual(2, self.bookchapter_2._id)
+        self.assertEqual(3, self.bookchapter_3._id)
+        self.assertEqual(1, self.bookchapter_1._id)
+        self.assertEqual(2, self.bookchapter_4._id)
+        self.assertEqual(3, self.bookchapter_5._id)
+
+        self.bookchapter.delete()
+        self.bookchapter_6 = BookChapter.objects.create(title='test chapter 6', book=self.book)
+
+        self.assertEqual(3, self.bookchapter_3._id)
+        self.assertEqual(4, self.bookchapter_6._id)
+        # if chapters > 1: prev _id + 1
+
+    def test_id_signal_invalid(self):
+        self.assertNotEqual(2, self.bookchapter._id)
+        self.assertNotEqual(1, self.bookchapter_2._id)
+        self.assertNotEqual(1, self.bookchapter_3._id)
+        self.assertNotEqual(0, self.bookchapter_1._id)
+        self.assertNotEqual(1, self.bookchapter_4._id)
+        self.assertNotEqual(2, self.bookchapter_5._id)
         pass

@@ -19,7 +19,7 @@ class BookTagAdmin(admin.ModelAdmin):
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     model = Book
-    readonly_fields = ('slug', )
+    readonly_fields = ('slug', 'chapters', )
     filter_horizontal = ('booktag', )
     list_display = ('title', 'get_bookgenre', 'created', 'modified', )
 
@@ -32,7 +32,7 @@ class BookAdmin(admin.ModelAdmin):
 @admin.register(BookChapter)
 class BookChapterAdmin(admin.ModelAdmin):
     model = BookChapter
-    readonly_fields = ('slug', )
+    readonly_fields = ('slug', '_id', )
     list_display = ('title', 'get_book', 'created', 'modified', )
 
     def get_book(self, obj):
