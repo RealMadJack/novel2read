@@ -186,7 +186,11 @@ class BookChapterTest(TestCase):
         self.book = Book.objects.create(title='test book')
         self.book_1 = Book.objects.create(title='test book 1')
         self.bookchapter = BookChapter.objects.create(title='test chapter', book=self.book)
+        self.bookchapter_2 = BookChapter.objects.create(title='test chapter 2', book=self.book)
+        self.bookchapter_3 = BookChapter.objects.create(title='test chapter 3', book=self.book)
         self.bookchapter_1 = BookChapter.objects.create(title='test chapter', book=self.book_1)
+        self.bookchapter_4 = BookChapter.objects.create(title='test chapter 4', book=self.book_1)
+        self.bookchapter_5 = BookChapter.objects.create(title='test chapter 5', book=self.book_1)
 
     def test_book_data(self):
         self.assertEqual(self.bookchapter.title, 'test chapter')
@@ -223,3 +227,6 @@ class BookChapterTest(TestCase):
             kwargs={'book_slug': self.book.slug, 'bookchapter_pk': self.bookchapter.pk})
         self.assertNotEqual(abs_url, '')
         self.assertNotEqual(reverse_url, '')
+
+    def test_chapter_count_id_signal(self):
+        pass
