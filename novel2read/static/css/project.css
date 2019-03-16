@@ -214,18 +214,58 @@ li, a, button {
       -webkit-box-align: end;
           -ms-flex-align: end;
               align-items: flex-end; }
+      .book .bookhead__info--read a {
+        margin-right: 10px; }
+        .book .bookhead__info--read a:last-of-type {
+          margin-right: 0; }
       .book .bookhead__info--read .btn {
         display: block;
         font-size: 19.2px;
         font-size: 1.2rem;
-        padding: 10px 30px;
-        margin-right: 10px; }
-        .book .bookhead__info--read .btn:last-of-type {
-          margin-right: 0; }
+        padding: 10px 30px; }
 
 .book .bookbody__tabs--desc {
   font-size: 16px;
   font-size: 1rem; }
+
+.bookchapter__nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0;
+    margin-bottom: 30px; }
+  .bookchapter__nav--link {
+    margin-right: 10px; }
+    .bookchapter__nav--link:last-of-type {
+      margin-right: 0; }
+    .bookchapter__nav--link .btn {
+      padding: 6px 25px; }
+  .bookchapter__nav--select {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex; }
+    .bookchapter__nav--select .chapter-select {
+      margin-right: 25px; }
+
+.bookchapter__styles--toggle {
+  width: 30px;
+  cursor: pointer; }
+  .bookchapter__styles--toggle img {
+    width: 100%;
+    height: auto; }
+
+.bookchapter__title .h1-title-sm {
+  margin-bottom: 40px; }
 
 /*==========  Desktop First  ==========*/
 /* Large Devices, Wide Screens */

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+  <div class="bookchapter">
+
+
+    <div class="bookchapter__nav">
+      <div class="bookchapter__nav--link">
+        <a href=""><button type="button" class="btn btn-dark">Prev</button></a>
+      </div>
+
+      <div class="bookchapter__nav--select">
+        <select class="chapter-select">
+          {% for chapter in chapters %}
+            <option class="{% if request.path == chapter.get_absolute_url %}active{% endif %}">
+              <a href="{{chapter.get_absolute_url}}">{{chapter.pk}}: {{chapter.title}}</a>
+            </option>
+          {% endfor %}
+        </select>
+
+        <div class="bookchapter__styles">
+          <img class="bookchapter__styles--toggle" src="{% static 'images/cog.svg' %}" alt="styles" data-toggle="collapse" data-target="#collapseChapterStyles" aria-expanded="false" aria-controls="collapseChapterStyles">
+        </div>
+      </div>
+
+      <div class="bookchapter__nav--link">
+        <a href=""><button type="button" class="btn btn-dark">Next</button></a>
+      </div>
+    </div>
+
+    <div class="bookchapter__styles">
+      <div class="collapse" id="collapseChapterStyles">
+        <div class="card card-body">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+      </div>
+    </div>
+
+    <div class="bookchapter__title">
+      <h1 class="h1-title-sm">{{bookchapter.title}}</h1>
+    </div>
+
+    <div class="bookchapter__body">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae nesciunt et modi magnam blanditiis, eum eius est nostrum iste unde temporibus corporis dolor vero aliquam ad, tempora. Ipsum, nemo necessitatibus.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi reiciendis sed quia quam beatae, vitae possimus sequi ut asperiores itaque deserunt. Ratione modi numquam accusamus, dicta facere distinctio velit atque.</p>
+      {{bookchapter.text}}
+    </div>
+
+  </div>
+{% endblock content %}

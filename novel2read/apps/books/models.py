@@ -18,6 +18,7 @@ class BookGenre(TimeStampedModel):
     tracker = FieldTracker()
 
     class Meta:
+        ordering = ['name']
         verbose_name = _('Book Genre')
         verbose_name_plural = _('Book Genres')
 
@@ -39,6 +40,7 @@ class BookTag(TimeStampedModel):
     tracker = FieldTracker()
 
     class Meta:
+        ordering = ['name']
         verbose_name = _('Book Tag')
         verbose_name_plural = _('Book Tags')
 

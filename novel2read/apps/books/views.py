@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView, ListView
 
-from .models import Book, BookTag
+from .models import Book, BookTag, BookChapter
 
 
 class FrontPageView(View):
@@ -24,7 +24,7 @@ class BookGenreView(ListView):
         try:
             books = Book.objects.select_related('bookgenre').prefetch_related('booktag')
             if kwargs:
-                books = Book.objects.filter(bookgenre__slug=kwargs['bookgenre_slug'])
+                books = books.filter(bookgenre__slug=kwargs['bookgenre_slug'])
             context = {'books': books}
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
@@ -39,8 +39,9 @@ class BookTagView(ListView):
             tags = BookTag.objects.all()
             context = {'tags': tags}
             if kwargs:
-                tag = BookTag.objects.prefetch_related('books').get(slug=kwargs['booktag_slug'])
-                books = Book.objects.filter(booktag__slug=kwargs['booktag_slug'])
+                tag = tags.get(slug=kwargs['booktag_slug'])
+                books = Book.objects.select_related('bookgenre').prefetch_related('booktag')
+                books = books.filter(booktag__slug=kwargs['booktag_slug'])
                 context['tag'] = tag
                 context['books'] = books
             return render(request, template_name=self.template_name, context=context)
@@ -53,8 +54,8 @@ class BookView(DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            books = Book.objects.select_related('bookgenre').prefetch_related('booktag')
-            book = Book.objects.get(slug=kwargs['book_slug'])
+            books = Book.objects.select_related('bookgenre').prefetch_related('booktag', 'bookchapters')
+            book = books.get(slug=kwargs['book_slug'])
             context = {'books': books, 'book': book}
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
@@ -62,7 +63,14 @@ class BookView(DetailView):
 
 
 class BookChapterView(DetailView):
-    template_name = 'books/chapter.html'
+    template_name = 'books/bookchapter.html'
 
     def get(self, request, *args, **kwargs):
-        pass
+        try:
+            book = Book.objects.filter(slug=kwargs['book_slug'])
+            bookchapter = BookChapter.objects.get(pk=kwargs['bookchapter_pk'])
+            print(f'Chapters: {bookchapter}')
+            context = {'book': book, 'bookchapter': bookchapter}
+            return render(request, template_name=self.template_name, context=context)
+        except (Book.DoesNotExist, BookChapter.DoesNotExist):
+            return redirect('/404/')

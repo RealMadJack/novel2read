@@ -101,6 +101,7 @@ li, a, button
 		position: relative
 		top: -3px
 
+
 .browsebooks
 	&__title
 	&__filters
@@ -140,6 +141,7 @@ li, a, button
 					height: 75px
 					overflow-y: hidden
 
+
 .browsetags
 	&__title
 	&__tag-nav
@@ -148,6 +150,7 @@ li, a, button
 			margin: 0
 			padding: 0
 			list-style-type: none
+
 
 .book
 	.bookhead
@@ -199,13 +202,14 @@ li, a, button
 				flex-grow: 1
 				flex-shrink: 1
 				align-items: flex-end
+				a
+					margin-right: 10px
+					&:last-of-type
+						margin-right: 0
 				.btn
 					display: block
 					font-size: 1.2rem
 					padding: 10px 30px
-					margin-right: 10px
-					&:last-of-type
-						margin-right: 0
 	.bookbody
 		&__tabs
 			&--desc
@@ -213,5 +217,35 @@ li, a, button
 	&__vote
 	&__promo
 
+
+.bookchapter
+	&__nav
+		display: flex
+		flex-direction: row
+		justify-content: space-between
+		align-items: center
+		margin: 0
+			bottom: 30px
+		&--link
+			margin-right: 10px
+			&:last-of-type
+				margin-right: 0
+			.btn
+				padding: 6px 25px
+		&--select
+			display: inline-flex
+			.chapter-select
+				margin-right: 25px
+	&__styles
+		&--toggle
+			width: 30px
+			cursor: pointer
+			img
+				width: 100%
+				height: auto
+	&__title
+		.h1-title-sm
+			margin-bottom: 40px
+	&__body
 
 @import "media"
