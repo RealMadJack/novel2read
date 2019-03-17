@@ -228,26 +228,26 @@ class BookChapterTest(TestCase):
         self.assertNotEqual(abs_url, '')
         self.assertNotEqual(reverse_url, '')
 
-    # def test_chaptet_count_id_signal(self):
-    #     self.assertEqual(1, self.bookchapter.inc_id)
-    #     self.assertEqual(2, self.bookchapter_2.inc_id)
-    #     self.assertEqual(3, self.bookchapter_3.inc_id)
-    #     self.assertEqual(1, self.bookchapter_1.inc_id)
-    #     self.assertEqual(2, self.bookchapter_4.inc_id)
-    #     self.assertEqual(3, self.bookchapter_5.inc_id)
+    def test_chaptet_count_id_signal(self):
+        self.assertEqual(1, self.bookchapter.inc_id)
+        self.assertEqual(2, self.bookchapter_2.inc_id)
+        self.assertEqual(3, self.bookchapter_3.inc_id)
+        self.assertEqual(1, self.bookchapter_1.inc_id)
+        self.assertEqual(2, self.bookchapter_4.inc_id)
+        self.assertEqual(3, self.bookchapter_5.inc_id)
 
         # if we deleting chapter, our count changes => new chapter will not have unique id
         # if chapters > 1: prev inc_id + 1
-        # self.bookchapter.delete()
-        # self.bookchapter_6 = BookChapter.objects.create(title='test chapter 6', book=self.book)
-        # self.assertEqual(3, self.bookchapter_3.inc_id)
-        # self.assertEqual(4, self.bookchapter_6.inc_id)
+        self.bookchapter.delete()
+        self.bookchapter_6 = BookChapter.objects.create(title='test chapter 6', book=self.book)
+        self.assertEqual(3, self.bookchapter_3.inc_id)
+        self.assertEqual(4, self.bookchapter_6.inc_id)
 
-    # def test_chaptet_count_id_signal_invalid(self):
-    #     self.assertNotEqual(2, self.bookchapter.inc_id)
-    #     self.assertNotEqual(1, self.bookchapter_2.inc_id)
-    #     self.assertNotEqual(1, self.bookchapter_3.inc_id)
-    #     self.assertNotEqual(0, self.bookchapter_1.inc_id)
-    #     self.assertNotEqual(1, self.bookchapter_4.inc_id)
-    #     self.assertNotEqual(2, self.bookchapter_5.inc_id)
-    #     pass
+    def test_chaptet_count_id_signal_invalid(self):
+        self.assertNotEqual(2, self.bookchapter.inc_id)
+        self.assertNotEqual(1, self.bookchapter_2.inc_id)
+        self.assertNotEqual(1, self.bookchapter_3.inc_id)
+        self.assertNotEqual(0, self.bookchapter_1.inc_id)
+        self.assertNotEqual(1, self.bookchapter_4.inc_id)
+        self.assertNotEqual(2, self.bookchapter_5.inc_id)
+        pass
