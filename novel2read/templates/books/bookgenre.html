@@ -6,7 +6,7 @@
   <div class="browsebooks">
     <h1 class="browsebooks__title h1-title">
       {% if request.resolver_match.url_name == 'genre-list' %}
-        All Genre
+        All Genres
       {% else %}
         {% for bookgenre in bookgenres %}
           {% if request.path == bookgenre.get_absolute_url %}

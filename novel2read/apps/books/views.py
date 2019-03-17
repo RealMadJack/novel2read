@@ -12,7 +12,7 @@ class FrontPageView(View):
 
 class BookGenreView(ListView):
     # model = Book
-    template_name = 'books/genre.html'
+    template_name = 'books/bookgenre.html'
     # paginate_by = 20
 
     # def get_context_data(self, **kwargs):
@@ -32,7 +32,7 @@ class BookGenreView(ListView):
 
 
 class BookTagView(ListView):
-    template_name = 'books/tag.html'
+    template_name = 'books/booktag.html'
 
     def get(self, request, *args, **kwargs):
         try:
