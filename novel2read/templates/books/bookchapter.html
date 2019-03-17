@@ -8,10 +8,14 @@
 
     <div class="bookchapter__nav">
       <div class="bookchapter__nav--link">
-        <a href=""><button type="button" class="btn btn-dark">Prev</button></a>
+        <a href="{{prev_chap.get_absolute_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
+          <button type="button" class="btn btn-dark">Prev</button>
+        </a>
       </div>
       <div class="bookchapter__nav--link">
-        <a href=""><button type="button" class="btn btn-dark">Next</button></a>
+        <a href="{{next_chap.get_absolute_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
+          <button type="button" class="btn btn-dark">Next</button>
+        </a>
       </div>
 
       <div class="bookchapter__nav--select">

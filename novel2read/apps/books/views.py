@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView, ListView
 
+from next_prev import next_in_order, prev_in_order
 from .models import Book, BookTag, BookChapter
 
 
@@ -67,10 +68,14 @@ class BookChapterView(DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            book = Book.objects.filter(slug=kwargs['book_slug']).prefetch_related('bookchapters')
             bookchapter = BookChapter.objects.get(pk=kwargs['bookchapter_pk'])
-            bookchapters = book[0].bookchapters.all()
-            context = {'book': book[0], 'bookchapter': bookchapter, 'bookchapters': bookchapters}
+            bookchapters = BookChapter.objects.filter(book__slug=kwargs['book_slug']).select_related('book')
+            prev_chap = prev_in_order(bookchapter, qs=bookchapters)
+            next_chap = next_in_order(bookchapter, qs=bookchapters)
+            context = {
+                'bookchapters': bookchapters,
+                'bookchapter': bookchapter,
+                'prev_chap': prev_chap, 'next_chap': next_chap}
             return render(request, template_name=self.template_name, context=context)
         except (Book.DoesNotExist, BookChapter.DoesNotExist):
             return redirect('/404/')

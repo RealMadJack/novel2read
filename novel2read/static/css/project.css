@@ -6,6 +6,11 @@ li, a, button {
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
 
+a.disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: .2; }
+
 .alert-debug {
   background-color: #fff;
   border-color: #d6e9c6;
