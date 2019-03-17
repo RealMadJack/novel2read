@@ -115,9 +115,22 @@
 			&--select
 				order: 1
 				width: 100%
+				max-width: 100%
 				justify-content: center
 				margin: 0
 					bottom: 24px
+				.chaps
+					width: 100%
+					&--toggle
+					&--nav.active
+					&--nav
+						width: 100%
+						min-width: 100%
+						li
+							a
+								&:hover, &:focus, &:active
+						li.active
+							a
 		&__styles
 			&--toggle
 				margin: 0
