@@ -19,9 +19,9 @@
           <button class="chaps--toggle btn btn-light" id="chaps-toggle">Table of Contents</button>
           <ul class="chaps--nav scrollbar" id="chaps-nav">
             {% for chapter in bookchapters %}
-              <li class="{% if request.path == chapter.get_absolute_url %}active{% endif %}">
+              <li {% if request.path == chapter.get_absolute_url %}class="active" id="activeChap"{% endif %}>
                 <a href="{{chapter.get_absolute_url}}">
-                  <span>{{forloop.counter}}: {{chapter.title}}</span>
+                  <span>Chapter {{forloop.counter}} - {{chapter.title}}</span>
                 </a>
               </li>
             {% endfor %}
@@ -50,7 +50,7 @@
     </div>
 
     <div class="bookchapter__body">
-      {{bookchapter.text}}
+      {{bookchapter.text|safe}}
     </div>
 
   </div>
@@ -61,13 +61,30 @@
   <script>
     let chapToggle = document.getElementById('chaps-toggle');
     let chapNav = document.getElementById('chaps-nav');
+    let activeChap = document.getElementById('activeChap')
 
     function toggleElem(e) {
-      let className = 'active'
-      chapNav.classList.toggle(className);
+      chapNav.classList.toggle('dblock');
+      setTimeout(() => {
+        chapNav.classList.toggle('active');
+      }, 10)
+      activeChap.scrollIntoView(false);
+    }
+
+    function closeElem(e) {
+      if (chapNav.classList.contains('active')) {
+        if (e.target !== chapToggle) {
+          chapNav.classList.toggle('dblock');
+          setTimeout(() => {
+            chapNav.classList.toggle('active');
+          }, 10)
+        }
+      }
+      return false
     }
 
     chapToggle.addEventListener('click', toggleElem);
+    document.body.addEventListener('click', closeElem)
 
   </script>
 {% endblock javascript %}

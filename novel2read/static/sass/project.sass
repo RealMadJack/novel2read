@@ -5,6 +5,7 @@
 ////////////////////////////////
 body
 	min-width: 320px
+	min-height: 100vh
 
 ////////////////////////////////
 		// Global //
@@ -273,12 +274,15 @@ li, a, button
 			.chaps
 				margin-right: 10px
 				&--toggle
+				&--nav.dblock
+					display: block
 				&--nav.active
-					margin-top: 10px
 					opacity: 1
+					margin-top: 10px
 					transition: all .3s ease-in-out
 				&--nav
-					display: block
+					display: none
+					opacity: 0
 					width: 100%
 					min-height: 50px
 					max-height: 250px
@@ -286,7 +290,6 @@ li, a, button
 					overflow-x: hidden
 					position: absolute
 					left: 0
-					opacity: 0
 					list-style-type: none
 					margin: 0
 					padding: 5px 0
