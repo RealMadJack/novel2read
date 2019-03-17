@@ -21,7 +21,7 @@
             {% for chapter in bookchapters %}
               <li class="{% if request.path == chapter.get_absolute_url %}active{% endif %}">
                 <a href="{{chapter.get_absolute_url}}">
-                  <span>{{chapter.pk}}: {{chapter.title}}</span>
+                  <span>{{forloop.counter}}: {{chapter.title}}</span>
                 </a>
               </li>
             {% endfor %}
