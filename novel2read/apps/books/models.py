@@ -111,7 +111,7 @@ class BookChapter(TimeStampedModel):
         related_name='%(class)ss',
         related_query_name='%(class)s',
     )
-    count_id = models.PositiveIntegerField(default=1, blank=True, null=True, db_index=True)
+    # count_id = models.PositiveIntegerField(default=1, blank=True, null=True, db_index=True)
     title = models.CharField(_('Title'), blank=False, default='', max_length=255)
     slug = models.SlugField(default='', max_length=255, unique=True)
     text = models.TextField(blank=False, default='')
@@ -141,8 +141,4 @@ def save_book_chapters_count(sender, instance, created=False, **kwargs):
     chapters_count_previous = instance.book.tracker.previous('chapters')
     if chapters_count != chapters_count_previous:
         instance.book.chapters = chapters_count
-        if created:
-            instance.count_id = chapters_count
-        # else:
-        # range through chapters_id field
         instance.book.save()

@@ -32,7 +32,7 @@ class BookAdmin(admin.ModelAdmin):
 @admin.register(BookChapter)
 class BookChapterAdmin(admin.ModelAdmin):
     model = BookChapter
-    readonly_fields = ('slug', 'count_id', )
+    readonly_fields = ('slug', )
     list_display = ('title', 'get_book', 'created', 'modified', )
 
     def get_book(self, obj):
