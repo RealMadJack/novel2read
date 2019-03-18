@@ -73,7 +73,10 @@ class Book(TimeStampedModel):
     chapters = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
     # poster = models.URLField(_('Poster'), blank=True, null=True, upload_to='posters')
     poster_url = models.URLField(_('Poster URL'), blank=True, default='https://media.istockphoto.com/vectors/blank-book-cover-vector-id466036957?k=6&m=466036957&s=612x612&w=0&h=SHDzHMVV6CHMNk6P-7igrYcZTfGryYdk_J7jzf7MwyY=', max_length=255)
-    # volumes = models.ArrayField()  # multiple tuples or array in array
+    volumes = ArrayField(
+        ArrayField(models.SmallIntegerField(default=0), size=2),
+        blank=True, default=list
+    )  # multiple tuples or array in array
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
     votes_external = models.PositiveIntegerField(
         _('Votes External'), blank=True, null=True, default=0)

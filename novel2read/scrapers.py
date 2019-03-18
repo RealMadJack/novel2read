@@ -26,7 +26,7 @@ class BoxNovelScraper:
 
     def request_external_site(self, book_link=''):
         """
-        we take: img, author, descr, type, status, chap-release
+        we take: img, author, descr, type, status, chap-release, votes_external, status_release
         we do: boxnovel exclusion
         """
         logging.info(f'Calling {inspect.stack()[0][3]} module')
@@ -41,16 +41,16 @@ class BoxNovelScraper:
         wn_chaps = soup_wn_chap.select('.cha-content .cha-words p')[:5]
         print([chap.text for chap in wn_chaps])
 
-        resp = requests.get(self.box_link)
-        soup = BeautifulSoup(resp.content, self.parser)
-        post_content = soup.select('.summary_content .post-content')
-        authors_dirty = soup.select('.author-content a')
-        authors = [author.text for author in authors_dirty]
+        # resp = requests.get(self.box_link)
+        # soup = BeautifulSoup(resp.content, self.parser)
+        # post_content = soup.select('.summary_content .post-content')
+        # authors_dirty = soup.select('.author-content a')
+        # authors = [author.text for author in authors_dirty]
 
-        resp_chap = requests.get(chapter_link)
-        soup_chap = BeautifulSoup(resp_chap.content, self.parser)
-        chap_parag_list = soup_chap.select('.reading-content p')[:5]
-        chap_title = chap_parag_list[0].text.split(' – ')  # re = chapter + :- + int
+        # resp_chap = requests.get(chapter_link)
+        # soup_chap = BeautifulSoup(resp_chap.content, self.parser)
+        # chap_parag_list = soup_chap.select('.reading-content p')[:5]
+        # chap_title = chap_parag_list[0].text.split(' – ')  # re = chapter + :- + int
 
     def substitute_db_book_info(self):
         pass
