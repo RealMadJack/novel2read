@@ -41,7 +41,7 @@ class BookTagView(ListView):
             context = {'tags': tags}
             if kwargs:
                 tag = tags.get(slug=kwargs['booktag_slug'])
-                books = tag.books.select_related('bookgenre').prefetch_related('booktag')
+                books = tag.books.select_related('bookgenre').prefetch_related('booktag').filter(status=0)
                 context['tag'] = tag
                 context['books'] = books
             return render(request, template_name=self.template_name, context=context)
