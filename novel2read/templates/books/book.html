@@ -16,9 +16,17 @@
       </div>
       <div class="bookhead__info--row">
         <div class="info-row">
+          <p><a href="{{book.bookgenre.get_absolute_url}}">{{book.bookgenre.name}}</a></p>
           <p>Author: {% for author in book.author %}<span>{{author}}</span>{% endfor %}</p>
           <p>Country: {{book.country}}</p>
           <p>Chapters: {{book.chapters}}</p>
+          <p>Status:
+            {% if book.status_release == 0 %}
+              <span style="color: green">Ongoing</span>
+            {% else %}
+              <span style="color: red">Completed</span>
+            {% endif %}
+          </p>
           <p>Views: 0</p>
         </div>
         <div class="stars-rating-sm">
@@ -30,6 +38,7 @@
           <span>{{book.rating}} ({{book.votes}} votes)</span>
         </div>
       </div>
+      {{book.volumes}}
       <div class="bookhead__info--tags">
         <a class="booktag" href="{{book.bookgenre.get_absolute_url}}">
           <span>{{book.bookgenre.name}}</span>
