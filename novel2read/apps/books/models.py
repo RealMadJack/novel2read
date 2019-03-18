@@ -82,7 +82,9 @@ class Book(TimeStampedModel):
         _('Votes External'), blank=True, null=True, default=0)
     rating = models.FloatField(_('Rating'), blank=True, default=0.0)
     ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
-    STATUS = Choices('published', 'unpublished')
+    STATUS = Choices(
+        (0, 'published', _('published')),
+        (1, 'draft', _('draft')), )
     status = StatusField()
     # STATUS_RELEASE = Choices('ongoing', 'completed')
     # status_release = StatusField(choices_name=STATUS_RELEASE)
