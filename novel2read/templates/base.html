@@ -102,8 +102,16 @@
           {% endfor %}
       {% endif %}
 
+      {% load django_bootstrap_breadcrumbs %}
+
+      {% block breadcrumbs %}
+          {% clear_breadcrumbs %}
+          {% breadcrumb "Home" "books:front_page" %}
+      {% endblock %}
+
       {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
+        {% render_breadcrumbs %}
+        <p>Default new page.</p>
       {% endblock content %}
 
     </div> <!-- /container -->

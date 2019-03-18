@@ -4,88 +4,88 @@
 
 {% block content %}
 
-<div class="book">
+  <div class="book">
 
-  <div class="bookhead">
-    <div class="bookhead__poster">
-      <img class="bookhead__poster--image" src="{{book.poster_url}}" alt="{{book.title}}">
-    </div>
-    <div class="bookhead__info">
-      <div class="bookhead__info--title">
-        <h1 class="h1-title-sm">{{book.title}}</h1>
+    <div class="bookhead">
+      <div class="bookhead__poster">
+        <img class="bookhead__poster--image" src="{{book.poster_url}}" alt="{{book.title}}">
       </div>
-      <div class="bookhead__info--row">
-        <div class="info-row">
-          <p><a href="{{book.bookgenre.get_absolute_url}}">{{book.bookgenre.name}}</a></p>
-          <p>Author: {% for author in book.author %}<span>{{author}}</span>{% endfor %}</p>
-          <p>Country: {{book.country}}</p>
-          <p>Chapters: {{book.chapters}}</p>
-          <p>Status:
-            {% if book.status_release == 0 %}
-              <span style="color: green">Ongoing</span>
-            {% else %}
-              <span style="color: red">Completed</span>
-            {% endif %}
-          </p>
-          <p>Views: 0</p>
+      <div class="bookhead__info">
+        <div class="bookhead__info--title">
+          <h1 class="h1-title-sm">{{book.title}}</h1>
         </div>
-        <div class="stars-rating-sm">
-          <img src="{% static 'images/star.png' %}" alt="star">
-          <img src="{% static 'images/star.png' %}" alt="star">
-          <img src="{% static 'images/star.png' %}" alt="star">
-          <img src="{% static 'images/star.png' %}" alt="star">
-          <img src="{% static 'images/half-star.png' %}" alt="star">
-          <span>{{book.rating}} ({{book.votes}} votes)</span>
-        </div>
-      </div>
-      <div class="bookhead__info--tags">
-        <a class="booktag" href="{{book.bookgenre.get_absolute_url}}">
-          <span>{{book.bookgenre.name}}</span>
-        </a>
-        {% for booktag in book.booktag.all %}
-          <a class="booktag" href="{{booktag.get_absolute_url}}">
-            <span>{{booktag.name}}</span>
-          </a>
-        {% endfor %}
-      </div>
-      <div class="bookhead__info--read">
-        {% if book.bookchapters.first.pk %}
-          <a href="{% url 'books:bookchapter' book_slug=book.slug bookchapter_pk=book.bookchapters.first.pk %}">
-            <button type="button" class="btn btn-dark" >Read</button>
-          </a>
-        {% endif %}
-        <a href="#">
-          <button type="button" class="btn btn-dark">Add to Library</button>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="bookbody">
-    <div class="bookbody__tabs">
-      <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">About</a>
-          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Table of Contents</a>
-        </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-          <div class="bookbody__tabs--desc">
-            <p>{{book.description}}</p>
+        <div class="bookhead__info--row">
+          <div class="info-row">
+            <p><a href="{{book.bookgenre.get_absolute_url}}">{{book.bookgenre.name}}</a></p>
+            <p>Author: {% for author in book.author %}<span>{{author}}</span>{% endfor %}</p>
+            <p>Country: {{book.country}}</p>
+            <p>Chapters: {{book.chapters}}</p>
+            <p>Status:
+              {% if book.status_release == 0 %}
+                <span style="color: green">Ongoing</span>
+              {% else %}
+                <span style="color: red">Completed</span>
+              {% endif %}
+            </p>
+            <p>Views: 0</p>
+          </div>
+          <div class="stars-rating-sm">
+            <img src="{% static 'images/star.png' %}" alt="star">
+            <img src="{% static 'images/star.png' %}" alt="star">
+            <img src="{% static 'images/star.png' %}" alt="star">
+            <img src="{% static 'images/star.png' %}" alt="star">
+            <img src="{% static 'images/half-star.png' %}" alt="star">
+            <span>{{book.rating}} ({{book.votes}} votes)</span>
           </div>
         </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-          Chapters
+        <div class="bookhead__info--tags">
+          <a class="booktag" href="{{book.bookgenre.get_absolute_url}}">
+            <span>{{book.bookgenre.name}}</span>
+          </a>
+          {% for booktag in book.booktag.all %}
+            <a class="booktag" href="{{booktag.get_absolute_url}}">
+              <span>{{booktag.name}}</span>
+            </a>
+          {% endfor %}
+        </div>
+        <div class="bookhead__info--read">
+          {% if book.bookchapters.first.pk %}
+            <a href="{% url 'books:bookchapter' book_slug=book.slug bookchapter_pk=book.bookchapters.first.pk %}">
+              <button type="button" class="btn btn-dark" >Read</button>
+            </a>
+          {% endif %}
+          <a href="#">
+            <button type="button" class="btn btn-dark">Add to Library</button>
+          </a>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="bookfooter">
-    <div class="book__vote"></div>
-    <div class="book__promo"></div>
+    <div class="bookbody">
+      <div class="bookbody__tabs">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">About</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Table of Contents</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="bookbody__tabs--desc">
+              <p>{{book.description}}</p>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            Chapters
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bookfooter">
+      <div class="book__vote"></div>
+      <div class="book__promo"></div>
+    </div>
   </div>
-</div>
 
 {% endblock content %}

@@ -10,6 +10,17 @@ a.disabled {
   pointer-events: none;
   opacity: .2; }
 
+.breadcrumb {
+  background-color: transparent;
+  padding: 12px 0;
+  padding: .75rem 0; }
+  .breadcrumb li {
+    margin: 0;
+    padding: 0; }
+  .breadcrumb .divider {
+    margin: 0 10px;
+      margin-left: 7px; }
+
 .alert-debug {
   background-color: #fff;
   border-color: #d6e9c6;
