@@ -76,14 +76,16 @@ class Book(TimeStampedModel):
     volumes = ArrayField(
         ArrayField(models.SmallIntegerField(default=0), size=2),
         blank=True, default=list
-    )  # multiple tuples or array in array
+    )
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
     votes_external = models.PositiveIntegerField(
         _('Votes External'), blank=True, null=True, default=0)
     rating = models.FloatField(_('Rating'), blank=True, default=0.0)
-    # ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
-    STATUS = Choices('unpublished', 'published')
+    ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
+    STATUS = Choices('published', 'unpublished')
     status = StatusField()
+    # STATUS_RELEASE = Choices('ongoing', 'completed')
+    # status_release = StatusField(choices_name=STATUS_RELEASE)
     published_at = MonitorField(monitor='status', when=['published'])
     tracker = FieldTracker()
 
