@@ -86,8 +86,10 @@ class Book(TimeStampedModel):
         (0, 'published', _('published')),
         (1, 'draft', _('draft')), )
     status = models.IntegerField(choices=STATUS, default=STATUS.published)
-    # STATUS_RELEASE = Choices('ongoing', 'completed')
-    # status_release = StatusField(choices_name=STATUS_RELEASE)
+    STATUS_RELEASE = Choices(
+        (0, 'ongoing', _('ongoing')),
+        (1, 'completed', _('completed')), )
+    status_release = models.IntegerField(choices=STATUS_RELEASE, default=STATUS_RELEASE.ongoing)
     published_at = MonitorField(monitor='status', when=['published'])
     tracker = FieldTracker()
 
