@@ -23,11 +23,20 @@
           <button class="chaps--toggle btn btn-light" id="chaps-toggle">Table of Contents</button>
           <ul class="chaps--nav scrollbar" id="chaps-nav">
             {% for chapter in bookchapters %}
-              <li {% if request.path == chapter.get_absolute_url %}class="active" id="activeChap"{% endif %}>
-                <a href="{{chapter.get_absolute_url}}">
-                  <span>#{{forloop.counter}}: {{chapter.title}}</span>
-                </a>
-              </li>
+              {% with loop_counter=forloop.counter %}
+                {% if chapter.book.volumes|length >= 1 %}
+                  {% for volume in chapter.book.volumes %}
+                    {% if loop_counter == volume %}
+                      <span class="chaps--volume">Volume {{forloop.counter}}</span>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                <li {% if request.path == chapter.get_absolute_url %}class="active" id="activeChap"{% endif %}>
+                  <a href="{{chapter.get_absolute_url}}">
+                    <span>#{{loop_counter}}: {{chapter.title}}</span>
+                  </a>
+                </li>
+              {% endwith %}
             {% endfor %}
           </ul>
         </div>

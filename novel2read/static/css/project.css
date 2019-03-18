@@ -304,6 +304,14 @@ a.disabled {
     max-width: 300px; }
     .bookchapter__nav--select .chaps {
       margin-right: 10px; }
+      .bookchapter__nav--select .chaps--volume {
+        display: inline-block;
+        font-weight: bold;
+        padding-top: 10px;
+        padding-left: 6px;
+        padding-bottom: 6px; }
+        .bookchapter__nav--select .chaps--volume:first-of-type {
+          padding-top: 0; }
       .bookchapter__nav--select .chaps--nav.dblock {
         display: block; }
       .bookchapter__nav--select .chaps--nav.active {
