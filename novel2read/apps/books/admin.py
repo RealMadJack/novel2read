@@ -21,7 +21,7 @@ class BookAdmin(admin.ModelAdmin):
     model = Book
     readonly_fields = ('slug', 'chapters', )
     filter_horizontal = ('booktag', )
-    list_display = ('title', 'get_bookgenre', 'created', 'modified', )
+    list_display = ('title', 'get_bookgenre', 'chapters', 'status', 'visited_wn', 'visited_bn', 'created', 'modified', )
 
     def get_bookgenre(self, obj):
         return obj.bookgenre.name

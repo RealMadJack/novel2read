@@ -68,6 +68,7 @@ class Book(TimeStampedModel):
     )
     booktag = models.ManyToManyField(BookTag, related_name='%(class)ss')
     title = models.CharField(_('Title'), blank=False, default='', max_length=255)
+    title_sm = models.CharField(_('Title short'), blank=True, default='', max_length=50)
     slug = models.SlugField(default='', max_length=255, unique=True)
     author = ArrayField(models.CharField(max_length=112), blank=True, default=list)
     country = models.CharField(default='', max_length=255, blank=True)
