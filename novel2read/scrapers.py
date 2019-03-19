@@ -1,8 +1,11 @@
 import logging
+import re
+import pprint
 import inspect
 
 from datetime import datetime
 from requests_html import HTMLSession
+from selenium import webdriver
 
 
 class BoxNovelScraper:
@@ -22,13 +25,13 @@ class BoxNovelScraper:
         self.wn_book = f'{self.wn_bb}{self.wn_book_id}'
         self.lock = '24097280529331688'
         self.chap = '22522773419115905'
-        self.wn_chap = f'https://www.webnovel.com/book/{self.wn_book_id}/{self.lock}/'
+        self.wn_chap = f'https://www.webnovel.com/book/{self.wn_book_id}/{self.chap}/'
 
     def get_filter_db_books(self):
         logging.info(f'Calling {inspect.stack()[0][3]} module')
         pass
 
-    def request_external_site(self, book_link=''):
+    def request_external_site(self):
         """
         we take: img, author, descr, type, status, chap-release, votes_external, status_release
         we do: boxnovel exclusion
@@ -39,7 +42,7 @@ class BoxNovelScraper:
         # chapter_content j_chapter_31456481220024926
         # .cha-content
         # .cha-content._lock
-        # ol.catalog-chapter > li a data_cid="31456481220024926" data-chaptername=""
+        #  > li a data_cid="31456481220024926" data-chaptername=""
 
         session = HTMLSession()
         r = session.get(self.wn_book)
@@ -54,10 +57,13 @@ class BoxNovelScraper:
 
         r_chap = session.get(self.wn_chap)
         chap_lock = r_chap.html.find('.cha-content._lock')
-        print(len(chap_lock))
+        chaps_raw = r_chap.html.find('.db.ell.pr')
+        print(chaps_raw)
         if len(chap_lock) == 0:
-            chap_content = r_chap.html.find('.cha-content')
-            print(chap_content)
+            chap_content_raw = r_chap.html.find('.cha-words p')[1:-2]
+            chap_content = [
+                chap.html.replace('  ', '').replace('\n', '') for chap in chap_content_raw]
+            # pprint.pprint(chap_content)
 
         # resp_wn_chap = requests.get(self.wn_link_chap)
         # soup_wn_chap = BeautifulSoup(resp_wn_chap.content, self.parser)
