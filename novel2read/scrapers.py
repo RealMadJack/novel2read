@@ -6,6 +6,11 @@ import inspect
 from datetime import datetime
 from requests_html import HTMLSession
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+
+from selenium.webdriver.remote.remote_connection import LOGGER
+LOGGER.setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 
 class BoxNovelScraper:
@@ -33,19 +38,30 @@ class BoxNovelScraper:
 
     def request_external_site(self):
         """
-        we take: img, author, descr, type, status, chap-release, votes_external, status_release
-        we do: boxnovel exclusion
+        we take: chap-release, votes_external
         """
         logging.info(f'Calling {inspect.stack()[0][3]} module')
 
-        # #j_read #href
-        # chapter_content j_chapter_31456481220024926
-        # .cha-content
-        # .cha-content._lock
-        #  > li a data_cid="31456481220024926" data-chaptername=""
+        """ JS Search """
+        driver_opts = webdriver.ChromeOptions()
+        # driver_opts.add_argument('headless')
+        driver_opts.add_argument('disable-gpu')
+        driver_opts.add_argument('log-level=3')
+        driver_opts.add_argument('silent')
 
-        session = HTMLSession()
-        r = session.get(self.wn_book)
+        driver = webdriver.Chrome(chrome_options=driver_opts)
+        driver.get(self.wn_book)
+        wait = WebDriverWait(driver, 10)
+
+        driver.find_element_by_css_selector('a.j_show_contents').click()
+        c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
+        c_ids = [li.get_attribute("data-cid") for li in c_list]
+
+        driver.close()
+
+        """ NOJS Search """
+        # session = HTMLSession()
+        # r = session.get(self.wn_book)
         # book_info = r.html.find('.det-hd-detail')
         # book_info_genre = r.html.find('.det-hd-detail a')[0].text
         # book_info_status_release = r.html.find('.det-hd-detail strong')[1].text  # re string
@@ -55,14 +71,12 @@ class BoxNovelScraper:
         # book_desc = r.html.find('p.mb48.fs16.c_000')[0].text
         # tag_list = [a.text for a in r.html.find('.pop-tags a')]  # filter by tag
 
-        r_chap = session.get(self.wn_chap)
-        chap_lock = r_chap.html.find('.cha-content._lock')
-        chaps_raw = r_chap.html.find('.db.ell.pr')
-        print(chaps_raw)
-        if len(chap_lock) == 0:
-            chap_content_raw = r_chap.html.find('.cha-words p')[1:-2]
-            chap_content = [
-                chap.html.replace('  ', '').replace('\n', '') for chap in chap_content_raw]
+        # r_chap = session.get(self.wn_chap)
+        # chap_lock = r_chap.html.find('.cha-content._lock')
+        # if len(chap_lock) == 0:
+        #     chap_content_raw = r_chap.html.find('.cha-words p')[1:-2]
+        #     chap_content = [
+        #         chap.html.replace('  ', '').replace('\n', '') for chap in chap_content_raw]
             # pprint.pprint(chap_content)
 
         # resp_wn_chap = requests.get(self.wn_link_chap)
