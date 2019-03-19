@@ -29,6 +29,7 @@ class BookGenre(TimeStampedModel):
         return reverse('books:genre', kwargs={'bookgenre_slug': self.slug})
 
     def save(self, *args, **kwargs):
+        self.name = ' '.join([w.capitalize() for w in self.name.split(' ')])
         if not self.slug or self.name != self.tracker.previous('name'):
             self.slug = get_unique_slug(BookGenre, self.name)
         return super().save(*args, **kwargs)
@@ -51,6 +52,7 @@ class BookTag(TimeStampedModel):
         return reverse('books:tag', kwargs={'booktag_slug': self.slug})
 
     def save(self, *args, **kwargs):
+        self.name = ' '.join([w.capitalize() for w in self.name.split(' ')])
         if not self.slug or self.name != self.tracker.previous('name'):
             self.slug = get_unique_slug(BookTag, self.name)
         return super().save(*args, **kwargs)
@@ -102,6 +104,7 @@ class Book(TimeStampedModel):
         return reverse('books:book', kwargs={'book_slug': self.slug})
 
     def save(self, *args, **kwargs):
+        self.title = ' '.join([w.capitalize() for w in self.title.split(' ')])
         if not self.slug or self.title != self.tracker.previous('title'):
             self.slug = get_unique_slug(Book, self.title)
         return super().save(*args, **kwargs)
