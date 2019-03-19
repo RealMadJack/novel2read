@@ -1,7 +1,6 @@
 import logging
 import re
 import pprint
-import inspect
 
 from datetime import datetime
 from requests_html import HTMLSession
@@ -13,7 +12,7 @@ LOGGER.setLevel(logging.WARNING)
 # logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 
-class BoxNovelScraper:
+class BookScraper:
     """
     scrap priority - webnovels
     steal comments?
@@ -25,7 +24,6 @@ class BoxNovelScraper:
         self.bn_bb = 'https://boxnovel.com/novel/'
 
     def get_filter_db_books(self):
-        logging.info(f'Calling {inspect.stack()[0][3]} module')
         pass
 
     def request_bn_book(self, book_id):
@@ -141,14 +139,15 @@ class BoxNovelScraper:
         pass
 
     def run(self):
-        self.request_external_site()
+        # self.request_wn_book()
+        self.get_filter_db_books()
 
 
 def main():
     logging.basicConfig(level=logging.DEBUG, format='%(name)-24s: %(levelname)-8s %(message)s')
     start = datetime.now()
 
-    box_scraper = BoxNovelScraper()
+    box_scraper = BookScraper()
     box_scraper.run()
 
     finish = datetime.now() - start
