@@ -66,7 +66,7 @@ class Book(TimeStampedModel):
         related_name='%(class)ss',
         related_query_name='%(class)s',
     )
-    booktag = models.ManyToManyField(BookTag, related_name='%(class)ss')
+    booktag = models.ManyToManyField(BookTag, related_name='%(class)ss', blank=True)
     title = models.CharField(_('Title'), blank=False, default='', max_length=255)
     title_sm = models.CharField(_('Title short'), blank=True, default='', max_length=50)
     slug = models.SlugField(default='', max_length=255, unique=True)
