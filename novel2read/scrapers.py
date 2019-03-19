@@ -28,8 +28,23 @@ class BoxNovelScraper:
         logging.info(f'Calling {inspect.stack()[0][3]} module')
         pass
 
-    def request_external_site(self, book_id='8360425206000005'):
+    def request_bn_book(self, book_id):
+        # resp = requests.get(self.bn_link)
+        # soup = BeautifulSoup(resp.content, self.parser)
+        # post_content = soup.select('.summary_content .post-content')
+        # authors_dirty = soup.select('.author-content a')
+        # authors = [author.text for author in authors_dirty]
+
+        # resp_chap = requests.get(bn_link_fc)
+        # soup_chap = BeautifulSoup(resp_chap.content, self.parser)
+        # chap_parag_list = soup_chap.select('.reading-content p')[:5]
+        # chap_title = chap_parag_list[0].text.split(' – ')  # re = chapter + :- + int
+        pass
+
+    def request_wn_book(self, book_id='8360425206000005'):
         """
+        7736629105000905
+        8360425206000005
         we take: chap-release, votes_external
         """
         wn_book = f'{self.wn_bb}{book_id}'
@@ -52,6 +67,7 @@ class BoxNovelScraper:
         c_ids_len = len(c_ids)
 
         # driver.close()
+
         """ NOJS Search """
         session = HTMLSession()
         r = session.get(wn_book)
@@ -59,7 +75,10 @@ class BoxNovelScraper:
         book_name = ' '.join(book_name_raw.split(' ')[0:-1])
         book_name_sm = book_name_raw.split(' ')[-1]
         book_info_genre = r.html.find('.det-hd-detail a')[0].text
-        book_info_status_release = r.html.find('.det-hd-detail strong')[1].text  # re string
+        chap_release = r.html.find('.det-hd-detail strong')[0].text
+        chap_release = chap_release if len(chap_release) < 20 else int(re.findall('\d+', chap_release)[0])
+        book_info_chap_count_raw = r.html.find('.det-hd-detail strong')[1].text
+        book_info_chap_count = int(re.findall('\d+', book_info_chap_count_raw)[0])
         book_info_author = r.html.find('.ell.dib.vam span')[0].text
         book_poster_url = r.html.find('i.g_thumb img')[1].attrs['srcset']
         book_desc = r.html.find('p.mb48.fs16.c_000')[0].text
@@ -70,7 +89,8 @@ class BoxNovelScraper:
             'book_name': book_name,
             'book_name_sm': book_name_sm,
             'book_info_genre': book_info_genre,
-            'book_info_status_release': book_info_status_release,
+            'chap_release': chap_release,
+            'book_info_chap_count': book_info_chap_count,
             'book_info_author': book_info_author,
             'book_poster_url': book_poster_url,
             'book_desc': book_desc,
@@ -116,22 +136,6 @@ class BoxNovelScraper:
 
         pprint.pprint(book)
         return book
-
-        # resp_wn_chap = requests.get(self.wn_link_chap)
-        # soup_wn_chap = BeautifulSoup(resp_wn_chap.content, self.parser)
-        # wn_chaps = soup_wn_chap.select('.cha-content .cha-words p')[:5]
-        # print([chap.text for chap in wn_chaps])
-
-        # resp = requests.get(self.bn_link)
-        # soup = BeautifulSoup(resp.content, self.parser)
-        # post_content = soup.select('.summary_content .post-content')
-        # authors_dirty = soup.select('.author-content a')
-        # authors = [author.text for author in authors_dirty]
-
-        # resp_chap = requests.get(bn_link_fc)
-        # soup_chap = BeautifulSoup(resp_chap.content, self.parser)
-        # chap_parag_list = soup_chap.select('.reading-content p')[:5]
-        # chap_title = chap_parag_list[0].text.split(' – ')  # re = chapter + :- + int
 
     def substitute_db_book_info(self):
         pass
