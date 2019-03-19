@@ -1,13 +1,23 @@
 import logging
 import re
 import pprint
+import sys
+import os
+import django
 
 from datetime import datetime
 from requests_html import HTMLSession
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-
 from selenium.webdriver.remote.remote_connection import LOGGER
+
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__name__))))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+django.setup()
+
+from novel2read.apps.books.models import Book, BookTag
+
+# Logging restrictions
 LOGGER.setLevel(logging.WARNING)
 # logging.getLogger("urllib3").setLevel(logging.WARNING)
 
@@ -24,7 +34,9 @@ class BookScraper:
         self.bn_bb = 'https://boxnovel.com/novel/'
 
     def get_filter_db_books(self):
-        pass
+        books = Book.objects.filter(visited_wn=False)
+        print(books)
+        return books
 
     def request_bn_book(self, book_id):
         # resp = requests.get(self.bn_link)
@@ -48,15 +60,15 @@ class BookScraper:
         wn_book = f'{self.wn_bb}{book_id}'
 
         """ JS Search """
-        # driver_opts = webdriver.ChromeOptions()
-        # driver_opts.add_argument('headless')
-        # driver_opts.add_argument('disable-gpu')
-        # driver_opts.add_argument('log-level=3')
-        # driver_opts.add_argument('silent')
+        driver_opts = webdriver.ChromeOptions()
+        driver_opts.add_argument('headless')
+        driver_opts.add_argument('disable-gpu')
+        driver_opts.add_argument('log-level=3')
+        driver_opts.add_argument('silent')
 
-        # driver = webdriver.Chrome(chrome_options=driver_opts)
+        driver = webdriver.Chrome(chrome_options=driver_opts)
+        wait = WebDriverWait(driver, 10)
         # driver.get(wn_book)
-        # wait = WebDriverWait(driver, 10)
 
         # driver.find_element_by_css_selector('a.j_show_contents').click()
         # c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
