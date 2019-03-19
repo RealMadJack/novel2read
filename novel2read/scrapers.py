@@ -55,6 +55,9 @@ class BoxNovelScraper:
         """ NOJS Search """
         session = HTMLSession()
         r = session.get(wn_book)
+        book_name_raw = r.html.find('.pt4.pb4.oh.mb4')[0].text
+        book_name = ' '.join(book_name_raw.split(' ')[0:-1])
+        book_name_sm = book_name_raw.split(' ')[-1]
         book_info_genre = r.html.find('.det-hd-detail a')[0].text
         book_info_status_release = r.html.find('.det-hd-detail strong')[1].text  # re string
         book_info_author = r.html.find('.ell.dib.vam span')[0].text
@@ -64,6 +67,8 @@ class BoxNovelScraper:
 
         book = []
         book.append({
+            'book_name': book_name,
+            'book_name_sm': book_name_sm,
             'book_info_genre': book_info_genre,
             'book_info_status_release': book_info_status_release,
             'book_info_author': book_info_author,
@@ -101,8 +106,16 @@ class BoxNovelScraper:
 
         c_locked = c_ids_len - c_unlocked
         logging.info(f'Unlocked: {c_unlocked}, Locked: {c_locked}, Locked from: {chap_tit_raw}')
+        book.append({
+            'book_name': book_name,
+            'unlocked': c_unlocked,
+            'locked': c_locked,
+            'locked_from': chap_tit_raw,
+            'locked_from_id': int(re.findall('\d+', chap_tit_raw)[0]),
+        })
 
         pprint.pprint(book)
+        return book
 
         # resp_wn_chap = requests.get(self.wn_link_chap)
         # soup_wn_chap = BeautifulSoup(resp_wn_chap.content, self.parser)
