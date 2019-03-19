@@ -86,7 +86,7 @@ class Book(TimeStampedModel):
     ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
     visited_wn = models.BooleanField(_('WN scraped'), default=False)
     visited_bn = models.BooleanField(_('BN scraped'), default=False)
-    book_id_wn = models.IntegerField(_('WN book id'), blank=True, null=True, default=0)
+    book_id_wn = models.BigIntegerField(_('WN book id'), blank=True, null=True, default=0)
     book_id_bn = models.CharField(_('BN book id'), blank=True, default='', max_length=255)
     STATUS = Choices(
         (0, 'published', _('published')),

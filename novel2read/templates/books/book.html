@@ -16,7 +16,6 @@
         </div>
         <div class="bookhead__info--row">
           <div class="info-row">
-            <p><a href="{{book.bookgenre.get_absolute_url}}">{{book.bookgenre.name}}</a></p>
             <p>Author: {% for author in book.author %}<span>{{author}}</span>{% endfor %}</p>
             <p>Country: {{book.country}}</p>
             <p>Chapters: {{book.chapters}}</p>

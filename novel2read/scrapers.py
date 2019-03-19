@@ -51,11 +51,11 @@ class BookScraper:
         # chap_title = chap_parag_list[0].text.split(' – ')  # re = chapter + :- + int
         pass
 
-    def request_wn_book(self, book_id='8360425206000005'):
+    def request_wn_book(self, book_id):
         """
         7736629105000905
         8360425206000005
-        we take: chap-release, votes_external
+        we take: votes_external
         """
         wn_book = f'{self.wn_bb}{book_id}'
 
@@ -90,9 +90,10 @@ class BookScraper:
         book_info_chap_count_raw = r.html.find('.det-hd-detail strong')[1].text
         book_info_chap_count = int(re.findall('\d+', book_info_chap_count_raw)[0])
         book_info_author = r.html.find('.ell.dib.vam span')[0].text
+        book_rating = float(r.html.find('._score.ell strong')[0].text)
         book_poster_url = r.html.find('i.g_thumb img')[1].attrs['srcset']
         book_desc = r.html.find('p.mb48.fs16.c_000')[0].text
-        book_tag_list = [a.text for a in r.html.find('.pop-tags a')]  # filter by tag
+        book_tag_list = [a.text.strip() for a in r.html.find('.pop-tags a')]  # filter by tag
 
         book = []
         book.append({
@@ -102,6 +103,7 @@ class BookScraper:
             'chap_release': chap_release,
             'book_info_chap_count': book_info_chap_count,
             'book_info_author': book_info_author,
+            'book_rating': book_rating,
             'book_poster_url': book_poster_url,
             'book_desc': book_desc,
             'book_tag_list': book_tag_list,
