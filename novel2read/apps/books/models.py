@@ -125,7 +125,7 @@ class Book(TimeStampedModel):
 class BookChapter(TimeStampedModel):
     book = models.ForeignKey(
         Book,
-        on_delete=models.CASCADE,  # test cascade delete book or chapter
+        on_delete=models.CASCADE,
         related_name='%(class)ss',
         related_query_name='%(class)s',
     )

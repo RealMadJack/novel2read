@@ -55,6 +55,12 @@ class BookScraper:
         except (BookTag.DoesNotExist, Book.DoesNotExist) as e:
             raise e
 
+    def create_book_chapter(self, book, c_id, c_title, c_content):
+        logging.info(f'Adding: {c_title}')
+        bookchapter = BookChapter.objects.create(
+            book=book, c_id=c_id, title=c_title, text=c_content)
+        return bookchapter
+
     def request_bn_book(self, book_id):
         # resp = requests.get(self.bn_link)
         # soup = BeautifulSoup(resp.content, self.parser)
@@ -85,15 +91,14 @@ class BookScraper:
 
         driver = webdriver.Chrome(chrome_options=driver_opts)
         wait = WebDriverWait(driver, 10)
-        # driver.get(wn_book)
+        driver.get(wn_book)
 
-        # driver.find_element_by_css_selector('a.j_show_contents').click()
-        # c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
-        # c_ids = [li.get_attribute("data-cid") for li in c_list]
-        c_ids = ['22522773419115905', '22525235509118345', '23637702117217714', '23577341972235183']
+        driver.find_element_by_css_selector('a.j_show_contents').click()
+        c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
+        c_ids = [li.get_attribute("data-cid") for li in c_list]
+        # c_ids = ['22522773419115905', '22525235509118345', '23637702117217714', '23577341972235183']
         c_ids_len = len(c_ids)
-
-        # driver.close()
+        driver.close()
 
         """ NOJS Search """
         session = HTMLSession()
@@ -111,8 +116,8 @@ class BookScraper:
         book_poster_url = ''.join(r.html.find('i.g_thumb img')[1].attrs['srcset'].split(' '))
         book_desc_raw = r.html.find('p.mb48.fs16.c_000')[0].html.split('<br/>')
         book_desc = ''.join([f"<p>{re.sub(r'<.*?>', '', p)}</p>" for p in book_desc_raw])
-        book_tag_list = [a.text.strip() for a in r.html.find('.pop-tags a')]  # filter by tag
-        # s.replace('&#13;', '').replace('**', '').split('</br>')
+        book_tag_list = [a.text.strip() for a in r.html.find('.pop-tags a')]
+
         book = []
         book.append({
             'book_name': book_name,
@@ -140,14 +145,14 @@ class BookScraper:
 
                 logging.info(f'Unlocked: {chap_tit}')
 
-                chap_content_raw = r_chap.html.find('.cha-words p')[1:-2]
+                chap_content_raw = r_chap.html.find('.cha-words p')[1:]
                 chap_content = [
                     chap.html.replace('  ', '').replace('\n', '') for chap in chap_content_raw]
 
                 book.append({
                     'c_id': chap_tit_id,
                     'c_tit': chap_tit,
-                    'c_content': chap_content,
+                    'c_content': ''.join(chap_content),
                 })
                 c_unlocked += 1
                 continue
@@ -164,40 +169,46 @@ class BookScraper:
             'locked_from_id': int(re.findall('\d+', chap_tit_raw)[0]),
         })
 
-        pprint.pprint(book)
         return book
 
     def substitute_db_book_info(self):
         filtered_books = self.get_filter_db_books()
-        book = filtered_books[0]
-        book_data = self.request_wn_book(book.book_id_wn)
 
-        if not book.visited_wn:
-            book.author.append(book_data[0]['book_info_author']) if book_data[0]['book_info_author'] not in book.author else False
-            # bookchapter.c_id = book_data[-1]['c_id']
-            # bookchapter.title = book_data[-1]['c_tit']
-            # bookchapter.text = book_data[-1]['c_content']
-            book.chapters_max = book_data[0]['book_info_chap_count']
-            book.description = book_data[0]['book_desc']
-            book.title = book_data[0]['book_name']
-            book.title_sm = book_data[0]['book_name_sm']
-            book.poster_url = book_data[0]['book_poster_url']
-            book.rating = book_data[0]['book_rating']
+        for book in filtered_books:
+            logging.info(f'Trying: {book}')
+            if not book.visited_wn and bool(book.book_id_wn):
+                book_data = self.request_wn_book(book.book_id_wn)
 
-            if book_data[0]['chap_release'] == 'completed':
-                book.status_release = 1
-            elif isinstance(book_data[0]['chap_release'], int):
-                book.chapter_update = book_data[0]['chap_release']
+                book.author.append(book_data[0]['book_info_author']) if book_data[0]['book_info_author'] not in book.author else False
+                book.chapters_max = book_data[0]['book_info_chap_count']
+                book.description = book_data[0]['book_desc']
+                book.title = book_data[0]['book_name']
+                book.title_sm = book_data[0]['book_name_sm']
+                book.poster_url = book_data[0]['book_poster_url']
+                book.rating = book_data[0]['book_rating']
 
-            for tag in book_data[0]['book_tag_list']:
-                self.create_new_tag(tag)
-                self.add_book_booktag(book, tag)
+                if book_data[0]['chap_release'] == 'completed':
+                    book.status_release = 1
+                elif isinstance(book_data[0]['chap_release'], int):
+                    book.chapter_update = book_data[0]['chap_release']
 
-        # book.visited_wn = True
-        book.status = 1 if not book.status else book.status
-        logging.info('Saving book')
-        book.save()
-        # pprint.pprint(book_data)
+                for tag in book_data[0]['book_tag_list']:
+                    self.create_new_tag(tag)
+                    self.add_book_booktag(book, tag)
+
+                for chap in book_data[1:-1]:
+                    # check if chap exists and update
+                    self.create_book_chapter(book, chap['c_id'], chap['c_tit'], chap['c_content'])
+                book.locked_wn = book_data[-1]['locked_from_id']
+
+                logging.info(f'Saving book: {book}')
+                book.status = 1 if not book.status else book.status
+                book.visited_wn = True
+                # pprint.pprint(book_data)
+                book.save()
+
+        # if visited_wn:
+            # something with chapter boxnovel and missing book info
 
     def run(self):
         self.substitute_db_book_info()
