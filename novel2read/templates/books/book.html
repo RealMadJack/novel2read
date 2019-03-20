@@ -79,9 +79,10 @@
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div class="bookbody__tabs--chaps">
               <div class="chap-latest">
-                Latest release:
+                <span>Latest release:</span>
                 <a href="{{last_chap.get_absolute_url}}">
-                  {{last_chap.title}}
+                  <span>{{last_chap.title}}</span>
+                  -
                   <small>{{last_chap.created}}</small>
                 </a>
               </div>
@@ -96,7 +97,7 @@
                   {% endif %}
                   <div class="chap-nav-card">
                     <a href="{{book.bookchapter.get_absolute_url}}">
-                      <span>#{{bookchapter.c_id}}</span>
+                      <span>{{bookchapter.c_id}}</span>
                       <span>{{bookchapter.title}}</span>
                       <small>{{ bookchapter.created|date:"M d, Y" }}</small>
                     </a>

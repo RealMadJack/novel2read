@@ -31,7 +31,8 @@
 			.book-lg-wide
 				grid-template-columns: 1fr
 				&__poster
-					height: 320px
+					&--image
+						max-height: 440px
 				&__info
 					&--title
 					&--tags
@@ -70,6 +71,7 @@
 						display: block
 						float: none
 						width: 100%
+						padding: 5px 0
 						a
 							span
 							small
@@ -86,10 +88,8 @@
 			.book-lg-wide
 				margin-bottom: 30px
 				&__poster
-					width: 100%
-					max-width: 320px
-					margin-left: auto
-					margin-right: auto
+					&--image
+						max-height: 750px
 				&__info
 					&--title
 					&--tags
@@ -103,6 +103,9 @@
 			grid-template-columns: 1fr
 			&__poster
 				&--image
+					display: block
+					height: auto
+					max-height: 750px
 			&__info
 				&--title
 				&--row
@@ -115,9 +118,13 @@
 				&--tags
 					margin-bottom: 20px
 				&--read
+					a
+						display: block
+						width: 50%
 					.btn
-						font-size: 1rem
-						padding: 7px 23px
+						width: 100%
+						font-size: 1	rem
+						padding: 10px 23px
 
 	.bookchapter
 		&__nav
