@@ -29,7 +29,7 @@ a.disabled {
 .alert-error {
   background-color: #f2dede;
   border-color: #eed3d7;
-  color: #b94a48; }
+  color: #FF0099; }
 
 .scrollbar {
   overflow-y: scroll; }
@@ -87,14 +87,14 @@ a.disabled {
 
 .booktag {
   display: inline-block;
-  padding: 3px 10px;
-  font-size: 12.8px;
-  font-size: .8rem;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-size: .75rem;
   color: #6A57F9 !important;
-  background-color: transparent !important;
-  border: 1px solid #6A57F9 !important;
+  background-color: transparent;
+  border: 1px solid #6A57F9;
   border-radius: 14px;
-  margin-right: 5px;
+  margin-right: 2px;
   margin-bottom: 5px; }
   .booktag:last-of-type {
     margin-right: 0; }
@@ -103,8 +103,8 @@ a.disabled {
     top: -1px; }
   .booktag:hover, .booktag:focus, .booktag:active {
     color: white !important;
-    background-color: #6A57F9 !important;
-    border: 1px solid #6A57F9 !important; }
+    background-color: #6A57F9;
+    border: 1px solid #6A57F9; }
 
 .tag-card {
   display: inline-block;
@@ -113,7 +113,7 @@ a.disabled {
   .tag-card:last-of-type {
     margin-right: 0; }
   .tag-card a {
-    color: black !important;
+    color: black;
     display: block;
     text-decoration: none;
     outline: none; }
@@ -122,7 +122,7 @@ a.disabled {
       outline: none; }
 
 .tag-card.active {
-  border-bottom: 4px solid #6A57F9 !important; }
+  border-bottom: 4px solid #6A57F9; }
 
 .stars-rating-sm {
   max-height: 15px;
@@ -170,8 +170,14 @@ a.disabled {
         margin-bottom: 16px;
         margin-bottom: 1rem; }
     .browsebooks__books .book-lg-wide__info--tags {
-      max-height: 32px;
+      max-height: 30px;
       overflow-y: hidden; }
+      .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type {
+        color: #FF0099 !important;
+        border-color: #FF0099 !important; }
+        .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type:hover, .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type:focus, .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type:active {
+          background-color: #FF0099 !important;
+          color: #fff !important; }
     .browsebooks__books .book-lg-wide__info--desc {
       font-size: 16px;
       font-size: 1rem;
@@ -254,6 +260,12 @@ a.disabled {
         font-size: 14.4px;
         font-size: .9rem;
         margin-bottom: 13px; }
+        .book .bookhead__info--tags .booktag:first-of-type {
+          color: #FF0099 !important;
+          border-color: #FF0099 !important; }
+          .book .bookhead__info--tags .booktag:first-of-type:hover, .book .bookhead__info--tags .booktag:first-of-type:focus, .book .bookhead__info--tags .booktag:first-of-type:active {
+            background-color: #FF0099 !important;
+            color: #fff !important; }
       .book .bookhead__info--read {
         display: -webkit-box;
         display: -ms-flexbox;

@@ -147,7 +147,7 @@ class BookScraper:
 
                 chap_content_raw = r_chap.html.find('.cha-words p')[1:]
                 chap_content = [
-                    chap.html.replace('  ', '').replace('\n', '') for chap in chap_content_raw]
+                    chap.html.replace('<p></p>', '').replace('  ', '').replace('\n', '') for chap in chap_content_raw]
 
                 book.append({
                     'c_id': chap_tit_id,
@@ -189,8 +189,8 @@ class BookScraper:
 
                 if book_data[0]['chap_release'] == 'completed':
                     book.status_release = 1
-                elif isinstance(book_data[0]['chap_release'], int):
-                    book.chapter_update = book_data[0]['chap_release']
+                # elif isinstance(book_data[0]['chap_release'], int):
+                #     book.chapter_update = book_data[0]['chap_release']
 
                 for tag in book_data[0]['book_tag_list']:
                     self.create_new_tag(tag)
