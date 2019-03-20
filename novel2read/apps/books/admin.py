@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdminMixin
 from .models import BookGenre, BookTag, Book, BookChapter
 
 
@@ -17,7 +18,7 @@ class BookTagAdmin(admin.ModelAdmin):
 
 
 @admin.register(Book)
-class BookAdmin(admin.ModelAdmin):
+class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
     model = Book
     fields = (
         ('title', 'title_sm', 'slug'),
@@ -25,13 +26,14 @@ class BookAdmin(admin.ModelAdmin):
         'booktag',
         ('author', 'country'),
         'poster_url',
-        ('rating', 'ranking'),
+        ('rating', 'votes', 'votes_external', 'ranking'),
         'description',
         ('volumes', 'chapters', 'chapters_max'),
         ('visited_wn', 'book_id_wn'),
         ('visited_bn', 'book_id_bn'),
         ('status', 'status_release'),
     )
+    summernote_fields = ('description', )
     readonly_fields = ('slug', 'chapters', )
     filter_horizontal = ('booktag', )
     list_select_related = ('bookgenre', )

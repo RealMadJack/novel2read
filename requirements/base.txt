@@ -16,6 +16,7 @@ django-crispy-forms==1.7.2  # https://github.com/django-crispy-forms/django-cris
 django-redis==4.10.0  # https://github.com/niwinz/django-redis
 django-next-prev>=1.0.1  # https://pypi.org/project/django-next-prev/
 django-bootstrap-breadcrumbs>=0.9.1  # https://django-bootstrap-breadcrumbs.readthedocs.io/en/latest/
+django-summernote>=0.8.11.4  # https://github.com/summernote/django-summernote
 
 
 # Django REST Framework
