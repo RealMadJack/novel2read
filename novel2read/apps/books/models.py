@@ -73,7 +73,6 @@ class Book(TimeStampedModel):
     author = ArrayField(models.CharField(max_length=112), blank=True, default=list)
     country = models.CharField(default='', max_length=255, blank=True)
     description = models.TextField(_('Description'), blank=True, default='', max_length=1024)
-    c_id = models.IntegerField('Chapter ID', blank=True, null=True, default=0)
     chapters = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
     chapters_max = models.PositiveIntegerField(_('Chapters Full'), blank=True, null=True, default=0)
     chapters_release = models.SmallIntegerField(_('Chapters update'), blank=True, null=True, default=0)
@@ -130,7 +129,7 @@ class BookChapter(TimeStampedModel):
         related_name='%(class)ss',
         related_query_name='%(class)s',
     )
-    # count_id = models.PositiveIntegerField(default=1, blank=True, null=True, db_index=True)
+    c_id = models.IntegerField('Chapter ID', blank=True, null=True, default=0)
     title = models.CharField(_('Title'), blank=False, default='', max_length=255)
     slug = models.SlugField(default='', max_length=255, unique=True)
     text = models.TextField(blank=False, default='')

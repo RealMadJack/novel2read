@@ -174,6 +174,9 @@ class BookScraper:
 
         if not book.visited_wn:
             book.author.append(book_data[0]['book_info_author']) if book_data[0]['book_info_author'] not in book.author else False
+            # bookchapter.c_id = book_data[-1]['c_id']
+            # bookchapter.title = book_data[-1]['c_tit']
+            # bookchapter.text = book_data[-1]['c_content']
             book.chapters_max = book_data[0]['book_info_chap_count']
             book.description = book_data[0]['book_desc']
             book.title = book_data[0]['book_name']
