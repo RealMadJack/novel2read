@@ -17,8 +17,11 @@
         <div class="bookhead__info--row">
           <div class="info-row">
             <p>Author: {% for author in book.author %}<span>{{author}}</span>{% endfor %}</p>
-            <p>Country: {{book.country}}</p>
+            {% if book.country %}
+              <p>Country: {{book.country}}</p>
+            {% endif %}
             <p>Chapters: {{book.chapters}}</p>
+            <p>Views: 0</p>
             <p>Status:
               {% if book.status_release == 0 %}
                 <span style="color: green">Ongoing</span>
@@ -26,7 +29,6 @@
                 <span style="color: red">Completed</span>
               {% endif %}
             </p>
-            <p>Views: 0</p>
           </div>
           <div class="stars-rating-sm">
             <img src="{% static 'images/star.png' %}" alt="star">

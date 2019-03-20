@@ -169,7 +169,7 @@ a.disabled {
   .browsebooks__books .book-lg-wide__info--tags {
     max-height: 32px;
     overflow-y: hidden; }
-  .browsebooks__books .book-lg-wide__info--descr {
+  .browsebooks__books .book-lg-wide__info--desc {
     font-size: 16px;
     font-size: 1rem;
     height: 75px;
@@ -268,9 +268,14 @@ a.disabled {
         font-size: 1.2rem;
         padding: 10px 30px; }
 
-.book .bookbody__tabs--desc {
+.book .bookbody__tabs .tab-content {
+  margin-top: 20px; }
+
+.book .bookbody__tabs--desc p {
   font-size: 16px;
-  font-size: 1rem; }
+  font-size: 1rem;
+  margin-bottom: 11.2px;
+  margin-bottom: .7rem; }
 
 .bookchapter__nav {
   display: -webkit-box;
@@ -407,7 +412,7 @@ a.disabled {
     grid-template-columns: 1fr; }
     .browsebooks__books .book-lg-wide__poster {
       height: 320px; }
-    .browsebooks__books .book-lg-wide__info--descr {
+    .browsebooks__books .book-lg-wide__info--desc {
       height: 100px; }
   .book .bookhead__info--row .info-row {
     -webkit-box-orient: vertical;
