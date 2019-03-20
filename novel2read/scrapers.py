@@ -5,6 +5,7 @@ import sys
 import os
 import django
 
+from django.utils.text import slugify
 from datetime import datetime
 from requests_html import HTMLSession
 from selenium import webdriver
@@ -15,7 +16,7 @@ sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__name__))))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 django.setup()
 
-from novel2read.apps.books.models import Book, BookTag
+from novel2read.apps.books.models import Book, BookChapter, BookTag
 
 # Logging restrictions
 LOGGER.setLevel(logging.WARNING)
@@ -35,8 +36,15 @@ class BookScraper:
 
     def get_filter_db_books(self):
         books = Book.objects.filter(visited_wn=False)
-        print(books)
         return books
+
+    def create_new_tag(self, name):
+        slug_name = slugify(name)
+        tag = BookTag.objects.filter(slug=slug_name).exists()
+        if not tag:
+            logging.info(f'Creating Tag: {tag}')
+            booktag = BookTag.objects.create(name=name)
+            return booktag
 
     def request_bn_book(self, book_id):
         # resp = requests.get(self.bn_link)
@@ -86,12 +94,12 @@ class BookScraper:
         book_name_sm = book_name_raw.split(' ')[-1]
         book_info_genre = r.html.find('.det-hd-detail a')[0].text
         chap_release = r.html.find('.det-hd-detail strong')[0].text
-        chap_release = chap_release if len(chap_release) < 20 else int(re.findall('\d+', chap_release)[0])
+        chap_release = chap_release.lower().strip() if len(chap_release) < 20 else int(re.findall('\d+', chap_release)[0])
         book_info_chap_count_raw = r.html.find('.det-hd-detail strong')[1].text
         book_info_chap_count = int(re.findall('\d+', book_info_chap_count_raw)[0])
         book_info_author = r.html.find('.ell.dib.vam span')[0].text
         book_rating = float(r.html.find('._score.ell strong')[0].text)
-        book_poster_url = r.html.find('i.g_thumb img')[1].attrs['srcset']
+        book_poster_url = ''.join(r.html.find('i.g_thumb img')[1].attrs['srcset'].split(' '))
         book_desc = r.html.find('p.mb48.fs16.c_000')[0].text
         book_tag_list = [a.text.strip() for a in r.html.find('.pop-tags a')]  # filter by tag
 
@@ -146,15 +154,40 @@ class BookScraper:
             'locked_from_id': int(re.findall('\d+', chap_tit_raw)[0]),
         })
 
-        pprint.pprint(book)
+        # pprint.pprint(book)
         return book
 
     def substitute_db_book_info(self):
-        pass
+        filtered_books = self.get_filter_db_books()
+        book = filtered_books[0]
+        book_data = self.request_wn_book(book.book_id_wn)
+
+        if not book.visited_wn:
+            book.author.append(book_data[0]['book_info_author']) if book_data[0]['book_info_author'] not in book.author else False
+            book.chapters_max = book_data[0]['book_info_chap_count']
+            book.description = book_data[0]['book_desc']
+            book.title = book_data[0]['book_name']
+            book.title_sm = book_data[0]['book_name_sm']
+            book.poster_url = book_data[0]['book_poster_url']
+            book.rating = book_data[0]['book_rating']
+
+            if book_data[0]['chap_release'] == 'completed':
+                book.status_release = 1
+            elif isinstance(book_data[0]['chap_release'], int):
+                book.chapter_update = book_data[0]['chap_release']
+
+            for tag in book_data[0]['book_tag_list']:
+                print(tag)
+                booktag = self.create_new_tag(tag)
+                book.booktag.add(booktag)
+
+        # book.visited_wn = True
+        logging.info('Saving book')
+        book.save()
+        # pprint.pprint(book_data)
 
     def run(self):
-        # self.request_wn_book()
-        self.get_filter_db_books()
+        self.substitute_db_book_info()
 
 
 def main():
