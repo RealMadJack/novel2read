@@ -429,7 +429,14 @@ a.disabled {
             flex-direction: column; }
   .book .bookhead__info--read .btn {
     font-size: 1.1rem;
-    padding: 8px 25px; } }
+    padding: 8px 25px; }
+  .book .bookbody__tabs--chaps .chap-volume {
+    display: block;
+    width: 100%; }
+  .book .bookbody__tabs--chaps .chap-nav-card {
+    display: block;
+    float: none;
+    width: 100%; } }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {

@@ -56,7 +56,8 @@ class BookView(DetailView):
         try:
             books = Book.objects.select_related('bookgenre').prefetch_related('booktag', 'bookchapters').filter(status=1)
             book = books.get(slug=kwargs['book_slug'])
-            context = {'books': books, 'book': book}
+            last_chap = book.bookchapters.last()
+            context = {'books': books, 'book': book, 'last_chap': last_chap}
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
             return redirect('/404/')

@@ -78,6 +78,13 @@
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div class="bookbody__tabs--chaps">
+              <div class="chap-latest">
+                Latest release:
+                <a href="{{last_chap.get_absolute_url}}">
+                  {{last_chap.title}}
+                  <small>{{last_chap.created}}</small>
+                </a>
+              </div>
               {% for bookchapter in book.bookchapters.all %}
                 {% with loop_counter=forloop.counter %}
                   {% if book.volumes|length >= 1 %}
