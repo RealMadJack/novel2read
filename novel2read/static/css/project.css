@@ -277,6 +277,14 @@ a.disabled {
   margin-bottom: 11.2px;
   margin-bottom: .7rem; }
 
+.book .bookbody__tabs--chaps .chap-volume {
+  display: block;
+  width: 100%; }
+
+.book .bookbody__tabs--chaps .chap-nav-card {
+  float: left;
+  width: 50%; }
+
 .bookchapter__nav {
   display: -webkit-box;
   display: -ms-flexbox;

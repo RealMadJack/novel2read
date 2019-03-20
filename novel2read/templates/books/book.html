@@ -77,7 +77,26 @@
             </div>
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            Chapters
+            <div class="bookbody__tabs--chaps">
+              {% for bookchapter in book.bookchapters.all %}
+                {% with loop_counter=forloop.counter %}
+                  {% if book.volumes|length >= 1 %}
+                    {% for volume in book.volumes %}
+                      {% if loop_counter == volume %}
+                        <div class="chap-volume"><span>Volume {{forloop.counter}}</span></div>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                  <div class="chap-nav-card">
+                    <a href="{{book.bookchapter.get_absolute_url}}">
+                      <span>#{{bookchapter.c_id}}</span>
+                      <span>{{bookchapter.title}}</span>
+                      <small>{{ bookchapter.created|date:"M d, Y" }}</small>
+                    </a>
+                  </div>
+                {% endwith %}
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>
