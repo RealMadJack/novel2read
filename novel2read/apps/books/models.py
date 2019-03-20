@@ -59,6 +59,9 @@ class BookTag(TimeStampedModel):
 
 
 class Book(TimeStampedModel):
+    title = models.CharField(_('Title'), blank=False, default='', max_length=255)
+    title_sm = models.CharField(_('Title short'), blank=True, default='', max_length=50)
+    slug = models.SlugField(default='', max_length=255, unique=True)
     bookgenre = models.ForeignKey(
         BookGenre,
         null=True,
@@ -67,25 +70,21 @@ class Book(TimeStampedModel):
         related_query_name='%(class)s',
     )
     booktag = models.ManyToManyField(BookTag, related_name='%(class)ss', blank=True)
-    title = models.CharField(_('Title'), blank=False, default='', max_length=255)
-    title_sm = models.CharField(_('Title short'), blank=True, default='', max_length=50)
-    slug = models.SlugField(default='', max_length=255, unique=True)
     author = ArrayField(models.CharField(max_length=112), blank=True, default=list)
     country = models.CharField(default='', max_length=255, blank=True)
     description = models.TextField(_('Description'), blank=True, default='', max_length=1024)
+    volumes = ArrayField(models.SmallIntegerField(default=0), blank=True, default=list)
     chapters = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
     chapters_max = models.PositiveIntegerField(_('Chapters Full'), blank=True, null=True, default=0)
     chapters_release = models.SmallIntegerField(_('Chapters update'), blank=True, null=True, default=0)
     # poster = models.URLField(_('Poster'), blank=True, null=True, upload_to='posters')
     poster_url = models.URLField(_('Poster URL'), blank=True, default='https://media.istockphoto.com/vectors/blank-book-cover-vector-id466036957?k=6&m=466036957&s=612x612&w=0&h=SHDzHMVV6CHMNk6P-7igrYcZTfGryYdk_J7jzf7MwyY=', max_length=255)
-    volumes = ArrayField(models.SmallIntegerField(default=0), blank=True, default=list)
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
     votes_external = models.PositiveIntegerField(
         _('Votes External'), blank=True, null=True, default=0)
     rating = models.FloatField(_('Rating'), blank=True, default=0.0)
     ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
     visited_wn = models.BooleanField(_('WN scraped'), default=False)
-    locked_wn = models.IntegerField(_('WN locked from'), blank=True, null=True, default=0)
     visited_bn = models.BooleanField(_('BN scraped'), default=False)
     book_id_wn = models.BigIntegerField(_('WN book id'), blank=True, null=True, default=0)
     book_id_bn = models.CharField(_('BN book id'), blank=True, default='', max_length=255)
