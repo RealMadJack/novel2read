@@ -19,6 +19,19 @@ class BookTagAdmin(admin.ModelAdmin):
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     model = Book
+    fields = (
+        ('title', 'title_sm', 'slug'),
+        'bookgenre',
+        'booktag',
+        ('author', 'country'),
+        'poster_url',
+        ('rating', 'ranking'),
+        'description',
+        ('volumes', 'chapters', 'chapters_max'),
+        ('visited_wn', 'book_id_wn'),
+        ('visited_bn', 'book_id_bn'),
+        ('status', 'status_release'),
+    )
     readonly_fields = ('slug', 'chapters', )
     filter_horizontal = ('booktag', )
     list_select_related = ('bookgenre', )
