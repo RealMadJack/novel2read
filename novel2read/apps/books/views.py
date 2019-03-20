@@ -23,7 +23,7 @@ class BookGenreView(ListView):
 
     def get(self, request, *args, **kwargs):
         try:
-            books = Book.objects.select_related('bookgenre').prefetch_related('booktag').filter(status=0)
+            books = Book.objects.select_related('bookgenre').prefetch_related('booktag').filter(status=1)
             if kwargs:
                 books = books.filter(bookgenre__slug=kwargs['bookgenre_slug'])
             context = {'books': books}

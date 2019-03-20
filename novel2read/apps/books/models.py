@@ -90,8 +90,9 @@ class Book(TimeStampedModel):
     book_id_wn = models.BigIntegerField(_('WN book id'), blank=True, null=True, default=0)
     book_id_bn = models.CharField(_('BN book id'), blank=True, default='', max_length=255)
     STATUS = Choices(
-        (0, 'published', _('published')),
-        (1, 'draft', _('draft')), )
+        (0, 'draft', _('draft')),
+        (1, 'published', _('published')),
+    )
     status = models.IntegerField(choices=STATUS, default=STATUS.published)
     STATUS_RELEASE = Choices(
         (0, 'ongoing', _('ongoing')),

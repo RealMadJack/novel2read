@@ -191,6 +191,7 @@ class BookScraper:
                 self.add_book_booktag(book, tag)
 
         # book.visited_wn = True
+        book.status = 1 if not book.status else book.status
         logging.info('Saving book')
         book.save()
         # pprint.pprint(book_data)
