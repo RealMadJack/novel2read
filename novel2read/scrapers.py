@@ -42,9 +42,18 @@ class BookScraper:
         slug_name = slugify(name)
         tag = BookTag.objects.filter(slug=slug_name).exists()
         if not tag:
-            logging.info(f'Creating Tag: {tag}')
+            logging.info(f'-- Creating: {name}')
             booktag = BookTag.objects.create(name=name)
             return booktag
+
+    def add_book_booktag(self, book, tag_name):
+        try:
+            booktag = BookTag.objects.get(slug=slugify(tag_name))
+            if booktag not in book.booktag.all():
+                logging.info(f'-- Adding: {tag_name}')
+                book.booktag.add(booktag)
+        except (BookTag.DoesNotExist, Book.DoesNotExist) as e:
+            raise e
 
     def request_bn_book(self, book_id):
         # resp = requests.get(self.bn_link)
@@ -100,9 +109,10 @@ class BookScraper:
         book_info_author = r.html.find('.ell.dib.vam span')[0].text
         book_rating = float(r.html.find('._score.ell strong')[0].text)
         book_poster_url = ''.join(r.html.find('i.g_thumb img')[1].attrs['srcset'].split(' '))
-        book_desc = r.html.find('p.mb48.fs16.c_000')[0].text
+        book_desc_raw = r.html.find('p.mb48.fs16.c_000')[0].html.split('<br/>')
+        book_desc = ''.join([f"<p>{re.sub(r'<.*?>', '', p)}</p>" for p in book_desc_raw])
         book_tag_list = [a.text.strip() for a in r.html.find('.pop-tags a')]  # filter by tag
-
+        # s.replace('&#13;', '').replace('**', '').split('</br>')
         book = []
         book.append({
             'book_name': book_name,
@@ -154,7 +164,7 @@ class BookScraper:
             'locked_from_id': int(re.findall('\d+', chap_tit_raw)[0]),
         })
 
-        # pprint.pprint(book)
+        pprint.pprint(book)
         return book
 
     def substitute_db_book_info(self):
@@ -177,9 +187,8 @@ class BookScraper:
                 book.chapter_update = book_data[0]['chap_release']
 
             for tag in book_data[0]['book_tag_list']:
-                print(tag)
-                booktag = self.create_new_tag(tag)
-                book.booktag.add(booktag)
+                self.create_new_tag(tag)
+                self.add_book_booktag(book, tag)
 
         # book.visited_wn = True
         logging.info('Saving book')
