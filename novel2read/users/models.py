@@ -19,26 +19,26 @@ class User(AbstractUser):
         return reverse("users:detail", kwargs={"username": self.username})
 
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-#     bio = models.TextField(max_length=500, blank=True)
-#     location = models.CharField(max_length=30, blank=True)
-#     birth_date = models.DateField(null=True, blank=True)
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
 
 
-# class Library(models.Model):
-    # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # book = models.ManyToManyField(Book, related_name='%(class)ss', blank=True)
+class Library(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ManyToManyField(Book, related_name='%(class)ss', blank=True)
 
 
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-# def create_user_profile_library(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
-#         Library.objects.create(user=instance)
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_user_profile_library(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+        Library.objects.create(user=instance)
 
 
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-# def save_user_profile_library(sender, instance, **kwargs):
-#     instance.profile.save()
-#     instance.library.save()
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def save_user_profile_library(sender, instance, **kwargs):
+    instance.profile.save()
+    instance.library.save()
