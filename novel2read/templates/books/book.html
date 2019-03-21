@@ -61,12 +61,17 @@
             </a>
           {% endif %}
           {% if request.user.is_authenticated %}
-            <a href="#">
+            <form method="post" action="{% url 'users:library-add' book.slug %}">
+                {% csrf_token %}
+                <a href="javascript:void(0)">
+                  <button type="submit" class="btn btn-dark">Add to Library</button>
+                </a>
+            </form>
           {% else %}
             <a href="{% url 'account_login' %}?next={{book.get_absolute_url}}">
-          {% endif %}
               <button type="button" class="btn btn-dark">Add to Library</button>
             </a>
+          {% endif %}
         </div>
       </div>
     </div>

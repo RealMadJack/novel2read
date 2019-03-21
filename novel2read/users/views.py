@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,7 +13,8 @@ User = get_user_model()
 
 @login_required
 def library_view(request, *args, **kwargs):
-    pass
+    if request.method == 'GET':
+        pass
 
 
 @login_required
@@ -20,12 +22,15 @@ def add_library_book(request, *args, **kwargs):
     if request.method == 'POST':
         try:
             book = Book.objects.get(slug=kwargs['book_slug'])
-            user = User.library.book.add()
-            user.save()
-            return redirect(reverse('books:book', kwargs={'book_slug': kwargs['book_slug']}))
-        except Book.DoesNotExist:
-            return redirect('/404/')
-    return redirect(reverse('users:library-add', kwargs={'book_slug': kwargs['book_slug']}))
+            user = User.objects.get(id=request.user.id)
+            if user is not None:
+                user.library.book.add(book)
+                user.save()
+                return redirect(reverse('books:book', kwargs={'book_slug': kwargs['book_slug']}))
+            return redirect('/403/')
+        except (Book.DoesNotExist, User.DoesNotExist):
+            return redirect('/403/')
+    return redirect('/403/')
 
 
 @login_required
