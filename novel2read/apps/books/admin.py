@@ -5,14 +5,12 @@ from .models import BookGenre, BookTag, Book, BookChapter
 
 @admin.register(BookGenre)
 class BookGenreAdmin(admin.ModelAdmin):
-    model = BookGenre
     readonly_fields = ('slug', )
     list_display = ('name', 'created', 'modified', )
 
 
 @admin.register(BookTag)
 class BookTagAdmin(admin.ModelAdmin):
-    model = BookTag
     readonly_fields = ('slug', )
     list_display = ('name', 'created', 'modified', )
 
@@ -45,8 +43,8 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
 
 
 @admin.register(BookChapter)
-class BookChapterAdmin(admin.ModelAdmin):
-    model = BookChapter
+class BookChapterAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
+    summernote_fields = ('text', )
     readonly_fields = ('slug', )
     list_select_related = ('book', )
     list_display = ('title', 'get_book', 'created', 'modified', )
