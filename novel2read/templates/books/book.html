@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 
@@ -90,9 +91,8 @@
                 <span>Latest release:</span>
                 <a href="{{last_chap.get_absolute_url}}">
                   <span>{{last_chap.title}}</span>
-                  -
-                  <small>{{last_chap.created}}</small>
                 </a>
+                <small>{{last_chap.created|naturaltime}}</small>
               </div>
               {% for bookchapter in book.bookchapters.all %}
                 {% with loop_counter=forloop.counter %}

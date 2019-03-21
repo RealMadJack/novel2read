@@ -297,8 +297,9 @@ a.disabled {
   .book .bookbody__tabs--chaps .chap-latest {
     margin-top: 10px;
     margin-bottom: 10px; }
+    .book .bookbody__tabs--chaps .chap-latest span {
+      padding-right: 5px; }
     .book .bookbody__tabs--chaps .chap-latest a {
-      padding-left: 5px;
       color: #6A57F9;
       text-decoration: none;
       outline: none; }
@@ -531,6 +532,11 @@ a.disabled {
       width: 100%;
       font-size: 1	rem;
       padding: 10px 23px; }
+  .book .bookbody__tabs--chaps .chap-latest {
+    display: inline-grid;
+    grid-template-columns: auto auto; }
+    .book .bookbody__tabs--chaps .chap-latest small {
+      grid-column-start: 2; }
   .bookchapter__nav {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
