@@ -279,9 +279,8 @@ a.disabled {
             -ms-flex-align: end;
                 align-items: flex-end; }
         .book .bookhead__info--read a {
+          display: block;
           margin-right: 10px; }
-          .book .bookhead__info--read a:last-of-type {
-            margin-right: 0; }
         .book .bookhead__info--read .btn {
           display: block;
           font-size: 19.2px;
@@ -525,9 +524,6 @@ a.disabled {
         display: inline-block; }
     .book .bookhead__info--tags {
       margin-bottom: 20px; }
-    .book .bookhead__info--read a {
-      display: block;
-      width: 50%; }
     .book .bookhead__info--read .btn {
       width: 100%;
       font-size: 1	rem;

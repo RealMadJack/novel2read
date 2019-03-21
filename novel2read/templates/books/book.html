@@ -61,12 +61,21 @@
             </a>
           {% endif %}
           {% if request.user.is_authenticated %}
-            <form method="post" action="{% url 'users:library-add' book.slug %}">
+            {% if book in request.user.library.book.all %}
+              <form method="post" action="{% url 'users:library-remove' book.slug %}">
                 {% csrf_token %}
                 <a href="javascript:void(0)">
-                  <button type="submit" class="btn btn-dark">Add to Library</button>
+                  <button type="submit" class="btn btn-dark">In Library</button>
                 </a>
-            </form>
+              </form>
+            {% else %}
+              <form method="post" action="{% url 'users:library-add' book.slug %}">
+                  {% csrf_token %}
+                  <a href="javascript:void(0)">
+                    <button type="submit" class="btn btn-dark">Add to Library</button>
+                  </a>
+              </form>
+            {% endif %}
           {% else %}
             <a href="{% url 'account_login' %}?next={{book.get_absolute_url}}">
               <button type="button" class="btn btn-dark">Add to Library</button>

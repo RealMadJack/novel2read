@@ -36,8 +36,17 @@ def add_library_book(request, *args, **kwargs):
 @login_required
 def remove_library_book(request, *args, **kwargs):
     if request.method == 'POST':
-        pass
-    return redirect(reverse('users:library'))
+        try:
+            book = Book.objects.get(slug=kwargs['book_slug'])
+            user = User.objects.get(id=request.user.id)
+            if user is not None:
+                user.library.book.remove(book)
+                user.save()
+                return redirect(reverse('books:book', kwargs={'book_slug': kwargs['book_slug']}))
+            return redirect('/403/')
+        except (Book.DoesNotExist, User.DoesNotExist):
+            return redirect('/403/')
+    return redirect('/403/')
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
