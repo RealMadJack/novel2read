@@ -19,9 +19,9 @@ class BookTagAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
-    model = Book
     fields = (
         ('title', 'title_sm', 'slug'),
+        ('status', 'status_release'),
         'bookgenre',
         'booktag',
         ('author', 'country'),
@@ -31,7 +31,6 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
         ('volumes', 'chapters', 'chapters_max'),
         ('visited_wn', 'book_id_wn'),
         ('visited_bn', 'book_id_bn'),
-        ('status', 'status_release'),
     )
     summernote_fields = ('description', )
     readonly_fields = ('slug', 'chapters', )

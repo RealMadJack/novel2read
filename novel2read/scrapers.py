@@ -72,13 +72,13 @@ class BookScraper:
         # soup_chap = BeautifulSoup(resp_chap.content, self.parser)
         # chap_parag_list = soup_chap.select('.reading-content p')[:5]
         # chap_title = chap_parag_list[0].text.split(' – ')  # re = chapter + :- + int
+
+        # if visited_wn:
+            # something with chapter boxnovel and missing book info
         pass
 
     def request_wn_book(self, book_id):
         """
-        7736629105000905
-        8360425206000005
-        we take: votes_external
         """
         wn_book = f'{self.wn_bb}{book_id}'
 
@@ -107,8 +107,8 @@ class BookScraper:
         book_name = ' '.join(book_name_raw.split(' ')[0:-1])
         book_name_sm = book_name_raw.split(' ')[-1]
         book_info_genre = r.html.find('.det-hd-detail a')[0].text
-        chap_release = r.html.find('.det-hd-detail strong')[0].text
-        chap_release = chap_release.lower().strip() if len(chap_release) < 20 else int(re.findall('\d+', chap_release)[0])
+        chap_release_raw = r.html.find('.det-hd-detail strong')[0].text
+        chap_release = chap_release_raw.lower().strip() if len(chap_release_raw) < 20 else int(re.findall('\d+', chap_release_raw)[0])
         book_info_chap_count_raw = r.html.find('.det-hd-detail strong')[1].text
         book_info_chap_count = int(re.findall('\d+', book_info_chap_count_raw)[0])
         book_info_author = r.html.find('.ell.dib.vam span')[0].text
@@ -189,8 +189,8 @@ class BookScraper:
 
                 if book_data[0]['chap_release'] == 'completed':
                     book.status_release = 1
-                # elif isinstance(book_data[0]['chap_release'], int):
-                #     book.chapter_update = book_data[0]['chap_release']
+                elif isinstance(book_data[0]['chap_release'], int):
+                    book.chapters_release = book_data[0]['chap_release']
 
                 for tag in book_data[0]['book_tag_list']:
                     self.create_new_tag(tag)
@@ -207,8 +207,6 @@ class BookScraper:
                 # pprint.pprint(book_data)
                 book.save()
 
-        # if visited_wn:
-            # something with chapter boxnovel and missing book info
 
     def run(self):
         self.substitute_db_book_info()

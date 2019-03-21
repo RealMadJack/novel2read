@@ -99,6 +99,7 @@
     let activeChap = document.getElementById('activeChap')
 
     function toggleElem(e) {
+      e.preventDefault();
       chapNav.classList.toggle('dblock');
       setTimeout(() => {
         chapNav.classList.toggle('active');
