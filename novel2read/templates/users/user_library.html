@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Library: {{ object.username }}{% endblock %}
+
+{% block content %}
+  <div class="container">
+    {% include 'books/book_lg_wide_list.html' %}
+  </div>
+{% endblock content %}

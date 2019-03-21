@@ -14,7 +14,10 @@ User = get_user_model()
 @login_required
 def library_view(request, *args, **kwargs):
     if request.method == 'GET':
-        pass
+        template_name = 'users/user_library.html'
+        books = request.user.library.book.all()
+        context = {'books': books}
+        return render(request, template_name=template_name, context=context)
 
 
 @login_required
