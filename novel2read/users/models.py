@@ -25,10 +25,18 @@ class Profile(models.Model):
     location = models.CharField(max_length=100, blank=True)
     birth_date = models.DateField(null=True, blank=True)
 
+    class Meta:
+        verbose_name = _('Profile')
+        verbose_name_plural = _('Profile data')
+
 
 class Library(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     book = models.ManyToManyField(Book, related_name='%(class)ss', blank=True)
+
+    class Meta:
+        verbose_name = _('Library')
+        verbose_name_plural = _('Library data')
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

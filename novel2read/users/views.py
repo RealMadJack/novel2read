@@ -1,9 +1,38 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
+from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
+from novel2read.apps.books.models import Book
+
 User = get_user_model()
+
+
+@login_required
+def library_view(request, *args, **kwargs):
+    pass
+
+
+@login_required
+def add_library_book(request, *args, **kwargs):
+    if request.method == 'POST':
+        try:
+            book = Book.objects.get(slug=kwargs['book_slug'])
+            user = User.library.book.add()
+            user.save()
+            return redirect(reverse('books:book', kwargs={'book_slug': kwargs['book_slug']}))
+        except Book.DoesNotExist:
+            return redirect('/404/')
+    return redirect(reverse('users:library-add', kwargs={'book_slug': kwargs['book_slug']}))
+
+
+@login_required
+def remove_library_book(request, *args, **kwargs):
+    if request.method == 'POST':
+        pass
+    return redirect(reverse('users:library'))
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
