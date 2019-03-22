@@ -1,7 +1,7 @@
 import pytest
 
-from novel2read.users.forms import UserCreationForm
-from novel2read.users.tests.factories import UserFactory
+from novel2read.apps.users.forms import UserCreationForm
+from novel2read.apps.users.tests.factories import UserFactory
 
 pytestmark = pytest.mark.django_db
 

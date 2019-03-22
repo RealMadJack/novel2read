@@ -1,6 +1,6 @@
 from django.urls import path
 
-from novel2read.users.views import (
+from novel2read.apps.users.views import (
     user_list_view,
     user_redirect_view,
     user_update_view,

@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.test import RequestFactory
 from django.urls import reverse, resolve
 
-from novel2read.users.views import UserRedirectView, UserUpdateView
+from novel2read.apps.users.views import UserRedirectView, UserUpdateView
 from novel2read.apps.books.models import Book
 
 pytestmark = pytest.mark.django_db

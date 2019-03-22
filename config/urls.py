@@ -10,7 +10,7 @@ urlpatterns = [
     # User management
     path(
         "users/",
-        include("novel2read.users.urls", namespace="users"),
+        include("novel2read.apps.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
     path("summernote/", include("django_summernote.urls")),
