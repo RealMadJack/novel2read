@@ -19,6 +19,19 @@ class User(AbstractUser):
         return reverse("users:detail", kwargs={"username": self.username})
 
 
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_user_profile_library(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+        Library.objects.create(user=instance)
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def save_user_profile_library(sender, instance, **kwargs):
+    instance.profile.save()
+    instance.library.save()
+
+
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     avatar = models.URLField(_('User Image'), blank=True, default='https://cdn2.iconfinder.com/data/icons/user-profile/100/User-512.png', max_length=255)
@@ -40,14 +53,11 @@ class Library(models.Model):
         verbose_name_plural = _('Library data')
 
 
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_user_profile_library(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-        Library.objects.create(user=instance)
+class BookProgress(models.Model):
+    book = models.OneToOneField(Book, on_delete=models.CASCADE)
+    library = models.ForeignKey(Library, on_delete=models.SET_NULL, blank=True, null=True)
+    c_id = models.IntegerField('Chapter ID', blank=True, null=True, default=0)
+    # scroll position
 
-
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def save_user_profile_library(sender, instance, **kwargs):
-    instance.profile.save()
-    instance.library.save()
+    def __str__(self):
+        return self.c_id

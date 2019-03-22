@@ -159,3 +159,4 @@ def save_book_chapters_count(sender, instance, created=False, **kwargs):
     if chapters_count != chapters_count_previous:
         instance.book.chapters = chapters_count
         instance.book.save()
+
