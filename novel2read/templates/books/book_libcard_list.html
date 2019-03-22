@@ -18,7 +18,13 @@
           </div>
           <div class="libcard__info">
             <div class="libcard__info--title"><h4 class="h4-title-sm">{{book.title}}</h4></div>
-            <div class="libcard__info--chaps">Progress {{book.chapters}} / {{book.chapters_max}}</div>
+            <div class="libcard__info--chaps">
+              Progress
+              {% if book.bookprogress %}
+                {{book.bookprogress.c_id}}
+              {% else %}
+                0
+              {% endif %} / {{book.chapters}}</div>
           </div>
         </a>
       </div>

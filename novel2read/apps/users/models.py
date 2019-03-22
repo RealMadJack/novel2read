@@ -52,6 +52,9 @@ class Library(models.Model):
         verbose_name = _('Library')
         verbose_name_plural = _('Library data')
 
+    def __str__(self):
+        return self.user.username
+
 
 class BookProgress(models.Model):
     book = models.OneToOneField(Book, on_delete=models.CASCADE)
@@ -59,5 +62,9 @@ class BookProgress(models.Model):
     c_id = models.IntegerField('Chapter ID', blank=True, null=True, default=0)
     # scroll position
 
+    class Meta:
+        verbose_name = 'Book Progress'
+        verbose_name_plural = 'Book Progresses'
+
     def __str__(self):
-        return self.c_id
+        return f'{self.library}: {self.book.title} Chapter {self.c_id}'

@@ -15,7 +15,7 @@ User = get_user_model()
 def library_view(request, *args, **kwargs):
     if request.method == 'GET':
         template_name = 'users/user_library.html'
-        books = request.user.library.book.all()
+        books = request.user.library.book.select_related('bookprogress').all()
         context = {'books': books}
         return render(request, template_name=template_name, context=context)
 
