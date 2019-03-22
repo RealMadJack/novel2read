@@ -45,7 +45,7 @@ def remove_library_book(request, *args, **kwargs):
             if user is not None:
                 user.library.book.remove(book)
                 user.save()
-                return redirect(reverse('books:book', kwargs={'book_slug': kwargs['book_slug']}))
+                return redirect(reverse('users:library', kwargs={'username': user.username}))
             return redirect('/403/')
         except (Book.DoesNotExist, User.DoesNotExist):
             return redirect('/403/')

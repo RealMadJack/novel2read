@@ -140,6 +140,24 @@ a.disabled {
     position: relative;
     top: -3px; }
 
+.libcard {
+  position: relative; }
+  .libcard__remove {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1; }
+  .libcard__link {
+    display: block; }
+  .libcard__poster {
+    display: block;
+    max-width: 100%; }
+    .libcard__poster--image {
+      width: 100%;
+      height: 300px;
+      -o-object-fit: cover;
+         object-fit: cover; }
+
 .browsebooks {
   margin-top: 30px; }
   .browsebooks__books .book-lg-wide {
