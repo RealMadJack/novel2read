@@ -74,6 +74,11 @@ a.disabled
 .h3-title-sm
 	font-size: 1.3rem
 
+.h4-title
+	font-size: 1.25rem
+.h4-title-sm
+	font-size: 1.1rem
+
 @media only screen and (max-width : 768px)
 	.h1-title
 		font-size: 2.2rem
@@ -89,6 +94,11 @@ a.disabled
 		font-size: 1.35rem
 	.h3-title-sm
 		font-size: 1.2rem
+
+	.h4-title
+		font-size: 1.15rem
+	.h4-title-sm
+		font-size: 1.05rem
 
 // Books list / Book cards
 
@@ -150,11 +160,22 @@ a.disabled
 	&__remove
 		position: absolute
 		right: 0
-		top: 0
+		top: 5px
+		right: 5px
 		z-index: 1
+		a .btn
+			font-size: 1.1rem
+			border-radius: 0
+			border: 0
+			color: $white
+			background-color: $accent
+			&:hover, &:focus, &:active
+				background-color: $white
+				color: $accent-hot
 	&__link
 		display: block
 	&__poster
+		position: relative
 		display: block
 		max-width: 100%
 		&--image
@@ -390,6 +411,8 @@ a.disabled
 			.chaps
 				margin-right: 10px
 				&--toggle
+					.fas
+						pointer-events: none
 				&--volume
 					display: inline-block
 					font-weight: bold
@@ -447,9 +470,8 @@ a.disabled
 			cursor: pointer
 			margin:
 				left: 10px
-			img
-				width: 100%
-				height: auto
+			.fas
+				pointer-events: none
 	&__title
 		.h1-title-sm
 			margin-bottom: 40px

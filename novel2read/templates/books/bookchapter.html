@@ -31,7 +31,7 @@
 
       <div class="bookchapter__nav--select">
         <div class="chaps">
-          <button class="chaps--toggle btn btn-light" id="chaps-toggle">Table of Contents</button>
+          <button class="chaps--toggle btn btn-light" id="chaps-toggle"><i class="fas fa-list"></i></button>
           <ul class="chaps--nav scrollbar" id="chaps-nav">
             {% for chapter in bookchapters %}
               {% with loop_counter=forloop.counter %}
@@ -53,8 +53,7 @@
         </div>
         <div class="bookchapter__styles">
           <div class="btn btn-light"  data-toggle="collapse" data-target="#collapseChapterStyles" aria-expanded="false" aria-controls="collapseChapterStyles">
-            Styles
-            <img class="bookchapter__styles--toggle" src="{% static 'images/cog.svg' %}" alt="styles">
+            <i class="fas fa-cog"></i>
           </div>
         </div>
       </div>
@@ -64,7 +63,7 @@
     <div class="bookchapter__styles">
       <div class="collapse" id="collapseChapterStyles">
         <div class="card card-body">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          Styles:
         </div>
       </div>
     </div>
@@ -110,6 +109,7 @@
     }
 
     function closeElem(e) {
+      e.preventDefault();
       if (chapNav.classList.contains('active')) {
         if (e.target !== chapToggle) {
           chapNav.classList.toggle('dblock');

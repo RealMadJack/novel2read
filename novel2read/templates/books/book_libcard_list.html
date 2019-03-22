@@ -2,13 +2,13 @@
 
 <div class="row">
   {% for book in books %}
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
       <div class="libcard">
         <div class="libcard__remove">
           <form method="post" action="{% url 'users:library-remove' book.slug %}">
             {% csrf_token %}
             <a href="javascript:void(0)">
-              <button type="submit" class="btn btn-dark">Remove</button>
+              <button type="submit" class="btn">Remove</button>
             </a>
           </form>
         </div>
@@ -17,7 +17,7 @@
               <img class="libcard__poster--image" src="{{book.poster_url}}" alt="{{book.title}}">
           </div>
           <div class="libcard__info">
-            <div class="libcard__info--title">{{book.title}}</div>
+            <div class="libcard__info--title"><h4 class="h4-title">{{book.title}}</h4></div>
             <div class="libcard__info--chaps">{{book.chapters}}</div>
           </div>
         </a>

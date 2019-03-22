@@ -71,6 +71,14 @@ a.disabled {
   font-size: 20.8px;
   font-size: 1.3rem; }
 
+.h4-title {
+  font-size: 20px;
+  font-size: 1.25rem; }
+
+.h4-title-sm {
+  font-size: 17.6px;
+  font-size: 1.1rem; }
+
 @media only screen and (max-width: 768px) {
   .h1-title {
     font-size: 2.2rem; }
@@ -83,7 +91,11 @@ a.disabled {
   .h3-title {
     font-size: 1.35rem; }
   .h3-title-sm {
-    font-size: 1.2rem; } }
+    font-size: 1.2rem; }
+  .h4-title {
+    font-size: 1.15rem; }
+  .h4-title-sm {
+    font-size: 1.05rem; } }
 
 .booktag {
   display: inline-block;
@@ -145,11 +157,23 @@ a.disabled {
   .libcard__remove {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 5px;
+    right: 5px;
     z-index: 1; }
+    .libcard__remove a .btn {
+      font-size: 17.6px;
+      font-size: 1.1rem;
+      border-radius: 0;
+      border: 0;
+      color: #fff;
+      background-color: #6A57F9; }
+      .libcard__remove a .btn:hover, .libcard__remove a .btn:focus, .libcard__remove a .btn:active {
+        background-color: #fff;
+        color: #FF0099; }
   .libcard__link {
     display: block; }
   .libcard__poster {
+    position: relative;
     display: block;
     max-width: 100%; }
     .libcard__poster--image {
@@ -410,6 +434,8 @@ a.disabled {
     max-width: 300px; }
     .bookchapter__nav--select .chaps {
       margin-right: 10px; }
+      .bookchapter__nav--select .chaps--toggle .fas {
+        pointer-events: none; }
       .bookchapter__nav--select .chaps--volume {
         display: inline-block;
         font-weight: bold;
@@ -468,9 +494,8 @@ a.disabled {
   width: 20px;
   cursor: pointer;
   margin-left: 10px; }
-  .bookchapter__styles--toggle img {
-    width: 100%;
-    height: auto; }
+  .bookchapter__styles--toggle .fas {
+    pointer-events: none; }
 
 .bookchapter__title .h1-title-sm {
   margin-bottom: 40px; }
