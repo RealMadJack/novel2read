@@ -39,7 +39,7 @@
       <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container">
 
-          <a class="navbar-brand" href="{% url 'books:front_page' %}">n2r</a>
+          <a class="navbar-brand" href="{% url 'books:front_page' %}">novel2read</a>
 
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -48,7 +48,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             {% with url_name=request.resolver_match.url_name %}
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item btn-group">
+              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle{% if url_name == 'genre-list' or url_name == 'genre' %} active{% endif %}" href="{% url 'books:genre-list' %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse</a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item {% if url_name == 'genre-list' %} active{% endif %}" href="{% url 'books:genre-list' %}">All Genres</a>
