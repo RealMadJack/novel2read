@@ -58,6 +58,9 @@ class BookView(DetailView):
             book = books.get(slug=kwargs['book_slug'])
             last_chap = book.bookchapters.last()
             context = {'books': books, 'book': book, 'last_chap': last_chap}
+            if request.user.is_authenticated:
+                book_in = book in request.user.library.book.all()
+                context['book_in'] = book_in
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
             return redirect('/404/')

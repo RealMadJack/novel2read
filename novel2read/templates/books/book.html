@@ -61,7 +61,7 @@
             </a>
           {% endif %}
           {% if request.user.is_authenticated %}
-            {% if book in request.user.library.book.all %}
+            {% if book_in %}
               <form method="post" action="{% url 'users:library-remove' book.slug %}">
                 {% csrf_token %}
                 <a href="javascript:void(0)">
