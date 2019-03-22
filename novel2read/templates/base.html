@@ -68,13 +68,22 @@
             </ul>
             <ul class="navbar-nav mr-right">
               {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                  {# URL provided by django-allauth/account/urls.py #}
-                  <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
-                </li>
-                <li class="nav-item">
-                  {# URL provided by django-allauth/account/urls.py #}
-                  <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
+                    {{request.user.username}}
+                  </a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'users:detail' request.user.username  %}">
+                      {# URL provided by django-allauth/account/urls.py #}
+                      {% trans "My Profile" %}
+                    </a>
+                    <a class="dropdown-item" href="{% url 'users:library' request.user.username %}">Library</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'account_logout' %}">
+                      {# URL provided by django-allauth/account/urls.py #}
+                      {% trans "Sign Out" %}
+                    </a>
+                  </div>
                 </li>
               {% else %}
                 <li class="nav-item">
