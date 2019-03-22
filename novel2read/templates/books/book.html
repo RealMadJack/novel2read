@@ -3,6 +3,8 @@
 {% load static %}
 {% load humanize %}
 
+{% block title %}{{book.title}} - {{block.super}}{% endblock %}
+
 {% block content %}
 
   <div class="book">

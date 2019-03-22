@@ -3,6 +3,8 @@
 {% load static %}
 {% load django_bootstrap_breadcrumbs %}
 
+{% block title %}Chapter {{bookchapter.c_id}} - {{bookchapter.title}}{% endblock %}
+
 {% block breadcrumbs %}
     {{ block.super }}
     {% breadcrumb bookchapter.book.title bookchapter.book.get_absolute_url %}

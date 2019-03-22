@@ -2,15 +2,15 @@
 
 {% load static %}
 
+{% block title %}
+  {% if tag %}{{tag.name}}{% else %}Tags{% endif %} - {{block.super}}
+{% endblock %}
+
 {% block content %}
   <div class="browsetags">
     <div class="browsetags__title">
       <h1 class="h1-title">
-        {% if request.resolver_match.url_name == 'tag-list' %}
-          All Tags
-        {% else %}
-          {{tag.name}}
-        {% endif %}
+        {% if tag %}{{tag.name}}{% else %}All Tags{% endif %}
       </h1>
     </div>
     <div class="browsetags__tag-nav ">

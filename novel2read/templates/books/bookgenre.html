@@ -2,6 +2,19 @@
 
 {% load static %}
 
+{% block title %}
+  {% if request.resolver_match.url_name == 'genre-list' %}
+    Genres
+  {% else %}
+    {% for bookgenre in bookgenres %}
+      {% if request.path == bookgenre.get_absolute_url %}
+        {{bookgenre.name}}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+   - {{block.super}}
+{% endblock %}
+
 {% block content %}
   <div class="browsebooks">
     <h1 class="browsebooks__title h1-title">
