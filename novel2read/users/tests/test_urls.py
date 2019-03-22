@@ -1,4 +1,5 @@
 import pytest
+from django.test import TestCase
 from django.conf import settings
 from django.urls import reverse, resolve
 
@@ -26,3 +27,12 @@ def test_update():
 def test_redirect():
     assert reverse("users:redirect") == "/users/~redirect/"
     assert resolve("/users/~redirect/").view_name == "users:redirect"
+
+
+class LibraryTestUrls(TestCase):
+    def setUp(self):
+        pass
+
+    def test_library(self):
+        assert reverse("users:library", kwargs={'username': 'testuser'}) == "/users/testuser/library/"
+        assert resolve("/users/testuser/library/").view_name == "users:library"
