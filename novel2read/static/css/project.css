@@ -79,6 +79,18 @@ a.disabled {
   font-size: 17.6px;
   font-size: 1.1rem; }
 
+.mt-30 {
+  margin-top: 30px; }
+
+.mb-30 {
+  margin-bottom: 30px; }
+
+.mt-15 {
+  margin-top: 15px; }
+
+.mb-15 {
+  margin-bottom: 15px; }
+
 @media only screen and (max-width: 768px) {
   .h1-title {
     font-size: 2.2rem; }
@@ -198,49 +210,47 @@ a.disabled {
     font-size: 15.2px;
     font-size: .95rem; }
 
-.browsebooks {
-  margin-top: 30px; }
-  .browsebooks__books .book-lg-wide {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    grid-gap: 10px;
-    margin-bottom: 20px; }
-    .browsebooks__books .book-lg-wide a {
+.browsebooks__books .book-lg-wide {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-gap: 10px;
+  margin-bottom: 20px; }
+  .browsebooks__books .book-lg-wide a {
+    color: black;
+    text-decoration: none;
+    outline: none; }
+    .browsebooks__books .book-lg-wide a:hover, .browsebooks__books .book-lg-wide a:active, .browsebooks__books .book-lg-wide a:focus {
       color: black;
       text-decoration: none;
       outline: none; }
-      .browsebooks__books .book-lg-wide a:hover, .browsebooks__books .book-lg-wide a:active, .browsebooks__books .book-lg-wide a:focus {
-        color: black;
-        text-decoration: none;
-        outline: none; }
-    .browsebooks__books .book-lg-wide__poster {
-      background-color: white; }
-      .browsebooks__books .book-lg-wide__poster--image {
-        display: block;
-        width: 100%;
-        height: auto;
-        max-height: 215px;
-        max-width: 100%;
-        -o-object-fit: cover;
-           object-fit: cover; }
-    .browsebooks__books .book-lg-wide__info--title {
-      margin: 0;
-        margin-bottom: 16px;
-        margin-bottom: 1rem; }
-    .browsebooks__books .book-lg-wide__info--tags {
-      max-height: 30px;
-      overflow-y: hidden; }
-      .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type {
-        color: #FF0099 !important;
-        border-color: #FF0099 !important; }
-        .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type:hover, .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type:focus, .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type:active {
-          background-color: #FF0099 !important;
-          color: #fff !important; }
-    .browsebooks__books .book-lg-wide__info--desc {
-      font-size: 16px;
-      font-size: 1rem;
-      height: 75px;
-      overflow-y: hidden; }
+  .browsebooks__books .book-lg-wide__poster {
+    background-color: white; }
+    .browsebooks__books .book-lg-wide__poster--image {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 215px;
+      max-width: 100%;
+      -o-object-fit: cover;
+         object-fit: cover; }
+  .browsebooks__books .book-lg-wide__info--title {
+    margin: 0;
+      margin-bottom: 16px;
+      margin-bottom: 1rem; }
+  .browsebooks__books .book-lg-wide__info--tags {
+    max-height: 30px;
+    overflow-y: hidden; }
+    .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type {
+      color: #FF0099 !important;
+      border-color: #FF0099 !important; }
+      .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type:hover, .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type:focus, .browsebooks__books .book-lg-wide__info--tags .booktag:first-of-type:active {
+        background-color: #FF0099 !important;
+        color: #fff !important; }
+  .browsebooks__books .book-lg-wide__info--desc {
+    font-size: 16px;
+    font-size: 1rem;
+    height: 75px;
+    overflow-y: hidden; }
 
 .browsetags {
   margin-top: 30px; }
