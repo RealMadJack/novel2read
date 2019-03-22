@@ -157,6 +157,7 @@ a.disabled
 
 .libcard
 	position: relative
+	margin-bottom: 30px
 	&__remove
 		position: absolute
 		right: 0
@@ -174,6 +175,13 @@ a.disabled
 				color: $accent-hot
 	&__link
 		display: block
+		color: $default
+		outline: none
+		text-decoration: none
+		&:hover, &:active, &:focus
+			text-decoration: none
+			outline: none
+			color: $accent
 	&__poster
 		position: relative
 		display: block
@@ -184,7 +192,12 @@ a.disabled
 			object-fit: cover
 	&__info
 		&--title
+			margin-top: 6px
+			.h4-title-sm
+				margin-bottom: 4px
 		&--chaps
+			opacity: .7
+			font-size: .95rem
 
 
 .browsebooks
@@ -314,6 +327,9 @@ a.disabled
 					display: block
 					font-size: 1.2rem
 					padding: 10px 30px
+				.fas
+					font-size: 1.1rem
+					padding-right: 10px
 	.bookbody
 		&__tabs
 			.tab-content

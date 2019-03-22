@@ -20,6 +20,19 @@
 				&--tags
 				&--read
 
+	.libcard
+		&__remove
+			a .btn
+				&:hover, &:focus, &:active
+		&__link
+			&:hover, &:active, &:focus
+		&__poster
+			&--image
+				height: 250px
+		&__info
+			&--title
+				.h4-title-sm
+			&--chaps
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px)
@@ -75,6 +88,20 @@
 						a
 							span
 							small
+
+	.libcard
+		&__remove
+			a .btn
+				&:hover, &:focus, &:active
+		&__link
+			&:hover, &:active, &:focus
+		&__poster
+			&--image
+				height: 420px
+		&__info
+			&--title
+				.h4-title-sm
+			&--chaps
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px)
@@ -137,6 +164,21 @@
 						small
 							grid-column-start: 2
 
+	.libcard
+		&__remove
+			a .btn
+				&:hover, &:focus, &:active
+		&__link
+			&:hover, &:active, &:focus
+		&__poster
+			&--image
+				height: 340px
+		&__info
+			&--title
+				.h4-title-sm
+			&--chaps
+				font-size: .9rem
+
 	.bookchapter
 		&__nav
 			flex-wrap: wrap
@@ -180,6 +222,22 @@
 @media only screen and (max-width : 575px)
 	.container
 		padding: 0 15px
+
+	.libcard
+		&__remove
+			a .btn
+				&:hover, &:focus, &:active
+		&__link
+			&:hover, &:active, &:focus
+		&__poster
+			&--image
+				height: auto
+				max-height: 660px
+		&__info
+			&--title
+				.h4-title-sm
+			&--chaps
+				font-size: .9rem
 
 
 /* Extra Small Devices, Phones */
