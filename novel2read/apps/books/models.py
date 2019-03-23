@@ -144,7 +144,7 @@ class BookChapter(TimeStampedModel):
 
     def get_absolute_url(self):
         return reverse('books:bookchapter', kwargs={
-            'book_slug': self.book.slug, 'bookchapter_pk': self.pk})
+            'book_slug': self.book.slug, 'c_id': self.c_id})
 
     def save(self, *args, **kwargs):
         self.title = ' '.join([w.capitalize() for w in self.title.split(' ')])

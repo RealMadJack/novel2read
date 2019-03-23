@@ -211,10 +211,10 @@ class BookChapterTest(TestCase):
         abs_url_1 = self.bookchapter_1.get_absolute_url()
         reverse_url = reverse(
             'books:bookchapter',
-            kwargs={'book_slug': self.book.slug, 'bookchapter_pk': self.bookchapter.pk})
+            kwargs={'book_slug': self.book.slug, 'c_id': self.bookchapter.c_id})
         reverse_url_1 = reverse(
             'books:bookchapter',
-            kwargs={'book_slug': self.book_1.slug, 'bookchapter_pk': self.bookchapter_1.pk})
+            kwargs={'book_slug': self.book_1.slug, 'c_id': self.bookchapter_1.c_id})
         self.assertEqual(abs_url, reverse_url)
         self.assertEqual(abs_url_1, reverse_url_1)
 
@@ -222,7 +222,7 @@ class BookChapterTest(TestCase):
         abs_url = self.book.get_absolute_url()
         reverse_url = reverse(
             'books:bookchapter',
-            kwargs={'book_slug': self.book.slug, 'bookchapter_pk': self.bookchapter.pk})
+            kwargs={'book_slug': self.book.slug, 'c_id': self.bookchapter.c_id})
         self.assertNotEqual(abs_url, '')
         self.assertNotEqual(reverse_url, '')
 

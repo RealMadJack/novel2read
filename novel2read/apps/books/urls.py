@@ -17,7 +17,7 @@ urlpatterns = [
     path("tags/all/", BookTagView.as_view(), name="tag-list"),
     path("tags/<slug:booktag_slug>/", BookTagView.as_view(), name="tag"),
     path("books/<slug:book_slug>/", BookView.as_view(), name="book"),
-    path("books/<slug:book_slug>/<int:bookchapter_pk>/", BookChapterView.as_view(), name="bookchapter"),
+    path("books/<slug:book_slug>/<int:c_id>/", BookChapterView.as_view(), name="bookchapter"),
     path("ranking/", TemplateView.as_view(template_name="books/ranking.html"), name="ranking"),
     path("search/", TemplateView.as_view(template_name="books/search.html"), name="search"),
 ]
