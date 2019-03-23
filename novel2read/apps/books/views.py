@@ -76,13 +76,14 @@ class BookChapterView(DetailView):
                 from novel2read.apps.users.models import BookProgress
                 try:
                     book_prog = BookProgress.objects.get(book=bookchapter.book)
-                    print('Updating')
                     book_prog.c_id = bookchapter.c_id
                     book_prog.save()
                 except BookProgress.DoesNotExist:
-                    print('Exepting')
-                    # BookProgress.objects.create(
-                    #     book=bookchapter.book, library=request.user.library, c_id=bookchapter.c_id)
+                    BookProgress.objects.create(
+                        book=bookchapter.book,
+                        library=request.user.library,
+                        c_id=bookchapter.c_id,
+                    )
 
             return render(request, template_name=self.template_name, context=context)
         except (Book.DoesNotExist, BookChapter.DoesNotExist):
