@@ -55,10 +55,10 @@ class BookScraper:
         except (BookTag.DoesNotExist, Book.DoesNotExist) as e:
             raise e
 
-    def create_book_chapter(self, book, c_id, c_title, c_content):
+    def create_book_chapter(self, book, c_title, c_content):
         logging.info(f'Adding: {c_title}')
         bookchapter = BookChapter.objects.create(
-            book=book, c_id=c_id, title=c_title, text=c_content)
+            book=book, title=c_title, text=c_content)
         return bookchapter
 
     def request_bn_book(self, book_id):
@@ -198,7 +198,7 @@ class BookScraper:
 
                 for chap in book_data[1:-1]:
                     # check if chap exists and update
-                    self.create_book_chapter(book, chap['c_id'], chap['c_tit'], chap['c_content'])
+                    self.create_book_chapter(book, chap['c_tit'], chap['c_content'])
                 book.locked_wn = book_data[-1]['locked_from_id']
 
                 logging.info(f'Saving book: {book}')
@@ -206,7 +206,6 @@ class BookScraper:
                 book.visited_wn = True
                 # pprint.pprint(book_data)
                 book.save()
-
 
     def run(self):
         self.substitute_db_book_info()

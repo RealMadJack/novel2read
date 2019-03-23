@@ -73,7 +73,7 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'novel2read.apps.users.apps.UsersAppConfig',
-    'novel2read.apps.books',
+    'novel2read.apps.books.apps.BooksConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from .apps import BooksConfig
 from .views import FrontPageView, BookGenreView, BookTagView, BookView, BookChapterView
 
-app_name = BooksConfig.name
+app_name = BooksConfig.verbose_name
 
 urlpatterns = [
     path("", FrontPageView.as_view(), name="front_page"),

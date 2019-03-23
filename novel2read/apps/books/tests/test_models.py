@@ -232,13 +232,8 @@ class BookChapterTest(TestCase):
         self.assertNotEqual(abs_url, '')
         self.assertNotEqual(reverse_url, '')
 
-    # def test_chaptet_count_id_signal(self):
-    #     self.assertEqual(1, self.bookchapter.count_id)
-    #     self.assertEqual(2, self.bookchapter_2.count_id)
-    #     self.assertEqual(3, self.bookchapter_3.count_id)
-    #     self.assertEqual(1, self.bookchapter_1.count_id)
-    #     self.assertEqual(2, self.bookchapter_4.count_id)
-    #     self.assertEqual(3, self.bookchapter_5.count_id)
+    def test_cid_update_signal(self):
+        self.assertEqual(1, self.bookchapter.c_id)
 
         # if we deleting chapter, our count changes => new chapter will not have unique id
         # if chapters > 1: prev count_id + 1

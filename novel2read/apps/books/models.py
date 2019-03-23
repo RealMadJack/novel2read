@@ -2,7 +2,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.conf import settings
 from django.db import models
 from django.db.models import Count
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
@@ -136,8 +136,8 @@ class BookChapter(TimeStampedModel):
 
     class Meta:
         ordering = ['pk']
-        verbose_name = _('Chapter')
-        verbose_name_plural = _('Chapters')
+        verbose_name = _('Book Chapter')
+        verbose_name_plural = _('Book Chapters')
 
     def __str__(self):
         return f'Book: {self.book.title} - Chapter: {self.title}'
@@ -151,6 +151,23 @@ class BookChapter(TimeStampedModel):
         if not self.slug or self.title != self.tracker.previous('title'):
             self.slug = get_unique_slug(BookChapter, self.title)
         return super().save(*args, **kwargs)
+
+
+@receiver(post_save, sender=BookChapter)
+def update_chapter_cid(sender, instance, created=False, **kwargs):
+    chapters_count = instance.book.get_chapters_count()
+    print(f'CHAPTERS {chapters_count}')
+    if created:
+        print('CHAPTERS created')
+        if not bool(chapters_count):
+            print('chapters 0')
+            print(instance.c_id)
+            instance.c_id = chapters_count + 1
+            print(instance.c_id)
+            instance.save()
+        else:
+            # if not c_id
+            print('chapter > 0')
 
 
 @receiver([post_save, post_delete], sender=BookChapter)

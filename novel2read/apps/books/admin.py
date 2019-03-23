@@ -45,7 +45,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
 @admin.register(BookChapter)
 class BookChapterAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
     summernote_fields = ('text', )
-    readonly_fields = ('slug', )
+    readonly_fields = ('slug', 'c_id', )
     list_select_related = ('book', )
     list_display = ('title', 'get_book', 'created', 'modified', )
 
