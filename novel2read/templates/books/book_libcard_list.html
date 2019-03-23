@@ -12,7 +12,11 @@
             </a>
           </form>
         </div>
-        <a class="libcard__link" href="{{book.get_absolute_url}}">
+      {% if book.bookprogress %}
+        <a class="libcard__link" href="{% url 'books:bookchapter' book.slug book.bookprogress.c_id %}">
+      {% else %}
+        <a class="libcard__link" href="{% url 'books:bookchapter' book.slug 1 %}">
+      {% endif %}
           <div class="libcard__poster">
               <img class="libcard__poster--image" src="{{book.poster_url}}" alt="{{book.title}}">
           </div>

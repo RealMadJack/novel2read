@@ -64,7 +64,7 @@ class BookChapterView(DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            bookchapter = BookChapter.objects.select_related('book').get(c_id=kwargs['c_id'])
+            bookchapter = BookChapter.objects.select_related('book').get(c_id=kwargs['c_id'], book__slug=kwargs['book_slug'])
             bookchapters = BookChapter.objects.filter(book__slug=kwargs['book_slug']).select_related('book')
             prev_chap = prev_in_order(bookchapter, qs=bookchapters)
             next_chap = next_in_order(bookchapter, qs=bookchapters)
@@ -84,7 +84,6 @@ class BookChapterView(DetailView):
                         library=request.user.library,
                         c_id=bookchapter.c_id,
                     )
-
             return render(request, template_name=self.template_name, context=context)
         except (Book.DoesNotExist, BookChapter.DoesNotExist):
             return redirect('/404/')
