@@ -153,27 +153,28 @@ class BookChapter(TimeStampedModel):
         return super().save(*args, **kwargs)
 
 
-@receiver(post_save, sender=BookChapter)
-def update_chapter_cid(sender, instance, created=False, **kwargs):
-    chapters_count = instance.book.get_chapters_count()
-    print(f'CHAPTERS {chapters_count}')
-    if created:
-        print('CHAPTERS created')
-        if not bool(chapters_count):
-            print('chapters 0')
-            print(instance.c_id)
-            instance.c_id = chapters_count + 1
-            print(instance.c_id)
-            instance.save()
-        else:
-            # if not c_id
-            print('chapter > 0')
-
-
 @receiver([post_save, post_delete], sender=BookChapter)
 def save_book_chapters_count(sender, instance, created=False, **kwargs):
     chapters_count = instance.book.get_chapters_count()
     chapters_count_previous = instance.book.tracker.previous('chapters')
     if chapters_count != chapters_count_previous:
         instance.book.chapters = chapters_count
+        if created:
+            instance.c_id = chapters_count
         instance.book.save()
+
+
+@receiver(post_save, sender=BookChapter)
+def create_update_chapter_cid(sender, instance, created=False, **kwargs):
+    if created:
+        chapters_count = instance.book.get_chapters_count()
+        instance.c_id = chapters_count
+        instance.book.save()
+
+
+@receiver(post_delete, sender=BookChapter)
+def delete_update_chapter_cid(sender, instance, **kwargs):
+    book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug).select_related('book')
+    for i, chap in enumerate(book_chaps):
+        chap.cid = i + 1
+        chap.save()

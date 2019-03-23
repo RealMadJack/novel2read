@@ -190,11 +190,7 @@ class BookChapterTest(TestCase):
         self.book = Book.objects.create(title='test book')
         self.book_1 = Book.objects.create(title='test book 1')
         self.bookchapter = BookChapter.objects.create(title='test chapter', book=self.book)
-        self.bookchapter_2 = BookChapter.objects.create(title='test chapter 2', book=self.book)
-        self.bookchapter_3 = BookChapter.objects.create(title='test chapter 3', book=self.book)
         self.bookchapter_1 = BookChapter.objects.create(title='test chapter', book=self.book_1)
-        self.bookchapter_4 = BookChapter.objects.create(title='test chapter 4', book=self.book_1)
-        self.bookchapter_5 = BookChapter.objects.create(title='test chapter 5', book=self.book_1)
 
     def test_book_data(self):
         self.assertEqual(self.bookchapter.title, capitalize('test chapter'))
@@ -232,21 +228,21 @@ class BookChapterTest(TestCase):
         self.assertNotEqual(abs_url, '')
         self.assertNotEqual(reverse_url, '')
 
-    def test_cid_update_signal(self):
-        self.assertEqual(1, self.bookchapter.c_id)
-
-        # if we deleting chapter, our count changes => new chapter will not have unique id
-        # if chapters > 1: prev count_id + 1
-        # self.bookchapter.delete()
-        # self.bookchapter_6 = BookChapter.objects.create(title='test chapter 6', book=self.book)
-        # self.assertEqual(3, self.bookchapter_3.count_id)
-        # self.assertEqual(4, self.bookchapter_6.count_id)
-
-    # def test_chaptet_count_id_signal_invalid(self):
-    #     self.assertNotEqual(2, self.bookchapter.count_id)
-    #     self.assertNotEqual(1, self.bookchapter_2.count_id)
-    #     self.assertNotEqual(1, self.bookchapter_3.count_id)
-    #     self.assertNotEqual(0, self.bookchapter_1.count_id)
-    #     self.assertNotEqual(1, self.bookchapter_4.count_id)
-    #     self.assertNotEqual(2, self.bookchapter_5.count_id)
-    #     pass
+    def test_update_chapters_cid(self):
+        # bookchapter + 2 new chapters for book 1
+        bookchapter_1 = BookChapter.objects.create(title='test chapter 1', book=self.book)
+        bookchapter_2 = BookChapter.objects.create(title='test chapter 2', book=self.book)
+        self.assertEqual(self.bookchapter.book.chapters, 3)
+        self.assertEqual(self.bookchapter.c_id, 1)
+        self.assertEqual(bookchapter_1.c_id, 2)
+        self.assertEqual(bookchapter_2.c_id, 3)
+        # delete first and second BC
+        self.bookchapter.delete()
+        bookchapter_1.delete()
+        self.assertEqual(bookchapter_2.book.chapters, 1)
+        # create 2 new bc
+        bookchapter_3 = BookChapter.objects.create(title='test chapter 3', book=self.book)
+        bookchapter_4 = BookChapter.objects.create(title='test chapter 4', book=self.book)
+        self.assertEqual(bookchapter_2.book.chapters, 4)
+        self.assertEqual(bookchapter_3.c_id, 2)
+        self.assertEqual(bookchapter_4.c_id, 2)

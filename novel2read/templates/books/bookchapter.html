@@ -44,7 +44,7 @@
                 {% endif %}
                 <li {% if request.path == chapter.get_absolute_url %}class="active" id="activeChap"{% endif %}>
                   <a href="{{chapter.get_absolute_url}}">
-                    <span>#{{loop_counter}}: {{chapter.title}}</span>
+                    <span>#{{chapter.c_id}}: {{chapter.title}}</span>
                   </a>
                 </li>
               {% endwith %}
