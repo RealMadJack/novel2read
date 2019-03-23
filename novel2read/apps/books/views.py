@@ -12,14 +12,7 @@ class FrontPageView(View):
 
 
 class BookGenreView(ListView):
-    # model = Book
     template_name = 'books/bookgenre.html'
-    # paginate_by = 20
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['books'] = Book.objects.all()
-    #     return context
 
     def get(self, request, *args, **kwargs):
         try:
