@@ -3,7 +3,7 @@ from django.contrib.auth import admin as auth_admin
 from django.contrib.auth import get_user_model
 
 from novel2read.apps.users.forms import UserChangeForm, UserCreationForm
-from .models import Profile, Library, BookProgress
+from .models import Profile, Library
 
 User = get_user_model()
 
@@ -30,8 +30,8 @@ class UserAdmin(auth_admin.UserAdmin):
     search_fields = ["name"]
 
 
-@admin.register(BookProgress)
-class BookProgress(admin.ModelAdmin):
-    fields = ('library', 'book', 'c_id', )
-    list_select_related = ('book', 'library__user')
-    list_display = ('library', 'book', 'c_id')
+# @admin.register(BookProgress)
+# class BookProgress(admin.ModelAdmin):
+#     fields = ('library', 'book', 'c_id', )
+#     list_select_related = ('book', 'library__user')
+#     list_display = ('library', 'book', 'c_id')

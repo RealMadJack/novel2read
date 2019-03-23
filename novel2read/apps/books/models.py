@@ -9,6 +9,7 @@ from model_utils import Choices, FieldTracker
 from model_utils.fields import StatusField, MonitorField
 from model_utils.models import TimeStampedModel
 
+# from novel2read.apps.users.models import Library
 from .utils import get_unique_slug
 
 
@@ -159,3 +160,18 @@ def save_book_chapters_count(sender, instance, created=False, **kwargs):
     if chapters_count != chapters_count_previous:
         instance.book.chapters = chapters_count
         instance.book.save()
+
+
+# class BookProgress(models.Model):
+#     book = models.OneToOneField(Book, on_delete=models.CASCADE)
+#     library = models.ForeignKey(Library, on_delete=models.SET_NULL, blank=True, null=True)
+#     c_id = models.IntegerField('Chapter ID', blank=True, null=True, default=0)
+#     # bc_pk = models.IntegerField('Chapter ID', blank=True, null=True, default=0)
+#     # scroll position
+
+#     class Meta:
+#         verbose_name = 'Book Progress'
+#         verbose_name_plural = 'Book Progresses'
+
+#     def __str__(self):
+#         return f'{self.library}: {self.book.title} Chapter {self.c_id}'
