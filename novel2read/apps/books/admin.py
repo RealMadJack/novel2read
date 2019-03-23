@@ -47,7 +47,7 @@ class BookChapterAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
     summernote_fields = ('text', )
     readonly_fields = ('slug', 'c_id', )
     list_select_related = ('book', )
-    list_display = ('title', 'get_book', 'created', 'modified', )
+    list_display = ('title', 'c_id', 'get_book', 'created', 'modified', )
 
     def get_book(self, obj):
         return obj.book.title

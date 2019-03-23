@@ -194,10 +194,8 @@ class BookChapterTest(TestCase):
 
     def test_book_data(self):
         self.assertEqual(self.bookchapter.title, capitalize('test chapter'))
-        self.assertEqual(self.bookchapter.slug, 'test-chapter')
         self.assertEqual(self.bookchapter.book.title, capitalize('test book'))
         self.assertEqual(self.bookchapter_1.title, capitalize('test chapter'))
-        self.assertEqual(self.bookchapter_1.slug, 'test-chapter-1')
         self.assertEqual(self.bookchapter_1.book.title, capitalize('test book 1'))
 
     def test_book_data_invalid(self):
@@ -243,6 +241,6 @@ class BookChapterTest(TestCase):
         # create 2 new bc
         bookchapter_3 = BookChapter.objects.create(title='test chapter 3', book=self.book)
         bookchapter_4 = BookChapter.objects.create(title='test chapter 4', book=self.book)
-        self.assertEqual(bookchapter_2.book.chapters, 4)
+        self.assertEqual(bookchapter_2.book.chapters, 3)
         self.assertEqual(bookchapter_3.c_id, 2)
-        self.assertEqual(bookchapter_4.c_id, 2)
+        self.assertEqual(bookchapter_4.c_id, 3)

@@ -159,17 +159,15 @@ def save_book_chapters_count(sender, instance, created=False, **kwargs):
     chapters_count_previous = instance.book.tracker.previous('chapters')
     if chapters_count != chapters_count_previous:
         instance.book.chapters = chapters_count
-        if created:
-            instance.c_id = chapters_count
         instance.book.save()
 
 
 @receiver(post_save, sender=BookChapter)
 def create_update_chapter_cid(sender, instance, created=False, **kwargs):
+    chapters_count = instance.book.get_chapters_count()
     if created:
-        chapters_count = instance.book.get_chapters_count()
         instance.c_id = chapters_count
-        instance.book.save()
+        instance.save()
 
 
 @receiver(post_delete, sender=BookChapter)
