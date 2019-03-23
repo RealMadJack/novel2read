@@ -72,6 +72,18 @@ class BookChapterView(DetailView):
                 'bookchapters': bookchapters,
                 'bookchapter': bookchapter,
                 'prev_chap': prev_chap, 'next_chap': next_chap}
+            if request.user.is_authenticated:
+                from novel2read.apps.users.models import BookProgress
+                try:
+                    book_prog = BookProgress.objects.get(book=bookchapter.book)
+                    print('Updating')
+                    book_prog.c_id = bookchapter.c_id
+                    book_prog.save()
+                except BookProgress.DoesNotExist:
+                    print('Exepting')
+                    # BookProgress.objects.create(
+                    #     book=bookchapter.book, library=request.user.library, c_id=bookchapter.c_id)
+
             return render(request, template_name=self.template_name, context=context)
         except (Book.DoesNotExist, BookChapter.DoesNotExist):
             return redirect('/404/')
