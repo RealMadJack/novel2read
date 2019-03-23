@@ -59,7 +59,7 @@ class Library(models.Model):
 class BookProgress(models.Model):
     book = models.OneToOneField(Book, on_delete=models.CASCADE)
     library = models.ForeignKey(Library, on_delete=models.SET_NULL, blank=True, null=True)
-    c_id = models.IntegerField('Chapter ID', blank=True, null=True, default=0)
+    c_id = models.IntegerField('Chapter ID', blank=True, null=True, default=0, db_index=True)
 
     class Meta:
         verbose_name = 'Book Progress'
