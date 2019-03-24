@@ -172,8 +172,9 @@ def create_update_chapter_cid(sender, instance, created=False, **kwargs):
 
 @receiver(post_delete, sender=BookChapter)
 def delete_update_chapter_cid(sender, instance, **kwargs):
-    """TODO: Refactor update loop"""
-    book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug).select_related('book')
+    """TODO: Refactor update loop - takes too long"""
+    print(BookChapter.objects.filter(book__slug=instance.book.slug).explain(verbose=True))
+    book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug)
     for i, chap in enumerate(book_chaps):
         chap.c_id = i + 1
         chap.save()
