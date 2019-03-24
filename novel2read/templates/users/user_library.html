@@ -4,6 +4,7 @@
 {% block title %}Library - {{block.super}}{% endblock %}
 
 {% block content %}
+<div class="container">
   <div class="libbrowse mt-30">
     <div class="libbrowse__title">
       <h1 class="h1-title">Library</h1>
@@ -12,4 +13,5 @@
       {% include 'books/book_libcard_list.html' %}
     </div>
   </div>
+</div>
 {% endblock content %}
