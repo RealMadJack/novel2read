@@ -1,13 +1,13 @@
 from django.contrib.postgres.fields import ArrayField
 from django.conf import settings
 from django.db import models
-from django.db.models import Count
-from django.db.models.signals import pre_save, post_save, post_delete
+from django.db.models import F
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices, FieldTracker
-from model_utils.fields import StatusField, MonitorField
+from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
 
 from .utils import get_unique_slug
@@ -172,9 +172,9 @@ def create_update_chapter_cid(sender, instance, created=False, **kwargs):
 
 @receiver(post_delete, sender=BookChapter)
 def delete_update_chapter_cid(sender, instance, **kwargs):
-    """TODO: Refactor update loop - takes too long"""
-    print(BookChapter.objects.filter(book__slug=instance.book.slug).explain(verbose=True))
+    """TODO: try to find a way with F expression"""
     book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug)
+    # book_chaps.update(c_id=F('c_id') + 1)
     for i, chap in enumerate(book_chaps):
         chap.c_id = i + 1
-        chap.save()
+        chap.save(update_fields=['c_id'])
