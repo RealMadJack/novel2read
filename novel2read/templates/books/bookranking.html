@@ -10,9 +10,36 @@
       <h1 class="h1-title">{{bookranking_title}}</h1>
     </div>
     <div class="bookranking__cards">
-      {% for book in books %}
-        {{book.title}}
-      {% endfor %}
+      <div class="row">
+        {% for book in books_top %}
+          <div class="col-md-4">
+            <div class="rankcard">
+              <div class="rankcard__rank">
+                <span>{{forloop.counter}}</span>
+              </div>
+              <div class="rankcard__poster"></div>
+              <div class="rankcard__info">
+                <h2 class="h2-title-sm">{{book.title}}</h2>
+              </div>
+              <div class="rankcard__vote"></div>
+            </div>
+          </div>
+        {% endfor %}
+        {% for book in books %}
+          <div class="col-md-12">
+            <div class="rankcard-wide">
+              <div class="rankcard-wide__rank">
+                <span>{{forloop.counter|add:"+3"}}</span>
+              </div>
+              <div class="rankcard-wide__poster"></div>
+              <div class="rankcard-wide__info">
+                <h2 class="h2-title-sm">{{book.title}}</h2>
+              </div>
+              <div class="rankcard-wide__vote"></div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
