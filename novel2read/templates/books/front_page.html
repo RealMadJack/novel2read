@@ -6,16 +6,38 @@
 
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/1)"></div>
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/2)"></div>
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/3)"></div>
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/4)"></div>
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/5)"></div>
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/6)"></div>
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/7)"></div>
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/8)"></div>
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/9)"></div>
-          <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/10)"></div>
+
+        {% for book in books %}
+          <div class="swiper-slide bookslide">
+            <div class="bookslide__hf">
+              <div class="bookslide__poster"><img class="swiper-lazy" src="{{book.poster_url}}" alt="{{book.title}}"></div>
+            </div>
+            <div class="bookslide__hf">
+              <div class="bookslide__title"><h2 class="h2-title-sm">{{book.title}}</h2></div>
+              <div class="bookslide__info">
+                <div class="bookslide__info--desc">
+                  {{book.description|safe}}
+                </div>
+                <div class="bookslide__info--rate">
+                  <span>{{book.rating}} votes {{book.votes}}</span>
+                </div>
+              </div>
+              <div class="bookslide__nav">
+                {% with f_bc=book.bookchapters.first.c_id %}
+                  {% if f_bc %}
+                    <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=f_bc %}">
+                      <button type="button" class="btn btn-light">Read</button>
+                    </a>
+                  {% endif %}
+                  <a href="{{book.get_absolute_url}}">
+                    <button type="button" class="btn btn-light">About</button>
+                  </a>
+                {% endwith %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>

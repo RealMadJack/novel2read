@@ -7,7 +7,8 @@ from .models import Book, BookTag, BookChapter
 
 class FrontPageView(View):
     def get(self, request, *args, **kwargs):
-        context = {}
+        books = Book.objects.prefetch_related('bookchapters').all()
+        context = {'books': books}
         return render(request, template_name='books/front_page.html', context=context)
 
 

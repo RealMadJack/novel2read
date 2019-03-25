@@ -4,9 +4,8 @@
 
   var swiper = new Swiper('.swiper-container', {
       pagination: '.swiper-pagination',
-      initialSlide: 3,
       effect: 'coverflow',
-      grabCursor: true,
+      // grabCursor: true,
       centeredSlides: true,
       loop: true,
       slidesPerView: 'auto',
