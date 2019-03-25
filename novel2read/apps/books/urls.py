@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from .apps import BooksConfig
-from .views import FrontPageView, BookGenreView, BookTagView, BookView, BookChapterView
+from .views import FrontPageView, BookGenreView, BookTagView, BookView, BookChapterView, BookRankingView
 
 app_name = BooksConfig.verbose_name
 
@@ -18,6 +18,6 @@ urlpatterns = [
     path("tags/<slug:booktag_slug>/", BookTagView.as_view(), name="tag"),
     path("books/<slug:book_slug>/", BookView.as_view(), name="book"),
     path("books/<slug:book_slug>/<int:c_id>/", BookChapterView.as_view(), name="bookchapter"),
-    path("ranking/", TemplateView.as_view(template_name="books/ranking.html"), name="ranking"),
-    path("search/", TemplateView.as_view(template_name="books/search.html"), name="search"),
+    path("ranking/", BookRankingView.as_view(), name="ranking"),
+    path("search/", TemplateView.as_view(template_name="books/booksearch.html"), name="search"),
 ]

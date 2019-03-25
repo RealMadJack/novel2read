@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Ranking - {{block.super}}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="bookranking mt-30">
+    <div class="bookranking__title">
+      <h1 class="h1-title">{{bookranking_title}}</h1>
+    </div>
+    <div class="bookranking__cards">
+      {% for book in books %}
+        {{book.title}}
+      {% endfor %}
+    </div>
+  </div>
+
+</div> <!-- Container -->
+{% endblock content %}

@@ -88,3 +88,18 @@ class BookChapterView(DetailView):
             return render(request, template_name=self.template_name, context=context)
         except (Book.DoesNotExist, BookChapter.DoesNotExist):
             return redirect('/404/')
+
+
+class BookRankingView(ListView):
+    template_name = 'books/bookranking.html'
+    context_object_name = 'books'
+    paginate_by = 10
+
+    def get_queryset(self):
+        qs = Book.objects.select_related('bookgenre').prefetch_related('booktag').filter(status=1).order_by('-votes', '-votes_external')
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['bookranking_title'] = 'Ranking'
+        return context

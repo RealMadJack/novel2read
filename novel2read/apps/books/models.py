@@ -83,7 +83,6 @@ class Book(TimeStampedModel):
     votes_external = models.PositiveIntegerField(
         _('Votes External'), blank=True, null=True, default=0)
     rating = models.FloatField(_('Rating'), blank=True, default=0.0)
-    ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
     visited_wn = models.BooleanField(_('WN scraped'), default=False)
     visited_bn = models.BooleanField(_('BN scraped'), default=False)
     book_id_wn = models.BigIntegerField(_('WN book id'), blank=True, null=True, default=0)
@@ -92,7 +91,7 @@ class Book(TimeStampedModel):
         (0, 'draft', _('draft')),
         (1, 'published', _('published')),
     )
-    status = models.IntegerField(choices=STATUS, default=STATUS.published, db_index=True)
+    status = models.IntegerField(choices=STATUS, default=STATUS.draft, db_index=True)
     STATUS_RELEASE = Choices(
         (0, 'ongoing', _('ongoing')),
         (1, 'completed', _('completed')), )
