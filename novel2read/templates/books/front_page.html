@@ -18,9 +18,11 @@
                 <div class="bookslide__info--desc">
                   {{book.description|safe}}
                 </div>
-                <div class="bookslide__info--rate">
-                  <span>{{book.rating}} votes {{book.votes}}</span>
-                </div>
+                <!--
+                  <div class="bookslide__info--rate">
+                    <span>{{book.rating}} votes {{book.votes}}</span>
+                  </div>
+                -->
               </div>
               <div class="bookslide__nav">
                 {% with f_bc=book.bookchapters.first.c_id %}

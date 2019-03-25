@@ -92,7 +92,7 @@ class Book(TimeStampedModel):
         (0, 'draft', _('draft')),
         (1, 'published', _('published')),
     )
-    status = models.IntegerField(choices=STATUS, default=STATUS.published)
+    status = models.IntegerField(choices=STATUS, default=STATUS.published, db_index=True)
     STATUS_RELEASE = Choices(
         (0, 'ongoing', _('ongoing')),
         (1, 'completed', _('completed')), )
