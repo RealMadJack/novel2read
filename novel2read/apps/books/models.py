@@ -80,8 +80,6 @@ class Book(TimeStampedModel):
     # poster = models.URLField(_('Poster'), blank=True, null=True, upload_to='posters')
     poster_url = models.URLField(_('Poster URL'), blank=True, default='https://media.istockphoto.com/vectors/blank-book-cover-vector-id466036957?k=6&m=466036957&s=612x612&w=0&h=SHDzHMVV6CHMNk6P-7igrYcZTfGryYdk_J7jzf7MwyY=', max_length=255)
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
-    votes_external = models.PositiveIntegerField(
-        _('Votes External'), blank=True, null=True, default=0)
     rating = models.FloatField(_('Rating'), blank=True, default=0.0)
     visited_wn = models.BooleanField(_('WN scraped'), default=False)
     visited_bn = models.BooleanField(_('BN scraped'), default=False)

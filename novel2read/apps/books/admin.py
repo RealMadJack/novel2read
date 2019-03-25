@@ -24,7 +24,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
         'booktag',
         ('author', 'country'),
         'poster_url',
-        ('rating', 'votes', 'votes_external', 'ranking'),
+        ('rating', 'votes'),
         'description',
         ('volumes', 'chapters'),
         ('visited_wn', 'book_id_wn'),
