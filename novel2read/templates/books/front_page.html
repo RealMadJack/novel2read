@@ -14,7 +14,7 @@
             </div>
             <div class="bookslide__hf">
               <div class="bookslide__title"><h2 class="h2-title-sm">{{book.title}}</h2></div>
-              <div class="bookslide__info">
+              <div class="bookslide__info d-lg">
                 <div class="bookslide__info--desc">
                   {{book.description|safe}}
                 </div>
@@ -37,13 +37,20 @@
                 {% endwith %}
               </div>
             </div>
+            <div class="bookslide__info d-sm">
+              <div class="bookslide__info--desc">
+                {{book.description|safe}}
+              </div>
+            </div>
           </div>
         {% endfor %}
 
-        </div>
+        </div> <!-- Slide wrapper -->
+
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
-      </div>
+
+      </div> <!-- Slider container -->
 
     </div>
   </div>

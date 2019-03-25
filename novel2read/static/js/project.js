@@ -18,7 +18,7 @@
       },
       //preventClicks: false,
       //preventClicksPropagation: false,
-      slideToClickedSlide: true
+      slideToClickedSlide: true,
   });
 
 })();
