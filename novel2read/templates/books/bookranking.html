@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Ranking - {{block.super}}{% endblock %}
 
 {% block content %}
@@ -12,16 +14,42 @@
     <div class="bookranking__cards">
       <div class="row">
         {% for book in books_top %}
-          <div class="col-md-4">
+          <div class="col-md-4 col-sm-12">
             <div class="rankcard">
               <div class="rankcard__rank">
                 <span>{{forloop.counter}}</span>
               </div>
-              <div class="rankcard__poster"></div>
+              <div class="rankcard__poster">
+                <img src="{{book.poster_url}}" alt="{{book.title}}">
+              </div>
               <div class="rankcard__info">
                 <h2 class="h2-title-sm">{{book.title}}</h2>
+                <div class="book-lg-wide__info--stars stars-rating-sm">
+                  <img src="{% static 'images/star.png' %}" alt="star">
+                  <img src="{% static 'images/star.png' %}" alt="star">
+                  <img src="{% static 'images/star.png' %}" alt="star">
+                  <img src="{% static 'images/star.png' %}" alt="star">
+                  <img src="{% static 'images/half-star.png' %}" alt="star">
+                  <span>{{book.rating}}</span>
+                </div>
               </div>
-              <div class="rankcard__vote"></div>
+              <div class="rankcard__nav">
+                <a href="{{book.get_absolute_url}}">
+                  <button class="btn btn-outline-primary">Read</button>
+                </a>
+                <a
+                  {% if user.is_authenticated %}
+                    href=""
+                  {% else %}
+                    href="" class="disabled"
+                  {% endif %}><button class="btn btn-outline-warning">Vote</button></a>
+                <a
+                  {% if user.is_authenticated %}
+                    href=""
+                  {% else %}
+                    href="" class="disabled"
+                  {% endif %}><button class="btn btn-link">Add to Library</button></a>
+              </div>
             </div>
           </div>
         {% endfor %}
@@ -35,7 +63,7 @@
               <div class="rankcard-wide__info">
                 <h2 class="h2-title-sm">{{book.title}}</h2>
               </div>
-              <div class="rankcard-wide__vote"></div>
+              <div class="rankcard-wide__nav"></div>
             </div>
           </div>
         {% endfor %}
