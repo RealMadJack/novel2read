@@ -203,15 +203,15 @@ a.disabled {
     background-color: #6A57F9;
     border: 1px solid #6A57F9; }
 
-.bookranking__cards .row .col-md-4:nth-of-type(1) .rankcard__rank {
+.bookranking__cards__card:nth-of-type(1) .rankcard__rank {
   color: #A77300;
   background-color: #F8C030; }
 
-.bookranking__cards .row .col-md-4:nth-of-type(2) .rankcard__rank {
+.bookranking__cards__card:nth-of-type(2) .rankcard__rank {
   color: #3D5F74;
   background-color: #B0D3E6; }
 
-.bookranking__cards .row .col-md-4:nth-of-type(3) .rankcard__rank {
+.bookranking__cards__card:nth-of-type(3) .rankcard__rank {
   color: #997931;
   background-color: #DDC690; }
 
@@ -249,12 +249,11 @@ a.disabled {
     padding: 0 20px;
     margin-bottom: 20px; }
     .rankcard__info .h2-title-sm {
-      font-size: 22.4px;
-      font-size: 1.4rem;
-      height: 30px;
+      font-size: 20.8px;
+      font-size: 1.3rem;
       text-align: center;
       white-space: nowrap;
-      overflow: hidden; }
+      margin-bottom: 15px; }
     .rankcard__info .stars-rating-sm {
       text-align: center; }
   .rankcard__nav {
@@ -696,6 +695,11 @@ a.disabled {
             align-items: flex-start; }
     .book .bookhead__info--row .info-row {
       margin-bottom: 10px; }
+  .rankcard__rank {
+    padding: 0 15px;
+    font-size: 2rem; }
+  .rankcard__info .h2-title-sm {
+    font-size: 1.15rem; }
   .libcard__poster--image {
     height: 250px; } }
 
@@ -723,6 +727,21 @@ a.disabled {
     float: none;
     width: 100%;
     padding: 5px 0; }
+  .bookranking__cards__card:nth-of-type(1) {
+    max-width: 100%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 100%;
+            flex: 1 100%; }
+  .rankcard {
+    width: 100%;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto; }
+    .rankcard__rank {
+      padding: 0 18px;
+      font-size: 2.2rem; }
+    .rankcard__info .h2-title-sm {
+      font-size: 1.3rem; }
   .libcard__poster--image {
     height: 420px; } }
 
@@ -756,6 +775,11 @@ a.disabled {
     grid-template-columns: auto auto; }
     .book .bookbody__tabs--chaps .chap-latest small {
       grid-column-start: 2; }
+  .rankcard__rank {
+    padding: 0 16px;
+    font-size: 2rem; }
+  .rankcard__info .h2-title-sm {
+    font-size: 1.15rem; }
   .libcard__poster--image {
     height: 340px; }
   .libcard__info--chaps {

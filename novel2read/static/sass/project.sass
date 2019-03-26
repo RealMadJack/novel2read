@@ -202,20 +202,19 @@ a.disabled
 
 .bookranking
   &__cards
-    .row
-      .col-md-4
-        &:nth-of-type(1)
-          .rankcard__rank
-            color: #A77300
-            background-color: #F8C030
-        &:nth-of-type(2)
-          .rankcard__rank
-            color: #3D5F74
-            background-color: #B0D3E6
-        &:nth-of-type(3)
-          .rankcard__rank
-            color: #997931
-            background-color: #DDC690
+    &__card
+      &:nth-of-type(1)
+        .rankcard__rank
+          color: #A77300
+          background-color: #F8C030
+      &:nth-of-type(2)
+        .rankcard__rank
+          color: #3D5F74
+          background-color: #B0D3E6
+      &:nth-of-type(3)
+        .rankcard__rank
+          color: #997931
+          background-color: #DDC690
 
 .rankcard
   position: relative
@@ -244,11 +243,10 @@ a.disabled
     padding: 0 20px
     margin-bottom: 20px
     .h2-title-sm
-      font-size: 1.4rem
-      height: 30px
+      font-size: 1.3rem
       text-align: center
       white-space: nowrap
-      overflow: hidden
+      margin-bottom: 15px
     .stars-rating-sm
       text-align: center
   &__nav
