@@ -590,7 +590,8 @@ a.disabled {
             -ms-flex-align: end;
                 align-items: flex-end; }
         .book .bookhead__info--read a {
-          display: block;
+          display: block; }
+        .book .bookhead__info--read > a {
           margin-right: 10px; }
         .book .bookhead__info--read .btn {
           display: block;
@@ -598,8 +599,8 @@ a.disabled {
           font-size: 1.2rem;
           padding: 10px 30px; }
         .book .bookhead__info--read .fas {
-          font-size: 17.6px;
-          font-size: 1.1rem;
+          font-size: 16px;
+          font-size: 1rem;
           padding-right: 10px; }
   .book .bookbody__tabs .tab-content {
     margin-top: 20px; }
@@ -872,8 +873,10 @@ a.disabled {
       margin-bottom: 20px; }
     .book .bookhead__info--read .btn {
       width: 100%;
-      font-size: 1  rem;
+      font-size: 1rem;
       padding: 10px 23px; }
+    .book .bookhead__info--read .fas {
+      font-size: .9rem; }
   .book .bookbody__tabs--chaps .chap-latest {
     display: inline-grid;
     grid-template-columns: auto auto; }
@@ -1006,7 +1009,15 @@ a.disabled {
     height: auto;
     max-height: 660px; }
   .libcard__info--chaps {
-    font-size: .9rem; } }
+    font-size: .9rem; }
+  .book .bookhead__info--read > a {
+    width: 50%; }
+  .book .bookhead__info--read form {
+    width: 50%; }
+  .book .bookhead__info--read .btn {
+    width: 100%;
+    font-size: .9rem;
+    padding: 10px 16px; } }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {

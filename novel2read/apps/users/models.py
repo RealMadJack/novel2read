@@ -66,4 +66,4 @@ class BookProgress(models.Model):
         verbose_name_plural = 'Book Progresses'
 
     def __str__(self):
-        return f'{self.library}: {self.book.title} Chapter {self.c_id}'
+        return f'{self.user}: {self.book.title} Chapter {self.c_id}'

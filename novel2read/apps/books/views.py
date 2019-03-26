@@ -3,6 +3,7 @@ from django.views.generic import View, DetailView, ListView
 
 from next_prev import next_in_order, prev_in_order
 from .models import Book, BookTag, BookChapter
+from novel2read.apps.users.models import BookProgress
 
 
 class FrontPageView(View):
@@ -50,11 +51,21 @@ class BookView(DetailView):
         try:
             books = Book.objects.select_related('bookgenre').prefetch_related('booktag', 'bookchapters').filter(status=1)
             book = books.get(slug=kwargs['book_slug'])
+            first_chap = book.bookchapters.first()
             last_chap = book.bookchapters.last()
-            context = {'books': books, 'book': book, 'last_chap': last_chap}
+            context = {
+                'books': books, 'book': book,
+                'first_chap': first_chap, 'last_chap': last_chap,
+                'user': request.user.is_authenticated}
             if request.user.is_authenticated:
+                book_prog = False
                 book_in = book in request.user.library.book.all()
                 context['book_in'] = book_in
+                try:
+                    book_prog = BookProgress.objects.get(user=request.user, book=book)
+                    context['book_prog'] = book_prog
+                except BookProgress.DoesNotExist:
+                    context['book_prog'] = book_prog
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
             return redirect('/404/')
@@ -74,15 +85,14 @@ class BookChapterView(DetailView):
                 'bookchapter': bookchapter,
                 'prev_chap': prev_chap, 'next_chap': next_chap}
             if request.user.is_authenticated:
-                from novel2read.apps.users.models import BookProgress
                 try:
-                    book_prog = BookProgress.objects.get(book=bookchapter.book)
+                    book_prog = BookProgress.objects.get(user=request.user, book=bookchapter.book)
                     book_prog.c_id = bookchapter.c_id
                     book_prog.save()
                 except BookProgress.DoesNotExist:
                     BookProgress.objects.create(
                         book=bookchapter.book,
-                        library=request.user.library,
+                        user=request.user,
                         c_id=bookchapter.c_id,
                     )
             return render(request, template_name=self.template_name, context=context)

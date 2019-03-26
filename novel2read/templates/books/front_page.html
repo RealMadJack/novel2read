@@ -26,14 +26,14 @@
               </div>
               <div class="bookslide__nav">
                 {% with f_bc=book.bookchapters.first.c_id %}
+                  <a href="{{book.get_absolute_url}}">
+                    <button type="button" class="btn btn-light">Info</button>
+                  </a>
                   {% if f_bc %}
                     <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=f_bc %}">
                       <button type="button" class="btn btn-light">Read</button>
                     </a>
                   {% endif %}
-                  <a href="{{book.get_absolute_url}}">
-                    <button type="button" class="btn btn-light">About</button>
-                  </a>
                 {% endwith %}
               </div>
             </div>

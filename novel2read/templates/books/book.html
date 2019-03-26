@@ -58,14 +58,20 @@
           {% endfor %}
         </div>
         <div class="bookhead__info--read">
-          {% if book.bookchapters.first.pk %}
-            <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=book.bookchapters.first.c_id %}">
-              <button type="button" class="btn btn-dark">Read</button>
-            </a>
-            {% if request.user.is_authenticated %}
+          {% if user %}
+
+            {% if book_prog %}
+              <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=book_prog.c_id %}">
+                <button type="button" class="btn btn-dark">Continue Reading</button>
+              </a>
+            {% else %}
+              {% if first_chap %}
+                <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=first_chap.c_id %}">
+                  <button type="button" class="btn btn-dark">Read</button>
+                </a>
+              {% endif %}
             {% endif %}
-          {% endif %}
-          {% if request.user.is_authenticated %}
+
             {% if book_in %}
               <form method="post" action="{% url 'users:library-remove' book.slug %}">
                 {% csrf_token %}
@@ -81,10 +87,18 @@
                   </a>
               </form>
             {% endif %}
+
           {% else %}
+
+            {% if first_chap %}
+              <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=first_chap.c_id %}">
+                <button type="button" class="btn btn-dark">Read</button>
+              </a>
+            {% endif %}
             <a href="{% url 'account_login' %}?next={{book.get_absolute_url}}">
               <button type="button" class="btn btn-dark">Add to Library</button>
             </a>
+
           {% endif %}
         </div>
       </div>
