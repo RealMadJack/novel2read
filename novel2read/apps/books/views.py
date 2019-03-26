@@ -53,11 +53,12 @@ class BookView(DetailView):
             book = books.get(slug=kwargs['book_slug'])
             first_chap = book.bookchapters.first()
             last_chap = book.bookchapters.last()
+            user_auth = request.user.is_authenticated
             context = {
                 'books': books, 'book': book,
                 'first_chap': first_chap, 'last_chap': last_chap,
-                'user': request.user.is_authenticated}
-            if request.user.is_authenticated:
+                'user_auth': user_auth}
+            if user_auth:
                 book_prog = False
                 book_in = book in request.user.library.book.all()
                 context['book_in'] = book_in
@@ -108,10 +109,16 @@ class BookRankingView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        qs = [book for book in self.get_queryset()]
+        qs = list(self.get_queryset())
+        user_auth = self.request.user.is_authenticated
         books = qs[3:]
         books_top = qs[:3]
-        context['books'] = books
-        context['books_top'] = books_top
-        context['bookranking_title'] = 'Ranking'
+        context = {
+            'books': books, 'books_top': books_top,
+            'bookranking_title': 'Ranking',
+            'user_auth': user_auth,
+        }
+        if user_auth:
+            user_lib = list(self.request.user.library.book.all())
+            context['user_lib'] = user_lib
         return context

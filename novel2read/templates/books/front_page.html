@@ -27,7 +27,7 @@
               <div class="bookslide__nav">
                 {% with f_bc=book.bookchapters.first.c_id %}
                   <a href="{{book.get_absolute_url}}">
-                    <button type="button" class="btn btn-light">Info</button>
+                    <button type="button" class="btn btn-light">Book</button>
                   </a>
                   {% if f_bc %}
                     <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=f_bc %}">

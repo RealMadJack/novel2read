@@ -58,7 +58,7 @@
           {% endfor %}
         </div>
         <div class="bookhead__info--read">
-          {% if user %}
+          {% if user_auth %}
 
             {% if book_prog %}
               <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=book_prog.c_id %}">

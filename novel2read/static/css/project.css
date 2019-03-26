@@ -268,20 +268,29 @@ a.disabled {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center; }
-    .rankcard__nav a {
+    .rankcard__nav .fas {
+      font-size: 12.8px;
+      font-size: .8rem;
+      padding-right: 5px; }
+    .rankcard__nav form {
+      margin-top: 10px; }
+      .rankcard__nav form a .btn {
+        margin: 0;
+        padding: 0; }
+    .rankcard__nav a, .rankcard__nav form a .btn {
       text-align: center;
       width: 50%;
       margin-bottom: 10px;
       color: #6A57F9;
       text-decoration: none;
       outline: none; }
-      .rankcard__nav a:hover, .rankcard__nav a:active, .rankcard__nav a:focus {
+      .rankcard__nav a:hover, .rankcard__nav a:active, .rankcard__nav a:focus, .rankcard__nav form a .btn:hover, .rankcard__nav form a .btn:active, .rankcard__nav form a .btn:focus {
         color: #FF0099;
         text-decoration: none;
         outline: none; }
-      .rankcard__nav a:last-of-type {
+      .rankcard__nav a:last-of-type, .rankcard__nav form a .btn:last-of-type {
         margin-bottom: 0; }
-      .rankcard__nav a .btn {
+      .rankcard__nav a .btn, .rankcard__nav form a .btn .btn {
         width: 100%; }
 
 .rankcard-wide {
@@ -340,11 +349,23 @@ a.disabled {
     .rankcard-wide__info--nav {
       -ms-flex-item-align: end;
           align-self: flex-end; }
-      .rankcard-wide__info--nav a {
+      .rankcard-wide__info--nav .fas {
+        font-size: 12.8px;
+        font-size: .8rem;
+        padding-right: 5px;
+        display: none; }
+      .rankcard-wide__info--nav form {
+        display: inline-block;
+        position: relative;
+        top: -1px; }
+        .rankcard-wide__info--nav form a .btn {
+          margin: 0;
+          padding: 0; }
+      .rankcard-wide__info--nav a, .rankcard-wide__info--nav form a .btn {
         color: #6A57F9;
         text-decoration: none;
         outline: none; }
-        .rankcard-wide__info--nav a:hover, .rankcard-wide__info--nav a:active, .rankcard-wide__info--nav a:focus {
+        .rankcard-wide__info--nav a:hover, .rankcard-wide__info--nav a:active, .rankcard-wide__info--nav a:focus, .rankcard-wide__info--nav form a .btn:hover, .rankcard-wide__info--nav form a .btn:active, .rankcard-wide__info--nav form a .btn:focus {
           color: #FF0099;
           text-decoration: none;
           outline: none; }

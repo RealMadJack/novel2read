@@ -53,13 +53,7 @@
                 <a href="{{book.get_absolute_url}}">
                   <button class="btn btn-outline-primary">Read</button>
                 </a>
-                <a
-                  {% if user.is_authenticated %}
-                    href=""
-                  {% else %}
-                    href="" class="disabled"
-                  {% endif %}><span>Add to Library</span>
-                </a>
+                {% include 'books/lib-btn.html' %}
               </div>
             </div>
           </div>
@@ -90,14 +84,7 @@
                     <span>Read</span>
                   </a>
                   <span>|</span>
-                  <a
-                    {% if user.is_authenticated %}
-                      href=""
-                    {% else %}
-                      href="" class="disabled"
-                    {% endif %}>
-                    <span>Add to Library</span>
-                  </a>
+                  {% include 'books/lib-btn.html' %}
                 </div>
               </div>
               <div class="rankcard-wide__nav">
