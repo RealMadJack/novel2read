@@ -42,15 +42,16 @@
                 </div>
               </div>
               <div class="rankcard__nav">
-                <a href="{{book.get_absolute_url}}">
-                  <button class="btn btn-outline-primary">Read</button>
-                </a>
+                <div class="rankcard-wide__nav--votes">Votes: {{book.votes}}</div>
                 <a
                   {% if user.is_authenticated %}
                     href=""
                   {% else %}
                     href="" class="disabled"
                   {% endif %}><button class="btn btn-outline-warning">Vote</button>
+                </a>
+                <a href="{{book.get_absolute_url}}">
+                  <button class="btn btn-outline-primary">Read</button>
                 </a>
                 <a
                   {% if user.is_authenticated %}
@@ -107,6 +108,16 @@
                   {% else %}
                     href="" class="disabled"
                   {% endif %}><button class="btn btn-outline-warning">Vote</button>
+                </a>
+                <a href="{{book.get_absolute_url}}">
+                  <button class="btn btn-outline-primary">Read</button>
+                </a>
+                <a
+                  {% if user.is_authenticated %}
+                    href=""
+                  {% else %}
+                    href="" class="disabled"
+                  {% endif %}><span>Add to Library</span>
                 </a>
               </div>
             </div>

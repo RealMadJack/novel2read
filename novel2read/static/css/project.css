@@ -249,8 +249,9 @@ a.disabled {
     padding: 0 20px;
     margin-bottom: 20px; }
     .rankcard__info .h2-title-sm {
-      font-size: 20.8px;
-      font-size: 1.3rem;
+      font-size: 20px;
+      font-size: 1.25rem;
+      font-weight: bold;
       text-align: center;
       white-space: nowrap;
       margin-bottom: 15px; }
@@ -329,8 +330,10 @@ a.disabled {
             flex-direction: column;
     padding: 0; }
     .rankcard-wide__info .h2-title-sm {
+      font-size: 22.4px;
+      font-size: 1.4rem;
+      font-weight: bold;
       line-height: .7;
-      font-weight: 650;
       margin-bottom: 10px; }
     .rankcard-wide__info .stars-rating-sm {
       margin-bottom: 20px; }
@@ -353,14 +356,20 @@ a.disabled {
     -ms-flex-item-align: center;
         align-self: center; }
     .rankcard-wide__nav--votes {
-      font-size: 19.2px;
-      font-size: 1.2rem;
+      font-size: 17.6px;
+      font-size: 1.1rem;
       font-weight: bold;
       margin-bottom: 15px;
       text-align: center; }
     .rankcard-wide__nav a {
       display: block;
-      width: 150px; }
+      width: 165px;
+      margin-bottom: 10px;
+      text-align: center; }
+      .rankcard-wide__nav a:last-of-type {
+        margin-bottom: 0; }
+      .rankcard-wide__nav a:nth-of-type(2), .rankcard-wide__nav a:nth-of-type(3) {
+        display: none; }
       .rankcard-wide__nav a .btn {
         width: 100%; }
 
@@ -788,7 +797,7 @@ a.disabled {
     padding: 0 15px;
     font-size: 2rem; }
   .rankcard__info .h2-title-sm {
-    font-size: 1.15rem; }
+    font-size: 1.10rem; }
   .libcard__poster--image {
     height: 250px; } }
 
@@ -831,6 +840,12 @@ a.disabled {
       font-size: 2.2rem; }
     .rankcard__info .h2-title-sm {
       font-size: 1.3rem; }
+  .rankcard-wide__info .h2-title-sm {
+    font-size: 1.3rem; }
+  .rankcard-wide__nav--votes {
+    font-size: 1.1rem; }
+  .rankcard-wide__nav a {
+    width: 155px; }
   .libcard__poster--image {
     height: 420px; } }
 
@@ -869,6 +884,48 @@ a.disabled {
     font-size: 2rem; }
   .rankcard__info .h2-title-sm {
     font-size: 1.15rem; }
+  .rankcard-wide {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 100%;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto; }
+    .rankcard-wide__rank {
+      font-size: 2rem; }
+      .rankcard-wide__rank span {
+        line-height: 1.6; }
+    .rankcard-wide__poster {
+      margin: 0 auto;
+        margin-bottom: 15px; }
+      .rankcard-wide__poster img {
+        width: 150px;
+        height: 200px;
+        -o-object-fit: cover;
+           object-fit: cover; }
+    .rankcard-wide__info {
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
+      .rankcard-wide__info .h2-title-sm {
+        font-size: 1.15rem;
+        line-height: 1.6;
+        margin-bottom: 15px; }
+      .rankcard-wide__info .stars-rating-sm {
+        margin-top: 0; }
+      .rankcard-wide__info--nav {
+        display: none; }
+    .rankcard-wide__nav {
+      margin: 0; }
+      .rankcard-wide__nav--votes {
+        font-size: 1.1rem;
+        margin-bottom: 10px; }
+      .rankcard-wide__nav a {
+        width: 170px; }
+        .rankcard-wide__nav a:nth-of-type(2), .rankcard-wide__nav a:nth-of-type(3) {
+          display: block; }
   .libcard__poster--image {
     height: 340px; }
   .libcard__info--chaps {

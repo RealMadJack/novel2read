@@ -243,7 +243,8 @@ a.disabled
     padding: 0 20px
     margin-bottom: 20px
     .h2-title-sm
-      font-size: 1.3rem
+      font-size: 1.25rem
+      font-weight: bold
       text-align: center
       white-space: nowrap
       margin-bottom: 15px
@@ -302,8 +303,9 @@ a.disabled
     flex-direction: column
     padding: 0
     .h2-title-sm
+      font-size: 1.4rem
+      font-weight: bold
       line-height: .7
-      font-weight: 650
       margin-bottom: 10px
     .stars-rating-sm
       margin-bottom: 20px
@@ -324,13 +326,19 @@ a.disabled
     margin-left: auto
     align-self: center
     &--votes
-      font-size: 1.2rem
+      font-size: 1.1rem
       font-weight: bold
       margin-bottom: 15px
       text-align: center
     a
       display: block
-      width: 150px
+      width: 165px
+      margin-bottom: 10px
+      text-align: center
+      &:last-of-type
+        margin-bottom: 0
+      &:nth-of-type(2), &:nth-of-type(3)
+        display: none
       .btn
         width: 100%
 

@@ -28,7 +28,7 @@
       img
     &__info
       .h2-title-sm
-        font-size: 1.15rem
+        font-size: 1.10rem
       .stars-rating-sm
     &__nav
       a
@@ -128,6 +128,26 @@
     &__nav
       a
 
+  .rankcard-wide
+    &__rank
+      span
+    &__poster
+      img
+    &__info
+      .h2-title-sm
+        font-size: 1.3rem
+      .stars-rating-sm
+      &--nav
+        a
+        > span
+    &__nav
+      &--votes
+        font-size: 1.1rem
+      a
+        width: 155px
+        .btn
+
+
   .libcard
     &__remove
       a .btn
@@ -215,6 +235,43 @@
       .stars-rating-sm
     &__nav
       a
+
+  .rankcard-wide
+    flex-direction: column
+    width: 100%
+    max-width: 360px
+    margin-left: auto
+    margin-right: auto
+    &__rank
+      font-size: 2rem
+      span
+        line-height: 1.6
+    &__poster
+      margin: 0 auto
+        bottom: 15px
+      img
+        width: 150px
+        height: 200px
+        object-fit: cover
+    &__info
+      align-items: center
+      .h2-title-sm
+        font-size: 1.15rem
+        line-height: 1.6
+        margin-bottom: 15px
+      .stars-rating-sm
+        margin-top: 0
+      &--nav
+        display: none
+    &__nav
+      margin: 0
+      &--votes
+        font-size: 1.1rem
+        margin-bottom: 10px
+      a
+        width: 170px
+        &:nth-of-type(2), &:nth-of-type(3)
+          display: block
 
 
   .libcard
