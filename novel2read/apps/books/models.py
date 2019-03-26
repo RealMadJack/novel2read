@@ -132,7 +132,7 @@ class BookChapter(TimeStampedModel):
     tracker = FieldTracker()
 
     class Meta:
-        ordering = ['pk']
+        ordering = ['c_id']
         verbose_name = _('Book Chapter')
         verbose_name_plural = _('Book Chapters')
 

@@ -62,6 +62,8 @@
             <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=book.bookchapters.first.c_id %}">
               <button type="button" class="btn btn-dark">Read</button>
             </a>
+            {% if request.user.is_authenticated %}
+            {% endif %}
           {% endif %}
           {% if request.user.is_authenticated %}
             {% if book_in %}
