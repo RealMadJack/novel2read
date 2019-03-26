@@ -50,13 +50,15 @@
                     href=""
                   {% else %}
                     href="" class="disabled"
-                  {% endif %}><button class="btn btn-outline-warning">Vote</button></a>
+                  {% endif %}><button class="btn btn-outline-warning">Vote</button>
+                </a>
                 <a
                   {% if user.is_authenticated %}
                     href=""
                   {% else %}
                     href="" class="disabled"
-                  {% endif %}><button class="btn btn-link">Add to Library</button></a>
+                  {% endif %}><span>Add to Library</span>
+                </a>
               </div>
             </div>
           </div>
@@ -67,11 +69,46 @@
               <div class="rankcard-wide__rank">
                 <span>{{forloop.counter|add:"+3"}}</span>
               </div>
-              <div class="rankcard-wide__poster"></div>
-              <div class="rankcard-wide__info">
-                <h2 class="h2-title-sm">{{book.title}}</h2>
+              <div class="rankcard-wide__poster">
+                <img src="{{book.poster_url}}" alt="{{book.title}}">
               </div>
-              <div class="rankcard-wide__nav"></div>
+              <div class="rankcard-wide__info">
+                <h2 class="h2-title-sm">
+                  {{book.title}}
+                </h2>
+                <div class="rankcard-wide__info--stars stars-rating-sm">
+                  <img src="{% static 'images/star.png' %}" alt="star">
+                  <img src="{% static 'images/star.png' %}" alt="star">
+                  <img src="{% static 'images/star.png' %}" alt="star">
+                  <img src="{% static 'images/star.png' %}" alt="star">
+                  <img src="{% static 'images/half-star.png' %}" alt="star">
+                  <span>{{book.rating}}</span>
+                </div>
+                <div class="rankcard-wide__info--nav">
+                  <a href="{{book.get_absolute_url}}">
+                    <span>Read</span>
+                  </a>
+                  <span>|</span>
+                  <a
+                    {% if user.is_authenticated %}
+                      href=""
+                    {% else %}
+                      href="" class="disabled"
+                    {% endif %}>
+                    <span>Add to Library</span>
+                  </a>
+                </div>
+              </div>
+              <div class="rankcard-wide__nav">
+                <div class="rankcard-wide__nav--votes">Votes: {{book.votes}}</div>
+                <a
+                  {% if user.is_authenticated %}
+                    href=""
+                  {% else %}
+                    href="" class="disabled"
+                  {% endif %}><button class="btn btn-outline-warning">Vote</button>
+                </a>
+              </div>
             </div>
           </div>
         {% endfor %}
