@@ -14,14 +14,14 @@
     <div class="booksearch__form"></div>
     <div class="booksearch__formresult">
       {% for book in books %}
-        <a href="{{book.get_absolute_url}}" class="searchcard">
-          <div class="searchcard__counter"><span>{{forloop.counter}}</span></div>
-          <div class="searchcard__poster">
+        <a href="{{book.get_absolute_url}}" class="searchcard-lg">
+          <div class="searchcard-lg__counter"><span>{{forloop.counter}}</span></div>
+          <div class="searchcard-lg__poster">
             <img src="{{book.poster_url}}" alt="{{book.title}}">
           </div>
-          <div class="searchcard__info">
+          <div class="searchcard-lg__info">
             <h2 class="h2-title-sm">{{book.title}}</h2>
-            <div class="searchcard__info--stars stars-rating-sm">
+            <div class="searchcard-lg__info--stars stars-rating-sm">
               <img src="{% static 'images/star.png' %}" alt="star">
               <img src="{% static 'images/star.png' %}" alt="star">
               <img src="{% static 'images/star.png' %}" alt="star">
