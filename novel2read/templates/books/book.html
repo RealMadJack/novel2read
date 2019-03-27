@@ -72,21 +72,7 @@
               {% endif %}
             {% endif %}
 
-            {% if book_in %}
-              <form method="post" action="{% url 'users:library-remove' book.slug %}">
-                {% csrf_token %}
-                <a href="javascript:void(0)">
-                  <button type="submit" class="btn btn-dark"><i class="fas fa-check"></i>In Library</button>
-                </a>
-              </form>
-            {% else %}
-              <form method="post" action="{% url 'users:library-add' book.slug %}">
-                  {% csrf_token %}
-                  <a href="javascript:void(0)">
-                    <button type="submit" class="btn btn-dark">Add to Library</button>
-                  </a>
-              </form>
-            {% endif %}
+            {% include 'books/lib-btn.html' %}
 
           {% else %}
 

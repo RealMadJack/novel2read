@@ -8,6 +8,15 @@ li, a, button {
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
 
+a, form a, .btn-link {
+  color: #6A57F9;
+  text-decoration: none;
+  outline: none; }
+  a:hover, a:focus, a:active, form a:hover, form a:focus, form a:active, .btn-link:hover, .btn-link:focus, .btn-link:active {
+    text-decoration: none;
+    outline: none;
+    color: #FF0099; }
+
 a.disabled {
   pointer-events: none;
   opacity: .5; }
@@ -50,20 +59,24 @@ a.disabled {
 .h1-title {
   font-size: 40px;
   font-size: 2.5rem;
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  font-weight: 600; }
 
 .h1-title-sm {
   font-size: 32px;
   font-size: 2rem;
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  font-weight: 600; }
 
 .h2-title {
   font-size: 32px;
-  font-size: 2rem; }
+  font-size: 2rem;
+  font-weight: 600; }
 
 .h2-title-sm {
   font-size: 25.6px;
-  font-size: 1.6rem; }
+  font-size: 1.6rem;
+  font-weight: 600; }
 
 .h3-title {
   font-size: 24px;
@@ -280,14 +293,7 @@ a.disabled {
     .rankcard__nav a, .rankcard__nav form a .btn {
       text-align: center;
       width: 50%;
-      margin-bottom: 10px;
-      color: #6A57F9;
-      text-decoration: none;
-      outline: none; }
-      .rankcard__nav a:hover, .rankcard__nav a:active, .rankcard__nav a:focus, .rankcard__nav form a .btn:hover, .rankcard__nav form a .btn:active, .rankcard__nav form a .btn:focus {
-        color: #FF0099;
-        text-decoration: none;
-        outline: none; }
+      margin-bottom: 10px; }
       .rankcard__nav a:last-of-type, .rankcard__nav form a .btn:last-of-type {
         margin-bottom: 0; }
       .rankcard__nav a .btn, .rankcard__nav form a .btn .btn {
@@ -362,13 +368,9 @@ a.disabled {
           margin: 0;
           padding: 0; }
       .rankcard-wide__info--nav a, .rankcard-wide__info--nav form a .btn {
-        color: #6A57F9;
-        text-decoration: none;
-        outline: none; }
+        color: #6A57F9; }
         .rankcard-wide__info--nav a:hover, .rankcard-wide__info--nav a:active, .rankcard-wide__info--nav a:focus, .rankcard-wide__info--nav form a .btn:hover, .rankcard-wide__info--nav form a .btn:active, .rankcard-wide__info--nav form a .btn:focus {
-          color: #FF0099;
-          text-decoration: none;
-          outline: none; }
+          color: #FF0099; }
       .rankcard-wide__info--nav > span {
         opacity: .5;
         padding: 0 6px; }
@@ -382,17 +384,27 @@ a.disabled {
       font-weight: bold;
       margin-bottom: 15px;
       text-align: center; }
-    .rankcard-wide__nav a {
+    .rankcard-wide__nav .fas {
+      font-size: 12.8px;
+      font-size: .8rem;
+      padding-right: 5px; }
+    .rankcard-wide__nav form {
+      display: none;
+      margin-top: 10px; }
+      .rankcard-wide__nav form a .btn {
+        margin: 0;
+        padding: 0; }
+    .rankcard-wide__nav a, .rankcard-wide__nav form a .btn {
       display: block;
       width: 165px;
       margin-bottom: 10px;
       text-align: center; }
-      .rankcard-wide__nav a:last-of-type {
-        margin-bottom: 0; }
-      .rankcard-wide__nav a:nth-of-type(2), .rankcard-wide__nav a:nth-of-type(3) {
-        display: none; }
-      .rankcard-wide__nav a .btn {
+      .rankcard-wide__nav a .btn, .rankcard-wide__nav form a .btn .btn {
         width: 100%; }
+      .rankcard-wide__nav a:last-of-type, .rankcard-wide__nav form a .btn:last-of-type {
+        margin-bottom: 0; }
+      .rankcard-wide__nav a:nth-of-type(2), .rankcard-wide__nav form a .btn:nth-of-type(2) {
+        display: none; }
 
 .tag-card {
   display: inline-block;
@@ -403,11 +415,7 @@ a.disabled {
   .tag-card a {
     color: black;
     display: block;
-    text-decoration: none;
     outline: none; }
-    .tag-card a:hover, .tag-card a:active, .tag-card a:focus {
-      text-decoration: none;
-      outline: none; }
 
 .tag-card.active {
   border-bottom: 4px solid #6A57F9; }
@@ -449,12 +457,8 @@ a.disabled {
         color: #FF0099; }
   .libcard__link {
     display: block;
-    color: black;
-    outline: none;
-    text-decoration: none; }
+    color: black; }
     .libcard__link:hover, .libcard__link:active, .libcard__link:focus {
-      text-decoration: none;
-      outline: none;
       color: #6A57F9; }
   .libcard__poster {
     position: relative;
@@ -480,13 +484,9 @@ a.disabled {
   grid-gap: 10px;
   margin-bottom: 20px; }
   .browsebooks__books .book-lg-wide a {
-    color: black;
-    text-decoration: none;
-    outline: none; }
+    color: black; }
     .browsebooks__books .book-lg-wide a:hover, .browsebooks__books .book-lg-wide a:active, .browsebooks__books .book-lg-wide a:focus {
-      color: black;
-      text-decoration: none;
-      outline: none; }
+      color: black; }
   .browsebooks__books .book-lg-wide__poster {
     background-color: white; }
     .browsebooks__books .book-lg-wide__poster--image {
@@ -533,13 +533,9 @@ a.disabled {
     grid-gap: 20px;
     margin-bottom: 30px; }
     .book .bookhead a {
-      color: black;
-      text-decoration: none;
-      outline: none; }
+      color: black; }
       .book .bookhead a:hover, .book .bookhead a:active, .book .bookhead a:focus {
-        color: black;
-        text-decoration: none;
-        outline: none; }
+        color: black; }
     .book .bookhead__poster {
       width: 100%; }
       .book .bookhead__poster--image {
@@ -610,6 +606,13 @@ a.disabled {
         -webkit-box-align: end;
             -ms-flex-align: end;
                 align-items: flex-end; }
+        .book .bookhead__info--read form a .btn {
+          color: #fff;
+          background-color: #343a40;
+          border-color: #343a40; }
+          .book .bookhead__info--read form a .btn:hover, .book .bookhead__info--read form a .btn:active, .book .bookhead__info--read form a .btn:focus {
+            background-color: #212427;
+            border-color: #212427; }
         .book .bookhead__info--read a {
           display: block; }
         .book .bookhead__info--read > a {
@@ -636,13 +639,9 @@ a.disabled {
     .book .bookbody__tabs--chaps .chap-latest span {
       padding-right: 5px; }
     .book .bookbody__tabs--chaps .chap-latest a {
-      color: #6A57F9;
-      text-decoration: none;
-      outline: none; }
+      color: #6A57F9; }
       .book .bookbody__tabs--chaps .chap-latest a:hover, .book .bookbody__tabs--chaps .chap-latest a:active, .book .bookbody__tabs--chaps .chap-latest a:focus {
-        color: black;
-        text-decoration: none;
-        outline: none; }
+        color: black; }
   .book .bookbody__tabs--chaps .chap-volume {
     position: relative;
     display: block;
@@ -664,14 +663,10 @@ a.disabled {
       grid-gap: 0 5px;
       border: 1px solid #6A57F9;
       border-radius: 8px;
-      text-decoration: none;
-      outline: none;
       color: black; }
       .book .bookbody__tabs--chaps .chap-nav-card a:hover, .book .bookbody__tabs--chaps .chap-nav-card a:active, .book .bookbody__tabs--chaps .chap-nav-card a:focus {
         color: #fff;
-        background-color: #6A57F9;
-        text-decoration: none;
-        outline: none; }
+        background-color: #6A57F9; }
       .book .bookbody__tabs--chaps .chap-nav-card a span {
         padding-top: 5px; }
         .book .bookbody__tabs--chaps .chap-nav-card a span:first-of-type {
@@ -774,8 +769,6 @@ a.disabled {
             color: black;
             font-size: 14.4px;
             font-size: .9rem;
-            text-decoration: none;
-            outline: none;
             -webkit-transition: all .1s ease-in-out;
             transition: all .1s ease-in-out; }
             .bookchapter__nav--select .chaps--nav li a:hover, .bookchapter__nav--select .chaps--nav li a:focus, .bookchapter__nav--select .chaps--nav li a:active {
@@ -798,6 +791,29 @@ a.disabled {
 .bookchapter__body p {
   margin-bottom: 16px;
   margin-bottom: 1rem; }
+
+.searchcard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  width: 100%;
+  max-width: 100%;
+  min-height: 2em;
+  margin-bottom: 20px;
+  padding: 5px;
+  color: black;
+  background-color: #f5f5f5; }
+  .searchcard:hover, .searchcard:active, .searchcard:focus {
+    color: #FF0099;
+    background-color: #2b2e4a; }
+  .searchcard__poster img {
+    margin-right: 20px; }
 
 /*==========  Desktop First  ==========*/
 /* Large Devices, Wide Screens */
@@ -946,9 +962,11 @@ a.disabled {
       .rankcard-wide__nav--votes {
         font-size: 1.1rem;
         margin-bottom: 10px; }
+      .rankcard-wide__nav form {
+        display: block; }
       .rankcard-wide__nav a {
         width: 170px; }
-        .rankcard-wide__nav a:nth-of-type(2), .rankcard-wide__nav a:nth-of-type(3) {
+        .rankcard-wide__nav a:nth-of-type(2) {
           display: block; }
   .libcard__poster--image {
     height: 340px; }

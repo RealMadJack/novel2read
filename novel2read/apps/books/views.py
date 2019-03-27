@@ -18,7 +18,7 @@ class BookGenreView(ListView):
 
     def get(self, request, *args, **kwargs):
         try:
-            books = Book.objects.select_related('bookgenre').prefetch_related('booktag').filter(status=1)
+            books = Book.objects.select_related('bookgenre').prefetch_related('booktag').filter(status=1).order_by('-votes')
             if kwargs:
                 books = books.filter(bookgenre__slug=kwargs['bookgenre_slug'])
             context = {'books': books}
@@ -36,7 +36,7 @@ class BookTagView(ListView):
             context = {'tags': tags}
             if kwargs:
                 tag = tags.get(slug=kwargs['booktag_slug'])
-                books = tag.books.select_related('bookgenre').prefetch_related('booktag').filter(status=1)
+                books = tag.books.select_related('bookgenre').prefetch_related('booktag').filter(status=1).order_by('-votes')
                 context['tag'] = tag
                 context['books'] = books
             return render(request, template_name=self.template_name, context=context)
@@ -60,8 +60,7 @@ class BookView(DetailView):
                 'user_auth': user_auth}
             if user_auth:
                 book_prog = False
-                book_in = book in request.user.library.book.all()
-                context['book_in'] = book_in
+                context['user_lib'] = list(request.user.library.book.all())
                 try:
                     book_prog = BookProgress.objects.get(user=request.user, book=book)
                     context['book_prog'] = book_prog
@@ -109,16 +108,31 @@ class BookRankingView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        qs = list(self.get_queryset())
+        qs = list(self.queryset)
         user_auth = self.request.user.is_authenticated
         books = qs[3:]
         books_top = qs[:3]
         context = {
             'books': books, 'books_top': books_top,
-            'bookranking_title': 'Ranking',
+            'page_title': 'Ranking',
             'user_auth': user_auth,
         }
         if user_auth:
             user_lib = list(self.request.user.library.book.all())
             context['user_lib'] = user_lib
+        return context
+
+
+class BookSearchView(ListView):
+    template_name = 'books/booksearch.html'
+
+    def get_queryset(self, **kwargs):
+        self.queryset = Book.objects.all()
+        return self.queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        qs = list(self.queryset) if self.queryset else self.queryset
+        context['books'] = qs
+        context['page_title'] = 'Search for Books'
         return context

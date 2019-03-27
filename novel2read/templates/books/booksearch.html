@@ -1,9 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Search - {{block.super}}{% endblock %}
+{% load static %}
+
+{% block title %}{{page_title}} - {{block.super}}{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <p>search</p>
-  </div> <!-- Container -->
+<div class="container">
+
+  <div class="booksearch mt-30">
+    <div class="booksearch__title">
+      <h1 class="h1-title">{{page_title}}</h1>
+    </div>
+    <div class="booksearch__form"></div>
+    <div class="booksearch__formresult">
+      {% for book in books %}
+        <a href="{{book.get_absolute_url}}" class="searchcard">
+          <div class="searchcard__counter"><span>{{forloop.counter}}</span></div>
+          <div class="searchcard__poster">
+            <img src="{{book.poster_url}}" alt="{{book.title}}">
+          </div>
+          <div class="searchcard__info">
+            <h2 class="h2-title-sm">{{book.title}}</h2>
+            <div class="searchcard__info--stars stars-rating-sm">
+              <img src="{% static 'images/star.png' %}" alt="star">
+              <img src="{% static 'images/star.png' %}" alt="star">
+              <img src="{% static 'images/star.png' %}" alt="star">
+              <img src="{% static 'images/star.png' %}" alt="star">
+              <img src="{% static 'images/half-star.png' %}" alt="star">
+              <span>{{book.rating}}</span>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+</div> <!-- Container -->
 {% endblock content %}

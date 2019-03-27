@@ -2,14 +2,14 @@
 
 {% load static %}
 
-{% block title %}Ranking - {{block.super}}{% endblock %}
+{% block title %}{{page_title}} - {{block.super}}{% endblock %}
 
 {% block content %}
 <div class="container">
 
   <div class="bookranking mt-30">
     <div class="bookranking__title">
-      <h1 class="h1-title">{{bookranking_title}}</h1>
+      <h1 class="h1-title">{{page_title}}</h1>
     </div>
     <div class="bookranking__cards">
       <div class="row">
@@ -99,13 +99,7 @@
                 <a href="{{book.get_absolute_url}}">
                   <button class="btn btn-outline-primary">Read</button>
                 </a>
-                <a
-                  {% if user.is_authenticated %}
-                    href=""
-                  {% else %}
-                    href="" class="disabled"
-                  {% endif %}><span>Add to Library</span>
-                </a>
+                {% include 'books/lib-btn.html' %}
               </div>
             </div>
           </div>

@@ -26,10 +26,11 @@ def add_library_book(request, *args, **kwargs):
         try:
             book = Book.objects.get(slug=kwargs['book_slug'])
             user = User.objects.get(id=request.user.id)
+            next_url = request.POST.get('next', reverse('books:book', kwargs={'book_slug': kwargs['book_slug']}))
             if user is not None:
                 user.library.book.add(book)
                 user.save()
-                return redirect(reverse('books:book', kwargs={'book_slug': kwargs['book_slug']}))
+                return redirect(next_url)
             return redirect('/403/')
         except (Book.DoesNotExist, User.DoesNotExist):
             return redirect('/403/')
@@ -42,10 +43,11 @@ def remove_library_book(request, *args, **kwargs):
         try:
             book = Book.objects.get(slug=kwargs['book_slug'])
             user = User.objects.get(id=request.user.id)
+            next_url = request.POST.get('next', reverse('books:book', kwargs={'book_slug': kwargs['book_slug']}))
             if user is not None:
                 user.library.book.remove(book)
                 user.save()
-                return redirect(reverse('users:library', kwargs={'username': user.username}))
+                return redirect(next_url)
             return redirect('/403/')
         except (Book.DoesNotExist, User.DoesNotExist):
             return redirect('/403/')
