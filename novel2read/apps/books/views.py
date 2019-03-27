@@ -1,4 +1,6 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import View, DetailView, ListView
 
 from next_prev import next_in_order, prev_in_order
@@ -127,16 +129,19 @@ class BookRankingView(ListView):
 class BookSearchView(ListView):
     template_name = 'books/booksearch.html'
     form = BookSearchForm
+    context = {'form': form, 'page_title': 'Search for Books'}
 
-    def get_queryset(self, **kwargs):
-        if kwargs:
-            self.queryset = Book.objects.all()
-        return self.queryset
+    def get(self, request, **kwargs):
+        return render(request, template_name=self.template_name, context=self.context)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        qs = list(self.queryset) if self.queryset else self.queryset
-        context['books'] = qs
-        context['form'] = self.form
-        context['page_title'] = 'Search for Books'
-        return context
+    def post(self, request, **kwargs):
+        form = self.form(request.POST)
+        context = {'form': form, 'page_title': 'Search for Books'}
+        if form.is_valid():
+            field_data = form.cleaned_data['search_field']
+            books = Book.objects.filter(title__icontains=field_data)
+            context['books'] = books
+        else:
+            form = self.form()
+            context['form'] = form
+        return render(request, template_name=self.template_name, context=context)
