@@ -127,6 +127,8 @@ class BookSearchView(ListView):
     template_name = 'books/booksearch.html'
 
     def get_queryset(self, **kwargs):
+        if kwargs:
+            pass
         self.queryset = Book.objects.all()
         return self.queryset
 
