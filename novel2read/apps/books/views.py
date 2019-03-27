@@ -3,6 +3,7 @@ from django.views.generic import View, DetailView, ListView
 
 from next_prev import next_in_order, prev_in_order
 from .models import Book, BookTag, BookChapter
+from .forms import BookSearchForm
 from novel2read.apps.users.models import BookProgress
 
 
@@ -125,16 +126,17 @@ class BookRankingView(ListView):
 
 class BookSearchView(ListView):
     template_name = 'books/booksearch.html'
+    form = BookSearchForm
 
     def get_queryset(self, **kwargs):
         if kwargs:
-            pass
-        self.queryset = Book.objects.all()
+            self.queryset = Book.objects.all()
         return self.queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         qs = list(self.queryset) if self.queryset else self.queryset
         context['books'] = qs
+        context['form'] = self.form
         context['page_title'] = 'Search for Books'
         return context
