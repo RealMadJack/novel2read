@@ -19,8 +19,18 @@ img
   height: auto
   object-fit: cover
 
-li, a, button
+li, a, button, ::placeholder
   transition: all .3s ease-in-out
+
+.btn, .form-control
+  &:hover, &:focus, &:active
+    box-shadow: none
+
+.form-control
+  &:active, &:focus
+    border-color: $accent
+    &::placeholder
+      color: $accent
 
 a, form a, .btn-link
   color: $accent
@@ -751,8 +761,21 @@ a.disabled
         display: none
       .form-group
         width: 100%
+        .form-control
+          font-size: 1.3rem
+          border-radius: 0
+          &:active, &:focus
+            &::placeholder
     &--btn
+      .btn
+        padding: 10px 30px
+        border-radius: 0
   &__formresult
+    > p
+      margin: 0
+      font-size: 1.2rem
+      b
+        padding-left: 5px
 
 .searchcard-sm, .searchcard-lg
   display: flex
@@ -767,7 +790,7 @@ a.disabled
   &:hover, &:active, &:focus
     color: $accent
     background-color: $white
-    border: 1px solid $accent
+    border-color: $accent
   &__counter
     span
       font-weight: bold

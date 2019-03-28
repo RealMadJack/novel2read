@@ -1,6 +1,6 @@
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render, redirect
-from django.views.generic import View, DetailView, ListView
+from django.views.generic import View, DetailView, ListView, FormView
 
 from next_prev import next_in_order, prev_in_order
 from .models import Book, BookTag, BookChapter
@@ -144,6 +144,5 @@ class BookSearchView(ListView):
             context['s_result'] = f"Didn't find book: <b>{field_data}</b>" if not books else ''
             context['books'] = books
         else:
-            form = self.form()
-            context['form'] = form
+            context['form'] = self.form()
         return render(request, template_name=self.template_name, context=context)
