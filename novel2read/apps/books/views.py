@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView, ListView
 
@@ -137,7 +138,9 @@ class BookSearchView(ListView):
         context = dict(self.context)  # update get view context
         if form.is_valid():
             field_data = form.cleaned_data['search_field']
-            books = Book.objects.filter(status=1).filter(title__icontains=field_data)
+            books = Book.objects.filter(status=1).annotate(
+                search=SearchVector('title', 'description'),
+            ).filter(search=field_data)
             context['s_result'] = f"Didn't find book: <b>{field_data}</b>" if not books else ''
             context['books'] = books
         else:
