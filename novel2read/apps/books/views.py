@@ -1,6 +1,4 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.views.generic import View, DetailView, ListView
 
 from next_prev import next_in_order, prev_in_order
@@ -136,10 +134,11 @@ class BookSearchView(ListView):
 
     def post(self, request, **kwargs):
         form = self.form(request.POST)
-        context = {'form': form, 'page_title': 'Search for Books'}
+        context = dict(self.context)  # update get view context
         if form.is_valid():
             field_data = form.cleaned_data['search_field']
-            books = Book.objects.filter(title__icontains=field_data)
+            books = Book.objects.filter(status=1).filter(title__icontains=field_data)
+            context['s_result'] = f"Didn't find book: <b>{field_data}</b>" if not books else ''
             context['books'] = books
         else:
             form = self.form()

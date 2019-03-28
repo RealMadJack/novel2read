@@ -16,8 +16,8 @@
       <form method="post" action="{% url 'books:search' %}" class="booksearch__form--form">
         {% csrf_token %}
         {% for field in form %}
-          <label for="{{field.id_for_label}}">{{field.label}}</label>
           <div class="form-group">
+              <label for="{{field.id_for_label}}">{{field.label}}</label>
               {{field}}
               {% for error in field.errors %}
                   <p class="alert-error">{{error}}</p>
@@ -31,6 +31,7 @@
 
     </div>
     <div class="booksearch__formresult">
+      {% if s_result %}<p>{{s_result|safe}}</p>{% endif %}
       {% for book in books %}
         <a href="{{book.get_absolute_url}}" class="searchcard-lg">
           <div class="searchcard-lg__counter"><span>{{forloop.counter}}</span></div>
