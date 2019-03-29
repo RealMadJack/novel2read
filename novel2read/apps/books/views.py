@@ -10,7 +10,7 @@ from novel2read.apps.users.models import BookProgress
 
 class FrontPageView(View):
     def get(self, request, *args, **kwargs):
-        books = Book.objects.published().prefetch_related('bookchapters')
+        books = Book.objects.prefetch_related('bookchapters')
         context = {'books': books}
         return render(request, template_name='books/front_page.html', context=context)
 
@@ -20,7 +20,7 @@ class BookGenreView(ListView):
 
     def get(self, request, *args, **kwargs):
         try:
-            books = Book.objects.published().select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
+            books = Book.objects.select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
             if kwargs:
                 books = books.filter(bookgenre__slug=kwargs['bookgenre_slug'])
             context = {'books': books}
@@ -38,7 +38,7 @@ class BookTagView(ListView):
             context = {'tags': tags}
             if kwargs:
                 tag = tags.get(slug=kwargs['booktag_slug'])
-                books = tag.books.published().select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
+                books = tag.books.select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
                 context['tag'] = tag
                 context['books'] = books
             return render(request, template_name=self.template_name, context=context)
@@ -51,7 +51,7 @@ class BookView(DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            books = Book.objects.published().select_related('bookgenre').prefetch_related('booktag', 'bookchapters')
+            books = Book.objects.select_related('bookgenre').prefetch_related('booktag', 'bookchapters')
             book = books.get(slug=kwargs['book_slug'])
             first_chap = book.bookchapters.first()
             last_chap = book.bookchapters.last()
@@ -104,7 +104,7 @@ class BookChapterView(DetailView):
 
 class BookRankingView(ListView):
     template_name = 'books/bookranking.html'
-    queryset = Book.objects.published().order_by('-votes')
+    queryset = Book.objects.order_by('-votes')
     context_object_name = 'books_all'
     paginate_by = 10
 
@@ -139,7 +139,7 @@ class BookSearchView(ListView):
         context['form'] = form
         if form.is_valid():
             field_data = form.cleaned_data['search_field']
-            books = Book.objects.published().annotate(
+            books = Book.objects.annotate(
                 search=SearchVector('title', 'description'),
             ).filter(search=field_data)
             context['s_result'] = f"Didn't find book: <b>{field_data}</b>" if not books else ''
