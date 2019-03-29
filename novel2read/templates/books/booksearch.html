@@ -29,28 +29,29 @@
         </div>
       </form>
 
-    </div>
-    <div class="booksearch__formresult">
-      {% if s_result %}<p>{{s_result|safe}}</p>{% endif %}
-      {% for book in books %}
-        <a href="{{book.get_absolute_url}}" class="searchcard-lg">
-          <div class="searchcard-lg__counter"><span>{{forloop.counter}}</span></div>
-          <div class="searchcard-lg__poster">
-            <img src="{{book.poster_url}}" alt="{{book.title}}">
-          </div>
-          <div class="searchcard-lg__info">
-            <h2 class="h2-title-sm">{{book.title}}</h2>
-            <div class="searchcard-lg__info--stars stars-rating-sm">
-              <img src="{% static 'images/star.png' %}" alt="star">
-              <img src="{% static 'images/star.png' %}" alt="star">
-              <img src="{% static 'images/star.png' %}" alt="star">
-              <img src="{% static 'images/star.png' %}" alt="star">
-              <img src="{% static 'images/half-star.png' %}" alt="star">
-              <span>{{book.rating}}</span>
+      <div class="booksearch__formresult">
+        {% if s_result %}<p>{{s_result|safe}}</p>{% endif %}
+        {% for book in books %}
+          <a href="{{book.get_absolute_url}}" class="searchcard-lg">
+            <div class="searchcard-lg__counter"><span>{{forloop.counter}}</span></div>
+            <div class="searchcard-lg__poster">
+              <img src="{{book.poster_url}}" alt="{{book.title}}">
             </div>
-          </div>
-        </a>
-      {% endfor %}
+            <div class="searchcard-lg__info">
+              <h2 class="h2-title-sm">{{book.title}}</h2>
+              <div class="searchcard-lg__info--stars stars-rating-sm">
+                <img src="{% static 'images/star.png' %}" alt="star">
+                <img src="{% static 'images/star.png' %}" alt="star">
+                <img src="{% static 'images/star.png' %}" alt="star">
+                <img src="{% static 'images/star.png' %}" alt="star">
+                <img src="{% static 'images/half-star.png' %}" alt="star">
+                <span>{{book.rating}}</span>
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+
     </div>
   </div>
 

@@ -1,6 +1,6 @@
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render, redirect
-from django.views.generic import View, DetailView, ListView, FormView
+from django.views.generic import View, DetailView, ListView
 
 from next_prev import next_in_order, prev_in_order
 from .models import Book, BookTag, BookChapter
@@ -136,6 +136,7 @@ class BookSearchView(ListView):
     def post(self, request, **kwargs):
         form = self.form(request.POST)
         context = dict(self.context)  # update get view context
+        context['form'] = form
         if form.is_valid():
             field_data = form.cleaned_data['search_field']
             books = Book.objects.filter(status=1).annotate(
@@ -143,6 +144,4 @@ class BookSearchView(ListView):
             ).filter(search=field_data)
             context['s_result'] = f"Didn't find book: <b>{field_data}</b>" if not books else ''
             context['books'] = books
-        else:
-            context['form'] = self.form()
         return render(request, template_name=self.template_name, context=context)

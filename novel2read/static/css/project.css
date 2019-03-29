@@ -815,40 +815,40 @@ a.disabled {
   margin-bottom: 16px;
   margin-bottom: 1rem; }
 
-.booksearch__form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.booksearch {
   margin-bottom: 30px; }
-  .booksearch__form--form {
+  .booksearch__form {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 100%;
-            flex: 1 100%; }
-    .booksearch__form--form label {
-      display: none; }
-    .booksearch__form--form .form-group {
-      width: 100%; }
-      .booksearch__form--form .form-group .form-control {
-        font-size: 20.8px;
-        font-size: 1.3rem;
-        border-radius: 0; }
-  .booksearch__form--btn .btn {
-    padding: 10px 30px;
-    border-radius: 0; }
-
-.booksearch__formresult > p {
-  margin: 0;
-  font-size: 19.2px;
-  font-size: 1.2rem; }
-  .booksearch__formresult > p b {
-    padding-left: 5px; }
+    display: flex; }
+    .booksearch__form--form {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-flex: 1;
+          -ms-flex: 1 100%;
+              flex: 1 100%; }
+      .booksearch__form--form label {
+        display: none; }
+      .booksearch__form--form .form-group {
+        width: 100%; }
+        .booksearch__form--form .form-group .form-control {
+          font-size: 20.8px;
+          font-size: 1.3rem;
+          border-radius: 0; }
+    .booksearch__form--btn .btn {
+      padding: 10px 30px;
+      border-radius: 0; }
+  .booksearch__formresult > p {
+    margin: 0;
+    font-size: 19.2px;
+    font-size: 1.2rem; }
+    .booksearch__formresult > p b {
+      padding-left: 5px; }
 
 .searchcard-sm, .searchcard-lg {
   display: -webkit-box;
@@ -1109,13 +1109,11 @@ a.disabled {
       margin-left: 25px; }
   .bookchapter__title .h1-title-sm {
     margin-bottom: 30px; }
-  .booksearch__form {
-    margin-bottom: 20; }
-    .booksearch__form--form .form-group .form-control {
-      font-size: 1rem; }
-    .booksearch__form--btn .btn {
-      padding: 6px 30px;
-      border-radius: 0; }
+  .booksearch__form--form .form-group .form-control {
+    font-size: 1rem; }
+  .booksearch__form--btn .btn {
+    padding: 6px 30px;
+    border-radius: 0; }
   .searchcard-sm__counter span {
     font-size: 1.2rem; }
   .searchcard-sm__poster img {
