@@ -139,7 +139,7 @@ class BookSearchView(ListView):
         context['form'] = form
         if form.is_valid():
             field_data = form.cleaned_data['search_field']
-            books = Book.objects.filter(status=1).annotate(
+            books = Book.objects.published().annotate(
                 search=SearchVector('title', 'description'),
             ).filter(search=field_data)
             context['s_result'] = f"Didn't find book: <b>{field_data}</b>" if not books else ''

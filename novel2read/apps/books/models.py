@@ -10,6 +10,7 @@ from model_utils import Choices, FieldTracker
 from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
 
+from .managers import BookManager
 from .utils import get_unique_slug
 
 
@@ -60,6 +61,7 @@ class BookTag(TimeStampedModel):
 
 
 class Book(TimeStampedModel):
+    objects = BookManager()
     title = models.CharField(_('Title'), blank=False, default='', max_length=255)
     title_sm = models.CharField(_('Title short'), blank=True, default='', max_length=50)
     slug = models.SlugField(default='', max_length=255, unique=True)
