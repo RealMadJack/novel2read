@@ -15,6 +15,11 @@ def get_unique_slug(cls, name):
     return unique_slug
 
 
+def capitalize_str(string):
+    string = ' '.join([w.capitalize() for w in string.split(' ')])
+    return string
+
+
 def capitalize_slug(slug):
     slug = re.sub('\d', '', ' '.join([w.capitalize() for w in slug.split('-')]))
     return slug
