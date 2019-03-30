@@ -519,8 +519,7 @@ a.disabled {
     .browsebooks__books .book-lg-wide__poster--image {
       display: block;
       width: 100%;
-      height: auto;
-      max-height: 215px;
+      height: 215px;
       max-width: 100%; }
   .browsebooks__books .book-lg-wide__info--title {
     margin: 0;
@@ -949,7 +948,7 @@ a.disabled {
   .browsebooks__books .book-lg-wide {
     grid-template-columns: 1fr; }
     .browsebooks__books .book-lg-wide__poster--image {
-      max-height: 440px; }
+      height: 440px; }
     .browsebooks__books .book-lg-wide__info--desc {
       height: 100px; }
   .book .bookhead__info--row .info-row {
@@ -999,6 +998,7 @@ a.disabled {
   .browsebooks__books .book-lg-wide {
     margin-bottom: 30px; }
     .browsebooks__books .book-lg-wide__poster--image {
+      height: auto;
       max-height: 750px; }
   .book .bookhead {
     grid-template-columns: 1fr; }
