@@ -51,13 +51,13 @@ class BookView(DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            books = Book.objects.published().select_related('bookgenre').prefetch_related('booktag', 'bookchapters')
-            book = books.get(slug=kwargs['book_slug'])
-            first_chap = book.bookchapters.first()
-            last_chap = book.bookchapters.last()
+            book = Book.objects.select_related('bookgenre').prefetch_related('booktag', 'bookchapters').get(slug=kwargs['book_slug'])
+            bookchapters = list(book.bookchapters.all())
+            first_chap = bookchapters[0]
+            last_chap = bookchapters[-1]
             user_auth = request.user.is_authenticated
             context = {
-                'books': books, 'book': book,
+                'book': book, 'bookchapters': bookchapters,
                 'first_chap': first_chap, 'last_chap': last_chap,
                 'user_auth': user_auth}
             if user_auth:
@@ -74,6 +74,10 @@ class BookView(DetailView):
 
 
 class BookChapterView(DetailView):
+    """
+    TODO: refactor next-prev-chap: bookchaps in list and slicing
+    """
+
     template_name = 'books/bookchapter.html'
 
     def get(self, request, *args, **kwargs):

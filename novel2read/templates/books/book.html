@@ -113,7 +113,7 @@
                 </a>
                 <small>{{last_chap.created|naturaltime}}</small>
               </div>
-              {% for bookchapter in book.bookchapters.all %}
+              {% for bookchapter in bookchapters %}
                 {% with loop_counter=forloop.counter %}
                   {% if book.volumes|length >= 1 %}
                     {% for volume in book.volumes %}
