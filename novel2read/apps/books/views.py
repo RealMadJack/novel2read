@@ -53,8 +53,8 @@ class BookView(DetailView):
         try:
             book = Book.objects.select_related('bookgenre').prefetch_related('booktag', 'bookchapters').get(slug=kwargs['book_slug'])
             bookchapters = list(book.bookchapters.all())
-            first_chap = bookchapters[0]
-            last_chap = bookchapters[-1]
+            first_chap = bookchapters[0] if len(bookchapters) >= 1 else []
+            last_chap = bookchapters[-1] if len(bookchapters) >= 1 else []
             user_auth = request.user.is_authenticated
             context = {
                 'book': book, 'bookchapters': bookchapters,
