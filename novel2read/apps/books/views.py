@@ -5,6 +5,7 @@ from django.views.generic import View, DetailView, ListView
 from next_prev import next_in_order, prev_in_order
 from .models import Book, BookTag, BookChapter
 from .forms import BookSearchForm
+from .utils import capitalize_slug
 from novel2read.apps.users.models import BookProgress
 
 
@@ -37,9 +38,10 @@ class BookTagView(ListView):
             tags = BookTag.objects.all()
             context = {'tags': tags}
             if kwargs:
-                tag = tags.get(slug=kwargs['booktag_slug'])
-                books = tag.books.published().select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
-                context['tag'] = tag
+                tag_name = capitalize_slug(kwargs['booktag_slug'])
+                books = Book.objects.published().filter(booktag__slug=kwargs['booktag_slug'])
+                books = books.select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
+                context['tag_name'] = tag_name
                 context['books'] = books
             return render(request, template_name=self.template_name, context=context)
         except BookTag.DoesNotExist:

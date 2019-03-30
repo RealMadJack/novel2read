@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-  {% if tag %}{{tag.name}}{% else %}Tags{% endif %} - {{block.super}}
+  {% if tag_name %}{{tag_name}}{% else %}Tags{% endif %} - {{block.super}}
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,7 @@
   <div class="browsetags mt-30">
     <div class="browsetags__title">
       <h1 class="h1-title">
-        {% if tag %}{{tag.name}}{% else %}All Tags{% endif %}
+        {% if tag_name %}{{tag_name}}{% else %}All Tags{% endif %}
       </h1>
     </div>
     <div class="browsetags__tag-nav ">
