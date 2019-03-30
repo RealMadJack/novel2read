@@ -78,8 +78,9 @@ class BookChapterView(DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            bookchapter = BookChapter.objects.select_related('book').get(book__slug=kwargs['book_slug'], c_id=kwargs['c_id'],)
+            c_id = kwargs['c_id']
             bookchapters = BookChapter.objects.filter(book__slug=kwargs['book_slug']).select_related('book')
+            bookchapter = list(bookchapters)[c_id - 1:c_id][0]
             prev_chap = prev_in_order(bookchapter, qs=bookchapters)
             next_chap = next_in_order(bookchapter, qs=bookchapters)
             context = {
