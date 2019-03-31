@@ -171,16 +171,6 @@ def create_update_chapter_cid(sender, instance, created=False, **kwargs):
 
 @receiver(post_delete, sender=BookChapter)
 def delete_update_chapter_cid(sender, instance, **kwargs):
-    """
-    The way is efficient but not correct. Need a new algorithm.
-    If we delete more than 1 object in the middle - update is incorrect.
-    Then update model test_update_chapters_cid
-
-    for i, chap in enumerate(book_chaps):
-        chap.c_id = i + 1
-        chap.save(update_fields=['c_id'])
-    """
-    del_cid = instance.c_id - 1
-    book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug)[del_cid:]
-    # print(book_chaps)
-    BookChapter.objects.filter(id__in=book_chaps).update(c_id=F('c_id') - 1)
+    del_cid = instance.c_id
+    book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug).filter(c_id__gt=del_cid)
+    book_chaps.update(c_id=F('c_id') - 1)
