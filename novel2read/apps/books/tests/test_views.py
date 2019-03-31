@@ -135,7 +135,22 @@ class BookRankingViewTest(TestCase):
 
 class BookSearchViewTest(TestCase):
     def setUp(self):
-        pass
+        self.client = Client()
+        self.book = Book.objects.create(title='test unique', status=1)
+        self.book_1 = Book.objects.create(title='test antique', status=1)
+        self.book_2 = Book.objects.create(title='monique', status=1)
+        self.rev_bs = reverse('books:search')
+        self.resp = self.client.get(self.rev_bs)
+
+    def test_book_response(self):
+        self.assertEqual(self.resp.status_code, 200)
+
+    def test_book_search_result(self):
+        resp = self.client.post(reverse('books:search'), {'search_field': 'test'})
+        self.assertIn(self.book.title, resp.content.decode('utf-8'))
+        self.assertIn(self.book_1.title, resp.content.decode('utf-8'))
+        resp = self.client.post(reverse('books:search'), {'search_field': 'moniqu'})
+        self.assertIn(self.book_2.title, resp.content.decode('utf-8'))
 
 
 class BookVoteViewTest(TestCase):
@@ -145,7 +160,9 @@ class BookVoteViewTest(TestCase):
         self.book = Book.objects.create(title='test book')
         self.bookgenre = BookGenre.objects.create(name='test genre')
         self.client.login(username='test', password='test')
-        self.resp = self.client.post('/books/test-book/vote/')
+        self.resp = self.client.post(reverse('books:vote', kwargs={'book_slug': self.book.slug}))
+        self.rev_book = reverse('books:book', kwargs={'book_slug': self.book.slug})
+        self.rev_vote = reverse('books:vote', kwargs={'book_slug': self.book.slug})
 
     def test_book_votes(self):
         self.book.refresh_from_db()
@@ -154,8 +171,9 @@ class BookVoteViewTest(TestCase):
         self.assertEqual(self.book.votes, 1)
         self.assertEqual(self.user.profile.votes, 2)
 
-    def test_book_votes_inv(self):
+        resp = self.client.post(self.rev_vote, {'next': self.rev_book})
         self.book.refresh_from_db()
         self.user.refresh_from_db()
-        self.assertNotEqual(self.book.votes, 0)
-        self.assertNotEqual(self.user.profile.votes, 3)
+        self.assertRedirects(resp, self.rev_book)
+        self.assertEqual(self.book.votes, 2)
+        self.assertEqual(self.user.profile.votes, 1)
