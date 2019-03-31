@@ -41,5 +41,23 @@ class BookUrlTest(TestCase):
         self.assertNotEqual(self.resolver.view_name, '')
 
 
-class BookChapterUrlTest(TestCase):
-    pass
+class BookRankingUrlTest(TestCase):
+    def setUp(self):
+        self.resolver = resolve('/ranking/')
+
+    def test_book_resolve(self):
+        self.assertEqual(self.resolver.view_name, 'books:ranking')
+
+    def test_book_resolve_invalid(self):
+        self.assertNotEqual(self.resolver.view_name, '')
+
+
+class BookSearchUrlTest(TestCase):
+    def setUp(self):
+        self.resolver = resolve('/search/')
+
+    def test_book_resolve(self):
+        self.assertEqual(self.resolver.view_name, 'books:search')
+
+    def test_book_resolve_invalid(self):
+        self.assertNotEqual(self.resolver.view_name, '')

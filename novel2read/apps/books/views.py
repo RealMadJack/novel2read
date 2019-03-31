@@ -165,8 +165,8 @@ def book_vote_view(request, *args, **kwargs):
             book = Book.objects.get(slug=kwargs['book_slug'])
             next_url = request.POST.get('next', reverse('books:ranking'))
             user.profile.votes = F('votes') - 1
-            user.save()
             book.votes = F('votes') + 1
+            user.save()
             book.save()
             return redirect(next_url)
         except Book.DoesNotExist:

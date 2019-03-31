@@ -1,7 +1,10 @@
 from django.test import Client, TestCase
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from ..models import BookGenre, BookTag, Book
+
+User = get_user_model()
 
 
 class FrontPageViewTest(TestCase):
@@ -130,3 +133,16 @@ class BookRankingViewTest(TestCase):
         # self.assertIn(self.book.title, self.response.content.decode('utf-8'))
         # self.assertIn(self.book_1.title, self.response.content.decode('utf-8'))
         # self.assertIn(self.book_2.title, self.response.content.decode('utf-8'))
+
+
+class BookVoteViewTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='test', password='test')
+        self.bookgenre = BookGenre.objects.create(name='test genre')
+        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre)
+
+    def test_book_votes(self):
+        login = self.client.login(username='test', password='test')
+        resp = self.client.post('/books/test-book/vote/')
+        print(resp)
