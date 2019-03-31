@@ -165,10 +165,13 @@ def book_vote_view(request, *args, **kwargs):
             book = Book.objects.get(slug=kwargs['book_slug'])
             book_rev = reverse('books:book', kwargs={'book_slug': kwargs['book_slug']})
             next_url = request.POST.get('next', book_rev)
-            user.profile.votes = F('votes') - 1
-            book.votes = F('votes') + 1
-            user.save()
-            book.save()
+            if user.profile.votes <= 0:
+                print('User reached vote limit')
+            else:
+                user.profile.votes = F('votes') - 1
+                user.save()
+                book.votes += 1
+                book.save()
             return redirect(next_url)
         except Book.DoesNotExist:
             return redirect('/404/')

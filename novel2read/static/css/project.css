@@ -418,11 +418,13 @@ a.disabled {
       font-size: .8rem;
       padding-right: 5px; }
     .rankcard-wide__nav form {
-      display: none;
+      display: block;
       margin-top: 10px; }
       .rankcard-wide__nav form a .btn {
         margin: 0;
         padding: 0; }
+    .rankcard-wide__nav a:last-of-type {
+      display: block; }
     .rankcard-wide__nav a, .rankcard-wide__nav form a .btn {
       display: block;
       width: 165px;
@@ -1069,7 +1071,7 @@ a.disabled {
         display: block; }
       .rankcard-wide__nav a {
         width: 170px; }
-        .rankcard-wide__nav a:nth-of-type(2) {
+        .rankcard-wide__nav a:nth-of-type(2), .rankcard-wide__nav a:last-of-type {
           display: block; }
   .libcard__poster--image {
     height: 340px; }
