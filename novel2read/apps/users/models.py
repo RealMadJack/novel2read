@@ -36,8 +36,9 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
     avatar = models.URLField(_('User Image'), blank=True, default='https://cdn2.iconfinder.com/data/icons/user-profile/100/User-512.png', max_length=255)
     bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=100, blank=True)
     birth_date = models.DateField(null=True, blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    votes = models.IntegerField(_('Votes'), blank=True, null=True, default=3)
 
     class Meta:
         verbose_name = _('Profile')
