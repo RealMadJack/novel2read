@@ -2,11 +2,7 @@
   <form method="post" action="{% url 'books:vote' book.slug %}">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ request.path }}">
-    <a href="javascript:void(0)">
-      <button type="submit" class="btn btn-outline-warning">
-        Vote
-      </button>
-    </a>
+    <button type="submit" class="btn btn-outline-warning">Vote</button>
   </form>
 {% else %}
   <a href="" class="disabled">

@@ -120,7 +120,7 @@ class BookRankingView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        qs = list(self.queryset)
+        qs = self.queryset
         user_auth = self.request.user.is_authenticated
         books = qs[3:]
         books_top = qs[:3]
@@ -166,7 +166,7 @@ def book_vote_view(request, *args, **kwargs):
             book_rev = reverse('books:book', kwargs={'book_slug': kwargs['book_slug']})
             next_url = request.POST.get('next', book_rev)
             if user.profile.votes <= 0:
-                print('User reached vote limit')
+                print('user reached vote limit')
             else:
                 user.profile.votes = F('votes') - 1
                 user.save()

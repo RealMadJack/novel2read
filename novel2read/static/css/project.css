@@ -316,18 +316,18 @@ a.disabled {
       font-size: 12.8px;
       font-size: .8rem;
       padding-right: 5px; }
-    .rankcard__nav form {
+    .rankcard__nav form:nth-of-type(2) {
       margin-top: 10px; }
-      .rankcard__nav form a .btn {
-        margin: 0;
-        padding: 0; }
-    .rankcard__nav a, .rankcard__nav form a .btn {
+    .rankcard__nav form a .btn {
+      margin: 0;
+      padding: 0; }
+    .rankcard__nav a, .rankcard__nav form a .btn, .rankcard__nav form:first-of-type {
       text-align: center;
       width: 50%;
       margin-bottom: 10px; }
-      .rankcard__nav a:last-of-type, .rankcard__nav form a .btn:last-of-type {
+      .rankcard__nav a:last-of-type, .rankcard__nav form a .btn:last-of-type, .rankcard__nav form:first-of-type:last-of-type {
         margin-bottom: 0; }
-      .rankcard__nav a .btn, .rankcard__nav form a .btn .btn {
+      .rankcard__nav a .btn, .rankcard__nav form a .btn .btn, .rankcard__nav form:first-of-type .btn {
         width: 100%; }
 
 .rankcard-wide {
@@ -417,25 +417,21 @@ a.disabled {
       font-size: 12.8px;
       font-size: .8rem;
       padding-right: 5px; }
-    .rankcard-wide__nav form {
-      display: block;
+    .rankcard-wide__nav a, .rankcard-wide__nav form:nth-of-type(2) {
+      display: none; }
+    .rankcard-wide__nav form:nth-of-type(2) {
       margin-top: 10px; }
-      .rankcard-wide__nav form a .btn {
-        margin: 0;
-        padding: 0; }
-    .rankcard-wide__nav a:last-of-type {
-      display: block; }
-    .rankcard-wide__nav a, .rankcard-wide__nav form a .btn {
-      display: block;
+    .rankcard-wide__nav form a .btn {
+      margin: 0;
+      padding: 0; }
+    .rankcard-wide__nav a, .rankcard-wide__nav form a .btn, .rankcard-wide__nav form:first-of-type {
+      text-align: center;
       width: 165px;
-      margin-bottom: 10px;
-      text-align: center; }
-      .rankcard-wide__nav a .btn, .rankcard-wide__nav form a .btn .btn {
+      margin-bottom: 10px; }
+      .rankcard-wide__nav a .btn, .rankcard-wide__nav form a .btn .btn, .rankcard-wide__nav form:first-of-type .btn {
         width: 100%; }
-      .rankcard-wide__nav a:last-of-type, .rankcard-wide__nav form a .btn:last-of-type {
+      .rankcard-wide__nav a:last-of-type, .rankcard-wide__nav form a .btn:last-of-type, .rankcard-wide__nav form:first-of-type:last-of-type {
         margin-bottom: 0; }
-      .rankcard-wide__nav a:nth-of-type(2), .rankcard-wide__nav form a .btn:nth-of-type(2) {
-        display: none; }
 
 .tag-card {
   display: inline-block;
@@ -1067,12 +1063,10 @@ a.disabled {
       .rankcard-wide__nav--votes {
         font-size: 1.1rem;
         margin-bottom: 10px; }
-      .rankcard-wide__nav form {
+      .rankcard-wide__nav a, .rankcard-wide__nav form:nth-of-type(2) {
         display: block; }
-      .rankcard-wide__nav a {
+      .rankcard-wide__nav a, .rankcard-wide__nav form a .btn, .rankcard-wide__nav form:first-of-type {
         width: 170px; }
-        .rankcard-wide__nav a:nth-of-type(2), .rankcard-wide__nav a:last-of-type {
-          display: block; }
   .libcard__poster--image {
     height: 340px; }
   .libcard__info--chaps {

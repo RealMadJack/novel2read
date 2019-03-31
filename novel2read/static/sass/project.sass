@@ -290,12 +290,13 @@ a.disabled
       font-size: .8rem
       padding-right: 5px
     form
-      margin-top: 10px
+      &:nth-of-type(2)
+        margin-top: 10px
       a
         .btn
           margin: 0
           padding: 0
-    a, form a .btn
+    a, form a .btn, form:first-of-type
       text-align: center
       width: 50%
       margin-bottom: 10px
@@ -374,27 +375,23 @@ a.disabled
     .fas
       font-size: .8rem
       padding-right: 5px
+    a, form:nth-of-type(2)
+      display: none
     form
-      display: block
-      margin-top: 10px
-
+      &:nth-of-type(2)
+        margin-top: 10px
       a
         .btn
           margin: 0
           padding: 0
-    a:last-of-type
-      display: block
-    a, form a .btn
-      display: block
+    a, form a .btn, form:first-of-type
+      text-align: center
       width: 165px
       margin-bottom: 10px
-      text-align: center
       .btn
         width: 100%
       &:last-of-type
         margin-bottom: 0
-      &:nth-of-type(2)
-        display: none
 
 
 .tag-card
