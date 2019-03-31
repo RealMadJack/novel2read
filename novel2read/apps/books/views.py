@@ -1,8 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
+from django.db.models import F
+from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView, ListView
-
 from next_prev import next_in_order, prev_in_order
+
 from .models import Book, BookTag, BookChapter
 from .forms import BookSearchForm
 from .utils import capitalize_slug
@@ -152,3 +155,19 @@ class BookSearchView(ListView):
             context['s_result'] = f"Didn't find book: <b>{field_data}</b>" if not books else ''
             context['books'] = books
         return render(request, template_name=self.template_name, context=context)
+
+
+@login_required
+def book_vote_view(request, *args, **kwargs):
+    if request.method == "POST":
+        try:
+            user = request.user
+            book = Book.objects.get(slug=kwargs['book_slug'])
+            next_url = request.POST.get('next', reverse('books:ranking'))
+            user.profile.votes = F('votes') - 1
+            user.save()
+            book.votes = F('votes') + 1
+            book.save()
+            return redirect(next_url)
+        except Book.DoesNotExist:
+            return redirect('/404/')
