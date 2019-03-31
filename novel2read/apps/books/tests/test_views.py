@@ -139,10 +139,20 @@ class BookVoteViewTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user(username='test', password='test')
+        self.book = Book.objects.create(title='test book')
         self.bookgenre = BookGenre.objects.create(name='test genre')
-        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre)
+        self.client.login(username='test', password='test')
+        self.resp = self.client.post('/books/test-book/vote/')
 
     def test_book_votes(self):
-        login = self.client.login(username='test', password='test')
-        resp = self.client.post('/books/test-book/vote/')
-        print(resp)
+        self.book.refresh_from_db()
+        self.user.refresh_from_db()
+        self.assertRedirects(self.resp, reverse('books:ranking'))
+        self.assertEqual(self.book.votes, 1)
+        self.assertEqual(self.user.profile.votes, 2)
+
+    def test_book_votes_inv(self):
+        self.book.refresh_from_db()
+        self.user.refresh_from_db()
+        self.assertNotEqual(self.book.votes, 0)
+        self.assertNotEqual(self.user.profile.votes, 3)
