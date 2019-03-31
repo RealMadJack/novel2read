@@ -417,7 +417,9 @@ a.disabled {
       font-size: 12.8px;
       font-size: .8rem;
       padding-right: 5px; }
-    .rankcard-wide__nav a, .rankcard-wide__nav form:nth-of-type(2) {
+    .rankcard-wide__nav a.disabled {
+      display: block; }
+    .rankcard-wide__nav a, .rankcard-wide__nav form:nth-of-type(2), .rankcard-wide__nav a.disabled:last-of-type {
       display: none; }
     .rankcard-wide__nav form:nth-of-type(2) {
       margin-top: 10px; }
@@ -1063,7 +1065,7 @@ a.disabled {
       .rankcard-wide__nav--votes {
         font-size: 1.1rem;
         margin-bottom: 10px; }
-      .rankcard-wide__nav a, .rankcard-wide__nav form:nth-of-type(2) {
+      .rankcard-wide__nav a, .rankcard-wide__nav form:nth-of-type(2), .rankcard-wide__nav a.disabled:last-of-type {
         display: block; }
       .rankcard-wide__nav a, .rankcard-wide__nav form a .btn, .rankcard-wide__nav form:first-of-type {
         width: 170px; }

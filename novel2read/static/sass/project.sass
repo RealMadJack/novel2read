@@ -375,7 +375,9 @@ a.disabled
     .fas
       font-size: .8rem
       padding-right: 5px
-    a, form:nth-of-type(2)
+    a.disabled
+      display: block
+    a, form:nth-of-type(2), a.disabled:last-of-type
       display: none
     form
       &:nth-of-type(2)
