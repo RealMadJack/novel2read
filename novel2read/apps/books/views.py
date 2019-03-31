@@ -171,3 +171,4 @@ def book_vote_view(request, *args, **kwargs):
             return redirect(next_url)
         except Book.DoesNotExist:
             return redirect('/404/')
+    return redirect('/400/')

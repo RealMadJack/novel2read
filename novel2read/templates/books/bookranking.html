@@ -45,7 +45,7 @@
                 <div class="rankcard-wide__nav--votes">Votes: {{book.votes}}</div>
                 <a
                   {% if user.is_authenticated %}
-                    href=""
+                    href="{% url 'books:vote' book.slug %}"
                   {% else %}
                     href="" class="disabled"
                   {% endif %}><button class="btn btn-outline-warning">Vote</button>
