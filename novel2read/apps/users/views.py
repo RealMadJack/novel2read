@@ -34,7 +34,7 @@ def add_library_book(request, *args, **kwargs):
             return redirect('/403/')
         except (Book.DoesNotExist, User.DoesNotExist):
             return redirect('/403/')
-    return redirect('/403/')
+    return redirect('/400/')
 
 
 @login_required
@@ -51,7 +51,7 @@ def remove_library_book(request, *args, **kwargs):
             return redirect('/403/')
         except (Book.DoesNotExist, User.DoesNotExist):
             return redirect('/403/')
-    return redirect('/403/')
+    return redirect('/400/')
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
