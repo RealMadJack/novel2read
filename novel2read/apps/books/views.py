@@ -163,7 +163,8 @@ def book_vote_view(request, *args, **kwargs):
         try:
             user = request.user
             book = Book.objects.get(slug=kwargs['book_slug'])
-            next_url = request.POST.get('next', reverse('books:ranking'))
+            book_rev = reverse('books:book', kwargs={'book_slug': kwargs['book_slug']})
+            next_url = request.POST.get('next', book_rev)
             user.profile.votes = F('votes') - 1
             book.votes = F('votes') + 1
             user.save()

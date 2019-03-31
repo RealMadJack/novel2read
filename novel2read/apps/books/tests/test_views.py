@@ -163,17 +163,18 @@ class BookVoteViewTest(TestCase):
         self.resp = self.client.post(reverse('books:vote', kwargs={'book_slug': self.book.slug}))
         self.rev_book = reverse('books:book', kwargs={'book_slug': self.book.slug})
         self.rev_vote = reverse('books:vote', kwargs={'book_slug': self.book.slug})
+        self.rev_ranking = reverse('books:ranking')
 
     def test_book_votes(self):
         self.book.refresh_from_db()
         self.user.refresh_from_db()
-        self.assertRedirects(self.resp, reverse('books:ranking'))
+        self.assertRedirects(self.resp, self.rev_book)
         self.assertEqual(self.book.votes, 1)
         self.assertEqual(self.user.profile.votes, 2)
 
-        resp = self.client.post(self.rev_vote, {'next': self.rev_book})
+        resp = self.client.post(self.rev_vote, {'next': self.rev_ranking})
         self.book.refresh_from_db()
         self.user.refresh_from_db()
-        self.assertRedirects(resp, self.rev_book)
+        self.assertRedirects(resp, self.rev_ranking)
         self.assertEqual(self.book.votes, 2)
         self.assertEqual(self.user.profile.votes, 1)
