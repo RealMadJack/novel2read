@@ -16,7 +16,7 @@ sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__name__))))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 django.setup()
 
-from novel2read.apps.books.models import Book, BookChapter, BookTag
+from .models import Book, BookChapter, BookTag
 
 # Logging restrictions
 LOGGER.setLevel(logging.WARNING)
