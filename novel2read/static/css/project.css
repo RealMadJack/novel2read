@@ -67,6 +67,18 @@ a.disabled {
     margin: 0 10px;
       margin-left: 7px; }
 
+.c-grn {
+  color: #00C40D; }
+
+.c-rd {
+  color: #FF0099; }
+
+.c-wt {
+  color: #fff; }
+
+.c-f5 {
+  color: #f5f5f5; }
+
 .alert-debug {
   background-color: #fff;
   border-color: #d6e9c6;
@@ -85,7 +97,7 @@ a.disabled {
   .scrollbar::-webkit-scrollbar {
     width: 10px;
     height: 10px;
-    background-color: #F5F5F5; }
+    background-color: #f5f5f5; }
   .scrollbar::-webkit-scrollbar-thumb {
     background-color: #6A57F9;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -700,6 +712,58 @@ a.disabled {
       .book .bookbody__tabs--chaps .chap-nav-card a small {
         padding-bottom: 5px;
         grid-column-start: 2; }
+  .book .bookbody__vote {
+    margin: 50px 0;
+    padding: 13px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #fff;
+    border: 2px solid rgba(0, 0, 0, 0.15); }
+    .book .bookbody__vote--ranking {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
+      .book .bookbody__vote--ranking .fas {
+        color: #6A57F9;
+        font-size: 32px;
+        font-size: 2rem;
+        margin: 0 16px;
+        margin: 0 1rem; }
+      .book .bookbody__vote--ranking span:first-of-type {
+        font-size: 40px;
+        font-size: 2.5rem;
+        margin-right: 5px; }
+      .book .bookbody__vote--ranking span:last-of-type {
+        font-size: 12.8px;
+        font-size: .8rem;
+        opacity: .8; }
+    .book .bookbody__vote--vote {
+      text-align: center; }
+      .book .bookbody__vote--vote form, .book .bookbody__vote--vote > a {
+        width: 190px;
+        max-width: 100%; }
+        .book .bookbody__vote--vote form .btn, .book .bookbody__vote--vote > a .btn {
+          width: 100%; }
+          .book .bookbody__vote--vote form .btn span, .book .bookbody__vote--vote > a .btn span {
+            font-size: 20.8px;
+            font-size: 1.3rem;
+            font-weight: bold; }
+          .book .bookbody__vote--vote form .btn small, .book .bookbody__vote--vote > a .btn small {
+            display: block !important; }
 
 .bookchapter__nav {
   display: -webkit-box;
@@ -1022,6 +1086,23 @@ a.disabled {
     grid-template-columns: auto auto; }
     .book .bookbody__tabs--chaps .chap-latest small {
       grid-column-start: 2; }
+  .book .bookbody__vote {
+    margin: 40px 0;
+    padding: 12px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+    .book .bookbody__vote--ranking .fas {
+      font-size: 1.5rem;
+      margin: 0 10px; }
+    .book .bookbody__vote--ranking span:first-of-type {
+      font-size: 1.8rem; }
+    .book .bookbody__vote--vote form, .book .bookbody__vote--vote > a {
+      width: 160px; }
+      .book .bookbody__vote--vote form .btn span, .book .bookbody__vote--vote > a .btn span {
+        font-size: 1rem; }
+      .book .bookbody__vote--vote form .btn small, .book .bookbody__vote--vote > a .btn small {
+        font-size: .7rem; }
   .rankcard__rank {
     padding: 0 16px;
     font-size: 2rem; }
@@ -1177,7 +1258,35 @@ a.disabled {
   .book .bookhead__info--read .btn {
     width: 100%;
     font-size: .9rem;
-    padding: 10px 16px; } }
+    padding: 10px 16px; }
+  .book .bookbody__vote {
+    max-width: 320px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    margin: 40px auto;
+    padding: 12px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+    .book .bookbody__vote--ranking {
+      margin-bottom: 1rem; }
+      .book .bookbody__vote--ranking .fas {
+        font-size: 1.5rem;
+        margin: 0 10px; }
+      .book .bookbody__vote--ranking span:first-of-type {
+        font-size: 1.8rem;
+        margin-right: 5px; }
+    .book .bookbody__vote--vote form, .book .bookbody__vote--vote > a {
+      width: 260px;
+      max-width: 100%; }
+      .book .bookbody__vote--vote form .btn, .book .bookbody__vote--vote > a .btn {
+        width: 100%; }
+        .book .bookbody__vote--vote form .btn span, .book .bookbody__vote--vote > a .btn span {
+          font-size: 1rem; }
+        .book .bookbody__vote--vote form .btn small, .book .bookbody__vote--vote > a .btn small {
+          font-size: .7rem; } }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {

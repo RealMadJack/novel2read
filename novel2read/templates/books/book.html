@@ -26,15 +26,15 @@
             {% endif %}
             <p>Chapters: {{book.chapters}}</p>
             <p>Views: 0</p>
-            <p>Status:
+            <p class="info-row--status">Status:
               {% if book.status_release == 0 %}
                 {% if book.chapters_release != 0 %}
-                  <span>{{book.chapters_release}} chs / week</span>
+                  <span class="c-grn">{{book.chapters_release}} chs / week</span>
                 {% else %}
-                  <span style="color: #00C40D">Ongoing</span>
+                  <span class="c-grn">Ongoing</span>
                 {% endif %}
               {% else %}
-                <span style="color: #FF0099">Completed</span>
+                <span class="c-rd">Completed</span>
               {% endif %}
             </p>
           </div>
@@ -135,11 +135,21 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="bookfooter">
-      <div class="book__vote"></div>
-      <div class="book__promo"></div>
+      <div class="bookbody__vote">
+        <div class="bookbody__vote--ranking">
+          <i class="fas fa-vote-yea"></i>
+          <span>{{book.votes}}</span>
+          <span>votes</span>
+        </div>
+        <div class="bookbody__vote--vote">
+          {% include 'books/vote-btn.html' %}
+        </div>
+      </div>
+
+      <div class="bookbody__review"></div>
+      <div class="bookbody__promo"></div>
+
     </div>
   </div>
 
