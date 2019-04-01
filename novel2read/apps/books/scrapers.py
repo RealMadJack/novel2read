@@ -108,8 +108,8 @@ class BookScraper:
         book_info_genre = r.html.find('.det-hd-detail a')[0].text
         chap_release_raw = r.html.find('.det-hd-detail strong')[0].text
         chap_release = chap_release_raw.lower().strip() if len(chap_release_raw) < 20 else int(re.findall('\d+', chap_release_raw)[0])
-        # book_info_chap_count_raw = r.html.find('.det-hd-detail strong')[1].text
-        # book_info_chap_count = int(re.findall('\d+', book_info_chap_count_raw)[0])
+        book_info_chap_count_raw = r.html.find('.det-hd-detail strong')[1].text
+        book_info_chap_count = int(re.findall('\d+', book_info_chap_count_raw)[0])
         book_info_author = r.html.find('.ell.dib.vam span')[0].text
         book_rating = float(r.html.find('._score.ell strong')[0].text)
         book_poster_url = ''.join(r.html.find('i.g_thumb img')[1].attrs['srcset'].split(' '))
@@ -123,7 +123,7 @@ class BookScraper:
             'book_name_sm': book_name_sm,
             'book_info_genre': book_info_genre,
             'chap_release': chap_release,
-            # 'book_info_chap_count': book_info_chap_count,
+            'book_info_chap_count': book_info_chap_count,
             'book_info_author': book_info_author,
             'book_rating': book_rating,
             'book_poster_url': book_poster_url,
