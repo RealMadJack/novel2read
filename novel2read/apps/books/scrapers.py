@@ -44,6 +44,7 @@ class BookScraper:
             logging.info(f'-- Creating: {name}')
             booktag = BookTag.objects.create(name=name)
             return booktag
+        return False
 
     def add_book_booktag(self, book, tag_name):
         try:
@@ -51,6 +52,8 @@ class BookScraper:
             if booktag not in book.booktag.all():
                 logging.info(f'-- Adding: {tag_name}')
                 book.booktag.add(booktag)
+                return True
+            return False
         except (BookTag.DoesNotExist, Book.DoesNotExist) as e:
             raise e
 
