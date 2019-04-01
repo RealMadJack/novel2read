@@ -63,11 +63,8 @@ class BookScraperTest(TestCase):
     #     self.assertEqual(len(resp), 5)
     #     self.assertEqual(resp[0], '30952845050180675')
 
-    def test_wn_book_get_data(self):
-        resp = self.scraper.wn_get_book_data(self.wn_url)
-        resp = resp[0]
-        from pprint import pprint
-        # pprint(resp)
+    def test_wn_get_book_data(self):
+        resp = self.scraper.wn_get_book_data(self.wn_url)[0]
         self.assertTrue(isinstance(resp['book_desc'], str))
         self.assertTrue(isinstance(resp['book_name'], str))
         self.assertTrue(isinstance(resp['book_name_sm'], str))
@@ -86,3 +83,6 @@ class BookScraperTest(TestCase):
         self.assertNotEqual(len(resp['book_info_author']), 0)
         self.assertNotEqual(len(resp['book_poster_url']), 0)
         self.assertNotEqual(len(resp['book_tag_list']), 0)
+
+    def test_wn_book_get_chaps(self):
+        resp = self.scraper.wn_book_get_chaps(self.wn_url)
