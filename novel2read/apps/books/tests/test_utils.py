@@ -3,7 +3,7 @@ from django.test import TestCase
 from ..utils import capitalize_slug, capitalize_str
 
 
-class CapitalizeTest(TestCase):
+class UtilsTest(TestCase):
     def setUp(self):
         self.slug = 'some-slug-123'
         self.string = 'some string 123'

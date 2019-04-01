@@ -26,7 +26,6 @@ LOGGER.setLevel(logging.WARNING)
 class BookScraper:
     """
     scrap priority - webnovels
-    steal comments?
     """
 
     def __init__(self):
