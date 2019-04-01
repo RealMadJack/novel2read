@@ -79,12 +79,7 @@ class BookScraper:
             # something with chapter boxnovel and missing book info
         pass
 
-    def request_wn_book(self, book_id):
-        """
-        """
-        wn_book = f'{self.wn_bb}{book_id}'
-
-        """ JS Search """
+    def wn_book_get_cids(self, book_url, s_limit=0):
         driver_opts = webdriver.ChromeOptions()
         driver_opts.add_argument('headless')
         driver_opts.add_argument('disable-gpu')
@@ -92,15 +87,22 @@ class BookScraper:
         driver_opts.add_argument('silent')
 
         driver = webdriver.Chrome(chrome_options=driver_opts)
-        wait = WebDriverWait(driver, 10)
-        driver.get(wn_book)
-
+        wait = WebDriverWait(driver, 5)
+        driver.get(book_url)
+        # DOM
         driver.find_element_by_css_selector('a.j_show_contents').click()
-        c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
+        if s_limit:
+            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li')[:s_limit])
+        else:
+            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
         c_ids = [li.get_attribute("data-cid") for li in c_list]
-        # c_ids = ['22522773419115905', '22525235509118345', '23637702117217714', '23577341972235183']
-        c_ids_len = len(c_ids)
         driver.close()
+        return c_ids
+
+    def wn_get_book(self, book_id):
+        wn_book = f'{self.wn_bb}{book_id}'
+        c_ids = self.wn_book_get_cids()
+        c_ids_len = len(c_ids)
 
         """ NOJS Search """
         session = HTMLSession()
@@ -179,7 +181,7 @@ class BookScraper:
         for book in filtered_books:
             logging.info(f'Trying: {book}')
             if not book.visited_wn and bool(book.book_id_wn):
-                book_data = self.request_wn_book(book.book_id_wn)
+                book_data = self.wn_get_book(book.book_id_wn)
 
                 book.author.append(book_data[0]['book_info_author']) if book_data[0]['book_info_author'] not in book.author else False
                 # book.chapters_max = book_data[0]['book_info_chap_count']
