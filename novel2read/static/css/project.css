@@ -372,6 +372,7 @@ a.disabled {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+    text-align: left;
     padding: 0; }
     .rankcard-wide__info .h2-title-sm {
       font-size: 22.4px;
@@ -381,28 +382,25 @@ a.disabled {
       margin-bottom: 10px; }
     .rankcard-wide__info .stars-rating-sm {
       margin-bottom: 20px; }
-    .rankcard-wide__info--nav {
-      -ms-flex-item-align: end;
-          align-self: flex-end; }
-      .rankcard-wide__info--nav .fas {
-        font-size: 12.8px;
-        font-size: .8rem;
-        padding-right: 5px;
-        display: none; }
-      .rankcard-wide__info--nav form {
-        display: inline-block;
-        position: relative;
-        top: -1px; }
-        .rankcard-wide__info--nav form a .btn {
-          margin: 0;
-          padding: 0; }
-      .rankcard-wide__info--nav a, .rankcard-wide__info--nav form a .btn {
-        color: #6A57F9; }
-        .rankcard-wide__info--nav a:hover, .rankcard-wide__info--nav a:active, .rankcard-wide__info--nav a:focus, .rankcard-wide__info--nav form a .btn:hover, .rankcard-wide__info--nav form a .btn:active, .rankcard-wide__info--nav form a .btn:focus {
-          color: #FF0099; }
-      .rankcard-wide__info--nav > span {
-        opacity: .5;
-        padding: 0 6px; }
+    .rankcard-wide__info--nav .fas {
+      font-size: 12.8px;
+      font-size: .8rem;
+      padding-right: 5px;
+      display: none; }
+    .rankcard-wide__info--nav form {
+      display: inline-block;
+      position: relative;
+      top: -1px; }
+      .rankcard-wide__info--nav form a .btn {
+        margin: 0;
+        padding: 0; }
+    .rankcard-wide__info--nav a, .rankcard-wide__info--nav form a .btn {
+      color: #6A57F9; }
+      .rankcard-wide__info--nav a:hover, .rankcard-wide__info--nav a:active, .rankcard-wide__info--nav a:focus, .rankcard-wide__info--nav form a .btn:hover, .rankcard-wide__info--nav form a .btn:active, .rankcard-wide__info--nav form a .btn:focus {
+        color: #FF0099; }
+    .rankcard-wide__info--nav > span {
+      opacity: .5;
+      padding: 0 6px; }
   .rankcard-wide__nav {
     margin-left: auto;
     -ms-flex-item-align: center;
@@ -1063,8 +1061,7 @@ a.disabled {
     .rankcard-wide__nav {
       margin: 0; }
       .rankcard-wide__nav--votes {
-        font-size: 1.1rem;
-        margin-bottom: 10px; }
+        font-size: 1.1rem; }
       .rankcard-wide__nav a, .rankcard-wide__nav form:nth-of-type(2), .rankcard-wide__nav a.disabled:last-of-type {
         display: block; }
       .rankcard-wide__nav a, .rankcard-wide__nav form a .btn, .rankcard-wide__nav form:first-of-type {
