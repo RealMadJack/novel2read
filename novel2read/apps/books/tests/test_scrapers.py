@@ -16,6 +16,11 @@ class BookScraperTest(TestCase):
         self.book_1 = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0, visited_wn=True)
         self.book.booktag.add(self.booktag, self.booktag_1)
         self.tags = ['test', 'tag', 'alo']
+        self.chaps = [
+            {'title': 'test', 'content': 'test'},
+            {'title': 'test1', 'content': 'test'},
+            {'title': 'test2', 'content': 'test'}
+        ]
 
     def test_get_filter_db_books(self):
         books = self.scraper.get_filter_db_books()
@@ -39,6 +44,14 @@ class BookScraperTest(TestCase):
         self.assertTrue(added)
         self.assertIn(tag_2, booktags)
         self.assertIn(self.book, books)
-        self.assertEqual(len(booktags), 3)
+        self.assertEqual(booktags.count(), 3)
         added = self.scraper.add_book_booktag(self.book, tag_2)
         self.assertFalse(added)
+
+    def test_create_book_chapter(self):
+        for chap in self.chaps:
+            self.scraper.create_book_chapter(
+                self.book, chap['title'], chap['content'])
+        bookchapters = self.book.bookchapters.all()
+        self.assertEqual(bookchapters.count(), 3)
+        self.assertEqual(bookchapters[1].title, capitalize_str(self.chaps[1]['title']))
