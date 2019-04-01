@@ -79,7 +79,7 @@ class BookScraper:
             # something with chapter boxnovel and missing book info
         pass
 
-    def wn_book_get_cids(self, book_url, s_limit=0):
+    def wn_get_book_cids(self, book_url, s_from=0, s_to=0):
         driver_opts = webdriver.ChromeOptions()
         driver_opts.add_argument('headless')
         driver_opts.add_argument('disable-gpu')
@@ -91,22 +91,17 @@ class BookScraper:
         driver.get(book_url)
         # DOM
         driver.find_element_by_css_selector('a.j_show_contents').click()
-        if s_limit:
-            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li')[:s_limit])
+        if s_to:
+            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li')[s_from:s_to])
         else:
             c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
         c_ids = [li.get_attribute("data-cid") for li in c_list]
         driver.close()
         return c_ids
 
-    def wn_get_book(self, book_id):
-        wn_book = f'{self.wn_bb}{book_id}'
-        c_ids = self.wn_book_get_cids()
-        c_ids_len = len(c_ids)
-
-        """ NOJS Search """
+    def wn_get_book_data(self, book_url):
         session = HTMLSession()
-        r = session.get(wn_book)
+        r = session.get(book_url)
         book_name_raw = r.html.find('.pt4.pb4.oh.mb4')[0].text
         book_name = ' '.join(book_name_raw.split(' ')[0:-1])
         book_name_sm = book_name_raw.split(' ')[-1]
@@ -135,8 +130,17 @@ class BookScraper:
             'book_desc': book_desc,
             'book_tag_list': book_tag_list,
         })
+        return book
 
+    def wn_book_get_chaps(self, book_url):
+        pass
+
+    def wn_get_book(self, book_id):
+        wn_book = f'{self.wn_bb}{book_id}'
+        c_ids = self.wn_get_book_cids(wn_book)
+        c_ids_len = len(c_ids)
         c_unlocked = 0
+
         for c_id in c_ids:
             wn_chap = f'{wn_book}/{c_id}'
             r_chap = session.get(wn_chap)

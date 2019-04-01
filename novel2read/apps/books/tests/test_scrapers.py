@@ -22,6 +22,7 @@ class BookScraperTest(TestCase):
             {'title': 'test2', 'content': 'test'}
         ]
         self.wn_url = 'https://www.webnovel.com/book/11530348105422805/My-House-of-Horrors'
+        self.wn_cids = ['31433161158217963', '31434466845054269', '31435296830706024', '31456481220024926', '31457257803799212', '31458260947098371', '31478999733560367', '31479978986103973', '31481323864516947', '31502076592844451']
 
     def test_get_filter_db_books(self):
         books = self.scraper.get_filter_db_books()
@@ -57,7 +58,12 @@ class BookScraperTest(TestCase):
         self.assertEqual(bookchapters.count(), 3)
         self.assertEqual(bookchapters[1].title, capitalize_str(self.chaps[1]['title']))
 
-    def test_wn_book_get_cids(self):
-        resp = self.scraper.wn_book_get_cids(self.wn_url, s_limit=5)
-        self.assertEqual(len(resp), 5)
-        self.assertEqual(resp[0], '30952845050180675')
+    # def test_wn_book_get_cids(self):
+    #     resp = self.scraper.wn_get_book_cids(self.wn_url, s_to=5)
+    #     self.assertEqual(len(resp), 5)
+    #     self.assertEqual(resp[0], '30952845050180675')
+
+    def test_wn_book_get_data(self):
+        resp = self.scraper.wn_get_book_data(self.wn_url)
+        from pprint import pprint
+        pprint(resp)
