@@ -114,6 +114,7 @@ class BookScraper:
         book_rating = float(r.html.find('._score.ell strong')[0].text)
         book_poster_url = ''.join(r.html.find('i.g_thumb img')[1].attrs['srcset'].split(' '))
         book_desc_raw = r.html.find('p.mb48.fs16.c_000')[0].html.split('<br/>')
+        book_desc_raw = [p.replace('&#13;', '').strip() for p in book_desc_raw]
         book_desc = ''.join([f"<p>{re.sub(r'<.*?>', '', p)}</p>" for p in book_desc_raw])
         book_tag_list = [a.text.strip() for a in r.html.find('.pop-tags a')]
 
