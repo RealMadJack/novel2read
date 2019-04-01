@@ -21,5 +21,7 @@
       slideToClickedSlide: true,
   });
 
+
+
 })();
 

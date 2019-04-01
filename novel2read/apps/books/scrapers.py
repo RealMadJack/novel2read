@@ -207,6 +207,9 @@ class BookScraper:
                 # pprint.pprint(book_data)
                 book.save()
 
+    def check_new_chaps(self):
+        pass
+
     def run(self):
         self.substitute_db_book_info()
 

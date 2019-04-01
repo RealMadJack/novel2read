@@ -757,12 +757,15 @@ a.disabled {
         width: 190px;
         max-width: 100%; }
         .book .bookbody__vote--vote form .btn, .book .bookbody__vote--vote > a .btn {
-          width: 100%; }
+          width: 100%;
+          line-height: 1.3; }
           .book .bookbody__vote--vote form .btn span, .book .bookbody__vote--vote > a .btn span {
-            font-size: 20.8px;
-            font-size: 1.3rem;
+            font-size: 17.6px;
+            font-size: 1.1rem;
             font-weight: bold; }
           .book .bookbody__vote--vote form .btn small, .book .bookbody__vote--vote > a .btn small {
+            font-size: 12px;
+            font-size: .75rem;
             display: block !important; }
 
 .bookchapter__nav {
