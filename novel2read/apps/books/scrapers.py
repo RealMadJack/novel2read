@@ -34,11 +34,16 @@ class BookScraper:
         self.wn_bb = 'https://www.webnovel.com/book/'
         self.bn_bb = 'https://boxnovel.com/novel/'
 
-    def get_filter_db_books(self):
-        books = Book.objects.filter(visited_wn=False)
+    def get_filter_db_books(self, bn=False, wn=False):
+        if wn:
+            books = Book.objects.filter(visited_wn=False)
+        elif bn:
+            books = Book.objects.filter(visited_bn=False)
+        else:
+            books = Book.objects.filter(visited_wn=False)
         return books
 
-    def create_new_tag(self, name):
+    def create_book_tag(self, name):
         slug_name = slugify(name)
         tag = BookTag.objects.filter(slug=slug_name).exists()
         if not tag:
@@ -185,38 +190,32 @@ class BookScraper:
 
         return book
 
-    def wn_get_book(self, book_id):
-        wn_book = f'{self.wn_bb}{book_id}'
-        c_ids = self.wn_get_book_cids(wn_book)
-        chaps = self.wn_get_book_chaps(wn_book, c_ids)
+    def update_db_book_data(self, book, data):
+        logging.info(f'Updating book: {book}')
+        data = data[0] if isinstance(data, list) else data
+        book.title = data['book_name']
+        book.title_sm = data['book_name_sm']
+        book.author.append(data['book_info_author']) if data['book_info_author'] not in book.author else False
+        book.description = data['book_desc']
+        book.poster_url = data['book_poster_url']
+        book.rating = data['book_rating']
+        if data['chap_release'] == 'completed':
+            book.status_release = 1
+        elif isinstance(data['chap_release'], int):
+            book.chapters_release = data['chap_release']
+        for tag in data['book_tag_list']:
+            self.create_book_tag(tag)
+            self.add_book_booktag(book, tag)
 
-        return book
+    def create_db_book_chap(self, book, chap):
+        pass
 
     def substitute_db_book_info(self):
-        filtered_books = self.get_filter_db_books()
+        f_books = self.get_filter_db_books()
 
-        for book in filtered_books:
-            logging.info(f'Trying: {book}')
+        for book in f_books:
             if not book.visited_wn and bool(book.book_id_wn):
                 book_data = self.wn_get_book(book.book_id_wn)
-
-                book.author.append(book_data[0]['book_info_author']) if book_data[0]['book_info_author'] not in book.author else False
-                # book.chapters_max = book_data[0]['book_info_chap_count']
-                book.description = book_data[0]['book_desc']
-                book.title = book_data[0]['book_name']
-                book.title_sm = book_data[0]['book_name_sm']
-                book.poster_url = book_data[0]['book_poster_url']
-                book.rating = book_data[0]['book_rating']
-
-                if book_data[0]['chap_release'] == 'completed':
-                    book.status_release = 1
-                elif isinstance(book_data[0]['chap_release'], int):
-                    book.chapters_release = book_data[0]['chap_release']
-
-                for tag in book_data[0]['book_tag_list']:
-                    self.create_new_tag(tag)
-                    self.add_book_booktag(book, tag)
-
                 for chap in book_data[1:-1]:
                     # check if chap exists and update
                     self.create_book_chapter(book, chap['c_tit'], chap['c_content'])
