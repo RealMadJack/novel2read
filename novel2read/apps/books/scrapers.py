@@ -145,8 +145,10 @@ class BookScraper:
         book = []
 
         for c_id in c_ids:
-            wn_chap = f'{book_url}{c_id}'
+            wn_chap = f'{book_url}/{c_id}'
+
             print(wn_chap)
+
             r_chap = session.get(wn_chap)
             chap_tit_raw = r_chap.html.find('.cha-tit h3')[0].text
             chap_lock = r_chap.html.find('.cha-content._lock')
@@ -226,7 +228,8 @@ class BookScraper:
 
         for book in f_books_wn:
             if not book.visited_wn and bool(book.book_id_wn):
-                wn_url = f"{wn_bb}{book.book_id_wn}"
+                wn_url = f'{self.wn_bb}{book.book_id_wn}/'
+
                 # Book index page data with static request
                 book_data = self.wn_get_book_data(wn_url)
                 self.update_db_book_data(book, book_data)

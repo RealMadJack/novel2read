@@ -12,8 +12,8 @@ class BookScraperTest(TestCase):
         self.bookgenre = BookGenre.objects.create(name='test genre')
         self.booktag = BookTag.objects.create(name='test')
         self.booktag_1 = BookTag.objects.create(name='tag')
-        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0, visited_wn=False)
-        self.book_1 = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0, visited_wn=True)
+        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0, visited_wn=False, book_id_wn=11530348105422805)
+        self.book_1 = Book.objects.create(title='test book 123', bookgenre=self.bookgenre, status=0, visited_wn=True)
         self.book.booktag.add(self.booktag, self.booktag_1)
         self.tags = ['test', 'tag', 'alo']
         self.chaps = [
@@ -96,9 +96,9 @@ class BookScraperTest(TestCase):
         # test chap content
         for chap in resp[0:-1]:
             self.assertTrue(isinstance(chap['c_id'], int))
-            self.assertTrue(isinstance(chap['c_tit'], str))
+            self.assertTrue(isinstance(chap['c_title'], str))
             self.assertNotEqual(chap['c_id'], 0)
-            self.assertNotEqual(chap['c_tit'], 0)
+            self.assertNotEqual(chap['c_title'], 0)
             self.assertIn('<p>', chap['c_content'])
             self.assertNotIn('<p></p>', chap['c_content'])
         # test chap resp result
@@ -111,6 +111,7 @@ class BookScraperTest(TestCase):
         self.assertNotEqual(resp_info['locked_from_id'], 0)
         self.assertNotEqual(len(resp_info['locked_from']), 0)
 
+    # @tag('slow')
     def test_update_db_book_data(self):
         b_data = self.scraper.wn_get_book_data(self.wn_url)[0]
         b_tags = self.book.booktag.all()
@@ -131,11 +132,18 @@ class BookScraperTest(TestCase):
             self.scraper.add_book_booktag(self.book, b_tag)
             self.assertIn(b_tag, [tag.name for tag in b_tags])
 
+    @tag('slow')
     def test_create_update_db_book_chaps(self):
         bookchaps = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
         self.scraper.create_update_db_book_chaps(self.book, bookchaps)
 
-    # def test_substitute_db_book_info(self):
-    #     resp = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
-    #     for chap in resp:
-    #         self.scraper.create_db_book_chap(self.book, chap)
+    @tag('slow')
+    def test_substitute_db_book_info(self):
+        self.scraper.substitute_db_book_info()
+        book = Book.objects.last()
+        b_chap = book.bookchapters
+        self.assertEqual(book.title, 'My House Of Horrors')
+        self.assertTrue(book.booktag.count() > 3)
+        self.assertEqual(book.visited_wn, True)
+        self.assertTrue(b_chap.count() >= 100)
+        self.assertEqual(b_chap.last().c_id, 100)
