@@ -12,7 +12,7 @@ class BookScraperTest(TestCase):
         self.bookgenre = BookGenre.objects.create(name='test genre')
         self.booktag = BookTag.objects.create(name='test')
         self.booktag_1 = BookTag.objects.create(name='tag')
-        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0, visited_wn=False, book_id_wn=11530348105422805)
+        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0, visited_wn=False, book_id_wn=11530348105422805, book_id_bn='my-house-of-horrors')
         self.book_1 = Book.objects.create(title='test book 123', bookgenre=self.bookgenre, status=0, visited_wn=True)
         self.book.booktag.add(self.booktag, self.booktag_1)
         self.tags = ['test', 'tag', 'alo']
@@ -21,10 +21,11 @@ class BookScraperTest(TestCase):
             {'title': 'test1', 'content': 'test'},
             {'title': 'test2', 'content': 'test'}
         ]
-        self.wn_url = 'https://www.webnovel.com/book/11530348105422805/'
+        self.wn_url = f'https://www.webnovel.com/book/{self.book.book_id_wn}/'
         self.wn_url_1 = 'https://www.webnovel.com/book/8360425206000005/'
         self.wn_cids = ['31433161158217963', '31434466845054269', '31435296830706024', '31456481220024926', '31457257803799212', '31458260947098371', '31478999733560367', '31479978986103973', '31481323864516947', '31502076592844451']
         self.wn_cids_1 = ['22941159621980243']
+        self.bn_url = f'https://boxnovel.com/novel/{self.book.book_id_bn}/'
 
     def test_get_filter_db_books(self):
         books = self.scraper.get_filter_db_books()
@@ -60,12 +61,13 @@ class BookScraperTest(TestCase):
         self.assertEqual(bookchapters.count(), 3)
         self.assertEqual(bookchapters[1].title, capitalize_str(self.chaps[1]['title']))
 
-    @tag('slow')
+    @tag('slow')  # +10s
     def test_wn_book_get_cids(self):
         resp = self.scraper.wn_get_book_cids(self.wn_url, s_to=5)
         self.assertEqual(len(resp), 5)
         self.assertEqual(resp[0], '30952845050180675')
 
+    # @tag('slow')  # +2s
     def test_wn_get_book_data(self):
         resp = self.scraper.wn_get_book_data(self.wn_url)[0]
         self.assertTrue(isinstance(resp['book_desc'], str))
@@ -87,7 +89,7 @@ class BookScraperTest(TestCase):
         self.assertNotEqual(len(resp['book_poster_url']), 0)
         self.assertNotEqual(len(resp['book_tag_list']), 0)
 
-    @tag('slow')
+    @tag('slow')  # +5s
     def test_wn_get_book_chaps(self):
         # big test data compatrison
         # self.wn_cids = self.scraper.wn_get_book_cids(self.wn_url)
@@ -111,7 +113,7 @@ class BookScraperTest(TestCase):
         self.assertNotEqual(resp_info['locked_from_id'], 0)
         self.assertNotEqual(len(resp_info['locked_from']), 0)
 
-    # @tag('slow')
+    # @tag('slow')  # +2s
     def test_update_db_book_data(self):
         b_data = self.scraper.wn_get_book_data(self.wn_url)[0]
         b_tags = self.book.booktag.all()
@@ -132,12 +134,15 @@ class BookScraperTest(TestCase):
             self.scraper.add_book_booktag(self.book, b_tag)
             self.assertIn(b_tag, [tag.name for tag in b_tags])
 
-    @tag('slow')
+    @tag('slow')  # +5s
     def test_create_update_db_book_chaps(self):
         bookchaps = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
         self.scraper.create_update_db_book_chaps(self.book, bookchaps)
 
-    @tag('slow')
+    def test_bn_get_book_chaps(self):
+        pass
+
+    @tag('slow')  # +80s
     def test_substitute_db_book_info(self):
         self.scraper.substitute_db_book_info()
         book = Book.objects.last()

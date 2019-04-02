@@ -68,22 +68,6 @@ class BookScraper:
             book=book, title=c_title, text=c_content)
         return bookchapter
 
-    def request_bn_book(self, book_id):
-        # resp = requests.get(self.bn_link)
-        # soup = BeautifulSoup(resp.content, self.parser)
-        # post_content = soup.select('.summary_content .post-content')
-        # authors_dirty = soup.select('.author-content a')
-        # authors = [author.text for author in authors_dirty]
-
-        # resp_chap = requests.get(bn_link_fc)
-        # soup_chap = BeautifulSoup(resp_chap.content, self.parser)
-        # chap_parag_list = soup_chap.select('.reading-content p')[:5]
-        # chap_title = chap_parag_list[0].text.split(' – ')  # re = chapter + :- + int
-
-        # if visited_wn:
-            # something with chapter boxnovel and missing book info
-        pass
-
     def wn_get_book_cids(self, book_url, s_from=0, s_to=0):
         driver_opts = webdriver.ChromeOptions()
         driver_opts.add_argument('headless')
@@ -218,6 +202,15 @@ class BookScraper:
                 self.create_book_chapter(book, chap['c_title'], chap['c_content'])
         else:
             raise Exception("You didn't provide chapter list")
+
+    def bn_get_book_chaps(self, book, book_url, s_from=0, s_to=0):
+        """
+        wn_visited=True
+        bn_visited=False, bool(book.book_id_bn)
+        bn_visited = celery task daily
+        check book last c_id => visit book_url/c_id+1
+        """
+        pass
 
     def substitute_db_book_info(self):
         """
