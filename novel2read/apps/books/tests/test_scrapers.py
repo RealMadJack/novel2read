@@ -66,7 +66,6 @@ class BookScraperTest(TestCase):
         self.assertEqual(len(resp), 5)
         self.assertEqual(resp[0], '30952845050180675')
 
-    @tag('slow')
     def test_wn_get_book_data(self):
         resp = self.scraper.wn_get_book_data(self.wn_url)[0]
         self.assertTrue(isinstance(resp['book_desc'], str))
@@ -116,7 +115,7 @@ class BookScraperTest(TestCase):
         b_data = self.scraper.wn_get_book_data(self.wn_url)[0]
         b_tags = self.book.booktag.all()
         self.scraper.update_db_book_data(self.book, b_data)
-        self.assertEqual(self.book.title, b_data['book_name'])
+        self.assertEqual(self.book.title, capitalize_str(b_data['book_name']))
         self.assertEqual(self.book.title_sm, b_data['book_name_sm'])
         self.assertIn(b_data['book_info_author'], self.book.author)
         self.assertEqual(self.book.description, b_data['book_desc'])
@@ -127,7 +126,16 @@ class BookScraperTest(TestCase):
         elif isinstance(b_data['chap_release'], int):
             self.assertEqual(self.book.status, 0)
             self.assertEqual(self.book.chapters_release, b_data['chap_release'])
-        for tag in b_data['book_tag_list']:
-            self.scraper.create_book_tag(tag)
-            self.scraper.add_book_booktag(self.book, tag)
-            self.assertIn(tag, [tag.name for tag in b_tags])
+        for b_tag in b_data['book_tag_list']:
+            self.scraper.create_book_tag(b_tag)
+            self.scraper.add_book_booktag(self.book, b_tag)
+            self.assertIn(b_tag, [tag.name for tag in b_tags])
+
+    def test_create_update_db_book_chaps(self):
+        bookchaps = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
+        self.scraper.create_update_db_book_chaps(self.book, bookchaps)
+
+    # def test_substitute_db_book_info(self):
+    #     resp = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
+    #     for chap in resp:
+    #         self.scraper.create_db_book_chap(self.book, chap)

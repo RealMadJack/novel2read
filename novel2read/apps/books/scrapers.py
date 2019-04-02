@@ -170,7 +170,7 @@ class BookScraper:
 
                 book.append({
                     'c_id': chap_tit_id,
-                    'c_tit': chap_tit,
+                    'c_title': chap_tit,
                     'c_content': ''.join(chap_content),
                 })
                 c_unlocked += 1
@@ -206,29 +206,39 @@ class BookScraper:
         for tag in data['book_tag_list']:
             self.create_book_tag(tag)
             self.add_book_booktag(book, tag)
+        book.save()
 
-    def create_db_book_chap(self, book, chap):
-        pass
+    def create_update_db_book_chaps(self, book, bookchaps):
+        """
+        checks book chapters uniquness
+        check if given
+        """
+        if isinstance(bookchaps, list) and len(bookchaps) > 0:
+            print(bookchaps[0:-1])
+            for chap in bookchaps[0:-1]:
+                self.create_book_chapter(book, chap['c_title'], chap['c_content'])
+        else:
+            raise Exception("You didn't provide chapter list")
 
     def substitute_db_book_info(self):
+        """
+        check wn_visiter => update_book_data
+        check book chapters => create-update book chapters
+        """
         f_books = self.get_filter_db_books()
 
         for book in f_books:
-            if not book.visited_wn and bool(book.book_id_wn):
-                book_data = self.wn_get_book(book.book_id_wn)
-                for chap in book_data[1:-1]:
-                    # check if chap exists and update
-                    self.create_book_chapter(book, chap['c_tit'], chap['c_content'])
-                book.locked_wn = book_data[-1]['locked_from_id']
+            pass
 
-                logging.info(f'Saving book: {book}')
-                book.status = 1 if not book.status else book.status
-                book.visited_wn = True
-                # pprint.pprint(book_data)
-                book.save()
-
-    def check_new_chaps(self):
-        pass
+        # for book in f_books:
+        #     if not book.visited_wn and bool(book.book_id_wn):
+        #         book_data = self.wn_get_book(book.book_id_wn)
+        #     for chap in book_data[0:-1]:
+        #         # check if chap exists and update
+        #         self.create_book_chapter(book, chap['c_tit'], chap['c_content'])
+        #     book.locked_wn = book_data[-1]['locked_from_id']
+        #         book.status = 1 if not book.status else book.status
+        #         book.visited_wn = True
 
     def run(self):
         self.substitute_db_book_info()
