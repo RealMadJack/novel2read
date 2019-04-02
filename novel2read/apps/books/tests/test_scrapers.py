@@ -22,7 +22,9 @@ class BookScraperTest(TestCase):
             {'title': 'test2', 'content': 'test'}
         ]
         self.wn_url = 'https://www.webnovel.com/book/11530348105422805/'
+        self.wn_url_1 = 'https://www.webnovel.com/book/8360425206000005/'
         self.wn_cids = ['31433161158217963', '31434466845054269', '31435296830706024', '31456481220024926', '31457257803799212', '31458260947098371', '31478999733560367', '31479978986103973', '31481323864516947', '31502076592844451']
+        self.wn_cids_1 = ['22941159621980243']
 
     def test_get_filter_db_books(self):
         books = self.scraper.get_filter_db_books()
@@ -86,9 +88,9 @@ class BookScraperTest(TestCase):
         self.assertNotEqual(len(resp['book_poster_url']), 0)
         self.assertNotEqual(len(resp['book_tag_list']), 0)
 
-    @tag('slow')
+    # @tag('slow')
     def test_wn_book_get_chaps(self):
-        resp = self.scraper.wn_book_get_chaps(self.wn_url, self.wn_cids[:1])
+        resp = self.scraper.wn_book_get_chaps(self.wn_url, self.wn_cids)
         # from pprint import pprint
         # pprint([f"c_id: {obj['c_id']}, c_tit: {obj['c_tit']}, c_content: {obj['c_content'][:50]}" for obj in resp])
         for chap in resp:
@@ -97,3 +99,4 @@ class BookScraperTest(TestCase):
             self.assertNotEqual(chap['c_id'], 0)
             self.assertNotEqual(chap['c_tit'], 0)
             self.assertIn('<p>', chap['c_content'])
+            self.assertNotIn('<p></p>', chap['c_content'])

@@ -17,6 +17,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 django.setup()
 
 from .models import Book, BookChapter, BookTag
+from .utils import multiple_replace
 
 # Logging restrictions
 LOGGER.setLevel(logging.WARNING)
@@ -155,13 +156,12 @@ class BookScraper:
                 to_repl = {'<p>': '', '</p>': '', '  ': '', '\n': ''}
                 chap_content_raw = r_chap.html.find('.cha-words p')
                 chap_content = []
-                for chap in chap_content_raw:
-                    chap = chap.html
-                    chap.replace('<p></p>', '')
-                    if len(chap) > 10:
+                for chap_p in chap_content_raw:
+                    chap = chap_p.html
+                    chap = multiple_replace(to_repl, chap)
+                    if len(chap):
+                        chap = f'<p>{chap}</p>'
                         chap_content.append(chap)
-                print(chap_content)
-                # chap_content = [chap.html.replace('<p></p>', '').replace('  ', '').replace('\n', '') for chap in chap_content_raw]
 
                 book.append({
                     'c_id': chap_tit_id,
