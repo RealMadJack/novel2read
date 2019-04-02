@@ -89,14 +89,25 @@ class BookScraperTest(TestCase):
         self.assertNotEqual(len(resp['book_tag_list']), 0)
 
     # @tag('slow')
-    def test_wn_book_get_chaps(self):
-        resp = self.scraper.wn_book_get_chaps(self.wn_url, self.wn_cids)
-        # from pprint import pprint
-        # pprint([f"c_id: {obj['c_id']}, c_tit: {obj['c_tit']}, c_content: {obj['c_content'][:50]}" for obj in resp])
-        for chap in resp:
+    def test_wn_get_book_chaps(self):
+        # big test data compatrison
+        # self.wn_cids = self.scraper.wn_get_book_cids(self.wn_url)
+        resp = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
+        resp_info = resp[-1]
+        # test chap content
+        for chap in resp[0:-1]:
             self.assertTrue(isinstance(chap['c_id'], int))
             self.assertTrue(isinstance(chap['c_tit'], str))
             self.assertNotEqual(chap['c_id'], 0)
             self.assertNotEqual(chap['c_tit'], 0)
             self.assertIn('<p>', chap['c_content'])
             self.assertNotIn('<p></p>', chap['c_content'])
+        # test chap resp result
+        self.assertTrue(isinstance(resp_info['unlocked'], int))
+        self.assertTrue(isinstance(resp_info['locked'], int))
+        self.assertTrue(isinstance(resp_info['locked_from_id'], int))
+        self.assertTrue(isinstance(resp_info['locked_from'], str))
+        self.assertNotEqual(resp_info['unlocked'], 0)
+        self.assertNotEqual(resp_info['locked'], 0)
+        self.assertNotEqual(resp_info['locked_from_id'], 0)
+        self.assertNotEqual(len(resp_info['locked_from']), 0)

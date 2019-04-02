@@ -134,7 +134,7 @@ class BookScraper:
         })
         return book
 
-    def wn_book_get_chaps(self, book_url, c_ids):
+    def wn_get_book_chaps(self, book_url, c_ids):
         session = HTMLSession()
         c_ids_len = len(c_ids)
         c_unlocked = 0
@@ -173,22 +173,22 @@ class BookScraper:
             else:
                 break
 
+        # Stats
         c_locked = c_ids_len - c_unlocked
         logging.info(f'Unlocked: {c_unlocked}, Locked: {c_locked}, Locked from: {chap_tit_raw}')
-        return book
-
-    def wn_get_book(self, book_id):
-        wn_book = f'{self.wn_bb}{book_id}'
-        c_ids = self.wn_get_book_cids(wn_book)
-        chaps = self.wn_book_get_chaps(wn_book, c_ids)
-
         book.append({
-            'book_name': book_name,
             'unlocked': c_unlocked,
             'locked': c_locked,
             'locked_from': chap_tit_raw,
             'locked_from_id': int(re.findall('\d+', chap_tit_raw)[0]),
         })
+
+        return book
+
+    def wn_get_book(self, book_id):
+        wn_book = f'{self.wn_bb}{book_id}'
+        c_ids = self.wn_get_book_cids(wn_book)
+        chaps = self.wn_get_book_chaps(wn_book, c_ids)
 
         return book
 
