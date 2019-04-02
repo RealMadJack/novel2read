@@ -152,6 +152,7 @@ class BookScraper:
 
                 logging.info(f'Unlocked: {chap_tit}')
 
+                to_repl = {'<p>': '', '</p>': '', '  ': '', '\n': ''}
                 chap_content_raw = r_chap.html.find('.cha-words p')
                 chap_content = []
                 for chap in chap_content_raw:
