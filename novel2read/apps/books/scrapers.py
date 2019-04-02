@@ -210,7 +210,21 @@ class BookScraper:
         bn_visited = celery task daily
         check book last c_id => visit book_url/c_id+1
         """
-        pass
+        b_chaps = book.bookchapters.all()
+        b_chaps_len = b_chaps.count()
+        b_chaps_len = b_chaps_len + s_from if s_from else b_chaps_len
+        session = HTMLSession()
+
+        while True:
+            b_chaps_len += 1
+            bn_chap_url = f'{book_url}/chapter-{b_chaps_len}'
+            print(bn_chap_url)
+            resp = session.get(bn_chap_url)
+            if True:
+                pass
+            else:
+                print(f'Book has: {b_chaps_len} chapters')
+                break
 
     def substitute_db_book_info(self):
         """

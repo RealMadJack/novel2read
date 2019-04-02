@@ -140,7 +140,12 @@ class BookScraperTest(TestCase):
         self.scraper.create_update_db_book_chaps(self.book, bookchaps)
 
     def test_bn_get_book_chaps(self):
-        pass
+        b_chaps = self.scraper.bn_get_book_chaps(self.book, self.bn_url)
+        """
+        get chapter-{b_chaps_len+1}
+        add chap to list
+        if chap body blank = break = return b_chaps list
+        """
 
     @tag('slow')  # +80s
     def test_substitute_db_book_info(self):
