@@ -143,7 +143,10 @@ class BookScraper:
 
                 logging.info(f'Unlocked: {chap_tit}')
 
-                to_repl = {'<p>': '', '</p>': '', '  ': '', '\n': ''}
+                to_repl = {
+                    '<p>': '', '</p>': '', '  ': '', '\n': '',
+                    '<script>': '', '</script>': '', '<?php': '',
+                }
                 chap_content_raw = r_chap.html.find('.cha-words p')
                 chap_content = []
                 for chap_p in chap_content_raw:
@@ -214,17 +217,45 @@ class BookScraper:
         b_chaps_len = b_chaps.count()
         b_chaps_len = b_chaps_len + s_from if s_from else b_chaps_len
         session = HTMLSession()
+        b_chap_list = []
 
         while True:
             b_chaps_len += 1
             bn_chap_url = f'{book_url}/chapter-{b_chaps_len}'
             print(bn_chap_url)
-            resp = session.get(bn_chap_url)
-            if True:
-                pass
-            else:
-                print(f'Book has: {b_chaps_len} chapters')
+            try:
+                r_chap = session.get(bn_chap_url)
+                chap_tit_raw = r_chap.html.find('.reading-content h3')[0].text
+                chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].strip()
+                chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
+
+                to_repl = {
+                    '<p>': '', '</p>': '', '  ': '', '\n': '',
+                    '<script>': '', '</script>': '', '<?php': '',
+                }
+                chap_content_raw = r_chap.html.find('.reading-content p')
+                chap_content_raw = chap_content_raw[1:] if 'translator' in chap_content_raw[0].text.lower() else chap_content_raw
+                chap_content = []
+                for chap_p in chap_content_raw:
+                    chap = chap_p.html
+                    chap = multiple_replace(to_repl, chap)
+                    if len(chap):
+                        chap = f'<p>{chap}</p>'
+                        chap_content.append(chap)
+
+                b_chap_list.append({
+                    'c_id': chap_tit_id,
+                    'c_title': chap_tit,
+                    'c_content': ''.join(chap_content),
+                })
+            except IndexError as e:
+                # print(f'Book has: {b_chaps_len - 1} chapters')
+                b_chap_list.append({
+                    'updated': b_chaps_len - 1,
+                    'last': bn_chap_url,
+                })
                 break
+        return b_chap_list
 
     def substitute_db_book_info(self):
         """

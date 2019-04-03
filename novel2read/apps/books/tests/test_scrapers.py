@@ -103,6 +103,8 @@ class BookScraperTest(TestCase):
             self.assertNotEqual(chap['c_title'], 0)
             self.assertIn('<p>', chap['c_content'])
             self.assertNotIn('<p></p>', chap['c_content'])
+            self.assertNotIn('<script>', chap['c_content'])
+            self.assertNotIn('<?php', chap['c_content'])
         # test chap resp result
         self.assertTrue(isinstance(resp_info['unlocked'], int))
         self.assertTrue(isinstance(resp_info['locked'], int))
@@ -140,12 +142,23 @@ class BookScraperTest(TestCase):
         self.scraper.create_update_db_book_chaps(self.book, bookchaps)
 
     def test_bn_get_book_chaps(self):
-        b_chaps = self.scraper.bn_get_book_chaps(self.book, self.bn_url)
-        """
-        get chapter-{b_chaps_len+1}
-        add chap to list
-        if chap body blank = break = return b_chaps list
-        """
+        resp = self.scraper.bn_get_book_chaps(self.book, self.bn_url, s_from=400)
+        resp_info = resp[-1]
+        # test chap content
+        for chap in resp[0:-1]:
+            self.assertTrue(isinstance(chap['c_id'], int))
+            self.assertTrue(isinstance(chap['c_title'], str))
+            self.assertNotEqual(chap['c_id'], 0)
+            self.assertNotEqual(chap['c_title'], 0)
+            self.assertIn('<p>', chap['c_content'])
+            self.assertNotIn('<p></p>', chap['c_content'])
+            self.assertNotIn('<script>', chap['c_content'])
+            self.assertNotIn('<?php', chap['c_content'])
+        # test chap resp result
+        self.assertTrue(isinstance(resp_info['updated'], int))
+        self.assertTrue(isinstance(resp_info['last'], str))
+        self.assertNotEqual(resp_info['updated'], 0)
+        self.assertNotEqual(len(resp_info['last']), 0)
 
     @tag('slow')  # +80s
     def test_substitute_db_book_info(self):
