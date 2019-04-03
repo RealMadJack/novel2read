@@ -141,6 +141,7 @@ class BookScraperTest(TestCase):
         bookchaps = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
         self.scraper.create_update_db_book_chaps(self.book, bookchaps)
 
+    @tag('slow')  # +30s
     def test_bn_get_book_chaps(self):
         resp = self.scraper.bn_get_book_chaps(self.book, self.bn_url, s_from=400)
         resp_info = resp[-1]
@@ -160,7 +161,7 @@ class BookScraperTest(TestCase):
         self.assertNotEqual(resp_info['updated'], 0)
         self.assertNotEqual(len(resp_info['last']), 0)
 
-    @tag('slow')  # +80s
+    @tag('slow')  # 5+ minutes
     def test_substitute_db_book_info(self):
         self.scraper.substitute_db_book_info()
         book = Book.objects.last()
@@ -168,5 +169,6 @@ class BookScraperTest(TestCase):
         self.assertEqual(book.title, 'My House Of Horrors')
         self.assertTrue(book.booktag.count() > 3)
         self.assertEqual(book.visited_wn, True)
-        self.assertTrue(b_chap.count() >= 100)
-        self.assertEqual(b_chap.last().c_id, 100)
+        self.assertTrue(b_chap.count() >= 415)
+        self.assertTrue(b_chap.last().c_id >= 415)
+        self.assertEqual(book.visited_bn, True)

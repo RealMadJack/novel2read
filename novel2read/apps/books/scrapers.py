@@ -207,12 +207,6 @@ class BookScraper:
             raise Exception("You didn't provide chapter list")
 
     def bn_get_book_chaps(self, book, book_url, s_from=0, s_to=0):
-        """
-        wn_visited=True
-        bn_visited=False, bool(book.book_id_bn)
-        bn_visited = celery task daily
-        check book last c_id => visit book_url/c_id+1
-        """
         b_chaps = book.bookchapters.all()
         b_chaps_len = b_chaps.count()
         b_chaps_len = b_chaps_len + s_from if s_from else b_chaps_len
@@ -260,24 +254,39 @@ class BookScraper:
     def substitute_db_book_info(self):
         """
         TODO: different f_books for bn & wn and loops
+        wn_visited=True
+        bn_visited=False, bool(book.book_id_bn)
+        bn_visited = celery task daily
+        check book last c_id => visit book_url/c_id+1
         """
         f_books_wn = self.get_filter_db_books(wn=True)
-        # f_books_bn = self.get_filter_db_books(bn=True)
+        f_books_bn = self.get_filter_db_books(bn=True)
 
         for book in f_books_wn:
             if not book.visited_wn and bool(book.book_id_wn):
-                wn_url = f'{self.wn_bb}{book.book_id_wn}/'
+                book_url = f'{self.wn_bb}{book.book_id_wn}/'
 
                 # Book index page data with static request
-                book_data = self.wn_get_book_data(wn_url)
+                book_data = self.wn_get_book_data(book_url)
                 self.update_db_book_data(book, book_data)
                 # Book chapters data, c_ids with js request
-                c_ids = self.wn_get_book_cids(wn_url)
-                bookchaps = self.wn_get_book_chaps(wn_url, c_ids)
+                c_ids = self.wn_get_book_cids(book_url)
+                bookchaps = self.wn_get_book_chaps(book_url, c_ids)
                 self.create_update_db_book_chaps(book, bookchaps)
 
                 # Book update
                 book.visited_wn = True
+                book.save()
+
+        for book in f_books_bn:
+            if not book.visited_bn and bool(book.book_id_bn):
+                book_url = f'{self.bn_bb}{book.book_id_bn}/'
+                # Book chapters data, c_ids with js request
+                bookchaps = self.bn_get_book_chaps(book, book_url)
+                self.create_update_db_book_chaps(book, bookchaps)
+
+                # Book update
+                book.visited_bn = True
                 book.save()
 
     def run(self):
