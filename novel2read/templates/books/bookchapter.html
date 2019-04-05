@@ -97,7 +97,7 @@
 
 {% block javascript %}
   {{ block.super }}
-  <script>
+  <script type="text/javascript">
     //if (document.getElementById('something')).
     let chapToggle = document.getElementById('chaps-toggle');
     let chapNav = document.getElementById('chaps-nav');
@@ -127,5 +127,25 @@
     chapToggle.addEventListener('click', toggleElem);
     document.body.addEventListener('click', closeElem)
 
+  </script>
+  <script type="text/javascript">
+    let pos = localStorage.getItem('chap_scroll', 0)
+    let pos_url = localStorage.getItem('chap_url', '')
+
+    localStorage['chap_url'] = location.pathname;
+
+    window.onscroll = () => {
+      const offset = 100;
+      let scrollTop = window.pageYOffset;
+      localStorage['chap_scroll'] = scrollTop;
+    }
+
+    if (pos_url === location.pathname) {
+      window.scrollTo({
+        top: pos,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
   </script>
 {% endblock javascript %}
