@@ -2,7 +2,28 @@ body {
   position: relative;
   min-width: 320px;
   max-width: 100%;
-  min-height: 100vh; }
+  min-height: 100vh;
+  color: black;
+  background-color: #fff; }
+
+body.dark-theme {
+  color: #fff;
+  background-color: #222337; }
+  body.dark-theme .navbar {
+    background-color: #2b2e4a !important; }
+    body.dark-theme .navbar .navbar-nav a, body.dark-theme .navbar .navbar-brand {
+      color: #fff !important; }
+    body.dark-theme .navbar .dropdown-menu {
+      background-color: #2b2e4a !important;
+      border-color: rgba(255, 255, 255, 0.5); }
+      body.dark-theme .navbar .dropdown-menu a {
+        color: #fff; }
+        body.dark-theme .navbar .dropdown-menu a:hover, body.dark-theme .navbar .dropdown-menu a:active, body.dark-theme .navbar .dropdown-menu a:focus {
+          background-color: #FF0099; }
+  body.dark-theme .breadcrumb {
+    color: #fff; }
+  body.dark-theme .btn-dark {
+    background-color: #FF0099; }
 
 img {
   position: relative;

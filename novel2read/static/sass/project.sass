@@ -8,6 +8,40 @@ body
   min-width: 320px
   max-width: 100%
   min-height: 100vh
+  color: $default
+  background-color: $white
+
+
+////////////////////////////////
+    // Theming //
+////////////////////////////////
+body.light-theme
+body.dark-theme
+  color: $white
+  background-color: $dark-grey
+
+  .navbar
+    background-color: $accent-dark!important
+    .navbar-nav a, .navbar-brand
+      color: $white!important
+    .dropdown-menu
+      background-color: $accent-dark!important
+      border-color: rgba(255, 255, 255, 0.5)
+      a
+        color: $white
+        &:hover, &:active, &:focus
+          background-color: $accent-hot
+
+  .breadcrumb
+    color: $white
+
+  .btn-dark
+    background-color: $accent-hot
+
+  .bookchapter
+
+
+
 
 
 ////////////////////////////////
