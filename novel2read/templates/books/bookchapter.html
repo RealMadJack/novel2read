@@ -63,8 +63,10 @@
 
     <div class="bookchapter__styles">
       <div class="collapse" id="collapseChapterStyles">
-        <div class="card card-body">
+        <div class="card card-body" id="chapStyles">
           Styles:
+          <button id="light-theme">Light</button>
+          <button id="dark-theme">Dark</button>
         </div>
       </div>
     </div>
@@ -132,12 +134,11 @@
     let pos = localStorage.getItem('chap_scroll', 0)
     let pos_url = localStorage.getItem('chap_url', '')
 
-    localStorage['chap_url'] = location.pathname;
-
     window.onscroll = () => {
       const offset = 100;
       let scrollTop = window.pageYOffset;
-      localStorage['chap_scroll'] = scrollTop;
+      localStorage.setItem('chap_scroll', scrollTop);
+      localStorage.setItem('chap_url', location.pathname)
     }
 
     if (pos_url === location.pathname) {
@@ -147,5 +148,48 @@
         behavior: 'smooth'
       });
     }
+  </script>
+  <script type="text/javascript">
+    const styles = document.body.querySelector('#chapStyles')
+    const lt = document.getElementById('light-theme');
+    const dt = document.getElementById('dark-theme');
+    let theme = localStorage.getItem('theme', '')
+
+    if (theme === 'light') {
+      setDomTheme('light');
+    } else if (theme === 'dark') {
+      setDomTheme('dark');
+    }
+
+    function setDomTheme(theme) {
+      body = document.body;
+      if (theme == 'dark') {
+        if (body.classList.contains('light-theme')) {
+          body.classList.remove('light-theme');
+          body.classList.add('dark-theme')
+
+        }
+      } else {
+        if (body.classList.contains('dark-theme')) {
+          body.classList.remove('dark-theme');
+          body.classList.add('light-theme')
+        }
+      }
+    }
+
+    function setStorageTheme(e) {
+      e.preventDefault();
+      if (e.target === lt) {
+        localStorage.setItem('theme', 'light')
+        setDomTheme('light');
+      } else if (e.target === dt) {
+        localStorage.setItem('theme', 'dark')
+        setDomTheme('dark');
+      }
+      return false
+    }
+
+    styles.addEventListener('click', setStorageTheme)
+
   </script>
 {% endblock javascript %}
