@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Home - {{block.super}}{% endblock %}
 {% block content %}
-  <div class="container-fluid fp-slider">
+  <div class="container-fluid">
     <div class="row">
 
       <div class="swiper-container">
@@ -50,6 +50,9 @@
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
 
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
       </div> <!-- Slider container -->
 
     </div>
@@ -59,3 +62,7 @@
   </div>
 
 {% endblock content %}
+
+{% block javascript %}
+  {{ block.super }}
+{% endblock %}
