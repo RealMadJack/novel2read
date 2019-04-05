@@ -7,7 +7,7 @@ body {
   background-color: #fff; }
 
 body.dark-theme {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.7);
   background-color: #222337; }
   body.dark-theme .navbar {
     background-color: #2b2e4a !important; }
@@ -836,6 +836,7 @@ a.disabled {
         pointer-events: none; }
       .bookchapter__nav--select .chaps--volume {
         display: inline-block;
+        color: black;
         font-weight: bold;
         padding-top: 10px;
         padding-left: 6px;
@@ -886,12 +887,35 @@ a.disabled {
           color: #fff;
           background-color: #6A57F9; }
 
-.bookchapter__styles--toggle {
-  width: 20px;
-  cursor: pointer;
-  margin-left: 10px; }
-  .bookchapter__styles--toggle .fas {
+.bookchapter__styles {
+  position: relative; }
+  .bookchapter__styles .fas {
     pointer-events: none; }
+  .bookchapter__styles .styles {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 35px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    pointer-events: none; }
+    .bookchapter__styles .styles .btn {
+      margin-right: 10px; }
+      .bookchapter__styles .styles .btn:last-of-type {
+        margin-right: 0; }
+  .bookchapter__styles .styles.visible {
+    visibility: visible;
+    opacity: 1;
+    left: 55px;
+    pointer-events: auto; }
 
 .bookchapter__title .h1-title-sm {
   margin-bottom: 40px; }
@@ -1204,9 +1228,10 @@ a.disabled {
         .bookchapter__nav--select .chaps--nav {
           width: 100%;
           min-width: 100%; }
-  .bookchapter__styles--toggle {
-    margin: 0;
-      margin-left: 25px; }
+  .bookchapter__styles .styles {
+    left: -100px; }
+  .bookchapter__styles .styles.visible {
+    left: -140px; }
   .bookchapter__title .h1-title-sm {
     margin-bottom: 30px; }
   .booksearch__form--form .form-group .form-control {

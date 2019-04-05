@@ -54,9 +54,11 @@ if (pos_url === location.pathname) {
 
 
 // Theming
-const styles = document.body.querySelector('#chapStyles')
-const lt = document.getElementById('light-theme');
-const dt = document.getElementById('dark-theme');
+const styles = document.body.querySelector('.bookchapter__styles')
+const stylesCollapse = document.getElementById('stylesCollapse')
+const toggleStyles = document.getElementById('toggleStyles')
+const lt = document.getElementById('lightTheme');
+const dt = document.getElementById('darkTheme');
 let theme = localStorage.getItem('theme', '')
 
 if (theme === 'light') {
@@ -74,8 +76,12 @@ function setDomTheme(theme) {
   }
 }
 
-function setStorageTheme(e) {
+function manageStyles(e) {
   e.preventDefault();
+  if (e.target === toggleStyles) {
+    console.log(e.target)
+    stylesCollapse.classList.toggle('visible')
+  }
   if (e.target === lt) {
     localStorage.setItem('theme', 'light')
     setDomTheme('light');
@@ -86,6 +92,6 @@ function setStorageTheme(e) {
   return false
 }
 
-styles.addEventListener('click', setStorageTheme)
+styles.addEventListener('click', manageStyles)
 
 })();

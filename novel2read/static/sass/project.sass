@@ -17,7 +17,7 @@ body
 ////////////////////////////////
 body.light-theme
 body.dark-theme
-  color: $white
+  color: rgba(255, 255, 255, .7)
   background-color: $dark-grey
 
   .navbar
@@ -26,7 +26,7 @@ body.dark-theme
       color: $white!important
     .dropdown-menu
       background-color: $accent-dark!important
-      border-color: rgba(255, 255, 255, 0.5)
+      border-color: rgba(255, 255, 255, .5)
       a
         color: $white
         &:hover, &:active, &:focus
@@ -767,6 +767,7 @@ a.disabled
             pointer-events: none
         &--volume
           display: inline-block
+          color: $default
           font-weight: bold
           padding:
             top: 10px
@@ -815,13 +816,29 @@ a.disabled
               color: $white
               background-color: $accent
   &__styles
-    &--toggle
-      width: 20px
-      cursor: pointer
-      margin:
-        left: 10px
-      .fas
-        pointer-events: none
+    position: relative
+    .fas
+      pointer-events: none
+    .styles
+      display: flex
+      flex-direction: row
+      visibility: hidden
+      opacity: 0
+      position: absolute
+      top: 0
+      left: 35px
+      transition: all .2s ease-in-out
+      pointer-events: none
+      .btn
+        margin-right: 10px
+        &:last-of-type
+          margin-right: 0
+    .styles.visible
+      visibility: visible
+      opacity: 1
+      left: 55px
+      pointer-events: auto
+    .styles.db
   &__title
     .h1-title-sm
       margin-bottom: 40px
