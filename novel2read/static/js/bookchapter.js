@@ -52,7 +52,6 @@ if (pos_url === location.pathname) {
 }
 
 
-
 // Theming
 const styles = document.body.querySelector('.bookchapter__styles')
 const stylesCollapse = document.getElementById('stylesCollapse')
@@ -61,25 +60,22 @@ const lt = document.getElementById('lightTheme');
 const dt = document.getElementById('darkTheme');
 let theme = localStorage.getItem('theme', '')
 
-if (theme === 'light') {
-  setDomTheme('light');
-} else if (theme === 'dark') {
-  setDomTheme('dark');
+if (theme === 'dark') {
+  setDomTheme(theme);
 }
 
 function setDomTheme(theme) {
-  body = document.body;
+  let body = document.body.classList;
   if (theme == 'dark') {
-    body.classList.add('dark-theme')
+    body.add('dark-theme')
   } else {
-    body.classList.remove('dark-theme');
+    body.remove('dark-theme');
   }
 }
 
 function manageStyles(e) {
   e.preventDefault();
   if (e.target === toggleStyles) {
-    console.log(e.target)
     stylesCollapse.classList.toggle('visible')
   }
   if (e.target === lt) {
