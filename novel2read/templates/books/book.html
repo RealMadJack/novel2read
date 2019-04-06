@@ -137,18 +137,31 @@
       </div>
 
       <div class="bookbody__vote">
-        <div class="bookbody__vote--ranking">
-          <i class="fas fa-vote-yea"></i>
-          <span>{{book.votes}}</span>
-          <span>votes</span>
+        <div class="bookbody__vote--title">
+          <h2 class="h2-title">Ranking</h2>
         </div>
-        <div class="bookbody__vote--vote">
-          {% include 'books/vote-btn.html' %}
+        <div class="votecard">
+          <div class="votecard--ranking">
+            <i class="fas fa-vote-yea"></i>
+            <span>{{book.votes}}</span>
+            <span>votes</span>
+          </div>
+          <div class="votecard--vote">
+            {% include 'books/vote-btn.html' %}
+          </div>
         </div>
       </div>
 
-      <div class="bookbody__review"></div>
-      <div class="bookbody__promo"></div>
+      <div class="bookbody__review">
+        <div class="bookbody__review--title">
+          <h2 class="h2-title">Reviews</h2>
+        </div>
+      </div>
+      <div class="bookbody__promo">
+        <div class="bookbody__promo--title">
+          <h2 class="h2-title">You might also like</h2>
+        </div>
+      </div>
 
     </div>
   </div>

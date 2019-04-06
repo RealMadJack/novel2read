@@ -87,7 +87,7 @@ a, form a, .btn-link
     outline: none
     color: $accent-hot
 
-a.disabled
+a.disabled, button.disabled
   pointer-events: none
   opacity: .5
 
@@ -664,6 +664,8 @@ a.disabled
           font-size: 1rem
           padding-right: 10px
   .bookbody
+    .h2-title
+      margin-bottom: 20px
     &__tabs
       .tab-content
         margin-top: 20px
@@ -723,41 +725,42 @@ a.disabled
               grid-column-start: 2
     &__vote
       margin: 50px 0
-      padding: 13px
-      display: flex
-      flex-direction: row
-      justify-content: space-between
-      align-items: center
-      background-color: $white
-      border: 2px solid rgba(0, 0, 0, 0.15)
-      &--ranking
+      .votecard
+        padding: 13px
         display: flex
+        flex-direction: row
+        justify-content: space-between
         align-items: center
-        .fas
-          color: $accent
-          font-size: 2rem
-          margin: 0 1rem
-        span
-          &:first-of-type
-            font-size: 2.5rem
-            margin-right: 5px
-          &:last-of-type
-            font-size: .8rem
-            opacity: .8
-      &--vote
-        text-align: center
-        form, > a
-          width: 190px
-          max-width: 100%
-          .btn
-            width: 100%
-            line-height: 1.3
-            span
-              font-size: 1.1rem
-              font-weight: bold
-            small
-              font-size: .75rem
-              display: block!important
+        background-color: $white
+        border: 2px solid rgba(0, 0, 0, 0.15)
+        &--ranking
+          display: flex
+          align-items: center
+          .fas
+            color: $accent
+            font-size: 2rem
+            margin: 0 1rem
+          span
+            &:first-of-type
+              font-size: 2.5rem
+              margin-right: 5px
+            &:last-of-type
+              font-size: .8rem
+              opacity: .8
+        &--vote
+          text-align: center
+          form, > a
+            width: 190px
+            max-width: 100%
+            .btn
+              width: 100%
+              line-height: 1.3
+              span
+                font-size: 1.1rem
+                font-weight: bold
+              small
+                font-size: .75rem
+                display: block!important
     &__review
     &__promo
 
