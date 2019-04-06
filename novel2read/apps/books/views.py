@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
 from django.db.models import F
+from django.http import JsonResponse
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView, ListView
@@ -176,3 +177,15 @@ def book_vote_view(request, *args, **kwargs):
         except Book.DoesNotExist:
             return redirect('/404/')
     return redirect('/400/')
+
+
+@login_required
+def book_vote_ajax_view(request, *args, **kwargs):
+    data = {
+        'is_valid': False,
+    }
+
+    if request.is_ajax():
+        print(kwargs)
+
+    return JsonResponse(data)

@@ -740,6 +740,8 @@ a.disabled, button.disabled {
       padding-left: 0; }
     .book .bookbody__tabs--chaps .chap-nav-card:nth-of-type(even) {
       padding-right: 0; }
+    .book .bookbody__tabs--chaps .chap-nav-card:last-of-type {
+      margin-bottom: 40px; }
     .book .bookbody__tabs--chaps .chap-nav-card a {
       display: grid;
       grid-template-columns: 50px 1fr;
@@ -1208,22 +1210,22 @@ a.disabled, button.disabled {
     grid-template-columns: auto auto; }
     .book .bookbody__tabs--chaps .chap-latest small {
       grid-column-start: 2; }
-  .book .bookbody__vote {
+  .book .bookbody .votecard {
     margin: 40px 0;
     padding: 12px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex; }
-    .book .bookbody__vote--ranking .fas {
+    .book .bookbody .votecard--ranking .fas {
       font-size: 1.5rem;
       margin: 0 10px; }
-    .book .bookbody__vote--ranking span:first-of-type {
+    .book .bookbody .votecard--ranking span:first-of-type {
       font-size: 1.8rem; }
-    .book .bookbody__vote--vote form, .book .bookbody__vote--vote > a {
+    .book .bookbody .votecard--vote form, .book .bookbody .votecard--vote > a {
       width: 160px; }
-      .book .bookbody__vote--vote form .btn span, .book .bookbody__vote--vote > a .btn span {
+      .book .bookbody .votecard--vote form .btn span, .book .bookbody .votecard--vote > a .btn span {
         font-size: 1rem; }
-      .book .bookbody__vote--vote form .btn small, .book .bookbody__vote--vote > a .btn small {
+      .book .bookbody .votecard--vote form .btn small, .book .bookbody .votecard--vote > a .btn small {
         font-size: .7rem; }
   .rankcard__rank {
     padding: 0 16px;
@@ -1385,7 +1387,7 @@ a.disabled, button.disabled {
     width: 100%;
     font-size: .9rem;
     padding: 10px 16px; }
-  .book .bookbody__vote {
+  .book .bookbody .votecard {
     max-width: 320px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -1396,22 +1398,22 @@ a.disabled, button.disabled {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex; }
-    .book .bookbody__vote--ranking {
+    .book .bookbody .votecard--ranking {
       margin-bottom: 1rem; }
-      .book .bookbody__vote--ranking .fas {
+      .book .bookbody .votecard--ranking .fas {
         font-size: 1.5rem;
         margin: 0 10px; }
-      .book .bookbody__vote--ranking span:first-of-type {
+      .book .bookbody .votecard--ranking span:first-of-type {
         font-size: 1.8rem;
         margin-right: 5px; }
-    .book .bookbody__vote--vote form, .book .bookbody__vote--vote > a {
+    .book .bookbody .votecard--vote form, .book .bookbody .votecard--vote > a {
       width: 260px;
       max-width: 100%; }
-      .book .bookbody__vote--vote form .btn, .book .bookbody__vote--vote > a .btn {
+      .book .bookbody .votecard--vote form .btn, .book .bookbody .votecard--vote > a .btn {
         width: 100%; }
-        .book .bookbody__vote--vote form .btn span, .book .bookbody__vote--vote > a .btn span {
+        .book .bookbody .votecard--vote form .btn span, .book .bookbody .votecard--vote > a .btn span {
           font-size: 1rem; }
-        .book .bookbody__vote--vote form .btn small, .book .bookbody__vote--vote > a .btn small {
+        .book .bookbody .votecard--vote form .btn small, .book .bookbody .votecard--vote > a .btn small {
           font-size: .7rem; }
   .bookchapter__title .h1-title-sm {
     font-size: 1.4rem; }
