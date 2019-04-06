@@ -192,6 +192,11 @@ a.disabled {
   .h4-title-sm {
     font-size: 1.05rem; } }
 
+.mw-swiper {
+  width: 85vw; }
+  .mw-swiper .row {
+    position: relative; }
+
 .swiper-container {
   width: 100%;
   margin: 0 12px;
@@ -204,6 +209,14 @@ a.disabled {
           box-shadow: 0px 0px 16px 0px rgba(255, 255, 255, 0.7);
   width: 640px;
   height: 350px; }
+
+.swiper-button-prev {
+  left: -32px;
+  left: -2rem; }
+
+.swiper-button-next {
+  right: -32px;
+  right: -2rem; }
 
 .d-lg {
   display: block; }
@@ -1033,6 +1046,12 @@ a.disabled {
 /*==========  Desktop First  ==========*/
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
+  .mw-swiper {
+    width: 91vw; }
+  .swiper-button-prev {
+    left: -1.5rem; }
+  .swiper-button-next {
+    right: -1.5rem; }
   .book .bookhead__info--row {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -1106,6 +1125,16 @@ a.disabled {
 @media only screen and (max-width: 768px) {
   .container {
     padding: 0; }
+  .mw-swiper {
+    width: 100vw; }
+  .swiper-pagination.swiper-pagination-bullets {
+    bottom: 10px; }
+  .swiper-button-prev {
+    left: 10px;
+    display: none; }
+  .swiper-button-next {
+    right: 10px;
+    display: none; }
   .browsebooks__books .book-lg-wide {
     margin-bottom: 30px; }
     .browsebooks__books .book-lg-wide__poster--image {
@@ -1267,6 +1296,8 @@ a.disabled {
     display: none !important; }
   .d-sm {
     display: block !important; }
+  .swiper-pagination.swiper-pagination-bullets {
+    bottom: -5px; }
   .swiper-container {
     padding: 30px 20px; }
   .swiper-slide.bookslide {
@@ -1280,7 +1311,7 @@ a.disabled {
       font-size: 1.15rem;
       margin-bottom: 15px; }
     .bookslide__poster {
-      width: 120px;
+      width: 100%;
       margin-right: 8px; }
       .bookslide__poster img {
         width: 100%;
@@ -1290,7 +1321,10 @@ a.disabled {
     .bookslide__info {
       padding: 0; }
       .bookslide__info--desc {
-        max-height: 85px; } }
+        max-height: 85px; }
+    .bookslide__nav a .btn {
+      font-size: .9rem;
+      padding: 6px; } }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 575px) {
@@ -1340,7 +1374,21 @@ a.disabled {
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
-  /**/ }
+  .swiper-pagination.swiper-pagination-bullets {
+    bottom: 0; }
+  .swiper-container {
+    padding: 30px 8px; }
+  .swiper-slide.bookslide {
+    height: 263px; }
+  .bookslide {
+    grid-template-columns: 110px 1fr;
+    padding: 8px; }
+    .bookslide__title .h2-title-sm {
+      font-size: 1rem; }
+    .bookslide__info--desc {
+      max-height: 80px; }
+      .bookslide__info--desc p {
+        font-size: .8rem; } }
 
 /* Custom, iPhone Retina */
 @media only screen and (max-width: 320px) {

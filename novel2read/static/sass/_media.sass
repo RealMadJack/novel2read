@@ -4,6 +4,13 @@
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px)
+  .mw-swiper
+    width: 91vw
+  .swiper-button-prev
+    left: -1.5rem
+  .swiper-button-next
+    right: -1.5rem
+
   .book
     .bookhead
       &__poster
@@ -169,6 +176,17 @@
 @media only screen and (max-width : 768px)
   .container
     padding: 0
+
+  .mw-swiper
+    width: 100vw
+  .swiper-pagination.swiper-pagination-bullets
+    bottom: 10px
+  .swiper-button-prev
+    left: 10px
+    display: none
+  .swiper-button-next
+    right: 10px
+    display: none
 
   .browsebooks
     &__title
@@ -399,6 +417,8 @@
   .d-sm
     display: block!important
 
+  .swiper-pagination.swiper-pagination-bullets
+    bottom: -5px
   .swiper-container
     padding: 30px 20px
   .swiper-slide.bookslide
@@ -414,7 +434,7 @@
         font-size: 1.15rem
         margin-bottom: 15px
     &__poster
-      width: 120px
+      width: 100%
       margin-right: 8px
       img
         width: 100%
@@ -429,6 +449,8 @@
     &__nav
       a
         .btn
+          font-size: .9rem
+          padding: 6px
 
 
 /* Extra Small Devices, Phones */
@@ -495,7 +517,27 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px)
-  /**/
+  .swiper-pagination.swiper-pagination-bullets
+    bottom: 0
+  .swiper-container
+    padding: 30px 8px
+  .swiper-slide.bookslide
+    height: 263px
+  .bookslide
+    grid-template-columns: 110px 1fr
+    padding: 8px
+    &__title
+      .h2-title-sm
+        font-size: 1rem
+    &__info
+      &--desc
+        max-height: 80px
+        p
+          font-size: .8rem
+      &--rate
+    &__nav
+      a
+        .btn
 
 
 /* Custom, iPhone Retina */
