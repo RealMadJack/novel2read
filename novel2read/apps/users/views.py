@@ -30,6 +30,7 @@ def add_library_book_ajax(request, *args, **kwargs):
 
     return JsonResponse(data)
 
+
 @login_required
 def remove_library_book_ajax(request, *args, **kwargs):
     data = {'is_valid': False}

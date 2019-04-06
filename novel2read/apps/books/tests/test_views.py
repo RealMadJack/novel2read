@@ -182,7 +182,6 @@ class BookVoteViewTest(TestCase):
 
     def test_book_ajax_vote(self):
         resp = self.client.post(self.rev_vote_ajax, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        print(resp.content)
         self.assertEqual(resp.status_code, 200)
         self.assertJSONEqual(
             str(resp.content, encoding='utf8'),

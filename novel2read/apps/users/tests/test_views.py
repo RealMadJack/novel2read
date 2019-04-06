@@ -66,12 +66,29 @@ class LibraryViewTest(TestCase):
         self.book = Book.objects.create(title='test book')
         self.resp = self.client.get(reverse('users:library', kwargs={'username': self.user.username}))
         self.lib_url = reverse('users:library', kwargs={'username': self.user.username})
+        self.rev_lib_add = reverse('users:library-add-ajax', kwargs={'book_slug': self.book.slug})
+        self.rev_lib_remove = reverse('users:library-remove-ajax', kwargs={'book_slug': self.book.slug})
 
     def test_library_response_anon(self):
         self.assertNotEqual(self.resp.status_code, 200)
         self.assertEqual(self.resp.status_code, 302)
         self.assertRedirects(
             self.resp, f'/accounts/login/?next={self.lib_url}')
+
+    def test_library_ajax(self):
+        self.client.login(username='testuser', password='test')
+        resp_add = self.client.post(self.rev_lib_add, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        resp_remove = self.client.post(self.rev_lib_remove, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(resp_add.status_code, 200)
+        self.assertEqual(resp_remove.status_code, 200)
+        self.assertJSONEqual(
+            str(resp_add.content, encoding='utf8'),
+            {'is_valid': False}
+        )
+        self.assertJSONEqual(
+            str(resp_remove.content, encoding='utf8'),
+            {'is_valid': False}
+        )
 
     # def test_library_response(self):
     #     resp = self.client.post('/accounts/login/', {'username': self.user.username, 'password': self.user.password})
