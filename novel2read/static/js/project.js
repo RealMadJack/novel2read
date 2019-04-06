@@ -53,11 +53,11 @@ $(".js-vote-btn").click(function () {
                 $(".js-bvotes").html(data.book_votes)
                 $(".js-uvotes").html(data.user_votes)
             } else {
-                alert(data.info_msg)
+                alert(data.info_msg)  // Change
             }
         },
-        error: function (data) {
-            console.log(data.error)
+        error: function (xhr) {
+            console.log(`${xhr.status} ${xhr.statusText}`)
         },
     });
 })
@@ -70,17 +70,18 @@ $(".js-lib-btn").click(function () {
         dataType: "json",
         success: function (data) {
             if (data.is_valid) {
+                console.log(btn)
                 if (data.in_lib) {
-                    btn.html('<i class="fas fa-check"></i> In Library')
-                } else {
                     btn.html('Add to Library')
+                } else {
+                    btn.html('<i class="fas fa-check"></i> In Library')
                 }
             } else {
-                alert(data.info_msg)
+                alert(data.info_msg)  // Change
             }
         },
-        error: function (data) {
-            console.log(data.error)
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(`${xhr.status} ${xhr.statusText}`)
         },
     });
 })

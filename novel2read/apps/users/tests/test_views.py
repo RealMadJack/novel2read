@@ -75,7 +75,7 @@ class LibraryViewTest(TestCase):
         self.assertRedirects(
             self.resp, f'/accounts/login/?next={self.lib_url}')
 
-    def test_library_ajax(self):
+    def test_lib_resp_ajax(self):
         self.client.login(username='testuser', password='test')
         resp_add = self.client.post(self.rev_lib_add, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         resp_remove = self.client.post(self.rev_lib_remove, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
