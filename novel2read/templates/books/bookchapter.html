@@ -21,18 +21,22 @@
     <div class="bookchapter__nav">
       <div class="bookchapter__nav--link">
         <a href="{{prev_chap.get_absolute_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
-          <button type="button" class="btn btn-dark">Prev</button>
+          <button type="button" class="btn btn-dark">
+            <i class="fas fa-angle-left"></i>
+          </button>
         </a>
       </div>
       <div class="bookchapter__nav--link">
         <a href="{{next_chap.get_absolute_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
-          <button type="button" class="btn btn-dark">Next</button>
+          <button type="button" class="btn btn-dark">
+            <i class="fas fa-angle-right"></i>
+          </button>
         </a>
       </div>
 
       <div class="bookchapter__nav--select">
         <div class="chaps">
-          <button class="chaps--toggle btn btn-light" id="chaps-toggle"><i class="fas fa-list"></i></button>
+          <button class="chaps--toggle btn" id="chaps-toggle"><i class="fas fa-list"></i></button>
           <ul class="chaps--nav scrollbar" id="chaps-nav">
             {% for chapter in bookchapters %}
               {% with loop_counter=forloop.counter %}
@@ -53,12 +57,16 @@
           </ul>
         </div>
         <div class="bookchapter__styles">
-          <button class="btn btn-light" id="toggleStyles">
+          <button class="btn" id="toggleStyles">
             <i class="fas fa-cog"></i>
           </button>
           <div class="styles" id="stylesCollapse">
-            <button class="btn" id="lightTheme">Light</button>
-            <button class="btn" id="darkTheme">Dark</button>
+            <button class="btn btn-dark" id="lightTheme">
+              <i class="fas fa-sun"></i>
+            </button>
+            <button class="btn btn-dark" id="darkTheme">
+              <i class="fas fa-moon"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -76,12 +84,16 @@
     <div class="bookchapter__nav">
       <div class="bookchapter__nav--link">
         <a href="{{prev_chap.get_absolute_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
-          <button type="button" class="btn btn-dark">Prev</button>
+          <button type="button" class="btn btn-dark">
+            <i class="fas fa-angle-left"></i>
+          </button>
         </a>
       </div>
       <div class="bookchapter__nav--link">
         <a href="{{next_chap.get_absolute_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
-          <button type="button" class="btn btn-dark">Next</button>
+          <button type="button" class="btn btn-dark">
+            <i class="fas fa-angle-right"></i>
+          </button>
         </a>
       </div>
     </div>

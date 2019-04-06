@@ -332,28 +332,23 @@
         font-size: .9rem
 
   .bookchapter
+    &__title .h1-title-sm
+      font-size: 1.7rem
     &__nav
-      flex-wrap: wrap
-      margin: 30px 0
-        bottom: 50px
+      position: relative
       &--link
-        order: 2
-        &:nth-of-type(2)
-          order: 3
         .btn
       &--select
-        order: 1
-        width: 100%
+        position: absolute
         max-width: 100%
-        justify-content: center
+        align-items: center
         margin: 0
-          bottom: 24px
         .chaps
-          width: 100%
           &--toggle
           &--nav.active
+            margin-top: 15px
           &--nav
-            width: 100%
+            width: calc(100% - 12px)
             min-width: 100%
             li
               a
@@ -362,9 +357,15 @@
               a
     &__styles
       .styles
-        left: -100px
+        flex-direction: column
+        top: 2rem
+        left: 0
+        .btn
+          margin: 0
+            bottom: 5px
       .styles.visible
-        left: -140px
+        top: 3rem
+        left: 0
     &__title
       .h1-title-sm
         margin-bottom: 30px
@@ -412,6 +413,9 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 660px)
+  .breadcrumb
+    font-size: .9rem
+
   .d-lg
     display: none!important
   .d-sm
@@ -514,9 +518,19 @@
               small
                 font-size: .7rem
 
+  .bookchapter
+    &__title .h1-title-sm
+      font-size: 1.4rem
+    &__body
+      p
+        font-size: .9rem
+
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px)
+  .breadcrumb
+    font-size: .8rem
+
   .swiper-pagination.swiper-pagination-bullets
     bottom: 0
   .swiper-container

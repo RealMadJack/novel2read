@@ -17,7 +17,7 @@ body
 ////////////////////////////////
 body.light-theme
 body.dark-theme
-  color: rgba(255, 255, 255, .7)
+  color: rgba(255, 255, 255, .75)
   background-color: $dark-grey
 
   .navbar
@@ -36,9 +36,20 @@ body.dark-theme
     color: $white
 
   .btn-dark
-    background-color: $accent-hot
+    background-color: $accent-hot-dark
+    &:hover
+      opacity: .9
+    &:active, &:focus
+      background-color: $accent-hot!important
+      border-color: $accent-hot-dark!important
 
   .bookchapter
+    &__title .h1-title-sm
+      color: rgba(255, 255, 255, .9)
+  .bookchapter__nav--select
+    .chaps, .bookchapter__styles
+      > .btn
+        color: $white
 
 
 
@@ -54,7 +65,7 @@ img
   height: auto
   object-fit: cover
 
-li, a, button, ::placeholder
+li, a, button, .btn, ::placeholder
   transition: all .3s ease-in-out
 
 .btn, .form-control
@@ -83,12 +94,16 @@ a.disabled
 .breadcrumb
   background-color: transparent
   padding: .75rem 0
+    top: 1rem
   li
     margin: 0
     padding: 0
   .divider
     margin: 0 10px
       left: 7px
+
+.fas
+  pointer-events: none
 
 // Colors
 .c-grn
@@ -747,7 +762,19 @@ a.disabled
     &__promo
 
 
+.bookchapter__nav--select
+  .chaps, .bookchapter__styles
+    > .btn
+      background-color: transparent
+      border-color: transparent
+      &:hover
+        opacity: .9
+      &:focus, &:active
+        opacity: .5
+
 .bookchapter
+  &__title .h1-title-sm
+    font-size: 1.9rem
   &__nav
     display: flex
     flex-direction: row
@@ -760,7 +787,9 @@ a.disabled
       &:nth-of-type(2)
         order: 3
       .btn
-        padding: 6px 25px
+        padding: 4px 22px
+        .fas
+          font-size: 1.2rem
     &--select
       display: flex
       justify-content: center
@@ -769,22 +798,19 @@ a.disabled
       order: 2
       margin: 0 10px
       padding: 0
-      max-width: 300px
+      max-width: 320px
       .chaps
-        margin-right: 10px
         &--toggle
-          .fas
-            pointer-events: none
         &--volume
           display: inline-block
           color: $default
           font-weight: bold
           padding:
             top: 10px
-            left: 6px
+            left: 10px
             bottom: 6px
           &:first-of-type
-            padding-top: 0
+            padding-top: 5px
         &--nav.dblock
           display: block
         &--nav.active
@@ -840,7 +866,7 @@ a.disabled
       transition: all .2s ease-in-out
       pointer-events: none
       .btn
-        margin-right: 10px
+        margin-right: 5px
         &:last-of-type
           margin-right: 0
     .styles.visible
