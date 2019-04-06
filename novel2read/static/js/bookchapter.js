@@ -89,7 +89,6 @@ function manageStyles(e) {
 }
 
 function closeStyles(e) {
-  e.preventDefault();
   if (e.target !== toggleStyles) {
     stylesCollapse.classList.remove('visible')
   }

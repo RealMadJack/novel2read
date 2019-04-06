@@ -31,7 +31,7 @@ body.dark-theme {
       border-color: #E61A80 !important; }
   body.dark-theme .bookchapter__title .h1-title-sm {
     color: rgba(255, 255, 255, 0.9); }
-  body.dark-theme .bookchapter__nav--select .chaps > .btn, body.dark-theme .bookchapter__nav--select .bookmark > .btn, body.dark-theme .bookchapter__nav--select .chap-styles > .btn {
+  body.dark-theme .bookchapter__nav--select .chaps > .btn, body.dark-theme .bookchapter__nav--select .chaps form .btn, body.dark-theme .bookchapter__nav--select .bookmark > .btn, body.dark-theme .bookchapter__nav--select .bookmark form .btn, body.dark-theme .bookchapter__nav--select .chap-styles > .btn, body.dark-theme .bookchapter__nav--select .chap-styles form .btn {
     color: #fff; }
 
 img {
@@ -817,13 +817,13 @@ a.disabled {
             font-size: .75rem;
             display: block !important; }
 
-.bookchapter__nav--select .chaps > .btn, .bookchapter__nav--select .bookmark > .btn, .bookchapter__nav--select .chap-styles > .btn {
+.bookchapter__nav--select .chaps > .btn, .bookchapter__nav--select .chaps form .btn, .bookchapter__nav--select .bookmark > .btn, .bookchapter__nav--select .bookmark form .btn, .bookchapter__nav--select .chap-styles > .btn, .bookchapter__nav--select .chap-styles form .btn {
   color: black;
   background-color: transparent;
   border-color: transparent; }
-  .bookchapter__nav--select .chaps > .btn:hover, .bookchapter__nav--select .bookmark > .btn:hover, .bookchapter__nav--select .chap-styles > .btn:hover {
+  .bookchapter__nav--select .chaps > .btn:hover, .bookchapter__nav--select .chaps form .btn:hover, .bookchapter__nav--select .bookmark > .btn:hover, .bookchapter__nav--select .bookmark form .btn:hover, .bookchapter__nav--select .chap-styles > .btn:hover, .bookchapter__nav--select .chap-styles form .btn:hover {
     opacity: .8; }
-  .bookchapter__nav--select .chaps > .btn:focus, .bookchapter__nav--select .chaps > .btn:active, .bookchapter__nav--select .bookmark > .btn:focus, .bookchapter__nav--select .bookmark > .btn:active, .bookchapter__nav--select .chap-styles > .btn:focus, .bookchapter__nav--select .chap-styles > .btn:active {
+  .bookchapter__nav--select .chaps > .btn:focus, .bookchapter__nav--select .chaps > .btn:active, .bookchapter__nav--select .chaps form .btn:focus, .bookchapter__nav--select .chaps form .btn:active, .bookchapter__nav--select .bookmark > .btn:focus, .bookchapter__nav--select .bookmark > .btn:active, .bookchapter__nav--select .bookmark form .btn:focus, .bookchapter__nav--select .bookmark form .btn:active, .bookchapter__nav--select .chap-styles > .btn:focus, .bookchapter__nav--select .chap-styles > .btn:active, .bookchapter__nav--select .chap-styles form .btn:focus, .bookchapter__nav--select .chap-styles form .btn:active {
     opacity: .5; }
 
 .bookchapter__nav--select .chaps {
