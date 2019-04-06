@@ -2,6 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
@@ -18,6 +19,25 @@ def library_view(request, *args, **kwargs):
         books = request.user.library.book.select_related('bookprogress').all()
         context = {'books': books}
         return render(request, template_name=template_name, context=context)
+
+
+@login_required
+def add_library_book_ajax(request, *args, **kwargs):
+    data = {'is_valid': False}
+
+    if request.is_ajax():
+        pass
+
+    return JsonResponse(data)
+
+@login_required
+def remove_library_book_ajax(request, *args, **kwargs):
+    data = {'is_valid': False}
+
+    if request.is_ajax():
+        pass
+
+    return JsonResponse(data)
 
 
 @login_required

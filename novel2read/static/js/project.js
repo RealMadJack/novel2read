@@ -37,6 +37,11 @@ $.ajaxSetup({
 });
 
 // Ajax Votes
+function btnAjaxAnimate(btn) {
+    btn.setAttribute("style", "width: 100px;")
+    btn.html('...')
+}
+
 $(".js-vote-btn").click(function () {
     var btn = $(this);
     $.ajax({
@@ -47,6 +52,29 @@ $(".js-vote-btn").click(function () {
             if (data.is_valid) {
                 $(".js-bvotes").html(data.book_votes)
                 $(".js-uvotes").html(data.user_votes)
+            } else {
+                alert(data.info_msg)
+            }
+        },
+        error: function (data) {
+            console.log(data.error)
+        },
+    });
+})
+
+$(".js-lib-btn").click(function () {
+    var btn = $(this);
+    $.ajax({
+        url: btn.attr("data-lib-url"),
+        type: "post",
+        dataType: "json",
+        success: function (data) {
+            if (data.is_valid) {
+                if (data.in_lib) {
+                    btn.html('<i class="fas fa-check"></i> In Library')
+                } else {
+                    btn.html('Add to Library')
+                }
             } else {
                 alert(data.info_msg)
             }

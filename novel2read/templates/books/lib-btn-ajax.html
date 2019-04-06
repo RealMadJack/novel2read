@@ -1,0 +1,18 @@
+{% if user.is_authenticated %}
+  {% if book in user_lib %}
+    <button
+      type="submit" class="btn btn-dark js-lib-btn"
+      data-lib-url="{% url 'users:library-remove-ajax' book.slug %}">
+      <i class="fas fa-check"></i>
+      In Library
+    </button>
+  {% else %}
+    <button type="submit" class="btn btn-dark js-lib-btn">Add to Library</button>
+  {% endif %}
+{% else %}
+  <a href="{% url 'account_login' %}?next={{request.path}}">
+    <button
+      type="button" class="btn btn-dark"
+      data-lib-url="{% url 'users:library-add-ajax' book.slug %}">Add to Library</button>
+  </a>
+{% endif %}

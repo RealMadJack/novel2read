@@ -71,8 +71,7 @@
                 </a>
               {% endif %}
             {% endif %}
-
-            {% include 'books/lib-btn.html' %}
+            {% include 'books/lib-btn-ajax.html' %}
 
           {% else %}
 
@@ -81,9 +80,7 @@
                 <button type="button" class="btn btn-dark">Read</button>
               </a>
             {% endif %}
-            <a href="{% url 'account_login' %}?next={{book.get_absolute_url}}">
-              <button type="button" class="btn btn-dark">Add to Library</button>
-            </a>
+            {% include 'books/lib-btn-ajax.html' %}
 
           {% endif %}
         </div>
@@ -152,17 +149,7 @@
             <span>votes</span>
           </div>
           <div class="votecard--vote">
-            {% if user.is_authenticated %}
-              <button class="btn btn-outline-warning js-vote-btn"
-                data-vote-url="{% url 'books:vote-ajax' book.slug %}">
-                <span>Vote</span>
-                <small>(<span class="js-uvotes">{{request.user.profile.votes}}</span> votes left)</small>
-              </button>
-            {% else %}
-              <a href="{% url 'account_login' %}?next={{book.get_absolute_url}}">
-                <button class="btn btn-outline-warning">Vote</button>
-              </a>
-            {% endif %}
+            {% include 'books/vote-btn-ajax.html' %}
           </div>
         </div>
       </div>
