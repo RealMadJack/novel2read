@@ -18,9 +18,40 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-var csrftoken = getCookie('csrftoken');
-console.log(csrftoken)
+var csrftoken_cookie = getCookie('csrftoken');
+var csrftoken = $("[name=csrfmiddlewaretoken]").val();
 
+// Setup ajax connections safetly
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            csrftoken = csrftoken_cookie ? csrftoken_cookie : csrftoken;
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            console.log(csrftoken)
+        }
+    }
+});
+
+// Ajax Votes
+$(".js-vote-btn").click(function () {
+    var btn = $(this);
+    $.ajax({
+        url: btn.attr("data-vote-url"),
+        type: "post",
+        dataType: "json",
+        success: function (data) {
+            console.log(data)
+            $(".js-bvotes").html(data.book_votes)
+        },
+        error: function (data) {
+            console.log(data.error)
+        }
+    })
+})
 
 // Swiper Slider config
 let slides = window.innerWidth > 1400 ? 2 : 'auto'

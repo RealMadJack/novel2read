@@ -181,7 +181,7 @@ class BookVoteViewTest(TestCase):
         self.assertEqual(self.user.profile.votes, 1)
 
     def test_book_ajax_vote(self):
-        resp = self.client.post(self.rev_vote_ajax)
+        resp = self.client.post(self.rev_vote_ajax, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(resp.status_code, 200)
         self.assertJSONEqual(
             str(resp.content, encoding='utf8'),

@@ -44,7 +44,7 @@
             <img src="{% static 'images/star.png' %}" alt="star">
             <img src="{% static 'images/star.png' %}" alt="star">
             <img src="{% static 'images/half-star.png' %}" alt="star">
-            <span>{{book.rating}} ({{book.votes}} votes)</span>
+            <span>{{book.rating}}</span>
           </div>
         </div>
         <div class="bookhead__info--tags">
@@ -143,11 +143,21 @@
         <div class="votecard">
           <div class="votecard--ranking">
             <i class="fas fa-vote-yea"></i>
-            <span>{{book.votes}}</span>
+            <span class="js-bvotes">{{book.votes}}</span>
             <span>votes</span>
           </div>
           <div class="votecard--vote">
-            {% include 'books/vote-btn-ajax.html' %}
+            {% if user.is_authenticated %}
+              <button class="btn btn-outline-warning js-vote-btn"
+                data-vote-url="{% url 'books:vote-ajax' book.slug %}">
+                <span>Vote</span>
+                <small style="display: none">({{request.user.profile.votes}} votes left)</small>
+              </button>
+            {% else %}
+              <a href="" class="disabled">
+                <button class="btn btn-outline-warning">Vote</button>
+              </a>
+            {% endif %}
           </div>
         </div>
       </div>

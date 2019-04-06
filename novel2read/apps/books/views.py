@@ -2,8 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
 from django.db.models import F
 from django.http import JsonResponse
+# from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.shortcuts import render, redirect
+# from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import View, DetailView, ListView
 from next_prev import next_in_order, prev_in_order
 
@@ -186,6 +188,18 @@ def book_vote_ajax_view(request, *args, **kwargs):
     }
 
     if request.is_ajax():
-        print(kwargs)
-
+        user = request.user
+        book = Book.objects.get(slug=kwargs['book_slug'])
+        if user.profile.votes <= 0:
+            data['vote_limit'] = 'Your daily votes are gone.'
+        else:
+            try:
+                data['user_votes'] = int(user.profile.votes) - 1
+                data['book_votes'] = int(book.votes) + 1
+                user.profile.votes = F('votes') - 1
+                user.save()
+                book.votes = F('votes') + 1
+                book.save()
+            except Exception as e:
+                data['error'] = str(e)
     return JsonResponse(data)
