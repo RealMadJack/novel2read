@@ -83,11 +83,11 @@ class LibraryViewTest(TestCase):
         self.assertEqual(resp_remove.status_code, 200)
         self.assertJSONEqual(
             str(resp_add.content, encoding='utf8'),
-            {'is_valid': False}
+            {'in_lib': True, 'is_valid': True}
         )
         self.assertJSONEqual(
             str(resp_remove.content, encoding='utf8'),
-            {'is_valid': False}
+            {'in_lib': False, 'is_valid': True}
         )
 
     # def test_library_response(self):

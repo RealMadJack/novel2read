@@ -27,7 +27,7 @@ def add_library_book_ajax(request, *args, **kwargs):
 
     if request.is_ajax():
         data['is_valid'] = True
-        data['in_lib'] = False
+        data['in_lib'] = True
         user = request.user
         book = Book.objects.get(slug=kwargs['book_slug'])
         user.library.book.add(book)
@@ -42,7 +42,7 @@ def remove_library_book_ajax(request, *args, **kwargs):
 
     if request.is_ajax():
         data['is_valid'] = True
-        data['in_lib'] = True
+        data['in_lib'] = False
         user = request.user
         book = Book.objects.get(slug=kwargs['book_slug'])
         user.library.book.remove(book)

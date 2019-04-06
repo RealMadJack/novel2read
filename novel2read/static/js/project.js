@@ -72,9 +72,9 @@ $(".js-lib-btn").click(function () {
             if (data.is_valid) {
                 console.log(btn)
                 if (data.in_lib) {
-                    btn.html('Add to Library')
-                } else {
                     btn.html('<i class="fas fa-check"></i> In Library')
+                } else {
+                    btn.html('Add to Library')
                 }
             } else {
                 alert(data.info_msg)  // Change
