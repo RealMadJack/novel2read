@@ -44,14 +44,17 @@ $(".js-vote-btn").click(function () {
         type: "post",
         dataType: "json",
         success: function (data) {
-            console.log(data)
-            $(".js-bvotes").html(data.book_votes)
-            $(".js-uvotes").html(data.user_votes)
+            if (data.is_valid) {
+                $(".js-bvotes").html(data.book_votes)
+                $(".js-uvotes").html(data.user_votes)
+            } else {
+                alert(data.info_msg)
+            }
         },
         error: function (data) {
             console.log(data.error)
-        }
-    })
+        },
+    });
 })
 
 // Swiper Slider config

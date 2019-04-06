@@ -190,7 +190,7 @@ def book_vote_ajax_view(request, *args, **kwargs):
         user_votes = user.profile.votes
         book = Book.objects.get(slug=kwargs['book_slug'])
         if user_votes <= 0:
-            data['vote_limit'] = 'You have no votes for today.'
+            data['info_msg'] = 'You have no votes for today.'
         else:
             try:
                 data['is_valid'] = True
