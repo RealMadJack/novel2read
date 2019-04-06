@@ -183,18 +183,18 @@ def book_vote_view(request, *args, **kwargs):
 
 @login_required
 def book_vote_ajax_view(request, *args, **kwargs):
-    data = {
-        'is_valid': False,
-    }
+    data = {'is_valid': False}
 
     if request.is_ajax():
         user = request.user
+        user_votes = user.profile.votes
         book = Book.objects.get(slug=kwargs['book_slug'])
-        if user.profile.votes <= 0:
-            data['vote_limit'] = 'Your daily votes are gone.'
+        if user_votes <= 0:
+            data['vote_limit'] = 'You have no votes for today.'
         else:
             try:
-                data['user_votes'] = int(user.profile.votes) - 1
+                data['is_valid'] = True
+                data['user_votes'] = int(user_votes) - 1
                 data['book_votes'] = int(book.votes) + 1
                 user.profile.votes = F('votes') - 1
                 user.save()

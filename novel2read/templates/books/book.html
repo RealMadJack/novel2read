@@ -142,6 +142,11 @@
         </div>
         <div class="votecard">
           <div class="votecard--ranking">
+            <i class="fas fa-poll-h"></i>
+            <span>123</span>
+            <span>th</span>
+          </div>
+          <div class="votecard--ranking">
             <i class="fas fa-vote-yea"></i>
             <span class="js-bvotes">{{book.votes}}</span>
             <span>votes</span>
@@ -151,7 +156,7 @@
               <button class="btn btn-outline-warning js-vote-btn"
                 data-vote-url="{% url 'books:vote-ajax' book.slug %}">
                 <span>Vote</span>
-                <small style="display: none">({{request.user.profile.votes}} votes left)</small>
+                <small>(<span class="js-uvotes">{{request.user.profile.votes}}</span> votes left)</small>
               </button>
             {% else %}
               <a href="" class="disabled">

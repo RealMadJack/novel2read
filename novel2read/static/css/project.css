@@ -776,9 +776,6 @@ a.disabled, button.disabled {
       -webkit-box-direction: normal;
           -ms-flex-direction: row;
               flex-direction: row;
-      -webkit-box-pack: justify;
-          -ms-flex-pack: justify;
-              justify-content: space-between;
       -webkit-box-align: center;
           -ms-flex-align: center;
               align-items: center;
@@ -790,7 +787,8 @@ a.disabled, button.disabled {
         display: flex;
         -webkit-box-align: center;
             -ms-flex-align: center;
-                align-items: center; }
+                align-items: center;
+        margin-right: 20px; }
         .book .bookbody__vote .votecard--ranking .fas {
           color: #6A57F9;
           font-size: 32px;
@@ -806,6 +804,7 @@ a.disabled, button.disabled {
           font-size: .8rem;
           opacity: .8; }
       .book .bookbody__vote .votecard--vote {
+        margin-left: auto;
         text-align: center; }
         .book .bookbody__vote .votecard--vote form, .book .bookbody__vote .votecard--vote > a {
           width: 190px;
@@ -1399,6 +1398,7 @@ a.disabled, button.disabled {
     display: -ms-flexbox;
     display: flex; }
     .book .bookbody .votecard--ranking {
+      margin-right: 0;
       margin-bottom: 1rem; }
       .book .bookbody .votecard--ranking .fas {
         font-size: 1.5rem;
@@ -1406,15 +1406,17 @@ a.disabled, button.disabled {
       .book .bookbody .votecard--ranking span:first-of-type {
         font-size: 1.8rem;
         margin-right: 5px; }
-    .book .bookbody .votecard--vote form, .book .bookbody .votecard--vote > a {
-      width: 260px;
-      max-width: 100%; }
-      .book .bookbody .votecard--vote form .btn, .book .bookbody .votecard--vote > a .btn {
-        width: 100%; }
-        .book .bookbody .votecard--vote form .btn span, .book .bookbody .votecard--vote > a .btn span {
-          font-size: 1rem; }
-        .book .bookbody .votecard--vote form .btn small, .book .bookbody .votecard--vote > a .btn small {
-          font-size: .7rem; }
+    .book .bookbody .votecard--vote {
+      margin: 0 auto; }
+      .book .bookbody .votecard--vote form, .book .bookbody .votecard--vote > a {
+        width: 260px;
+        max-width: 100%; }
+        .book .bookbody .votecard--vote form .btn, .book .bookbody .votecard--vote > a .btn {
+          width: 100%; }
+          .book .bookbody .votecard--vote form .btn span, .book .bookbody .votecard--vote > a .btn span {
+            font-size: 1rem; }
+          .book .bookbody .votecard--vote form .btn small, .book .bookbody .votecard--vote > a .btn small {
+            font-size: .7rem; }
   .bookchapter__title .h1-title-sm {
     font-size: 1.4rem; }
   .bookchapter__body p {

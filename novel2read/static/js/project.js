@@ -46,6 +46,7 @@ $(".js-vote-btn").click(function () {
         success: function (data) {
             console.log(data)
             $(".js-bvotes").html(data.book_votes)
+            $(".js-uvotes").html(data.user_votes)
         },
         error: function (data) {
             console.log(data.error)
