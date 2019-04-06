@@ -31,7 +31,7 @@ body.dark-theme {
       border-color: #E61A80 !important; }
   body.dark-theme .bookchapter__title .h1-title-sm {
     color: rgba(255, 255, 255, 0.9); }
-  body.dark-theme .bookchapter__nav--select .chaps > .btn, body.dark-theme .bookchapter__nav--select .bookchapter__styles > .btn {
+  body.dark-theme .bookchapter__nav--select .chaps > .btn, body.dark-theme .bookchapter__nav--select .bookmark > .btn, body.dark-theme .bookchapter__nav--select .chap-styles > .btn {
     color: #fff; }
 
 img {
@@ -817,13 +817,29 @@ a.disabled {
             font-size: .75rem;
             display: block !important; }
 
-.bookchapter__nav--select .chaps > .btn, .bookchapter__nav--select .bookchapter__styles > .btn {
+.bookchapter__nav--select .chaps > .btn, .bookchapter__nav--select .bookmark > .btn, .bookchapter__nav--select .chap-styles > .btn {
+  color: black;
   background-color: transparent;
   border-color: transparent; }
-  .bookchapter__nav--select .chaps > .btn:hover, .bookchapter__nav--select .bookchapter__styles > .btn:hover {
-    opacity: .9; }
-  .bookchapter__nav--select .chaps > .btn:focus, .bookchapter__nav--select .chaps > .btn:active, .bookchapter__nav--select .bookchapter__styles > .btn:focus, .bookchapter__nav--select .bookchapter__styles > .btn:active {
+  .bookchapter__nav--select .chaps > .btn:hover, .bookchapter__nav--select .bookmark > .btn:hover, .bookchapter__nav--select .chap-styles > .btn:hover {
+    opacity: .8; }
+  .bookchapter__nav--select .chaps > .btn:focus, .bookchapter__nav--select .chaps > .btn:active, .bookchapter__nav--select .bookmark > .btn:focus, .bookchapter__nav--select .bookmark > .btn:active, .bookchapter__nav--select .chap-styles > .btn:focus, .bookchapter__nav--select .chap-styles > .btn:active {
     opacity: .5; }
+
+.bookchapter__nav--select .chaps {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2; }
+
+.bookchapter__nav--select .bookmark {
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1; }
+
+.bookchapter__nav--select .chap-styles {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2; }
 
 .bookchapter__title .h1-title-sm {
   font-size: 30.4px;
@@ -953,7 +969,7 @@ a.disabled {
   .bookchapter__styles .styles.visible {
     visibility: visible;
     opacity: 1;
-    left: 55px;
+    left: 50px;
     pointer-events: auto; }
 
 .bookchapter__title .h1-title-sm {

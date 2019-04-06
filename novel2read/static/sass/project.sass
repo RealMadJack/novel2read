@@ -47,7 +47,7 @@ body.dark-theme
     &__title .h1-title-sm
       color: rgba(255, 255, 255, .9)
   .bookchapter__nav--select
-    .chaps, .bookchapter__styles
+    .chaps, .bookmark, .chap-styles
       > .btn
         color: $white
 
@@ -763,14 +763,21 @@ a.disabled
 
 
 .bookchapter__nav--select
-  .chaps, .bookchapter__styles
+  .chaps, .bookmark, .chap-styles
     > .btn
+      color: $default
       background-color: transparent
       border-color: transparent
       &:hover
-        opacity: .9
+        opacity: .8
       &:focus, &:active
         opacity: .5
+  .chaps
+    order: 2
+  .bookmark
+    order: 1
+  .chap-styles
+    order: 2
 
 .bookchapter
   &__title .h1-title-sm
@@ -872,7 +879,7 @@ a.disabled
     .styles.visible
       visibility: visible
       opacity: 1
-      left: 55px
+      left: 50px
       pointer-events: auto
     .styles.db
   &__title
