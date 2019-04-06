@@ -88,6 +88,15 @@ function manageStyles(e) {
   return false
 }
 
+function closeStyles(e) {
+  e.preventDefault();
+  if (e.target !== toggleStyles) {
+    stylesCollapse.classList.remove('visible')
+  }
+  return false
+}
+
 styles.addEventListener('click', manageStyles)
+document.body.addEventListener('click', closeStyles)
 
 })();
