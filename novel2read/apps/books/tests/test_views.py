@@ -163,6 +163,7 @@ class BookVoteViewTest(TestCase):
         self.resp = self.client.post(reverse('books:vote', kwargs={'book_slug': self.book.slug}))
         self.rev_book = reverse('books:book', kwargs={'book_slug': self.book.slug})
         self.rev_vote = reverse('books:vote', kwargs={'book_slug': self.book.slug})
+        self.rev_vote_ajax = reverse('books:vote-ajax', kwargs={'book_slug': self.book.slug})
         self.rev_ranking = reverse('books:ranking')
 
     def test_book_votes(self):
@@ -178,3 +179,11 @@ class BookVoteViewTest(TestCase):
         self.assertRedirects(resp, self.rev_ranking)
         self.assertEqual(self.book.votes, 2)
         self.assertEqual(self.user.profile.votes, 1)
+
+    def test_book_ajax_vote(self):
+        resp = self.client.post(self.rev_vote_ajax)
+        self.assertEqual(resp.status_code, 200)
+        self.assertJSONEqual(
+            str(resp.content, encoding='utf8'),
+            {'is_valid': False}
+        )
