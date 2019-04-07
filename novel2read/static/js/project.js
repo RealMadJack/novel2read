@@ -18,8 +18,8 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-var csrftoken_cookie = getCookie('csrftoken');
-var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+let csrf_form = $("[name=csrfmiddlewaretoken]").val()
+let csrftoken = csrf_form ? csrf_form : getCookie('csrftoken');
 
 // Setup ajax connections safetly
 function csrfSafeMethod(method) {
@@ -29,7 +29,6 @@ function csrfSafeMethod(method) {
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            csrftoken = csrftoken_cookie ? csrftoken_cookie : csrftoken;
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
             console.log(csrftoken)
         }
@@ -43,7 +42,7 @@ function btnAjaxAnimate(btn) {
 }
 
 $(".js-vote-btn").click(function () {
-    var btn = $(this);
+    let btn = $(this);
     $.ajax({
         url: btn.attr("data-vote-url"),
         type: "post",
@@ -63,7 +62,7 @@ $(".js-vote-btn").click(function () {
 })
 
 $(".js-lib-btn").click(function () {
-    var btn = $(this);
+    let btn = $(this);
     $.ajax({
         url: btn.attr("data-lib-url"),
         type: "post",
@@ -87,9 +86,9 @@ $(".js-lib-btn").click(function () {
 })
 
 // Swiper Slider config
-let slides = window.innerWidth > 1400 ? 2 : 'auto'
-
-var swiper = new Swiper('.swiper-container', {
+let slides = window.innerWidth > 1750 ? 'auto' : 'auto'
+let slideDepth = window.innerWidth > 2000 ? 280 : 550
+let swiperOptions = {
     pagination: '.swiper-pagination',
     effect: 'coverflow',
     // grabCursor: true,
@@ -101,14 +100,15 @@ var swiper = new Swiper('.swiper-container', {
     coverflow: {
         rotate: 0,
         stretch: 0,
-        depth: 250,
+        depth: slideDepth,
         modifier: 1,
-        slideShadows : true
+        slideShadows: false,
     },
     //preventClicks: false,
     //preventClicksPropagation: false,
     slideToClickedSlide: true,
-});
+}
+let swiper = new Swiper('.swiper-container', swiperOptions);
 
 
 
