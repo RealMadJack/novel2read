@@ -55,12 +55,14 @@ $(".js-vote-btn").click(function () {
                 alert(data.info_msg)  // Change
             }
         },
-        error: function (xhr) {
+        error: function (xhr, errmsg, err) {
             console.log(`${xhr.status} ${xhr.statusText}`)
         },
     });
 })
 
+
+// Ajax library button
 $(".js-lib-btn").click(function () {
     let btn = $(this);
     let data = {
@@ -92,11 +94,38 @@ $(".js-lib-btn").click(function () {
                 alert(data.info_msg)  // Change
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function (xhr, errmsg, err) {
             console.log(`${xhr.status} ${xhr.statusText}`)
         },
     });
 })
+
+
+// Ajax Search
+function search_post(form) {
+    $.ajax({
+        url : form.attr('action'),
+        type : "post",
+        dataType: "json",
+        data : {
+            'search': $('#id_search_field').val()
+        },
+        success : function(resp) {
+            $('#id_search_field').val('');
+            console.log(resp);
+        },
+        error : function (xhr, errmsg, err) {
+            console.log(`${xhr.status} ${xhr.statusText}`)
+        }
+    });
+};
+
+$('#search-form').on('submit', function(event){
+    event.preventDefault();
+    let form = $(this);
+    search_post(form);
+});
+
 
 // Swiper Slider config
 let slides = window.innerWidth > 1750 ? 'auto' : 'auto'

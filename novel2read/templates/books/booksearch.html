@@ -13,7 +13,7 @@
     </div>
     <div class="booksearch__form">
 
-      <form method="post" action="{% url 'books:search' %}" class="booksearch__form--form">
+      <form method="post" action="{% url 'books:search' %}" class="booksearch__form--form" id="search-form">
         {% csrf_token %}
         {% for field in form %}
           <div class="form-group">
@@ -25,8 +25,7 @@
           </div>
         {% endfor %}
         <div class="booksearch__form--btn">
-            <!-- <button type="submit" class="btn btn-dark">Search</button> -->
-            {% include 'books/search-btn-ajax.html' %}
+            <button class="btn btn-dark js-search">Search</button>
         </div>
       </form>
     </div>
