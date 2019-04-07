@@ -66,8 +66,7 @@ class LibraryViewTest(TestCase):
         self.book = Book.objects.create(title='test book')
         self.resp = self.client.get(reverse('users:library', kwargs={'username': self.user.username}))
         self.lib_url = reverse('users:library', kwargs={'username': self.user.username})
-        self.rev_lib_add = reverse('users:library-add-ajax', kwargs={'book_slug': self.book.slug})
-        self.rev_lib_remove = reverse('users:library-remove-ajax', kwargs={'book_slug': self.book.slug})
+        self.rev_lib_add_remove = reverse('users:lib-add-remove-ajax', kwargs={'book_slug': self.book.slug})
 
     def test_library_response_anon(self):
         self.assertNotEqual(self.resp.status_code, 200)
@@ -77,18 +76,26 @@ class LibraryViewTest(TestCase):
 
     def test_lib_resp_ajax(self):
         self.client.login(username='testuser', password='test')
-        resp_add = self.client.post(self.rev_lib_add, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        resp_remove = self.client.post(self.rev_lib_remove, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.assertEqual(resp_add.status_code, 200)
-        self.assertEqual(resp_remove.status_code, 200)
-        self.assertJSONEqual(
-            str(resp_add.content, encoding='utf8'),
-            {'in_lib': True, 'is_valid': True}
+        resp = self.client.post(
+            self.rev_lib_add_remove, {'lib_in': 0},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
+        self.assertEqual(resp.status_code, 200)
         self.assertJSONEqual(
-            str(resp_remove.content, encoding='utf8'),
+            str(resp.content, encoding='utf8'),
             {'in_lib': False, 'is_valid': True}
         )
+        self.assertEqual(self.user.library.book.count(), 1)
+        resp = self.client.post(
+            self.rev_lib_add_remove, {'lib_in': 1},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertJSONEqual(
+            str(resp.content, encoding='utf8'),
+            {'in_lib': True, 'is_valid': True}
+        )
+        self.assertEqual(self.user.library.book.count(), 0)
 
     # def test_library_response(self):
     #     resp = self.client.post('/accounts/login/', {'username': self.user.username, 'password': self.user.password})

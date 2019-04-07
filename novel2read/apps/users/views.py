@@ -27,7 +27,6 @@ def add_remove_library_book_ajax(request, *args, **kwargs):
 
     if request.is_ajax():
         lib_in = bool(int(request.POST.get('lib_in', False)))
-        print(lib_in)
         data['is_valid'] = True
         data['in_lib'] = lib_in
         user = request.user
