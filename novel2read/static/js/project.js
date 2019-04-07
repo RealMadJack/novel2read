@@ -108,11 +108,13 @@ function search_post(form) {
         type : "post",
         dataType: "json",
         data : {
-            'search': $('#id_search_field').val()
+            'search_field': $('#id_search_field').val()
         },
         success : function(resp) {
-            $('#id_search_field').val('');
-            console.log(resp);
+            // $('#id_search_field').val('');
+            if (resp.s_result) {
+                $('.booksearch__formresult').html(`<p>${resp.s_result}</p>`)
+            }
         },
         error : function (xhr, errmsg, err) {
             console.log(`${xhr.status} ${xhr.statusText}`)
@@ -120,8 +122,8 @@ function search_post(form) {
     });
 };
 
-$('#search-form').on('submit', function(event){
-    event.preventDefault();
+$('#search-form').on('submit', function(e){
+    e.preventDefault();
     let form = $(this);
     search_post(form);
 });

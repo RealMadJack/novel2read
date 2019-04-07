@@ -151,6 +151,12 @@ class BookSearchView(ListView):
         form = self.form(request.POST)
         context = dict(self.context)  # update get view context
         context['form'] = form
+        if request.is_ajax():
+            data = {}
+            search_field = request.POST.get('search_field', None)
+            if search_field:
+                data['s_result'] = f"Didn't find book: <b>{search_field}</b>"
+            return JsonResponse(data)
         if form.is_valid():
             field_data = form.cleaned_data['search_field']
             books = Book.objects.published().annotate(
