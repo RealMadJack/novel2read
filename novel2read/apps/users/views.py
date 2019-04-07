@@ -22,7 +22,7 @@ def library_view(request, *args, **kwargs):
 
 
 @login_required
-def add_library_book_ajax(request, *args, **kwargs):
+def add_remove_library_book_ajax(request, *args, **kwargs):
     data = {'is_valid': False}
 
     if request.is_ajax():
@@ -31,21 +31,6 @@ def add_library_book_ajax(request, *args, **kwargs):
         user = request.user
         book = Book.objects.get(slug=kwargs['book_slug'])
         user.library.book.add(book)
-        user.save()
-
-    return JsonResponse(data)
-
-
-@login_required
-def remove_library_book_ajax(request, *args, **kwargs):
-    data = {'is_valid': False}
-
-    if request.is_ajax():
-        data['is_valid'] = True
-        data['in_lib'] = False
-        user = request.user
-        book = Book.objects.get(slug=kwargs['book_slug'])
-        user.library.book.remove(book)
         user.save()
 
     return JsonResponse(data)
