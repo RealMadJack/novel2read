@@ -100,6 +100,7 @@ class BookChapterView(DetailView):
                 'bookchapter': bookchapter,
                 'prev_chap': prev_chap, 'next_chap': next_chap}
             if request.user.is_authenticated:
+                context['user_lib'] = list(request.user.library.book.all())
                 try:
                     book_prog = BookProgress.objects.get(user=request.user, book=bookchapter.book)
                     book_prog.c_id = bookchapter.c_id

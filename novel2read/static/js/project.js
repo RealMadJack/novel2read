@@ -74,10 +74,18 @@ $(".js-lib-btn").click(function () {
         success: function (data) {
             if (data.is_valid) {
                 if (!data.in_lib) {
-                    btn.html('<i class="fas fa-check"></i> In Library')
+                    if (btn[0].hasAttribute("data-bookmark")) {
+                        btn.html('<i class="fas fa-bookmark"></i>')
+                    } else {
+                        btn.html('<i class="fas fa-check"></i> In Library')
+                    }
                     btn.attr("data-lib-in", 1)
                 } else {
-                    btn.html('Add to Library')
+                    if (btn[0].hasAttribute("data-bookmark")) {
+                        btn.html('<i class="far fa-bookmark"></i>')
+                    } else {
+                        btn.html('Add to Library')
+                    }
                     btn.attr("data-lib-in", 0)
                 }
             } else {

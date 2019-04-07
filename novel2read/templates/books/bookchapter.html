@@ -13,6 +13,7 @@
 
 {% block content %}
 <div class="container">
+  {% include 'csrf_gen_form.html' %}
 
   {% render_breadcrumbs %}
 
@@ -57,21 +58,7 @@
           </ul>
         </div>
 
-        <div class="bookmark">
-          {% if user.is_authenticated %}
-            <form method="post" action="{% url 'users:library-add' bookchapter.book.slug %}">
-              {% csrf_token %}
-              <input type="hidden" name="next" value="{{ request.path }}">
-              <button type="submit" class="btn">
-                <i class="far fa-bookmark"></i>
-              </button>
-            </form>
-          {% else %}
-            <button class="btn disabled">
-              <i class="far fa-bookmark"></i>
-            </button>
-          {% endif %}
-        </div>
+        {% include 'books/lib-bookmark-btn-ajax.html' %}
 
         <div class="bookchapter__styles chap-styles">
           <button class="btn" id="toggleStyles">

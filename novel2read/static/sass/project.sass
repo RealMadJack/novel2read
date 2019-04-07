@@ -24,9 +24,11 @@ body.dark-theme
     background-color: $accent-dark!important
     .navbar-nav a, .navbar-brand
       color: $white!important
+    .dropdown-menu, .dropdown-divider
+      border-color: rgba(255, 255, 255, .2)
     .dropdown-menu
       background-color: $accent-dark!important
-      border-color: rgba(255, 255, 255, .5)
+      .dropdown-divider
       a
         color: $white
         &:hover, &:active, &:focus
@@ -48,9 +50,8 @@ body.dark-theme
       color: rgba(255, 255, 255, .9)
   .bookchapter__nav--select
     .chaps, .bookmark, .chap-styles
-      > .btn, , form .btn
+      > .btn, , form .btn, a .btn
         color: $white
-
 
 
 
@@ -767,8 +768,11 @@ a.disabled, button.disabled
 
 
 .bookchapter__nav--select
+  .bookmark .btn, a .btn
+    &:hover, &:focus, &:active
+      opacity: 1!important
   .chaps, .bookmark, .chap-styles
-    > .btn, form .btn
+    > .btn, form .btn, a .btn
       color: $default
       background-color: transparent
       border-color: transparent
