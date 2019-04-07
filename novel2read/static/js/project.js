@@ -111,10 +111,9 @@ function search_post(form) {
             'search_field': $('#id_search_field').val()
         },
         success : function(resp) {
+            console.log(resp.books)
             // $('#id_search_field').val('');
-            if (resp.s_result) {
-                $('.booksearch__formresult').html(`<p>${resp.s_result}</p>`)
-            }
+            $('.booksearch__formresult').html(resp.s_result)
         },
         error : function (xhr, errmsg, err) {
             console.log(`${xhr.status} ${xhr.statusText}`)

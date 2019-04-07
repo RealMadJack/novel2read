@@ -1,3 +1,4 @@
+from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
 from django.db.models import F
@@ -154,15 +155,21 @@ class BookSearchView(ListView):
         if request.is_ajax():
             data = {}
             search_field = request.POST.get('search_field', None)
-            if search_field:
-                data['s_result'] = f"Didn't find book: <b>{search_field}</b>"
+            if not search_field:
+                # handle ajax error
+                return JsonResponse(data, status=403)
+            books = Book.objects.published().annotate(
+                search=SearchVector('title', 'description'),
+            ).filter(search=search_field)
+            data['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''
+            data['books'] = serializers.serialize('json', books)
             return JsonResponse(data)
         if form.is_valid():
             field_data = form.cleaned_data['search_field']
             books = Book.objects.published().annotate(
                 search=SearchVector('title', 'description'),
             ).filter(search=field_data)
-            context['s_result'] = f"Didn't find book: <b>{field_data}</b>" if not books else ''
+            context['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''
             context['books'] = books
         return render(request, template_name=self.template_name, context=context)
 

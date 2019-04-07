@@ -152,6 +152,12 @@ class BookSearchViewTest(TestCase):
         resp = self.client.post(reverse('books:search'), {'search_field': 'moniqu'})
         self.assertIn(self.book_2.title, resp.content.decode('utf-8'))
 
+    def test_book_search_ajax(self):
+        resp = self.client.post(reverse('books:search'), {'search_field': 'test'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        resp_content = str(resp.content, encoding='utf8')
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn('s_result', resp_content)
+
 
 class BookVoteViewTest(TestCase):
     def setUp(self):

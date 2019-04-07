@@ -31,7 +31,7 @@
     </div>
 
     <div class="booksearch__formresult">
-      {% if s_result %}<p>{{s_result|safe}}</p>{% endif %}
+      {% if s_result %}{{s_result|safe}}{% endif %}
       {% for book in books %}
         <a href="{{book.get_absolute_url}}" class="searchcard-lg">
           <div class="searchcard-lg__counter"><span>{{forloop.counter}}</span></div>
