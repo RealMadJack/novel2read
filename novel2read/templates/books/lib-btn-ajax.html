@@ -1,18 +1,22 @@
-{% with in_lib='book in user_lib' %}
 {% if user.is_authenticated %}
+  {% if book in user_lib %}
   <button
     type="submit" class="btn btn-dark js-lib-btn"
-    data-lib-url="{% url 'users:lib-add-remove-ajax' book.slug in_lib %}">
-    {% if in_lib %}
+    data-lib-url="{% url 'users:lib-add-remove-ajax' book.slug %}"
+    data-lib-in=1>
       <i class="fas fa-check"></i>
       In Library
-    {% else %}
-      Add to Library
-    {% endif %}
   </button>
+  {% else %}
+    <button
+      type="submit" class="btn btn-dark js-lib-btn"
+      data-lib-url="{% url 'users:lib-add-remove-ajax' book.slug %}"
+      data-lib-in=0>
+        Add to Library
+    </button>
+  {% endif %}
 {% else %}
   <a href="{% url 'account_login' %}?next={{request.path}}">
     <button type="button" class="btn btn-dark">Add to Library</button>
   </a>
 {% endif %}
-{% endwith %}

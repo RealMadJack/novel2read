@@ -63,17 +63,22 @@ $(".js-vote-btn").click(function () {
 
 $(".js-lib-btn").click(function () {
     let btn = $(this);
+    let data = {
+        'lib_in': btn.attr("data-lib-in"),
+    }
     $.ajax({
         url: btn.attr("data-lib-url"),
         type: "post",
         dataType: "json",
+        data: data,
         success: function (data) {
             if (data.is_valid) {
-                console.log(btn)
-                if (data.in_lib) {
+                if (!data.in_lib) {
                     btn.html('<i class="fas fa-check"></i> In Library')
+                    btn.attr("data-lib-in", 1)
                 } else {
                     btn.html('Add to Library')
+                    btn.attr("data-lib-in", 0)
                 }
             } else {
                 alert(data.info_msg)  // Change

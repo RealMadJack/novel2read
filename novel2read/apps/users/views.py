@@ -26,11 +26,16 @@ def add_remove_library_book_ajax(request, *args, **kwargs):
     data = {'is_valid': False}
 
     if request.is_ajax():
+        lib_in = bool(int(request.POST.get('lib_in', False)))
+        print(lib_in)
         data['is_valid'] = True
-        data['in_lib'] = True
+        data['in_lib'] = lib_in
         user = request.user
         book = Book.objects.get(slug=kwargs['book_slug'])
-        user.library.book.add(book)
+        if not lib_in:
+            user.library.book.add(book)
+        else:
+            user.library.book.remove(book)
         user.save()
 
     return JsonResponse(data)
