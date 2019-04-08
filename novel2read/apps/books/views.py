@@ -93,7 +93,6 @@ class BookChapterView(DetailView):
             c_id = kwargs['c_id']
             bookchapters = BookChapter.objects.filter(book__slug=kwargs['book_slug']).select_related('book')
             cached_qs = list(bookchapters)
-            print(cached_qs)
             try:
                 bookchapter = cached_qs[c_id - 1:c_id][0]
             except IndexError:
@@ -139,7 +138,7 @@ class BookRankingView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        qs = self.queryset
+        qs = list(self.queryset.iterator())
         user_auth = self.request.user.is_authenticated
         books = qs[3:]
         books_top = qs[:3]
