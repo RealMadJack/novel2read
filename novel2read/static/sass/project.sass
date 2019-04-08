@@ -125,7 +125,6 @@ a.disabled, button.disabled
 .alert-container
   position: fixed
   margin: 3.5% auto
-    top: 60px
   top: 0
   left: 0
   right: 0
@@ -135,6 +134,7 @@ a.disabled, button.disabled
   top: -10px
   opacity: 0
   transition: all .3s ease-in-out
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2)
 .alert.animate
   top: 10px
   opacity: 1
@@ -472,6 +472,15 @@ a.disabled, button.disabled
   &__nav
     margin-left: auto
     align-self: center
+    .btn.js-vote-btn
+      padding: 5px 12px
+      line-height: 1.1
+      > span
+        position: relative
+        top: -2px
+      small
+        display: block
+        font-size: .7rem
     &--votes
       font-size: 1.1rem
       font-weight: bold

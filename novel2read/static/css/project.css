@@ -121,7 +121,6 @@ a.disabled, button.disabled {
 .alert-container {
   position: fixed;
   margin: 3.5% auto;
-    margin-top: 60px;
   top: 0;
   left: 0;
   right: 0;
@@ -132,7 +131,9 @@ a.disabled, button.disabled {
   top: -10px;
   opacity: 0;
   -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out; }
+  transition: all .3s ease-in-out;
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); }
 
 .alert.animate {
   top: 10px;
@@ -510,6 +511,16 @@ a.disabled, button.disabled {
     margin-left: auto;
     -ms-flex-item-align: center;
         align-self: center; }
+    .rankcard-wide__nav .btn.js-vote-btn {
+      padding: 5px 12px;
+      line-height: 1.1; }
+      .rankcard-wide__nav .btn.js-vote-btn > span {
+        position: relative;
+        top: -2px; }
+      .rankcard-wide__nav .btn.js-vote-btn small {
+        display: block;
+        font-size: 11.2px;
+        font-size: .7rem; }
     .rankcard-wide__nav--votes {
       font-size: 17.6px;
       font-size: 1.1rem;
@@ -1308,7 +1319,7 @@ a.disabled, button.disabled {
         width: 170px; }
       .rankcard-wide__nav form .btn {
         width: 100%; }
-      .rankcard-wide__nav a .btn, .rankcard-wide__nav form, .rankcard-wide__nav .js-lib-btn {
+      .rankcard-wide__nav a .btn, .rankcard-wide__nav form, .rankcard-wide__nav .js-lib-btn, .rankcard-wide__nav .js-vote-btn {
         margin-bottom: 10px; }
       .rankcard-wide__nav .js-lib-btn {
         margin-bottom: 0;
