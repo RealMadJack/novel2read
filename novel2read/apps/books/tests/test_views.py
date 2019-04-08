@@ -156,7 +156,7 @@ class BookSearchViewTest(TestCase):
         resp = self.client.post(reverse('books:search'), {'search_field': 'test'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         resp_content = str(resp.content, encoding='utf8')
         self.assertEqual(resp.status_code, 200)
-        self.assertIn('s_result', resp_content)
+        self.assertIn('html_search_form_result', resp_content)
 
 
 class BookVoteViewTest(TestCase):

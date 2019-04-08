@@ -112,7 +112,7 @@ function search_post(form) {
         },
         success : function(resp) {
             // $('#id_search_field').val('');
-            $('.booksearch__formresult').classList.add('animate')
+            // $('.booksearch__formresult')[0].classList.add('animate')
             $('.booksearch__formresult').html(resp.html_search_form_result)
         },
         error : function (xhr, errmsg, err) {
