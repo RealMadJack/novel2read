@@ -26,6 +26,7 @@ function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
+
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -34,6 +35,21 @@ $.ajaxSetup({
         }
     }
 });
+
+
+// Notifications
+function eventNotification(msg='', flag='info') {
+    let body = document.body;
+    let container = document.getElementsByClassName('container')[1]
+    let alertBox = document.createElement('div')
+    alertBox.className = `alert alert-${flag} alert-animate`
+    alertBox.textContent = msg
+    container.appendChild(alertBox)
+    setTimeout(() => {
+        container.removeChild(alertBox)
+    }, 3000);
+}
+
 
 
 // Ajax animations
@@ -53,12 +69,14 @@ function vote_post(btn) {
             if (data.is_valid) {
                 $(".js-bvotes").html(data.book_votes)
                 $(".js-uvotes").html(data.user_votes)
+                eventNotification('Successfuly voted.')
             } else {
-                alert(data.info_msg)  // Change
+                eventNotification(data.info_msg, 'warning');
             }
         },
         error: function (xhr, errmsg, err) {
-            console.log(`${xhr.status} ${xhr.statusText}`)
+            let msg = `${xhr.status} ${xhr.statusText}`
+            eventNotification(msg, 'danger')
         },
     });
 }
@@ -88,6 +106,7 @@ function library_post(btn) {
                         btn.html('<i class="fas fa-check"></i> In Library')
                     }
                     btn.attr("data-lib-in", 1)
+                    eventNotification('Book added to Library.')
                 } else {
                     if (btn[0].hasAttribute("data-bookmark")) {
                         btn.html('<i class="far fa-bookmark"></i>')
@@ -95,13 +114,15 @@ function library_post(btn) {
                         btn.html('Add to Library')
                     }
                     btn.attr("data-lib-in", 0)
+                    eventNotification('Book removed from Library.')
                 }
             } else {
-                alert(data.info_msg)  // Change
+                eventNotification(data.info_msg, 'warning');
             }
         },
         error: function (xhr, errmsg, err) {
-            console.log(`${xhr.status} ${xhr.statusText}`)
+            let msg = `${xhr.status} ${xhr.statusText}`
+            eventNotification(msg, 'danger')
         },
     });
 }
@@ -122,12 +143,14 @@ function search_post(form) {
             'search_field': $('#id_search_field').val()
         },
         success : function(resp) {
+            console.log(resp)
             // $('#id_search_field').val('');
             // $('.booksearch__formresult')[0].classList.add('animate')
             $('.booksearch__formresult').html(resp.html_search_form_result)
         },
         error : function (xhr, errmsg, err) {
-            console.log(`${xhr.status} ${xhr.statusText}`)
+            let msg = `${xhr.status} ${xhr.statusText}`
+            eventNotification(msg, 'danger')
         }
     });
 };

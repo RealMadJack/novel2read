@@ -153,26 +153,28 @@ class BookSearchView(ListView):
         form = self.form(request.POST)
         context = dict(self.context)  # update get view context
         context['form'] = form
+
         if request.is_ajax():
             data = {}
             template_name = 'books/booksearch-result.html'
             search_field = request.POST.get('search_field', None)
+
             if not search_field:
                 # handle ajax error
                 return JsonResponse(data, status=403)
+
             books = Book.objects.published().annotate(
                 search=SearchVector('title', 'description'),
             ).filter(search=search_field)
             context['books'] = books
             context['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''
-            # data['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''
-            # data['books'] = serializers.serialize('json', books)
             data['html_search_form_result'] = render_to_string(
                 template_name,
                 context=context,
                 request=request
             )
             return JsonResponse(data)
+
         if form.is_valid():
             field_data = form.cleaned_data['search_field']
             books = Book.objects.published().annotate(
