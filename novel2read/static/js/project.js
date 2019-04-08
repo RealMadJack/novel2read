@@ -26,12 +26,10 @@ function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
-
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            console.log(csrftoken)
         }
     }
 });
@@ -79,7 +77,7 @@ function vote_post(btn) {
                 $(".js-uvotes").html(data.user_votes)
                 // eventNotification('Successfuly voted.')
             } else {
-                // eventNotification(data.info_msg, 'warning');
+                eventNotification(data.info_msg, 'warning');
             }
         },
         error: function (xhr, errmsg, err) {
@@ -162,6 +160,7 @@ function search_post(form) {
         }
     });
 };
+
 
 $('#search-form').on('submit', function(e){
     e.preventDefault();

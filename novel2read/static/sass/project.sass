@@ -123,7 +123,7 @@ a.disabled, button.disabled
 // bootstrap alert CSS, translated to the django-standard levels of
 // debug, info, success, warning, error
 .alert-container
-  position: absolute
+  position: fixed
   margin: 3.5% auto
     top: 60px
   top: 0
@@ -379,21 +379,25 @@ a.disabled, button.disabled
     .fas
       font-size: .8rem
       padding-right: 5px
-    form
-      &:nth-of-type(2)
-        margin-top: 10px
       a
         .btn
           margin: 0
           padding: 0
-    a, form a .btn, form:first-of-type
+    > form, > a, > .btn
       text-align: center
       width: 50%
       margin-bottom: 10px
-      &:last-of-type
-        margin-bottom: 0
       .btn
         width: 100%
+    > .btn.js-lib-btn
+      padding: 0
+      margin-bottom: 0
+      color: $accent
+      border: none!important
+      box-shadow: none!important
+      background-color: transparent!important
+      &:hover, &:active
+        color: $accent-hot!important
 
 .rankcard-wide
   position: relative
@@ -439,17 +443,19 @@ a.disabled, button.disabled
         font-size: .8rem
         padding-right: 5px
         display: none
-      form
-        display: inline-block
+      .btn
         position: relative
         top: -1px
-        a
-          .btn
-            margin: 0
-            padding: 0
-      a, form a .btn
+        margin: 0
+        padding: 0
+        &:hover, &:active
+          color: $accent-hot!important
+      a, .btn
         color: $accent
-        &:hover, &:active, &:focus
+        border: none!important
+        box-shadow: none!important
+        background-color: transparent!important
+        &:hover
           color: $accent-hot
       > span
         opacity: .5
@@ -465,25 +471,10 @@ a.disabled, button.disabled
     .fas
       font-size: .8rem
       padding-right: 5px
-    a.disabled
-      display: block
-    a, form:nth-of-type(2), a.disabled:last-of-type
+    a, .js-lib-btn
       display: none
-    form
-      &:nth-of-type(2)
-        margin-top: 10px
-      a
-        .btn
-          margin: 0
-          padding: 0
-    a, form a .btn, form:first-of-type
-      text-align: center
+    a, .btn
       width: 165px
-      margin-bottom: 10px
-      .btn
-        width: 100%
-      &:last-of-type
-        margin-bottom: 0
 
 
 .tag-card

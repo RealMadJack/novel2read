@@ -54,8 +54,9 @@
         .h4-title-sm
       &--chaps
 
+
 /* Medium Devices, Desktops */
-@media only screen and (max-width : 992px)
+@media only screen and (max-width : 991px)
   // Books list / Book cards
   .browsebooks
     &__title
@@ -116,8 +117,8 @@
     &__cards
       &__card
         &:nth-of-type(1)
-          max-width: 100%
           flex: 1 100%
+          max-width: 100%
         &:nth-of-type(2)
         &:nth-of-type(3)
 
@@ -153,9 +154,10 @@
     &__nav
       &--votes
         font-size: 1.1rem
-      a
+      a, .btn, form
         width: 155px
-        .btn
+      form .btn
+        width: 100%
 
 
   .libcard
@@ -298,22 +300,36 @@
         height: 200px
     &__info
       align-items: center
+      margin-bottom: 20px
       .h2-title-sm
         font-size: 1.15rem
-        line-height: 1.6
+        line-height: 1.2
         margin-bottom: 15px
       .stars-rating-sm
         margin-top: 0
+        margin-bottom: 10px
       &--nav
         display: none
     &__nav
       margin: 0
       &--votes
         font-size: 1.1rem
-      a, form:nth-of-type(2), a.disabled:last-of-type
+      a, form, .js-lib-btn
         display: block
-      a, form a .btn, form:first-of-type
+      a, .btn, form
         width: 170px
+      form .btn
+        width: 100%
+      a .btn, form, .js-lib-btn
+        margin-bottom: 10px
+      .js-lib-btn
+        margin-bottom: 0
+        color: $accent
+        border: none!important
+        box-shadow: none!important
+        background-color: transparent!important
+        &:hover, &:active
+          color: $accent-hot!important
 
 
   .libcard

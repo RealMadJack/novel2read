@@ -119,7 +119,7 @@ a.disabled, button.disabled {
   color: #f5f5f5; }
 
 .alert-container {
-  position: absolute;
+  position: fixed;
   margin: 3.5% auto;
     margin-top: 60px;
   top: 0;
@@ -401,19 +401,25 @@ a.disabled, button.disabled {
       font-size: 12.8px;
       font-size: .8rem;
       padding-right: 5px; }
-    .rankcard__nav form:nth-of-type(2) {
-      margin-top: 10px; }
-    .rankcard__nav form a .btn {
-      margin: 0;
-      padding: 0; }
-    .rankcard__nav a, .rankcard__nav form a .btn, .rankcard__nav form:first-of-type {
+      .rankcard__nav .fas a .btn {
+        margin: 0;
+        padding: 0; }
+    .rankcard__nav > form, .rankcard__nav > a, .rankcard__nav > .btn {
       text-align: center;
       width: 50%;
       margin-bottom: 10px; }
-      .rankcard__nav a:last-of-type, .rankcard__nav form a .btn:last-of-type, .rankcard__nav form:first-of-type:last-of-type {
-        margin-bottom: 0; }
-      .rankcard__nav a .btn, .rankcard__nav form a .btn .btn, .rankcard__nav form:first-of-type .btn {
+      .rankcard__nav > form .btn, .rankcard__nav > a .btn, .rankcard__nav > .btn .btn {
         width: 100%; }
+    .rankcard__nav > .btn.js-lib-btn {
+      padding: 0;
+      margin-bottom: 0;
+      color: #6A57F9;
+      border: none !important;
+      -webkit-box-shadow: none !important;
+              box-shadow: none !important;
+      background-color: transparent !important; }
+      .rankcard__nav > .btn.js-lib-btn:hover, .rankcard__nav > .btn.js-lib-btn:active {
+        color: #FF0099 !important; }
 
 .rankcard-wide {
   position: relative;
@@ -472,16 +478,20 @@ a.disabled, button.disabled {
       font-size: .8rem;
       padding-right: 5px;
       display: none; }
-    .rankcard-wide__info--nav form {
-      display: inline-block;
+    .rankcard-wide__info--nav .btn {
       position: relative;
-      top: -1px; }
-      .rankcard-wide__info--nav form a .btn {
-        margin: 0;
-        padding: 0; }
-    .rankcard-wide__info--nav a, .rankcard-wide__info--nav form a .btn {
-      color: #6A57F9; }
-      .rankcard-wide__info--nav a:hover, .rankcard-wide__info--nav a:active, .rankcard-wide__info--nav a:focus, .rankcard-wide__info--nav form a .btn:hover, .rankcard-wide__info--nav form a .btn:active, .rankcard-wide__info--nav form a .btn:focus {
+      top: -1px;
+      margin: 0;
+      padding: 0; }
+      .rankcard-wide__info--nav .btn:hover, .rankcard-wide__info--nav .btn:active {
+        color: #FF0099 !important; }
+    .rankcard-wide__info--nav a, .rankcard-wide__info--nav .btn {
+      color: #6A57F9;
+      border: none !important;
+      -webkit-box-shadow: none !important;
+              box-shadow: none !important;
+      background-color: transparent !important; }
+      .rankcard-wide__info--nav a:hover, .rankcard-wide__info--nav .btn:hover {
         color: #FF0099; }
     .rankcard-wide__info--nav > span {
       opacity: .5;
@@ -500,23 +510,10 @@ a.disabled, button.disabled {
       font-size: 12.8px;
       font-size: .8rem;
       padding-right: 5px; }
-    .rankcard-wide__nav a.disabled {
-      display: block; }
-    .rankcard-wide__nav a, .rankcard-wide__nav form:nth-of-type(2), .rankcard-wide__nav a.disabled:last-of-type {
+    .rankcard-wide__nav a, .rankcard-wide__nav .js-lib-btn {
       display: none; }
-    .rankcard-wide__nav form:nth-of-type(2) {
-      margin-top: 10px; }
-    .rankcard-wide__nav form a .btn {
-      margin: 0;
-      padding: 0; }
-    .rankcard-wide__nav a, .rankcard-wide__nav form a .btn, .rankcard-wide__nav form:first-of-type {
-      text-align: center;
-      width: 165px;
-      margin-bottom: 10px; }
-      .rankcard-wide__nav a .btn, .rankcard-wide__nav form a .btn .btn, .rankcard-wide__nav form:first-of-type .btn {
-        width: 100%; }
-      .rankcard-wide__nav a:last-of-type, .rankcard-wide__nav form a .btn:last-of-type, .rankcard-wide__nav form:first-of-type:last-of-type {
-        margin-bottom: 0; }
+    .rankcard-wide__nav a, .rankcard-wide__nav .btn {
+      width: 165px; }
 
 .tag-card {
   display: inline-block;
@@ -1144,7 +1141,7 @@ a.disabled, button.disabled {
     height: 250px; } }
 
 /* Medium Devices, Desktops */
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 991px) {
   .browsebooks__books .book-lg-wide {
     grid-template-columns: 1fr; }
     .browsebooks__books .book-lg-wide__poster--image {
@@ -1168,10 +1165,10 @@ a.disabled, button.disabled {
     width: 100%;
     padding: 5px 0; }
   .bookranking__cards__card:nth-of-type(1) {
-    max-width: 100%;
     -webkit-box-flex: 1;
         -ms-flex: 1 100%;
-            flex: 1 100%; }
+            flex: 1 100%;
+    max-width: 100%; }
   .rankcard {
     width: 100%;
     max-width: 360px;
@@ -1186,8 +1183,10 @@ a.disabled, button.disabled {
     font-size: 1.3rem; }
   .rankcard-wide__nav--votes {
     font-size: 1.1rem; }
-  .rankcard-wide__nav a {
+  .rankcard-wide__nav a, .rankcard-wide__nav .btn, .rankcard-wide__nav form {
     width: 155px; }
+  .rankcard-wide__nav form .btn {
+    width: 100%; }
   .libcard__poster--image {
     height: 420px; } }
 
@@ -1278,23 +1277,38 @@ a.disabled, button.disabled {
     .rankcard-wide__info {
       -webkit-box-align: center;
           -ms-flex-align: center;
-              align-items: center; }
+              align-items: center;
+      margin-bottom: 20px; }
       .rankcard-wide__info .h2-title-sm {
         font-size: 1.15rem;
-        line-height: 1.6;
+        line-height: 1.2;
         margin-bottom: 15px; }
       .rankcard-wide__info .stars-rating-sm {
-        margin-top: 0; }
+        margin-top: 0;
+        margin-bottom: 10px; }
       .rankcard-wide__info--nav {
         display: none; }
     .rankcard-wide__nav {
       margin: 0; }
       .rankcard-wide__nav--votes {
         font-size: 1.1rem; }
-      .rankcard-wide__nav a, .rankcard-wide__nav form:nth-of-type(2), .rankcard-wide__nav a.disabled:last-of-type {
+      .rankcard-wide__nav a, .rankcard-wide__nav form, .rankcard-wide__nav .js-lib-btn {
         display: block; }
-      .rankcard-wide__nav a, .rankcard-wide__nav form a .btn, .rankcard-wide__nav form:first-of-type {
+      .rankcard-wide__nav a, .rankcard-wide__nav .btn, .rankcard-wide__nav form {
         width: 170px; }
+      .rankcard-wide__nav form .btn {
+        width: 100%; }
+      .rankcard-wide__nav a .btn, .rankcard-wide__nav form, .rankcard-wide__nav .js-lib-btn {
+        margin-bottom: 10px; }
+      .rankcard-wide__nav .js-lib-btn {
+        margin-bottom: 0;
+        color: #6A57F9;
+        border: none !important;
+        -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+        background-color: transparent !important; }
+        .rankcard-wide__nav .js-lib-btn:hover, .rankcard-wide__nav .js-lib-btn:active {
+          color: #FF0099 !important; }
   .libcard__poster--image {
     height: 340px; }
   .libcard__info--chaps {
