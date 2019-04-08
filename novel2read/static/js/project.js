@@ -42,12 +42,20 @@ function eventNotification(msg='', flag='info') {
     let body = document.body;
     let container = document.getElementsByClassName('container')[1]
     let alertBox = document.createElement('div')
-    alertBox.className = `alert alert-${flag} alert-animate`
+    let alertTime = 2000
+    let alertTimeAnim = alertTime - 200
+    alertBox.className = `alert alert-${flag}`
     alertBox.textContent = msg
     container.appendChild(alertBox)
     setTimeout(() => {
+        alertBox.classList.add('animate')
+    }, 100)
+    setTimeout(() => {
+        alertBox.classList.remove('animate')
+    }, alertTimeAnim)
+    setTimeout(() => {
         container.removeChild(alertBox)
-    }, 3000);
+    }, alertTime);
 }
 
 
@@ -69,14 +77,14 @@ function vote_post(btn) {
             if (data.is_valid) {
                 $(".js-bvotes").html(data.book_votes)
                 $(".js-uvotes").html(data.user_votes)
-                eventNotification('Successfuly voted.')
+                // eventNotification('Successfuly voted.')
             } else {
-                eventNotification(data.info_msg, 'warning');
+                // eventNotification(data.info_msg, 'warning');
             }
         },
         error: function (xhr, errmsg, err) {
             let msg = `${xhr.status} ${xhr.statusText}`
-            eventNotification(msg, 'danger')
+            eventNotification(msg, 'error')
         },
     });
 }
@@ -102,19 +110,19 @@ function library_post(btn) {
                 if (!data.in_lib) {
                     if (btn[0].hasAttribute("data-bookmark")) {
                         btn.html('<i class="fas fa-bookmark"></i>')
+                        eventNotification('Book added to Library.')
                     } else {
                         btn.html('<i class="fas fa-check"></i> In Library')
                     }
                     btn.attr("data-lib-in", 1)
-                    eventNotification('Book added to Library.')
                 } else {
                     if (btn[0].hasAttribute("data-bookmark")) {
                         btn.html('<i class="far fa-bookmark"></i>')
+                        eventNotification('Book removed from Library.')
                     } else {
                         btn.html('Add to Library')
                     }
                     btn.attr("data-lib-in", 0)
-                    eventNotification('Book removed from Library.')
                 }
             } else {
                 eventNotification(data.info_msg, 'warning');
@@ -122,7 +130,7 @@ function library_post(btn) {
         },
         error: function (xhr, errmsg, err) {
             let msg = `${xhr.status} ${xhr.statusText}`
-            eventNotification(msg, 'danger')
+            eventNotification(msg, 'error')
         },
     });
 }
@@ -150,7 +158,7 @@ function search_post(form) {
         },
         error : function (xhr, errmsg, err) {
             let msg = `${xhr.status} ${xhr.statusText}`
-            eventNotification(msg, 'danger')
+            eventNotification(msg, 'error')
         }
     });
 };

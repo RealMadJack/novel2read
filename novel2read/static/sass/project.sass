@@ -122,7 +122,22 @@ a.disabled, button.disabled
 // Alerts
 // bootstrap alert CSS, translated to the django-standard levels of
 // debug, info, success, warning, error
-
+.alert-container
+  position: absolute
+  margin: 3.5% auto
+    top: 60px
+  top: 0
+  left: 0
+  right: 0
+  z-index: 99
+.alert
+  position: relative
+  top: -10px
+  opacity: 0
+  transition: all .3s ease-in-out
+.alert.animate
+  top: 10px
+  opacity: 1
 .alert-debug
   background-color: $white
   border-color: $mint-green
@@ -131,7 +146,8 @@ a.disabled, button.disabled
 .alert-error
   background-color: $pink
   border-color: $dark-pink
-  color: $accent-hot
+  color: $accent-hot-dark
+.alert-
 
 
 // Scrollbar

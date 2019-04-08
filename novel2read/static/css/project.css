@@ -118,6 +118,26 @@ a.disabled, button.disabled {
 .c-f5 {
   color: #f5f5f5; }
 
+.alert-container {
+  position: absolute;
+  margin: 3.5% auto;
+    margin-top: 60px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99; }
+
+.alert {
+  position: relative;
+  top: -10px;
+  opacity: 0;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out; }
+
+.alert.animate {
+  top: 10px;
+  opacity: 1; }
+
 .alert-debug {
   background-color: #fff;
   border-color: #d6e9c6;
@@ -126,7 +146,7 @@ a.disabled, button.disabled {
 .alert-error {
   background-color: #f2dede;
   border-color: #eed3d7;
-  color: #FF0099; }
+  color: #E61A80; }
 
 .scrollbar {
   overflow-y: scroll; }
