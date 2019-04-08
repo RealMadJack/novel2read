@@ -102,8 +102,6 @@ class BookChapterView(DetailView):
                 next_chap = cached_qs[c_id:c_id + 1][0]
             except IndexError:
                 next_chap = None
-            # prev_chap = prev_in_order(bookchapter, qs=bookchapters)
-            # next_chap = next_in_order(bookchapter, qs=bookchapters)
             context = {
                 'bookchapters': bookchapters,
                 'bookchapter': bookchapter,
@@ -112,8 +110,9 @@ class BookChapterView(DetailView):
                 context['user_lib'] = list(request.user.library.book.all())
                 try:
                     book_prog = BookProgress.objects.get(user=request.user, book=bookchapter.book)
-                    book_prog.c_id = bookchapter.c_id
-                    book_prog.save()
+                    if book_prog.c_id != bookchapter.c_id:
+                        book_prog.c_id = bookchapter.c_id
+                        book_prog.save()
                 except BookProgress.DoesNotExist:
                     BookProgress.objects.create(
                         book=bookchapter.book,
