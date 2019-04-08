@@ -79,7 +79,7 @@
                   <span>{{book.rating}}</span>
                 </div>
                 <div class="rankcard-wide__info--nav">
-                  <a href="{{book.get_absolute_url}}">
+                  <a class="read-book" href="{{book.get_absolute_url}}">
                     <span>Read</span>
                   </a>
                   <span>|</span>
@@ -91,7 +91,7 @@
 
                 {% include 'books/vote-btn-ajax.html' %}
 
-                <a href="{{book.get_absolute_url}}">
+                <a class="read-book" href="{{book.get_absolute_url}}">
                   <button class="btn btn-outline-primary">Read</button>
                 </a>
                 {% include 'books/lib-btn-ajax.html' %}

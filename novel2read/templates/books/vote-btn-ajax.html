@@ -5,7 +5,7 @@
     <small>(<span class="js-uvotes">{{request.user.profile.votes}}</span> votes left)</small>
   </button>
 {% else %}
-  <a href="{% url 'account_login' %}?next={{request.path}}">
+  <a class="vote-anon" href="{% url 'account_login' %}?next={{request.path}}">
     <button class="btn btn-outline-warning">Vote</button>
   </a>
 {% endif %}

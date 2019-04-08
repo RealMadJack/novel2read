@@ -16,7 +16,7 @@
     </button>
   {% endif %}
 {% else %}
-  <a href="{% url 'account_login' %}?next={{request.path}}">
+  <a class="lib-anon" href="{% url 'account_login' %}?next={{request.path}}">
     <button type="button" class="btn btn-dark">Add to Library</button>
   </a>
 {% endif %}
