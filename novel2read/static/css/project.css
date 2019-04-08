@@ -83,6 +83,9 @@ a, form a, .btn-link {
     outline: none;
     color: #FF0099; }
 
+form.disabled {
+  display: none; }
+
 a.disabled, button.disabled {
   pointer-events: none;
   opacity: .5; }
@@ -1013,12 +1016,16 @@ a.disabled, button.disabled {
     .booksearch__form--btn .btn {
       padding: 10px 30px;
       border-radius: 0; }
-  .booksearch__formresult > p {
-    margin: 0;
-    font-size: 19.2px;
-    font-size: 1.2rem; }
-    .booksearch__formresult > p b {
-      padding-left: 5px; }
+  .booksearch__formresult.animate {
+    opacity: 1; }
+  .booksearch__formresult {
+    opacity: 0; }
+    .booksearch__formresult > p {
+      margin: 0;
+      font-size: 19.2px;
+      font-size: 1.2rem; }
+      .booksearch__formresult > p b {
+        padding-left: 5px; }
 
 .searchcard-sm, .searchcard-lg {
   display: -webkit-box;

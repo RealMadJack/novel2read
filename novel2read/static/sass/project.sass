@@ -88,6 +88,8 @@ a, form a, .btn-link
     outline: none
     color: $accent-hot
 
+form.disabled
+    display: none
 a.disabled, button.disabled
   pointer-events: none
   opacity: .5
@@ -920,7 +922,10 @@ a.disabled, button.disabled
       .btn
         padding: 10px 30px
         border-radius: 0
+  &__formresult.animate
+    opacity: 1
   &__formresult
+    opacity: 0
     > p
       margin: 0
       font-size: 1.2rem

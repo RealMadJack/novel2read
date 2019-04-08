@@ -111,9 +111,9 @@ function search_post(form) {
             'search_field': $('#id_search_field').val()
         },
         success : function(resp) {
-            console.log(resp.books)
             // $('#id_search_field').val('');
-            $('.booksearch__formresult').html(resp.s_result)
+            $('.booksearch__formresult').classList.add('animate')
+            $('.booksearch__formresult').html(resp.html_search_form_result)
         },
         error : function (xhr, errmsg, err) {
             console.log(`${xhr.status} ${xhr.statusText}`)

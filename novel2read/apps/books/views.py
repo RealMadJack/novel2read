@@ -6,6 +6,7 @@ from django.http import JsonResponse
 # from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 # from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import View, DetailView, ListView
 from next_prev import next_in_order, prev_in_order
@@ -154,6 +155,7 @@ class BookSearchView(ListView):
         context['form'] = form
         if request.is_ajax():
             data = {}
+            template_name = 'books/booksearch-result.html'
             search_field = request.POST.get('search_field', None)
             if not search_field:
                 # handle ajax error
@@ -161,8 +163,15 @@ class BookSearchView(ListView):
             books = Book.objects.published().annotate(
                 search=SearchVector('title', 'description'),
             ).filter(search=search_field)
-            data['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''
-            data['books'] = serializers.serialize('json', books)
+            context['books'] = books
+            context['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''
+            # data['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''
+            # data['books'] = serializers.serialize('json', books)
+            data['html_search_form_result'] = render_to_string(
+                template_name,
+                context=context,
+                request=request
+            )
             return JsonResponse(data)
         if form.is_valid():
             field_data = form.cleaned_data['search_field']
