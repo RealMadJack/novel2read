@@ -73,7 +73,7 @@ function vote_post(btn) {
         dataType: "json",
         success: function (data) {
             if (data.is_valid) {
-                $(".js-bvotes").html(data.book_votes)
+                btn.parent().parent().find('.js-bvotes').html(data.book_votes)
                 $(".js-uvotes").html(data.user_votes)
                 // eventNotification('Successfuly voted.')
             } else {

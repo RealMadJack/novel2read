@@ -42,9 +42,9 @@
                 </div>
               </div>
               <div class="rankcard__nav">
-                <div class="rankcard-wide__nav--votes">Votes: {{book.votes}}</div>
+                <div class="rankcard-wide__nav--votes ">Votes: <span class="js-bvotes">{{book.votes}}</span></div>
 
-                {% include 'books/vote-btn.html' %}
+                {% include 'books/vote-btn-ajax.html' %}
 
                 <a href="{{book.get_absolute_url}}">
                   <button class="btn btn-outline-primary">Read</button>
