@@ -8,7 +8,6 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 # from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import View, DetailView, ListView
-from next_prev import next_in_order, prev_in_order
 
 from .models import Book, BookTag, BookChapter
 from .forms import BookSearchForm
@@ -93,9 +92,18 @@ class BookChapterView(DetailView):
         try:
             c_id = kwargs['c_id']
             bookchapters = BookChapter.objects.filter(book__slug=kwargs['book_slug']).select_related('book')
-            bookchapter = list(bookchapters)[c_id - 1:c_id][0]
-            prev_chap = prev_in_order(bookchapter, qs=bookchapters)
-            next_chap = next_in_order(bookchapter, qs=bookchapters)
+            cached_qs = list(bookchapters)
+            bookchapter = cached_qs[c_id - 1:c_id][0]
+            try:
+                prev_chap = cached_qs[c_id - 2:c_id - 1][0]
+            except IndexError:
+                prev_chap = None
+            try:
+                next_chap = cached_qs[c_id:c_id + 1][0]
+            except IndexError:
+                next_chap = None
+            # prev_chap = prev_in_order(bookchapter, qs=bookchapters)
+            # next_chap = next_in_order(bookchapter, qs=bookchapters)
             context = {
                 'bookchapters': bookchapters,
                 'bookchapter': bookchapter,
