@@ -74,7 +74,7 @@ class LibraryViewTest(TestCase):
         self.assertRedirects(
             self.resp, f'/accounts/login/?next={self.lib_url}')
 
-    def test_lib_resp_ajax(self):
+    def test_lib_add_remove_ajax(self):
         self.client.login(username='testuser', password='test')
         resp = self.client.post(
             self.rev_lib_add_remove, {'lib_in': 0},
@@ -96,9 +96,3 @@ class LibraryViewTest(TestCase):
             {'in_lib': True, 'is_valid': True}
         )
         self.assertEqual(self.user.library.book.count(), 0)
-
-    # def test_library_response(self):
-    #     resp = self.client.post('/accounts/login/', {'username': self.user.username, 'password': self.user.password})
-    #     resp = self.client.get(reverse('users:library', kwargs={'username': self.user.username}))
-    #     self.assertNotEqual(resp.status_code, 302)
-    #     self.assertEqual(resp.status_code, 200)

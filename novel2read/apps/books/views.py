@@ -1,4 +1,3 @@
-from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
 from django.db.models import F

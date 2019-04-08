@@ -7,12 +7,14 @@ from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from .managers import UserManager
 from novel2read.apps.books.models import Book
 
 
 class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
+    objects = UserManager()
     name = CharField(_("Name of User"), blank=True, max_length=255)
 
     def get_absolute_url(self):
@@ -58,9 +60,9 @@ class Library(models.Model):
 
 
 class BookProgress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='%(class)ses')
     book = models.OneToOneField(Book, on_delete=models.CASCADE, primary_key=True)
-    c_id = models.IntegerField('Chapter ID', blank=True, null=True, default=0, db_index=True)
+    c_id = models.IntegerField('Progress ID', blank=True, null=True, default=0, db_index=True)
 
     class Meta:
         verbose_name = 'Book Progress'

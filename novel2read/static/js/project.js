@@ -2,6 +2,55 @@
 
 (function () {
 
+
+// Swiper Slider config
+let slides = window.innerWidth > 1750 ? 'auto' : 'auto'
+let slideDepth = window.innerWidth > 2000 ? 280 : 550
+let swiperOptions = {
+    pagination: '.swiper-pagination',
+    effect: 'coverflow',
+    // grabCursor: true,
+    centeredSlides: true,
+    loop: true,
+    slidesPerView: slides,
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    coverflow: {
+        rotate: 0,
+        stretch: 0,
+        depth: slideDepth,
+        modifier: 1,
+        slideShadows: false,
+    },
+    //preventClicks: false,
+    //preventClicksPropagation: false,
+    slideToClickedSlide: true,
+}
+let swiper = new Swiper('.swiper-container', swiperOptions);
+
+
+// Notifications
+function eventNotification(msg='', flag='info') {
+    let body = document.body;
+    let container = document.getElementsByClassName('container')[1]
+    let alertBox = document.createElement('div')
+    let alertTime = 2000
+    let alertTimeAnim = alertTime - 200
+    alertBox.className = `alert alert-${flag}`
+    alertBox.textContent = msg
+    container.appendChild(alertBox)
+    setTimeout(() => {
+        alertBox.classList.add('animate')
+    }, 100)
+    setTimeout(() => {
+        alertBox.classList.remove('animate')
+    }, alertTimeAnim)
+    setTimeout(() => {
+        container.removeChild(alertBox)
+    }, alertTime);
+}
+
+
 // CSRF
 function getCookie(name) {
     var cookieValue = null;
@@ -33,29 +82,6 @@ $.ajaxSetup({
         }
     }
 });
-
-
-// Notifications
-function eventNotification(msg='', flag='info') {
-    let body = document.body;
-    let container = document.getElementsByClassName('container')[1]
-    let alertBox = document.createElement('div')
-    let alertTime = 2000
-    let alertTimeAnim = alertTime - 200
-    alertBox.className = `alert alert-${flag}`
-    alertBox.textContent = msg
-    container.appendChild(alertBox)
-    setTimeout(() => {
-        alertBox.classList.add('animate')
-    }, 100)
-    setTimeout(() => {
-        alertBox.classList.remove('animate')
-    }, alertTimeAnim)
-    setTimeout(() => {
-        container.removeChild(alertBox)
-    }, alertTime);
-}
-
 
 
 // Ajax animations
@@ -161,38 +187,11 @@ function search_post(form) {
     });
 };
 
-
 $('#search-form').on('submit', function(e){
     e.preventDefault();
     let form = $(this);
     search_post(form);
 });
-
-
-// Swiper Slider config
-let slides = window.innerWidth > 1750 ? 'auto' : 'auto'
-let slideDepth = window.innerWidth > 2000 ? 280 : 550
-let swiperOptions = {
-    pagination: '.swiper-pagination',
-    effect: 'coverflow',
-    // grabCursor: true,
-    centeredSlides: true,
-    loop: true,
-    slidesPerView: slides,
-    nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
-    coverflow: {
-        rotate: 0,
-        stretch: 0,
-        depth: slideDepth,
-        modifier: 1,
-        slideShadows: false,
-    },
-    //preventClicks: false,
-    //preventClicksPropagation: false,
-    slideToClickedSlide: true,
-}
-let swiper = new Swiper('.swiper-container', swiperOptions);
 
 
 
