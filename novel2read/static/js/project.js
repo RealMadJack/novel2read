@@ -21,7 +21,7 @@ function getCookie(name) {
 let csrf_form = $("[name=csrfmiddlewaretoken]").val()
 let csrftoken = csrf_form ? csrf_form : getCookie('csrftoken');
 
-// Setup ajax connections safetly
+// Setup ajax connections safely
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -35,14 +35,16 @@ $.ajaxSetup({
     }
 });
 
-// Ajax Votes
+
+// Ajax animations
 function btnAjaxAnimate(btn) {
     btn.setAttribute("style", "width: 100px;")
     btn.html('...')
 }
 
-$(".js-vote-btn").click(function () {
-    let btn = $(this);
+
+// Ajax Votes
+function vote_post(btn) {
     $.ajax({
         url: btn.attr("data-vote-url"),
         type: "post",
@@ -59,12 +61,16 @@ $(".js-vote-btn").click(function () {
             console.log(`${xhr.status} ${xhr.statusText}`)
         },
     });
+}
+
+$(".js-vote-btn").click(function () {
+    let btn = $(this);
+    vote_post(btn);
 })
 
 
-// Ajax library button
-$(".js-lib-btn").click(function () {
-    let btn = $(this);
+// Ajax library
+function library_post(btn) {
     let data = {
         'lib_in': btn.attr("data-lib-in"),
     }
@@ -98,6 +104,11 @@ $(".js-lib-btn").click(function () {
             console.log(`${xhr.status} ${xhr.statusText}`)
         },
     });
+}
+
+$(".js-lib-btn").click(function () {
+    let btn = $(this);
+    library_post(btn);
 })
 
 
