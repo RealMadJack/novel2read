@@ -61,8 +61,8 @@ class BookView(DetailView):
         try:
             book = Book.objects.select_related('bookgenre').prefetch_related('booktag', 'bookchapters').get(slug=kwargs['book_slug'])
             bookchapters = list(book.bookchapters.all())
-            first_chap = bookchapters[0] if len(bookchapters) >= 1 else []
-            last_chap = bookchapters[-1] if len(bookchapters) >= 1 else []
+            first_chap = bookchapters[0] if len(bookchapters) >= 1 else None
+            last_chap = bookchapters[-1] if len(bookchapters) >= 1 else None
             user_auth = request.user.is_authenticated
             context = {
                 'book': book, 'bookchapters': bookchapters,
@@ -93,13 +93,20 @@ class BookChapterView(DetailView):
             c_id = kwargs['c_id']
             bookchapters = BookChapter.objects.filter(book__slug=kwargs['book_slug']).select_related('book')
             cached_qs = list(bookchapters)
-            bookchapter = cached_qs[c_id - 1:c_id][0]
+            print(cached_qs)
+            try:
+                bookchapter = cached_qs[c_id - 1:c_id][0]
+            except IndexError:
+                if cached_qs:
+                    bookchapter = cached_qs[0]
+                else:
+                    return redirect('/404/')
             try:
                 prev_chap = cached_qs[c_id - 2:c_id - 1][0]
             except IndexError:
                 prev_chap = None
             try:
-                next_chap = cached_qs[c_id:c_id + 1][0]
+                next_chap = cached_qs[c_id:c_id + 2][0]
             except IndexError:
                 next_chap = None
             context = {
