@@ -190,10 +190,10 @@ class BookSearchView(ListView):
             return JsonResponse(data)
 
         if form.is_valid():
-            field_data = form.cleaned_data['search_field']
+            search_field = form.cleaned_data['search_field']
             books = Book.objects.published().annotate(
                 search=SearchVector('title', 'description'),
-            ).filter(search=field_data)
+            ).filter(search=search_field)
             context['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''
             context['books'] = books
         return render(request, template_name=self.template_name, context=context)

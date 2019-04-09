@@ -20,7 +20,7 @@
 <div class="container">
 
 
-  <div class="browsebooks">
+  <div class="browsebooks mt-30">
     <div class="browsebooks__title">
       <h1 class="h1-title">
         {% if request.resolver_match.url_name == 'genre-list' %}
@@ -35,9 +35,8 @@
       </h1>
     </div>
     <div class="browsebooks__filters mb-30">
-      <form action="" method="get" class="browsebooks__filters--form">
+      <form action="" method="get" class="browsebooks__filters--form js-filter-form">
           {{ filter.form|crispy }}
-          <button type="submit" class="btn btn-dark">Filter</button>
       </form>
     </div>
     <div class="browsebooks__books">

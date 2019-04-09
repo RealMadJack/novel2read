@@ -4,10 +4,6 @@ import django_filters
 
 
 class BookFilter(django_filters.FilterSet):
-    """
-    votes(popular): votes min / max
-    rating: rating min / max
-    """
     COUNTRY_CHOICES = (
         ('china', 'China'),
         ('korea', 'Korea'),
@@ -39,7 +35,7 @@ class BookFilter(django_filters.FilterSet):
 
     def __init__(self, *args, **kwargs):
         super(BookFilter, self).__init__(*args, **kwargs)
-        self.filters['status_release'].label = 'Type'
+        self.filters['status_release'].label = 'Completion'
 
     def filter_by_country(self, qs, name, value):
         qs = qs if not value else qs.filter(country__iexact=value)

@@ -29,6 +29,12 @@ let swiperOptions = {
 let swiper = new Swiper('.swiper-container', swiperOptions);
 
 
+// Form filters
+$(".js-filter-form").change(function() {
+    $(".js-filter-form").submit();
+});
+
+
 // Notifications
 function eventNotification(msg='', flag='info') {
     let body = document.body;
@@ -185,7 +191,6 @@ function search_post(form) {
             'search_field': $('#id_search_field').val()
         },
         success : function(resp) {
-            console.log(resp)
             // $('#id_search_field').val('');
             // $('.booksearch__formresult')[0].classList.add('animate')
             $('.booksearch__formresult').html(resp.html_search_form_result)
@@ -197,10 +202,26 @@ function search_post(form) {
     });
 };
 
-$('#search-form').on('submit', function(e){
+$('#search-form').on('keyup keypress', function(e) {
+    let keyCode = e.keyCode || e.which;
+    if (keyCode === 13) {
+        e.preventDefault();
+        return false;
+    }
+});
+let wto;
+$('#search-form').on('change paste keyup', function(e){
     e.preventDefault();
+    clearTimeout(wto);
     let form = $(this);
-    search_post(form);
+
+    if ($('#id_search_field').val()) {
+        wto = setTimeout(function() {
+            console.log('timeouting')
+            search_post(form);
+        }, 300);
+    }
+    return false;
 });
 
 
