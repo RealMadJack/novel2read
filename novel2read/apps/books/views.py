@@ -92,7 +92,7 @@ class BookChapterView(DetailView):
         try:
             c_id = kwargs['c_id']
             bookchapters = BookChapter.objects.filter(book__slug=kwargs['book_slug']).select_related('book')
-            cached_qs = list(bookchapters)
+            cached_qs = list(bookchapters.iterator())
             try:
                 bookchapter = cached_qs[c_id - 1:c_id][0]
             except IndexError:
