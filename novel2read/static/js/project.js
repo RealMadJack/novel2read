@@ -7,6 +7,11 @@ let wto;
 const ajaxDelay = 300
 const ajaxDelaySearch = 350
 
+// Select
+let selectOptions = {}
+
+$('select').selectize(selectOptions);
+
 // Swiper Slider config
 let slides = window.innerWidth > 1750 ? 'auto' : 'auto'
 let slideDepth = window.innerWidth > 2000 ? 280 : 550
@@ -35,7 +40,7 @@ let swiper = new Swiper('.swiper-container', swiperOptions);
 
 // Form filters
 $(".js-filter-form").change(function() {
-    $(".js-filter-form").submit();
+    $(this).submit();
 });
 
 

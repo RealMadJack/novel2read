@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% load static %}
-{% load crispy_forms_tags %}
 
 {% block title %}
   {% if request.resolver_match.url_name == 'genre-list' %}
@@ -35,8 +34,9 @@
       </h1>
     </div>
     <div class="browsebooks__filters mb-30">
+      <h2 class="h2-title-sm">Filters</h2>
       <form action="" method="get" class="browsebooks__filters--form js-filter-form">
-          {{ filter.form|crispy }}
+          {{ filter.form.as_p}}
       </form>
     </div>
     <div class="browsebooks__books">
