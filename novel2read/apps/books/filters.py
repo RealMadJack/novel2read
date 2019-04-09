@@ -22,6 +22,10 @@ class BookFilter(django_filters.FilterSet):
         model = Book
         fields = {'status_release'}
 
+    def __init__(self, *args, **kwargs):
+        super(BookFilter, self).__init__(*args, **kwargs)
+        self.filters['status_release'].label = 'Type'
+
     def filter_by_country(self, qs, name, value):
         qs = qs if not value else qs.filter(country__iexact=value)
         return qs
