@@ -533,22 +533,19 @@ a.disabled, button.disabled
   &__remove
     position: absolute
     right: 0
-    top: 1px
-    right: 1px
+    top: 0
+    right: 0
     z-index: 1
     .btn
-      padding: 5px 12px
+      padding: 6px 13px
       border-radius: 0
       border: 0
-      background-color: $white
+      background-color: $accent-hot-dark
       .fas
         font-size: .9rem
-        color: $default
-        transition: all .3s ease-in-out
+        color: $white
       &:hover, &:focus, &:active
-        background-color: $accent-hot-dark
-        .fas
-          color: $white
+        background-color: $red
   &__link
     display: block
     color: $default

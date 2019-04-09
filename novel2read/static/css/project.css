@@ -574,24 +574,20 @@ a.disabled, button.disabled {
   .libcard__remove {
     position: absolute;
     right: 0;
-    top: 1px;
-    right: 1px;
+    top: 0;
+    right: 0;
     z-index: 1; }
     .libcard__remove .btn {
-      padding: 5px 12px;
+      padding: 6px 13px;
       border-radius: 0;
       border: 0;
-      background-color: #fff; }
+      background-color: #E61A80; }
       .libcard__remove .btn .fas {
         font-size: 14.4px;
         font-size: .9rem;
-        color: black;
-        -webkit-transition: all .3s ease-in-out;
-        transition: all .3s ease-in-out; }
+        color: #fff; }
       .libcard__remove .btn:hover, .libcard__remove .btn:focus, .libcard__remove .btn:active {
-        background-color: #E61A80; }
-        .libcard__remove .btn:hover .fas, .libcard__remove .btn:focus .fas, .libcard__remove .btn:active .fas {
-          color: #fff; }
+        background-color: #B4094E; }
   .libcard__link {
     display: block;
     color: black; }

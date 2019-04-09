@@ -70,6 +70,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_bootstrap_breadcrumbs',
     'django_summernote',
+    'django_filters',
 ]
 LOCAL_APPS = [
     'novel2read.apps.users.apps.UsersAppConfig',
