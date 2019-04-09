@@ -103,7 +103,7 @@ a.disabled, button.disabled {
     margin: 0 10px;
       margin-left: 7px; }
 
-.fas {
+.fas, .far {
   pointer-events: none; }
 
 .c-grn {
@@ -574,19 +574,24 @@ a.disabled, button.disabled {
   .libcard__remove {
     position: absolute;
     right: 0;
-    top: 5px;
-    right: 5px;
+    top: 1px;
+    right: 1px;
     z-index: 1; }
-    .libcard__remove a .btn {
-      font-size: 17.6px;
-      font-size: 1.1rem;
+    .libcard__remove .btn {
+      padding: 5px 12px;
       border-radius: 0;
       border: 0;
-      color: #fff;
-      background-color: #6A57F9; }
-      .libcard__remove a .btn:hover, .libcard__remove a .btn:focus, .libcard__remove a .btn:active {
-        background-color: #fff;
-        color: #FF0099; }
+      background-color: #fff; }
+      .libcard__remove .btn .fas {
+        font-size: 14.4px;
+        font-size: .9rem;
+        color: black;
+        -webkit-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out; }
+      .libcard__remove .btn:hover, .libcard__remove .btn:focus, .libcard__remove .btn:active {
+        background-color: #E61A80; }
+        .libcard__remove .btn:hover .fas, .libcard__remove .btn:focus .fas, .libcard__remove .btn:active .fas {
+          color: #fff; }
   .libcard__link {
     display: block;
     color: black; }

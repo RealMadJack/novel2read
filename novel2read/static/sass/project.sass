@@ -105,7 +105,7 @@ a.disabled, button.disabled
     margin: 0 10px
       left: 7px
 
-.fas
+.fas, .far
   pointer-events: none
 
 // Colors
@@ -533,18 +533,22 @@ a.disabled, button.disabled
   &__remove
     position: absolute
     right: 0
-    top: 5px
-    right: 5px
+    top: 1px
+    right: 1px
     z-index: 1
-    a .btn
-      font-size: 1.1rem
+    .btn
+      padding: 5px 12px
       border-radius: 0
       border: 0
-      color: $white
-      background-color: $accent
+      background-color: $white
+      .fas
+        font-size: .9rem
+        color: $default
+        transition: all .3s ease-in-out
       &:hover, &:focus, &:active
-        background-color: $white
-        color: $accent-hot
+        background-color: $accent-hot-dark
+        .fas
+          color: $white
   &__link
     display: block
     color: $default

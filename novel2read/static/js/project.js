@@ -145,8 +145,7 @@ function library_post(btn) {
                         eventNotification('Book removed from Library.')
                     } else if (btn[0].hasAttribute("data-lib-remonly")) {
                         btn.parents()[2].remove();
-                        eventNotification('Book removed from Library.');
-                        return false
+                        // eventNotification('Book removed from Library.');
                     } else {
                         btn.html('Add to Library')
                     }
@@ -165,6 +164,13 @@ function library_post(btn) {
 
 $(".js-lib-btn").click(function () {
     let btn = $(this);
+    if (btn[0].hasAttribute("data-lib-remonly")) {
+        if (confirm('Are you sure you want to remove this book?')) {
+            library_post(btn);
+        } else {
+            return false;
+        }
+    }
     library_post(btn);
 })
 
