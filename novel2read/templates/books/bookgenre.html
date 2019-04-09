@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
   {% if request.resolver_match.url_name == 'genre-list' %}
@@ -19,7 +20,7 @@
 <div class="container">
 
 
-  <div class="browsebooks mt-30">
+  <div class="browsebooks">
     <div class="browsebooks__title">
       <h1 class="h1-title">
         {% if request.resolver_match.url_name == 'genre-list' %}
@@ -33,10 +34,10 @@
         {% endif %}
       </h1>
     </div>
-    <div class="browsebooks__filters">
-      <form action="" method="get">
-          {{ filter.form.as_p }}
-          <input type="submit" />
+    <div class="browsebooks__filters mb-30">
+      <form action="" method="get" class="browsebooks__filters--form">
+          {{ filter.form|crispy }}
+          <button type="submit" class="btn btn-dark">Filter</button>
       </form>
     </div>
     <div class="browsebooks__books">

@@ -29,10 +29,10 @@ class BookGenreView(ListView):
     def get(self, request, *args, **kwargs):
         try:
             books = Book.objects.published().select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
-            f = BookFilter(request.GET, queryset=books)
             if kwargs:
                 books = books.filter(bookgenre__slug=kwargs['bookgenre_slug'])
-            context = {'books': books, 'filter': f}
+            f = BookFilter(request.GET, queryset=books)
+            context = {'filter': f}
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
             return redirect('/404/')

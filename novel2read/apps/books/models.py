@@ -112,6 +112,7 @@ class Book(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         self.title = capitalize_str(self.title)
+        self.country = capitalize_str(self.country)
         if not self.slug or self.title != self.tracker.previous('title'):
             self.slug = get_unique_slug(Book, self.title)
         return super().save(*args, **kwargs)
