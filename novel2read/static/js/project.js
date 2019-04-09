@@ -39,6 +39,10 @@ let swiper = new Swiper('.swiper-container', swiperOptions);
 
 
 // Form filters
+$(".filters-dropdown").on('click', function() {
+    $('.js-filter-form').slideToggle(300);
+});
+
 $(".js-filter-form").change(function() {
     $(this).submit();
 });
