@@ -51,5 +51,4 @@ class BookFilter(django_filters.FilterSet):
 
     def filter_by_rating(self, qs, name, value):
         qs = qs if not value else qs.filter(rating__gte=value)
-        print(qs)
         return qs

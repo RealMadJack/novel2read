@@ -11,6 +11,8 @@ const ajaxDelaySearch = 350
 let selectOptions = {}
 
 $('select').selectize(selectOptions);
+// disable search
+$('.selectize-input > input').prop('disabled', 'disabled');
 
 // Swiper Slider config
 let slides = window.innerWidth > 1750 ? 'auto' : 'auto'
