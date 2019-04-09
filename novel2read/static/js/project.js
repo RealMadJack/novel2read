@@ -2,7 +2,7 @@
 
 (function () {
 
-// Timeout Cleaner
+// Global vars
 let wto;
 const ajaxDelay = 300
 const ajaxDelaySearch = 350
