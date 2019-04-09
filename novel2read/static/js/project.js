@@ -2,6 +2,10 @@
 
 (function () {
 
+// Timeout Cleaner
+let wto;
+const ajaxDelay = 300
+const ajaxDelaySearch = 350
 
 // Swiper Slider config
 let slides = window.innerWidth > 1750 ? 'auto' : 'auto'
@@ -121,7 +125,9 @@ function vote_post(btn) {
 
 $(".js-vote-btn").click(function () {
     let btn = $(this);
-    vote_post(btn);
+    wto = setTimeout(function() {
+        vote_post(btn);
+    }, ajaxDelay);
 })
 
 
@@ -169,15 +175,20 @@ function library_post(btn) {
 }
 
 $(".js-lib-btn").click(function () {
+    clearTimeout(wto);
     let btn = $(this);
-    if (btn[0].hasAttribute("data-lib-remonly")) {
-        if (confirm('Are you sure you want to remove this book?')) {
-            library_post(btn);
-        } else {
-            return false;
+    wto = setTimeout(function() {
+
+        if (btn[0].hasAttribute("data-lib-remonly")) {
+            if (confirm('Are you sure you want to remove this book?')) {
+                library_post(btn);
+            } else {
+                return false;
+            }
         }
-    }
-    library_post(btn);
+
+        library_post(btn);
+    }, ajaxDelay);
 })
 
 
@@ -202,14 +213,14 @@ function search_post(form) {
     });
 };
 
-$('#search-form').on('keyup keypress', function(e) {
-    let keyCode = e.keyCode || e.which;
-    if (keyCode === 13) {
-        e.preventDefault();
-        return false;
-    }
-});
-let wto;
+// enter keypress disable
+// $('#search-form').on('keyup keypress', function(e) {
+//     let keyCode = e.keyCode || e.which;
+//     if (keyCode === 13) {
+//         e.preventDefault();
+//         return false;
+//     }
+// });
 $('#search-form').on('change paste keyup', function(e){
     e.preventDefault();
     clearTimeout(wto);
@@ -217,9 +228,8 @@ $('#search-form').on('change paste keyup', function(e){
 
     if ($('#id_search_field').val()) {
         wto = setTimeout(function() {
-            console.log('timeouting')
             search_post(form);
-        }, 300);
+        }, ajaxDelaySearch);
     }
     return false;
 });
