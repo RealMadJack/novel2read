@@ -133,16 +133,20 @@ function library_post(btn) {
             if (data.is_valid) {
                 if (!data.in_lib) {
                     if (btn[0].hasAttribute("data-bookmark")) {
-                        btn.html('<i class="fas fa-bookmark"></i>')
-                        eventNotification('Book added to Library.')
+                        btn.html('<i class="fas fa-bookmark"></i>');
+                        eventNotification('Book added to Library.');
                     } else {
-                        btn.html('<i class="fas fa-check"></i> In Library')
+                        btn.html('<i class="fas fa-check"></i> In Library');
                     }
-                    btn.attr("data-lib-in", 1)
+                    btn.attr("data-lib-in", 1);
                 } else {
                     if (btn[0].hasAttribute("data-bookmark")) {
                         btn.html('<i class="far fa-bookmark"></i>')
                         eventNotification('Book removed from Library.')
+                    } else if (btn[0].hasAttribute("data-lib-remonly")) {
+                        btn.parents()[2].remove();
+                        eventNotification('Book removed from Library.');
+                        return false
                     } else {
                         btn.html('Add to Library')
                     }

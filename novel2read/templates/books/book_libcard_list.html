@@ -5,12 +5,19 @@
     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
       <div class="libcard">
         <div class="libcard__remove">
-          <form method="post" action="{% url 'users:library-remove' book.slug %}">
+          <button
+            type="submit" class="btn js-lib-btn"
+            data-lib-url="{% url 'users:lib-add-remove-ajax' book.slug %}"
+            data-lib-in=1
+            data-lib-remonly=true>
+            &times;
+          </button>
+<!--           <form method="post" action="{% url 'users:library-remove' book.slug %}">
             {% csrf_token %}
             <a href="javascript:void(0)">
               <button type="submit" class="btn">Remove</button>
             </a>
-          </form>
+          </form> -->
         </div>
       {% if book.bookprogress %}
         <a class="libcard__link" href="{% url 'books:bookchapter' book.slug book.bookprogress.c_id %}">
