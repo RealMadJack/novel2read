@@ -49,8 +49,9 @@ class BookTagView(ListView):
                 tag_name = capitalize_slug(kwargs['booktag_slug'])
                 books = Book.objects.published().filter(booktag__slug=kwargs['booktag_slug'])
                 books = books.select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
+                f = BookFilter(request.GET, queryset=books)
                 context['tag_name'] = tag_name
-                context['books'] = books
+                context['filter'] = f
             return render(request, template_name=self.template_name, context=context)
         except BookTag.DoesNotExist:
             return redirect('/404/')

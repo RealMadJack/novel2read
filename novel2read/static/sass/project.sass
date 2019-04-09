@@ -571,13 +571,17 @@ a.disabled, button.disabled
       opacity: .7
       font-size: .95rem
 
-.filters-dropdown
+
+.filters-dropdown, .tags-dropdown
   display: flex
   position: relative
   margin-bottom: 0
   padding-bottom: 30px
   cursor: pointer
+  font-weight: normal
   transition: all .3s ease-in-out
+  .fas
+    font-size: 1.5rem
   &::after
     display: block
     content: ''
@@ -590,6 +594,7 @@ a.disabled, button.disabled
     color: $accent
   span
     margin-left: auto
+
 .js-filter-form
   margin-bottom: 50px
   display: grid
@@ -597,6 +602,7 @@ a.disabled, button.disabled
   grid-template-columns: repeat(5, 1fr)
   p
     margin-bottom: 0
+
 
 .browsebooks
   &__title

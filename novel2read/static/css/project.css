@@ -613,7 +613,7 @@ a.disabled, button.disabled {
     font-size: 15.2px;
     font-size: .95rem; }
 
-.filters-dropdown {
+.filters-dropdown, .tags-dropdown {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -621,9 +621,13 @@ a.disabled, button.disabled {
   margin-bottom: 0;
   padding-bottom: 30px;
   cursor: pointer;
+  font-weight: normal;
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
-  .filters-dropdown::after {
+  .filters-dropdown .fas, .tags-dropdown .fas {
+    font-size: 24px;
+    font-size: 1.5rem; }
+  .filters-dropdown::after, .tags-dropdown::after {
     display: block;
     content: '';
     position: absolute;
@@ -631,9 +635,9 @@ a.disabled, button.disabled {
     width: 100%;
     height: 1px;
     background-color: #6A57F9; }
-  .filters-dropdown:hover {
+  .filters-dropdown:hover, .tags-dropdown:hover {
     color: #6A57F9; }
-  .filters-dropdown span {
+  .filters-dropdown span, .tags-dropdown span {
     margin-left: auto; }
 
 .js-filter-form {

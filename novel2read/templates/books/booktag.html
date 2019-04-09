@@ -16,10 +16,10 @@
       </h1>
     </div>
     <div class="browsetags__tag-nav ">
-      <!--       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTags" aria-expanded="false" aria-controls="collapseTags">
-        Button with data-target
-      </button> class="collapse" id="collapseTags" -->
-      <nav>
+      <h2 class="h2-title-sm tags-dropdown">
+        Tags<span><i class="fas fa-caret-down"></i></span>
+      </h2>
+      <nav class="js-tags-nav" {% if tag_name %}style="display: none;"{% endif %}>
         <ul>
           {% for tag in tags %}
             <li class="tag-card{% if request.path == tag.get_absolute_url %} active{% endif %}">
@@ -31,9 +31,20 @@
     </div>
   </div>
 
+  <div class="browsetags__filters mb-30" {% if not tag_name %}style="display: none;"{% endif %}>
+    <h2 class="h2-title-sm filters-dropdown">
+      Filters<span><i class="fas fa-caret-down"></i></span>
+    </h2>
+    <form action="" method="get" class="browsebooks__filters--form js-filter-form" style="display: none;">
+        {{ filter.form.as_p}}
+    </form>
+  </div>
+
   <div class="browsebooks">
     <div class="browsebooks__books">
-      {% include 'books/book_lg_wide_list.html' %}
+      {% with books=filter.qs %}
+        {% include 'books/book_lg_wide_list.html' %}
+      {% endwith %}
     </div>
   </div>
 

@@ -34,13 +34,17 @@
       </h1>
     </div>
     <div class="browsebooks__filters mb-30">
-      <h2 class="h2-title-sm filters-dropdown">Filters<span><i class="fas fa-caret-down"></i></span></h2>
+      <h2 class="h2-title-sm filters-dropdown">
+        Filters<span><i class="fas fa-caret-down"></i></span>
+      </h2>
       <form action="" method="get" class="browsebooks__filters--form js-filter-form" style="display: none;">
           {{ filter.form.as_p}}
       </form>
     </div>
     <div class="browsebooks__books">
-      {% include 'books/book_lg_wide_list.html' %}
+      {% with books=filter.qs %}
+        {% include 'books/book_lg_wide_list.html' %}
+      {% endwith %}
     </div>
   </div>
 

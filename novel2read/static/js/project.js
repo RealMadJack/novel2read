@@ -38,6 +38,12 @@ let swiperOptions = {
 let swiper = new Swiper('.swiper-container', swiperOptions);
 
 
+// Tags nav
+$(".tags-dropdown").on('click', function() {
+    $('.js-tags-nav').slideToggle(300);
+});
+
+
 // Form filters
 $(".filters-dropdown").on('click', function() {
     $('.js-filter-form').slideToggle(300);
