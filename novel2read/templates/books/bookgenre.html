@@ -18,19 +18,26 @@
 {% block content %}
 <div class="container">
 
+
   <div class="browsebooks mt-30">
-    <h1 class="browsebooks__title h1-title">
-      {% if request.resolver_match.url_name == 'genre-list' %}
-        All Genres
-      {% else %}
-        {% for bookgenre in bookgenres %}
-          {% if request.path == bookgenre.get_absolute_url %}
-            {{bookgenre.name}}
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    </h1>
+    <div class="browsebooks__title">
+      <h1 class="h1-title">
+        {% if request.resolver_match.url_name == 'genre-list' %}
+          All Genres
+        {% else %}
+          {% for bookgenre in bookgenres %}
+            {% if request.path == bookgenre.get_absolute_url %}
+              {{bookgenre.name}}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </h1>
+    </div>
     <div class="browsebooks__filters">
+      <form action="" method="get">
+          {{ filter.form.as_p }}
+          <input type="submit" />
+      </form>
     </div>
     <div class="browsebooks__books">
       {% include 'books/book_lg_wide_list.html' %}

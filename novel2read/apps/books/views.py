@@ -9,10 +9,11 @@ from django.template.loader import render_to_string
 # from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import View, DetailView, ListView
 
+from novel2read.apps.users.models import BookProgress
 from .models import Book, BookTag, BookChapter
 from .forms import BookSearchForm
+from .filters import BookFilter
 from .utils import capitalize_slug
-from novel2read.apps.users.models import BookProgress
 
 
 class FrontPageView(View):
@@ -28,9 +29,10 @@ class BookGenreView(ListView):
     def get(self, request, *args, **kwargs):
         try:
             books = Book.objects.published().select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
+            f = BookFilter(request.GET, queryset=books)
             if kwargs:
                 books = books.filter(bookgenre__slug=kwargs['bookgenre_slug'])
-            context = {'books': books}
+            context = {'books': books, 'filter': f}
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
             return redirect('/404/')

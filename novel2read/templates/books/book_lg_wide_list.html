@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="row">
-  {% for book in books %}
+  {% for book in filter.qs %}
   <div class="col-md-6 col-sm-12">
     <div class="book-lg-wide">
       <div class="book-lg-wide__poster">
