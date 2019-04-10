@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
 from django.db.models import F
@@ -30,12 +31,22 @@ class BookGenreView(ListView):
     template_name = 'books/bookgenre.html'
 
     def get(self, request, *args, **kwargs):
+        p = 'page'
         try:
+            # query params without page
+            f_params = '&' + '&'.join({f'{k}={v}' if k != p else '' for (k, v) in request.GET.items()})
             books = Book.objects.published().select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
             if kwargs:
                 books = books.filter(bookgenre__slug=kwargs['bookgenre_slug'])
             f = BookFilter(request.GET, queryset=books)
-            context = {'filter': f}
+            paginator = Paginator(f.qs, 2)
+            page = request.GET.get(p)
+            f_books = paginator.get_page(page)
+            context = {
+                'f_params': f_params,
+                'f_form': f.form,
+                'f_books': f_books,
+            }
             return render(request, template_name=self.template_name, context=context)
         except Book.DoesNotExist:
             return redirect('/404/')

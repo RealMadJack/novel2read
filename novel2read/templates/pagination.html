@@ -1,0 +1,27 @@
+{% if f_books.has_other_pages %}
+  <ul class="pagination">
+    {% if f_books.has_previous %}
+      <li>
+        <a href="?page={{ f_books.previous_page_number }}{{ f_params }}">&laquo;</a>
+      </li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in f_books.paginator.page_range %}
+      {% if f_books.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li>
+          <a href="?page={{ i }}{{ f_params }}">{{ i }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    {% if f_books.has_next %}
+      <li>
+        <a href="?page={{ f_books.next_page_number }}{{ f_params }}">&raquo;</a>
+      </li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
