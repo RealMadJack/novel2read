@@ -1,9 +1,9 @@
+from django_filters import FilterSet, ChoiceFilter
+
 from .models import Book
 
-import django_filters
 
-
-class BookFilter(django_filters.FilterSet):
+class BookFilter(FilterSet):
     COUNTRY_CHOICES = (
         ('all', 'All'),
         ('china', 'China'),
@@ -26,14 +26,15 @@ class BookFilter(django_filters.FilterSet):
         (4, 'atleast 4 star'),
     )
 
-    country = django_filters.ChoiceFilter(label='Country', choices=COUNTRY_CHOICES, method='filter_by_country')
-    chapters = django_filters.ChoiceFilter(label='Chapters', choices=CHAPTER_FILTER, method='filter_by_chapters')
-    votes = django_filters.ChoiceFilter(label='Votes', choices=VOTES_FILTER, method='filter_by_votes')
-    rating = django_filters.ChoiceFilter(label='Rating', choices=RATING_FILTER, method='filter_by_rating')
+    # status_release = ChoiceFilter()
+    country = ChoiceFilter(label='Country', choices=COUNTRY_CHOICES, method='filter_by_country')
+    chapters = ChoiceFilter(label='Chapters', choices=CHAPTER_FILTER, method='filter_by_chapters')
+    votes = ChoiceFilter(label='Votes', choices=VOTES_FILTER, method='filter_by_votes')
+    rating = ChoiceFilter(label='Rating', choices=RATING_FILTER, method='filter_by_rating')
 
     class Meta:
         model = Book
-        fields = {'status_release'}
+        fields = ['status_release']
 
     def __init__(self, *args, **kwargs):
         super(BookFilter, self).__init__(*args, **kwargs)
