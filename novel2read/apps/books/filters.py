@@ -5,23 +5,25 @@ import django_filters
 
 class BookFilter(django_filters.FilterSet):
     COUNTRY_CHOICES = (
+        ('all', 'All'),
         ('china', 'China'),
         ('korea', 'Korea'),
         ('japan', 'Japan'),
     )
     CHAPTER_FILTER = (
-        ('low', 'Lowest'),
         ('high', 'Highest'),
+        ('low', 'Lowest'),
     )
     VOTES_FILTER = (
-        ('low', 'Lowest'),
         ('high', 'Highest'),
+        ('low', 'Lowest'),
     )
     RATING_FILTER = (
-        (1, 'more than 1 star'),
-        (2, 'more than 2 star'),
-        (3, 'more than 3 star'),
-        (4, 'more than 4 star'),
+        ('all', 'All'),
+        (1, 'atleast 1 star'),
+        (2, 'atleast 2 star'),
+        (3, 'atleast 3 star'),
+        (4, 'atleast 4 star'),
     )
 
     country = django_filters.ChoiceFilter(label='Country', choices=COUNTRY_CHOICES, method='filter_by_country')
@@ -38,7 +40,8 @@ class BookFilter(django_filters.FilterSet):
         self.filters['status_release'].label = 'Completion'
 
     def filter_by_country(self, qs, name, value):
-        qs = qs if not value else qs.filter(country__iexact=value)
+        if not value == 'all':
+            qs = qs if not value else qs.filter(country__iexact=value)
         return qs
 
     def filter_by_chapters(self, qs, name, value):
@@ -50,5 +53,6 @@ class BookFilter(django_filters.FilterSet):
         return qs.order_by(expression)
 
     def filter_by_rating(self, qs, name, value):
-        qs = qs if not value else qs.filter(rating__gte=value)
+        if not value == 'all':
+            qs = qs if not value else qs.filter(rating__gte=value)
         return qs

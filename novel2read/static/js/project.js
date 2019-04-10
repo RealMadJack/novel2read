@@ -56,7 +56,7 @@ $(".js-filter-form").change(function() {
     $(this).submit();
 });
 
-// tag filter
+// tag livefilter
 $('.js-tag-filter li').each(function(){
     $(this).attr('data-search-term', $(this).text().toLowerCase());
 });
