@@ -244,7 +244,9 @@ a.disabled, button.disabled {
   width: 100%;
   margin: 0 12px;
   padding-top: 50px;
-  padding-bottom: 50px; }
+  padding-bottom: 50px;
+  visibility: visible;
+  opacity: 0; }
 
 .swiper-slide {
   background-position: center;
@@ -317,6 +319,33 @@ a.disabled, button.disabled {
       .bookslide__nav a .btn {
         width: 100%;
         outline: none !important; }
+
+.frontpage__promo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 300px;
+  background-image: url("/static/images/promo.jpg");
+  background-size: cover;
+  color: #fff; }
+  .frontpage__promo .h1-title {
+    line-height: 1;
+    font-size: 48px;
+    font-size: 3rem;
+    margin-bottom: 16px;
+    margin-bottom: 1rem; }
+  .frontpage__promo p {
+    font-size: 24px;
+    font-size: 1.5rem;
+    margin: 0;
+    opacity: .9; }
 
 .booktag {
   display: inline-block;
@@ -1205,6 +1234,13 @@ a.disabled, button.disabled {
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 991px) {
+  .frontpage__promo {
+    min-height: 250px; }
+    .frontpage__promo .h1-title {
+      font-size: 2rem;
+      margin-bottom: .7rem; }
+    .frontpage__promo p {
+      font-size: 1.1rem; }
   .browsebooks__books .book-lg-wide {
     grid-template-columns: 1fr; }
     .browsebooks__books .book-lg-wide__poster--image {
@@ -1267,6 +1303,13 @@ a.disabled, button.disabled {
   .swiper-button-next {
     right: 10px;
     display: none; }
+  .frontpage__promo {
+    min-height: 200px; }
+    .frontpage__promo .h1-title {
+      font-size: 1.5rem;
+      margin-bottom: .7rem; }
+    .frontpage__promo p {
+      font-size: .95rem; }
   .js-filter-form {
     grid-gap: 0 10px;
     grid-template-columns: repeat(3, 1fr); }
@@ -1529,6 +1572,13 @@ a.disabled, button.disabled {
 @media only screen and (max-width: 480px) {
   .breadcrumb {
     font-size: .8rem; }
+  .frontpage__promo {
+    min-height: 190px; }
+    .frontpage__promo .h1-title {
+      font-size: 1.25rem;
+      margin-bottom: .5rem; }
+    .frontpage__promo p {
+      font-size: .75rem; }
   .js-filter-form {
     grid-gap: 0 10px;
     grid-template-columns: repeat(2, 1fr); }

@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Home - {{block.super}}{% endblock %}
 {% block content %}
+  <div class="frontpage__promo mt-30">
+    <div class="container text-center">
+      <h1 class="h1-title">{{promo_title}}</h1>
+      <p>{{promo_subtitle}}</p>
+    </div>
+  </div>
   <div class="container-fluid mw-swiper">
     <div class="row">
 
@@ -10,7 +16,9 @@
         {% for book in books %}
           <div class="swiper-slide bookslide">
             <div class="bookslide__hf">
-              <div class="bookslide__poster"><img class="swiper-lazy" src="{{book.poster_url}}" alt="{{book.title}}"></div>
+              <div class="bookslide__poster">
+                <img src="{{book.poster_url}}" alt="{{book.title}}">
+              </div>
             </div>
             <div class="bookslide__hf">
               <div class="bookslide__title"><h2 class="h2-title-sm">{{book.title}}</h2></div>
@@ -59,6 +67,7 @@
   </div>
 
   <div class="container">
+    <div class="frontpage__latest"></div>
   </div>
 
 {% endblock content %}

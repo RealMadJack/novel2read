@@ -38,6 +38,7 @@ let swiperOptions = {
     slideToClickedSlide: true,
 }
 let swiper = new Swiper('.swiper-container', swiperOptions);
+$('.swiper-container').animate({opacity: 1.0}, 200)
 
 
 // Tags nav
