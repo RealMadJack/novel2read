@@ -56,6 +56,21 @@ $(".js-filter-form").change(function() {
     $(this).submit();
 });
 
+// tag filter
+$('.js-tag-filter li').each(function(){
+    $(this).attr('data-search-term', $(this).text().toLowerCase());
+});
+$('.js-tag-input').on('keyup', function(){
+    var searchTerm = $(this).val().toLowerCase();
+    $('.js-tag-filter li').each(function(){
+        if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+});
+
 
 // Notifications
 function eventNotification(msg='', flag='info') {
@@ -112,10 +127,9 @@ $.ajaxSetup({
 });
 
 
-// Ajax animations
-function btnAjaxAnimate(btn) {
-    btn.setAttribute("style", "width: 100px;")
-    btn.html('...')
+// Ajax loading
+function ajaxLoader(btn) {
+    btn.html('<i class="fas fa-ellipsis-h"></i>')
 }
 
 

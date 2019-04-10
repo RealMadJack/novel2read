@@ -214,6 +214,10 @@
     grid-gap: 0 10px
     grid-template-columns: repeat(3, 1fr)
 
+  .tag-card
+    min-width: 140px
+    font-size: .9rem
+
   .browsebooks
     &__title
     &__filters
@@ -606,6 +610,13 @@
     &__nav
       a
         .btn
+
+  .tag-card
+      min-width: 120px
+      font-size: .8rem
+  .tag-card.active
+    &::before
+      width: 100%
 
 
 /* Custom, iPhone Retina */
