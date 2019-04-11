@@ -7,6 +7,14 @@ let wto;
 const ajaxDelay = 300
 const ajaxDelaySearch = 350
 
+
+// Infinite Scroll
+var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0]
+});
+console.log(infinite)
+
+
 // Select
 let selectOptions = {}
 

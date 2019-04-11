@@ -6,7 +6,7 @@
 
 {% block content %}
 
-{% include 'csrf_gen_form.html' %}
+{% include 'components/csrf_gen_form.html' %}
 
 <div class="container">
 
@@ -58,8 +58,8 @@
           </div>
         {% endfor %}
         {% for book in books %}
-          <div class="col-md-12">
-            <div class="rankcard-wide infinite-item">
+          <div class="col-md-12 infinite-item">
+            <div class="rankcard-wide">
               <div class="rankcard-wide__rank">
                 <span>{{forloop.counter|add:"+3"}}</span>
               </div>
