@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load humanize %}
+{% load books_extras %}
 
 {% block title %}{{book.title}} - {{block.super}}{% endblock %}
 
@@ -143,8 +144,10 @@
         <div class="votecard">
           <div class="votecard--ranking">
             <i class="fas fa-poll-h"></i>
-            <span class="js-filter-orginal">{{book.ranking|ordinal}}</span>
-            <span class="js-filter-orginal"></span>
+            {% with ranking=book.ranking|ordinal|sliceintchar %}
+              <span class="js-filter-orginal">{{ranking.0}}</span>
+              <span class="js-filter-orginal">{{ranking.1}}</span>
+            {% endwith %}
           </div>
           <div class="votecard--ranking">
             <i class="fas fa-vote-yea"></i>

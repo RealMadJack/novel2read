@@ -32,6 +32,7 @@ class BookGenreView(ListView):
 
     def get(self, request, *args, **kwargs):
         p = 'page'
+        p_num = 15
         try:
             # query params without page
             f_params = '&'.join({f'{k}={v}' if k != p else '' for (k, v) in request.GET.items()})
@@ -40,7 +41,7 @@ class BookGenreView(ListView):
             if kwargs:
                 books = books.filter(bookgenre__slug=kwargs['bookgenre_slug'])
             f = BookFilter(request.GET, queryset=books)
-            paginator = Paginator(f.qs, 2)
+            paginator = Paginator(list(f.qs), p_num)
             page = request.GET.get(p)
             f_books = paginator.get_page(page)
             context = {
@@ -58,6 +59,7 @@ class BookTagView(ListView):
 
     def get(self, request, *args, **kwargs):
         p = 'page'
+        p_num = 15
         try:
             tags = BookTag.objects.all()
             context = {'tags': tags}
@@ -69,7 +71,7 @@ class BookTagView(ListView):
                 books = Book.objects.published().filter(booktag__slug=kwargs['booktag_slug'])
                 books = books.select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
                 f = BookFilter(request.GET, queryset=books)
-                paginator = Paginator(f.qs, 2)
+                paginator = Paginator(list(f.qs), p_num)
                 page = request.GET.get(p)
                 f_books = paginator.get_page(page)
                 context['tag_name'] = tag_name
@@ -168,7 +170,7 @@ class BookRankingView(ListView):
         user_auth = self.request.user.is_authenticated
         books = qs[3:]
         books_top = qs[:3]
-        paginator = Paginator(books, 1)
+        paginator = Paginator(books, 5)
         page = self.request.GET.get('page')
         books = paginator.get_page(page)
         context = {

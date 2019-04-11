@@ -187,6 +187,5 @@ def update_book_ranking(sender, instance, created=False, **kwargs):
         books = Book.objects.published().order_by('-votes')
         # books.update(ranking=0)
         for i, book in enumerate(books, start=1):
-            print(f'{i} {book}')
             book.ranking = i
             book.save()
