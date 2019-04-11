@@ -15,7 +15,7 @@
       <h1 class="h1-title">{{page_title}}</h1>
     </div>
     <div class="bookranking__cards">
-      <div class="row">
+      <div class="row infinite-container">
         {% for book in books_top %}
           <div class="col-lg-4 col-md-6 col-sm-12 bookranking__cards__card">
             <div class="rankcard">
@@ -59,7 +59,7 @@
         {% endfor %}
         {% for book in books %}
           <div class="col-md-12">
-            <div class="rankcard-wide">
+            <div class="rankcard-wide infinite-item">
               <div class="rankcard-wide__rank">
                 <span>{{forloop.counter|add:"+3"}}</span>
               </div>
@@ -102,6 +102,10 @@
       </div>
     </div>
   </div>
+
+  {% if books.has_next %}
+    <a class="infinite-more-link" href="?page={{ books.next_page_number }}">More</a>
+  {% endif %}
 
 </div> <!-- Container -->
 {% endblock content %}
