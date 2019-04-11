@@ -161,7 +161,6 @@ class BookRankingView(ListView):
     template_name = 'books/bookranking.html'
     queryset = Book.objects.published().order_by('-votes')
     context_object_name = 'books_all'
-    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -169,6 +168,9 @@ class BookRankingView(ListView):
         user_auth = self.request.user.is_authenticated
         books = qs[3:]
         books_top = qs[:3]
+        paginator = Paginator(books, 1)
+        page = self.request.GET.get('page')
+        books = paginator.get_page(page)
         context = {
             'books': books, 'books_top': books_top,
             'page_title': 'Ranking',
