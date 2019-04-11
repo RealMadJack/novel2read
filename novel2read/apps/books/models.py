@@ -180,6 +180,9 @@ def delete_update_chapter_cid(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Book)
 def update_book_ranking(sender, instance, created=False, **kwargs):
+    """
+    TODO: Change to simple func with celery
+    """
     if created:
         books = Book.objects.published().order_by('-votes')
         books.update(ranking=F('ranking') + 1)

@@ -8,6 +8,11 @@ const ajaxDelay = 300
 const ajaxDelaySearch = 350
 
 
+// Django ordinal filter replace
+let ordinal_a = $('.js-filter-orginal').eq(0).text();
+$('.js-filter-orginal').eq(1).html(ordinal_a.replace(/[0-9]/g, ''));
+$('.js-filter-orginal').eq(0).html(ordinal_a.replace(/[a-zA-Z]+/, ''));
+
 // Infinite Scroll
 var infinite = new Waypoint.Infinite({
     element: $('.infinite-container')[0],

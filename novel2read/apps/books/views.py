@@ -159,7 +159,7 @@ class BookChapterView(DetailView):
 
 class BookRankingView(ListView):
     template_name = 'books/bookranking.html'
-    queryset = Book.objects.published().order_by('-votes')
+    queryset = Book.objects.published().filter(ranking__gt=0).order_by('-votes')
     context_object_name = 'books_all'
 
     def get_context_data(self, **kwargs):
