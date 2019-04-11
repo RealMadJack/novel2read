@@ -82,6 +82,7 @@ class Book(TimeStampedModel):
     # poster = models.URLField(_('Poster'), blank=True, null=True, upload_to='posters')
     poster_url = models.URLField(_('Poster URL'), blank=True, default='https://media.istockphoto.com/vectors/blank-book-cover-vector-id466036957?k=6&m=466036957&s=612x612&w=0&h=SHDzHMVV6CHMNk6P-7igrYcZTfGryYdk_J7jzf7MwyY=', max_length=255)
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
+    ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
     rating = models.FloatField(_('Rating'), blank=True, default=0.0)
     visited_wn = models.BooleanField(_('WN scraped'), default=False)
     visited_bn = models.BooleanField(_('BN scraped'), default=False)
@@ -175,3 +176,10 @@ def delete_update_chapter_cid(sender, instance, **kwargs):
     del_cid = instance.c_id
     book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug).filter(c_id__gt=del_cid)
     book_chaps.update(c_id=F('c_id') - 1)
+
+
+@receiver(post_save, sender=Book)
+def update_book_ranking(sender, instance, created=False, **kwargs):
+    if created:
+        books = Book.objects.published().order_by('-votes')
+        books.update(ranking=F('ranking') + 1)

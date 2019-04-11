@@ -20,7 +20,7 @@
           <div class="col-lg-4 col-md-6 col-sm-12 bookranking__cards__card">
             <div class="rankcard">
               <div class="rankcard__rank">
-                <span>{{forloop.counter}}</span>
+                <span>{{book.ranking}}</span>
               </div>
               <div class="rankcard__poster">
                 <img src="{{book.poster_url}}" alt="{{book.title}}">
@@ -61,7 +61,7 @@
           <div class="col-md-12 infinite-item">
             <div class="rankcard-wide">
               <div class="rankcard-wide__rank">
-                <span>{{forloop.counter|add:"+3"}}</span>
+                <span>{{book.ranking}}</span>
               </div>
               <div class="rankcard-wide__poster">
                 <img src="{{book.poster_url}}" alt="{{book.title}}">
@@ -112,7 +112,7 @@
   </div>
 
   {% if books.has_next %}
-    <a class="infinite-more-link"
+    <a class="infinite-more-link mb-30"
        href="?page={{ books.next_page_number }}">
        <button class="btn btn-dark">More</button>
     </a>
