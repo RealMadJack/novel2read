@@ -56,16 +56,24 @@ class BookTagView(ListView):
     template_name = 'books/booktag.html'
 
     def get(self, request, *args, **kwargs):
+        p = 'page'
         try:
             tags = BookTag.objects.all()
             context = {'tags': tags}
             if kwargs:
+                # query params without page
+                f_params = '&' + '&'.join({f'{k}={v}' if k != p else '' for (k, v) in request.GET.items()})
                 tag_name = capitalize_slug(kwargs['booktag_slug'])
                 books = Book.objects.published().filter(booktag__slug=kwargs['booktag_slug'])
                 books = books.select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
                 f = BookFilter(request.GET, queryset=books)
+                paginator = Paginator(f.qs, 2)
+                page = request.GET.get(p)
+                f_books = paginator.get_page(page)
                 context['tag_name'] = tag_name
-                context['filter'] = f
+                context['f_params'] = f_params
+                context['f_form'] = f.form
+                context['f_books'] = f_books
             return render(request, template_name=self.template_name, context=context)
         except BookTag.DoesNotExist:
             return redirect('/404/')

@@ -41,17 +41,19 @@
       Filters<span><i class="fas fa-caret-down"></i></span>
     </h2>
     <form action="" method="get" class="browsebooks__filters--form js-filter-form" style="display: none;">
-        {{ filter.form.as_p}}
+        {{ f_form.as_p}}
     </form>
   </div>
 
   <div class="browsebooks">
     <div class="browsebooks__books">
-      {% with books=filter.qs %}
+      {% with books=f_books %}
         {% include 'books/book_lg_wide_list.html' %}
       {% endwith %}
     </div>
   </div>
+
+  {% include 'pagination.html' %}
 
 </div> <!-- Container -->
 
