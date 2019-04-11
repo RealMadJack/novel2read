@@ -34,7 +34,8 @@ class BookGenreView(ListView):
         p = 'page'
         try:
             # query params without page
-            f_params = '&' + '&'.join({f'{k}={v}' if k != p else '' for (k, v) in request.GET.items()})
+            f_params = '&'.join({f'{k}={v}' if k != p else '' for (k, v) in request.GET.items()})
+            f_params = '' if not f_params else '&' + f_params
             books = Book.objects.published().select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
             if kwargs:
                 books = books.filter(bookgenre__slug=kwargs['bookgenre_slug'])
@@ -62,7 +63,8 @@ class BookTagView(ListView):
             context = {'tags': tags}
             if kwargs:
                 # query params without page
-                f_params = '&' + '&'.join({f'{k}={v}' if k != p else '' for (k, v) in request.GET.items()})
+                f_params = '&'.join({f'{k}={v}' if k != p else '' for (k, v) in request.GET.items()})
+                f_params = '' if not f_params else '&' + f_params
                 tag_name = capitalize_slug(kwargs['booktag_slug'])
                 books = Book.objects.published().filter(booktag__slug=kwargs['booktag_slug'])
                 books = books.select_related('bookgenre').prefetch_related('booktag').order_by('-votes')
