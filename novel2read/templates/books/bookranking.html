@@ -103,9 +103,21 @@
     </div>
   </div>
 
+  <div class="loading ">
+    <div class="loader loader-dots mb-30">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
   {% if books.has_next %}
-    <a class="infinite-more-link" href="?page={{ books.next_page_number }}">More</a>
+    <a class="infinite-more-link"
+       href="?page={{ books.next_page_number }}">
+       <button class="btn btn-dark">More</button>
+    </a>
   {% endif %}
+
 
 </div> <!-- Container -->
 {% endblock content %}

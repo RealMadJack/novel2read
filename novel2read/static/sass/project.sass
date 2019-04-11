@@ -196,13 +196,13 @@ a.disabled, button.disabled
   font-size: 1.1rem
 
 .mt-30
-  margin-top: 30px
+  margin-top: 30px!important
 .mb-30
-  margin-bottom: 30px
+  margin-bottom: 30px!important
 .mt-15
-  margin-top: 15px
+  margin-top: 15px!important
 .mb-15
-  margin-bottom: 15px
+  margin-bottom: 15px!important
 
 @media only screen and (max-width : 768px)
   .h1-title
@@ -226,8 +226,51 @@ a.disabled, button.disabled
     font-size: 1.05rem
 
 
-// Sliders
+// Loaders
+.loader
+  border-radius: 100%
+  position: relative
+  margin: 0 auto
+  text-align: center
+.loader-dots span
+  display: inline-block
+  width: 15px
+  height: 15px
+  border-radius: 100%
+  background-color: $accent
+  margin: 0 5px
+  opacity: 0
+  &:nth-child(1)
+    animation: opacitychange 1s ease-in-out infinite
+  &:nth-child(2)
+    animation: opacitychange 1s ease-in-out 0.33s infinite
+  &:nth-child(3)
+    animation: opacitychange 1s ease-in-out 0.66s infinite
 
+@keyframes opacitychange
+  0%, 100%
+    opacity: 0
+
+  60%
+    opacity: 1
+
+
+
+// Infinite scroll
+.infinite-more-link
+  display: flex
+  .btn
+    width: 100%
+    max-width: 250px
+    font-size: 1.2rem
+    font-weight: bold
+    line-height: 1.1
+    margin: 0 auto
+    padding: 10px
+      top: 8px
+
+
+// Sliders
 .mw-swiper
   width: 85vw
   .row
