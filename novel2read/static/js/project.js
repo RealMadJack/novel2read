@@ -40,7 +40,7 @@ let swiperOptions = {
         prevEl: '.swiper-button-prev',
       },
     autoplay: {
-        delay: 5000,
+        delay: 7000,
         disableOnInteraction: true,
     },
     centeredSlides: true,

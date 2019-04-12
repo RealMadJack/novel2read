@@ -5,6 +5,7 @@ argon2-cffi==19.1.0  # https://github.com/hynek/argon2_cffi
 redis>=2.10.6, < 3  # pyup: < 3 # https://github.com/antirez/redis
 requests-html>=0.10.0  # https://pypi.org/project/requests-html/
 selenium>=3.141.0  # https://selenium-python.readthedocs.io/
+Celery==4.3.0  # https://docs.celeryproject.org/
 
 # Django
 # ------------------------------------------------------------------------------
@@ -16,7 +17,7 @@ django-crispy-forms==1.7.2  # https://github.com/django-crispy-forms/django-cris
 django-redis==4.10.0  # https://github.com/niwinz/django-redis
 django-bootstrap-breadcrumbs>=0.9.1  # https://django-bootstrap-breadcrumbs.readthedocs.io/en/latest/
 django-summernote>=0.8.11.4  # https://github.com/summernote/django-summernote
-django-filter>=2.1.0  # https://django-filter.readthedocs.io/en/master/index.html
+django-filter>=2.1.0  # https://django-filter.readthedocs.io/
 
 
 # Django REST Framework

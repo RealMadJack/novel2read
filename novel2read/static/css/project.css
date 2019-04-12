@@ -1074,6 +1074,8 @@ a.disabled, button.disabled {
           align-items: center;
   margin: 30px 0;
     margin-bottom: 50px; }
+  .bookchapter__nav:last-of-type {
+    margin-top: 70px; }
   .bookchapter__nav--link {
     -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
@@ -1087,6 +1089,14 @@ a.disabled, button.disabled {
       .bookchapter__nav--link .btn .fas {
         font-size: 19.2px;
         font-size: 1.2rem; }
+    .bookchapter__nav--link .btn-dark {
+      background-color: #E61A80;
+      border: none; }
+      .bookchapter__nav--link .btn-dark:active, .bookchapter__nav--link .btn-dark:focus {
+        -webkit-box-shadow: none !important;
+                box-shadow: none !important; }
+      .bookchapter__nav--link .btn-dark:hover {
+        opacity: .9; }
   .bookchapter__nav--select {
     display: -webkit-box;
     display: -ms-flexbox;

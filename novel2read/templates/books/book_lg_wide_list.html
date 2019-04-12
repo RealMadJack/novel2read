@@ -17,7 +17,7 @@
           <a class="booktag" href="{{book.bookgenre.get_absolute_url}}">
             <span>{{book.bookgenre.name}}</span>
           </a>
-          {% for booktag in book.booktag.all %}
+          {% for booktag in book.booktag.all|slice:":5" %}
             <a class="booktag" href="{{booktag.get_absolute_url}}">
               <span>{{booktag.name}}</span>
             </a>
