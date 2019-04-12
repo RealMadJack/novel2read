@@ -34,14 +34,14 @@
               </div>
               <div class="bookslide__nav">
                 {% with f_bc=book.bookchapters.first.c_id %}
-                  <a href="{{book.get_absolute_url}}">
-                    <button type="button" class="btn btn-light">Book</button>
-                  </a>
                   {% if f_bc %}
                     <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=f_bc %}">
                       <button type="button" class="btn btn-light">Read</button>
                     </a>
                   {% endif %}
+                  <a href="{{book.get_absolute_url}}">
+                    <button type="button" class="btn btn-light">More</button>
+                  </a>
                 {% endwith %}
               </div>
             </div>
@@ -60,8 +60,12 @@
 
 
       </div> <!-- Slider container -->
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev text-right">
+        <i class="fal fa-chevron-left"></i>
+      </div>
+      <div class="swiper-button-next">
+        <i class="fal fa-chevron-right"></i>
+      </div>
 
     </div>
   </div>

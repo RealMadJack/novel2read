@@ -32,14 +32,15 @@ let slides = window.innerWidth > 1750 ? 'auto' : 'auto'
 let slideDepth = window.innerWidth > 2000 ? 280 : 550
 let swiperOptions = {
     pagination: '.swiper-pagination',
-    effect: 'coverflow',
-    // grabCursor: true,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
     centeredSlides: true,
     loop: true,
     slidesPerView: slides,
-    nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
-    coverflow: {
+    effect: 'coverflow',
+    coverflowEffect: {
         rotate: 0,
         stretch: 0,
         depth: slideDepth,

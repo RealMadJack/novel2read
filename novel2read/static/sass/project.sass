@@ -289,6 +289,18 @@ a.disabled, button.disabled
   box-shadow: 0px 0px 16px 0px rgba(255, 255, 255, .7)
   width: 640px
   height: 350px
+.swiper-button-prev, .swiper-button-next
+  padding: 0
+  border-radius: 50%
+  color: $accent
+  background-image: none
+  transition: all .3s ease-in-out
+  .fas, .fal
+    font-size: 3rem
+  &:hover
+    color: $accent-hot
+  &:focus, &:active
+    outline: none
 .swiper-button-prev
   left: -2rem
 .swiper-button-next

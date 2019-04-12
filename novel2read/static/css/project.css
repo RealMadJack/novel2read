@@ -306,6 +306,21 @@ a.disabled, button.disabled {
   width: 640px;
   height: 350px; }
 
+.swiper-button-prev, .swiper-button-next {
+  padding: 0;
+  border-radius: 50%;
+  color: #6A57F9;
+  background-image: none;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out; }
+  .swiper-button-prev .fas, .swiper-button-prev .fal, .swiper-button-next .fas, .swiper-button-next .fal {
+    font-size: 48px;
+    font-size: 3rem; }
+  .swiper-button-prev:hover, .swiper-button-next:hover {
+    color: #FF0099; }
+  .swiper-button-prev:focus, .swiper-button-prev:active, .swiper-button-next:focus, .swiper-button-next:active {
+    outline: none; }
+
 .swiper-button-prev {
   left: -32px;
   left: -2rem; }
@@ -1273,9 +1288,9 @@ a.disabled, button.disabled {
   .mw-swiper {
     width: 91vw; }
   .swiper-button-prev {
-    left: -1.5rem; }
+    left: -1.9rem; }
   .swiper-button-next {
-    right: -1.5rem; }
+    right: -1.9rem; }
   .book .bookhead__info--row {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
