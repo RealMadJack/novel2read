@@ -31,11 +31,18 @@ $('.selectize-input > input').prop('disabled', 'disabled');
 let slides = window.innerWidth > 1750 ? 'auto' : 'auto'
 let slideDepth = window.innerWidth > 2000 ? 280 : 550
 let swiperOptions = {
-    pagination: '.swiper-pagination',
+    // pagination: {
+    //     el: '.swiper-pagination',
+    //     dynamicBullets: true,
+    // },
     navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: true,
+    },
     centeredSlides: true,
     loop: true,
     slidesPerView: slides,
