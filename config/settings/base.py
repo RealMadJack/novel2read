@@ -71,6 +71,7 @@ THIRD_PARTY_APPS = [
     'django_bootstrap_breadcrumbs',
     'django_summernote',
     'django_filters',
+    'django_celery_beat',
 ]
 LOCAL_APPS = [
     'novel2read.apps.users.apps.UsersAppConfig',
