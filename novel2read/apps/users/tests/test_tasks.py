@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
+from ..tasks import update_users_votes
+
 User = get_user_model()
 
 
@@ -12,4 +14,5 @@ class UserTaskTest(TestCase):
         self.user.save()
 
     def test_update_users_votes_task(self):
-        pass
+        resp = update_users_votes.apply().get()
+        print(resp)

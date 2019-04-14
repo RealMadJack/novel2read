@@ -42,7 +42,7 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     location = models.CharField(max_length=100, blank=True)
     premium = models.BooleanField(default=False, blank=True)
-    premium_expire = models.DateTimeField(default=datetime.now, blank=True)
+    premium_expire = models.DateTimeField(null=True, blank=True)
     votes = models.IntegerField(_('Votes'), blank=True, null=True, default=3)
 
     class Meta:
