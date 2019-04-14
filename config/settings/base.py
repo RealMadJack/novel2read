@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = [
     'django_summernote',
     'django_filters',
     'django_celery_beat',
+    'django_celery_results',
 ]
 LOCAL_APPS = [
     'novel2read.apps.users.apps.UsersAppConfig',
@@ -247,9 +248,9 @@ if USE_TZ:
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
-CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_RESULT_BACKEND = 'django-db'
 # celery cache
-# CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_CACHE_BACKEND = 'django-cache'
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-accept_content
 CELERY_ACCEPT_CONTENT = ["json"]
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-task_serializer
