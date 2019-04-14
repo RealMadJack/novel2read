@@ -30,5 +30,7 @@ class CeleryAppConfig(AppConfig):
 
 @app.task(bind=True)
 def debug_task(self):
+    # from django_celery_results.models import TaskResult
+    # TaskResult.objects.create()
     print(f"Request: {self.request!r}")  # pragma: no cover
     return f"Request: {self.request!r}"
