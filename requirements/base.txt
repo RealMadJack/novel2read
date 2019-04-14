@@ -3,9 +3,9 @@ python-slugify==2.0.1  # https://github.com/un33k/python-slugify
 Pillow==5.4.1  # https://github.com/python-pillow/Pillow
 argon2-cffi==19.1.0  # https://github.com/hynek/argon2_cffi
 redis>=2.10.6, < 3  # pyup: < 3 # https://github.com/antirez/redis
-requests-html>=0.10.0  # https://pypi.org/project/requests-html/
-selenium>=3.141.0  # https://selenium-python.readthedocs.io/
-Celery==4.3.0  # https://docs.celeryproject.org/
+requests-html==0.10.0  # https://pypi.org/project/requests-html/
+selenium==3.141.0  # https://selenium-python.readthedocs.io/
+celery==4.3.0  # https://github.com/celery/celery
 
 # Django
 # ------------------------------------------------------------------------------
