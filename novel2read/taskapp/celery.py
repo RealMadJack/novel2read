@@ -1,5 +1,5 @@
 import os
-from celery import Celery
+from celery import Celery, Task
 from celery.result import AsyncResult
 from django.apps import apps, AppConfig
 from django.conf import settings
@@ -29,10 +29,23 @@ class CeleryAppConfig(AppConfig):
         app.autodiscover_tasks(lambda: installed_apps, force=True)
 
 
+class RequestBase(Task):
+    def run(self, *args, **kwargs):
+        # The body of the task executed by workers. Required.
+        pass
+
+    def on_success(self, retval, task_id, *args, **kwargs):
+        # do something with usefull values as retval and task_id
+        pass
+
+    def on_failure(self, exc, task_id, args, kwargs, einfo):
+        # do something
+        pass
+
+
 def save_celery_result(task_id='', task_name='', status='', *args, **kwargs):
     from django_celery_results.models import TaskResult
     try:
-        # status = AsyncResult(task_id).state
         TaskResult.objects.create(task_id=task_id, task_name=task_name, status=status)
     except Exception as e:
         raise e
