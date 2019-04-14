@@ -26,8 +26,13 @@ class UserAdmin(auth_admin.UserAdmin):
     add_form = UserCreationForm
     fieldsets = (("User", {"fields": ("name",)}),) + auth_admin.UserAdmin.fieldsets
     list_select_related = ('library', 'profile')
-    list_display = ["username", "name", "is_superuser"]
+    list_display = ["username", "name", "profile_premium", "is_superuser"]
     search_fields = ["name"]
+
+    def profile_premium(self, instance):
+        return instance.profile.premium
+    profile_premium.short_description = 'Premium'
+    profile_premium.boolean = True
 
 
 @admin.register(BookProgress)
