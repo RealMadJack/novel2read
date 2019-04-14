@@ -29,7 +29,7 @@ class CeleryAppConfig(AppConfig):
         app.autodiscover_tasks(lambda: installed_apps, force=True)
 
 
-class RequestBase(Task):
+class RequestBaseTask(Task):
     def run(self, *args, **kwargs):
         # The body of the task executed by workers. Required.
         pass

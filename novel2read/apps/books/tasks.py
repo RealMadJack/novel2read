@@ -20,6 +20,18 @@ def debug_task_test(self):
         )
         raise Ignore()
 
+    try:
+        raise ValueError('Some error')
+    except Exception as ex:
+        self.update_state(
+            state=states.FAILURE,
+            meta={
+                'exc_type': type(ex).__name__,
+                'exc_message': traceback.format_exc().split('\n')
+                'custom': '...'
+            })
+        raise Ignore()
+
     save_celery_result(self.request.id, self.name)
     """
     print(f"task every 10 sec")
