@@ -1,4 +1,4 @@
-from novel2read.taskapp.celery import app
+from novel2read.taskapp.celery import app, save_celery_result
 
 
 @app.task(bind=True)

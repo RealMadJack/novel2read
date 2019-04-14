@@ -28,9 +28,15 @@ class CeleryAppConfig(AppConfig):
         app.autodiscover_tasks(lambda: installed_apps, force=True)
 
 
+def save_celery_result(task_id, task_name, status, *args, **kwargs):
+    from django_celery_results.models import TaskResult
+    try:
+        TaskResult.objects.create(task_id=task_id, task_name=task_name, status=status)
+    except Exception as e:
+        raise e
+
+
 @app.task(bind=True)
 def debug_task(self):
-    # from django_celery_results.models import TaskResult
-    # TaskResult.objects.create()
     print(f"Request: {self.request!r}")  # pragma: no cover
     return f"Request: {self.request!r}"
