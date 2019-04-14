@@ -1,5 +1,6 @@
 import os
 from celery import Celery
+from celery.result import AsyncResult
 from django.apps import apps, AppConfig
 from django.conf import settings
 
@@ -28,9 +29,10 @@ class CeleryAppConfig(AppConfig):
         app.autodiscover_tasks(lambda: installed_apps, force=True)
 
 
-def save_celery_result(task_id, task_name, status, *args, **kwargs):
+def save_celery_result(task_id='', task_name='', status='', *args, **kwargs):
     from django_celery_results.models import TaskResult
     try:
+        # status = AsyncResult(task_id).state
         TaskResult.objects.create(task_id=task_id, task_name=task_name, status=status)
     except Exception as e:
         raise e
@@ -39,4 +41,3 @@ def save_celery_result(task_id, task_name, status, *args, **kwargs):
 @app.task(bind=True)
 def debug_task(self):
     print(f"Request: {self.request!r}")  # pragma: no cover
-    return f"Request: {self.request!r}"
