@@ -256,7 +256,7 @@ class BookScraper:
         """
         TODO: different f_books for bn & wn and loops
         wn_visited=True
-        bn_visited=False, bool(book.book_id_bn)
+        bn_visited=False, bool(book.id_bn)
         bn_visited = celery task daily
         check book last c_id => visit book_url/c_id+1
         """
@@ -264,8 +264,8 @@ class BookScraper:
         f_books_bn = self.get_filter_db_books(qs, bn=True)
 
         for book in f_books_wn:
-            if not book.visited_wn and bool(book.book_id_wn):
-                book_url = f'{self.wn_bb}{book.book_id_wn}/'
+            if not book.visited_wn and bool(book.id_wn):
+                book_url = f'{self.wn_bb}{book.id_wn}/'
 
                 # Book index page data with static request
                 book_data = self.wn_get_book_data(book_url)
@@ -280,8 +280,8 @@ class BookScraper:
                 book.save()
 
         for book in f_books_bn:
-            if not book.visited_bn and bool(book.book_id_bn):
-                book_url = f'{self.bn_bb}{book.book_id_bn}/'
+            if not book.visited_bn and bool(book.id_bn):
+                book_url = f'{self.bn_bb}{book.id_bn}/'
                 # Book chapters data, c_ids with js request
                 bookchaps = self.bn_get_book_chaps(book, book_url)
                 self.create_update_db_book_chaps(book, bookchaps)

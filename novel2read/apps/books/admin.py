@@ -27,14 +27,15 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
         ('rating', 'ranking', 'votes'),
         'description',
         ('volumes', 'chapters'),
-        ('visited_wn', 'book_id_wn'),
-        ('visited_bn', 'book_id_bn'),
+        'revisit',
+        ('visited_wn', 'id_wn'),
+        ('visited_bn', 'id_bn'),
     )
     summernote_fields = ('description', )
     readonly_fields = ('slug', 'chapters', )
     filter_horizontal = ('booktag', )
     list_select_related = ('bookgenre', )
-    list_display = ('title', 'get_bookgenre', 'chapters', 'status', 'book_id_wn', 'book_id_bn', 'visited_wn', 'visited_bn', 'created', 'modified', )
+    list_display = ('title', 'get_bookgenre', 'chapters', 'status', 'id_wn', 'id_bn', 'visited_wn', 'visited_bn', 'created', 'modified', )
 
     def get_bookgenre(self, obj):
         return obj.bookgenre.name

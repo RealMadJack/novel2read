@@ -79,12 +79,22 @@ def book_scraper_update(self):
 
 
 @app.task(bind=True)
-def book_scraper_initial(self):
+def book_scraper_initial(self, book_id):
     """
     get book info
     get book available chapters
     """
-    pass
+    book = Book.objects.get(pk=book_id)
+    if book.id_wn:
+        pass
+    elif book.id_bn:
+        pass
+    else:
+        self.update_state(
+            state=states.FAILURE,
+            meta='Book id was not specified',
+        )
+        raise Ignore()
 
 
 @app.task(bind=True)

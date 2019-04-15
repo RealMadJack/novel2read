@@ -90,11 +90,12 @@ class Book(TimeStampedModel):
         ('boxnovel', 'BoxNovel'),
         ('wuxiaworld', 'WuxiaWorld'),
     )
-    revisit = models.CharField(choices=REVISIT_CHOICES, default=REVISIT_CHOICES.default, max_length=55)
+    revisit = models.CharField(
+        choices=REVISIT_CHOICES, blank=True, default=REVISIT_CHOICES.default, max_length=55)
     visited_wn = models.BooleanField(_('WN scraped'), default=False)
     visited_bn = models.BooleanField(_('BN scraped'), default=False)
-    book_id_wn = models.CharField(_('WN book id'), blank=True, default='', max_length=255)
-    book_id_bn = models.CharField(_('BN book id'), blank=True, default='', max_length=255)
+    id_wn = models.CharField(_('WN book id'), blank=True, default='', max_length=255)
+    id_bn = models.CharField(_('BN book id'), blank=True, default='', max_length=255)
     STATUS = Choices(
         (0, 'draft', _('draft')),
         (1, 'published', _('published')),
