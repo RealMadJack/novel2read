@@ -84,9 +84,16 @@ class Book(TimeStampedModel):
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
     ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
     rating = models.FloatField(_('Rating'), blank=True, default=0.0)
+    REVISIT_CHOICES = Choices(
+        ('default', 'default'),
+        ('webnovel', 'WebNovel'),
+        ('boxnovel', 'BoxNovel'),
+        ('wuxiaworld', 'WuxiaWorld'),
+    )
+    revisit = models.CharField(choices=REVISIT_CHOICES, default=REVISIT_CHOICES.default, max_length=55)
     visited_wn = models.BooleanField(_('WN scraped'), default=False)
     visited_bn = models.BooleanField(_('BN scraped'), default=False)
-    book_id_wn = models.CharField(_('WN book id'), blank=True, default='')
+    book_id_wn = models.CharField(_('WN book id'), blank=True, default='', max_length=255)
     book_id_bn = models.CharField(_('BN book id'), blank=True, default='', max_length=255)
     STATUS = Choices(
         (0, 'draft', _('draft')),
