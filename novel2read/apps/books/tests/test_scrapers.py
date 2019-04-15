@@ -1,6 +1,6 @@
 from django.test import Client, TestCase, tag
 
-from ..models import BookGenre, BookTag, Book
+from ..models import Book, BookGenre, BookTag
 from ..utils import capitalize_str
 from ..scrapers import BookScraper
 
@@ -28,7 +28,8 @@ class BookScraperTest(TestCase):
         self.bn_url = f'https://boxnovel.com/novel/{self.book.book_id_bn}/'
 
     def test_get_filter_db_books(self):
-        books = self.scraper.get_filter_db_books()
+        qs = Book.objects.all()
+        books = self.scraper.get_filter_db_books(qs)
         self.assertIn(self.book, books)
         self.assertNotIn(self.book_1, books)
 
@@ -163,7 +164,8 @@ class BookScraperTest(TestCase):
 
     @tag('slow')  # 5+ minutes
     def test_substitute_db_book_info(self):
-        self.scraper.substitute_db_book_info()
+        qs = Book.objects.all()
+        self.scraper.substitute_db_book_info(qs)
         book = Book.objects.last()
         b_chap = book.bookchapters
         self.assertEqual(book.title, 'My House Of Horrors')

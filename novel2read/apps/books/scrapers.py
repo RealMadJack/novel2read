@@ -12,9 +12,10 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.remote_connection import LOGGER
 
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__name__))))
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
-django.setup()
+if __name__ == '__main__':
+    sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__name__))))
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+    django.setup()
 
 from .models import Book, BookChapter, BookTag
 from .utils import multiple_replace
@@ -34,20 +35,20 @@ class BookScraper:
         self.wn_bb = 'https://www.webnovel.com/book/'
         self.bn_bb = 'https://boxnovel.com/novel/'
 
-    def get_filter_db_books(self, bn=False, wn=False):
+    def get_filter_db_books(self, qs, bn=False, wn=False):
         if wn:
-            books = Book.objects.filter(visited_wn=False)
+            books = qs.filter(visited_wn=False)
         elif bn:
-            books = Book.objects.filter(visited_bn=False)
+            books = qs.filter(visited_bn=False)
         else:
-            books = Book.objects.filter(visited_wn=False)
+            books = qs.filter(visited_wn=False)
         return books
 
     def create_book_tag(self, name):
         slug_name = slugify(name)
         tag = BookTag.objects.filter(slug=slug_name).exists()
         if not tag:
-            logging.info(f'-- Creating: {name}')
+            logging.info(f'-- Creating tag: {name}')
             booktag = BookTag.objects.create(name=name)
             return booktag
         return False
@@ -251,7 +252,7 @@ class BookScraper:
                 break
         return b_chap_list
 
-    def substitute_db_book_info(self):
+    def substitute_db_book_info(self, qs):
         """
         TODO: different f_books for bn & wn and loops
         wn_visited=True
@@ -259,8 +260,8 @@ class BookScraper:
         bn_visited = celery task daily
         check book last c_id => visit book_url/c_id+1
         """
-        f_books_wn = self.get_filter_db_books(wn=True)
-        f_books_bn = self.get_filter_db_books(bn=True)
+        f_books_wn = self.get_filter_db_books(qs, wn=True)
+        f_books_bn = self.get_filter_db_books(qs, bn=True)
 
         for book in f_books_wn:
             if not book.visited_wn and bool(book.book_id_wn):
@@ -297,8 +298,8 @@ def main():
     logging.basicConfig(level=logging.DEBUG, format='%(name)-24s: %(levelname)-8s %(message)s')
     start = datetime.now()
 
-    box_scraper = BookScraper()
-    box_scraper.run()
+    scraper = BookScraper()
+    scraper.run()
 
     finish = datetime.now() - start
     logging.info(f'Done in: {finish}')

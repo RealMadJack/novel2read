@@ -1,7 +1,9 @@
 from celery import states
 from celery.exceptions import Ignore
 from novel2read.taskapp.celery import app
+
 from .models import Book
+from .scrapers import BookScraper
 
 
 @app.task(bind=True)
@@ -54,11 +56,49 @@ def update_book_ranking(self):
 
 @app.task(bind=True)
 def book_scraper_update(self):
+    """
+    Divide task
+        book_scraper_info
+        book_scraper_chaps
+        book_scraper_chaps_initial
+        pass queryset with different book filters
+        async object(1) - task - que
+        chain: filter books - substitute
+    """
     try:
-        pass
+        qs = Book.objects.all()
+        scraper = BookScraper()
+        f_books = scraper.get_filter_db_books(qs)
+        print(f_books)
     except Exception as ex:
         self.update_state(
             state=states.FAILURE,
             meta=ex,
         )
         raise Ignore()
+
+
+@app.task(bind=True)
+def book_scraper_initial(self):
+    """
+    get book info
+    get book available chapters
+    """
+    pass
+
+
+@app.task(bind=True)
+def book_scraper_info(self):
+    """
+    get-update book info
+    """
+    pass
+
+
+@app.task(bind=True)
+def book_scraper_chaps(self):
+    """
+    get-update for new book chapters
+    """
+    pass
+

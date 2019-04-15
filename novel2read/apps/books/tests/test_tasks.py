@@ -1,8 +1,8 @@
 from celery import states
-from django.test import TestCase
+from django.test import TestCase, tag
 
 from ..models import Book, BookGenre
-from ..tasks import update_book_ranking
+from ..tasks import update_book_ranking, book_scraper_update
 
 
 class BookTasksTest(TestCase):
@@ -25,5 +25,7 @@ class BookTasksTest(TestCase):
         self.assertEqual(self.book_1.ranking, 3)
         self.assertEqual(self.book_2.ranking, 2)
 
+    # @tag('slow')
     def test_book_scraper_update(self):
-        pass
+        res = book_scraper_update.apply()
+        self.assertEqual(res.state, states.SUCCESS)
