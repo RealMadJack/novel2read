@@ -24,3 +24,6 @@ class BookTasksTest(TestCase):
         self.assertEqual(self.book.ranking, 1)
         self.assertEqual(self.book_1.ranking, 3)
         self.assertEqual(self.book_2.ranking, 2)
+
+    def test_book_scraper_update(self):
+        pass

@@ -50,3 +50,15 @@ def update_book_ranking(self):
             meta=ex,
         )
         raise Ignore()
+
+
+@app.task(bind=True)
+def book_scraper_update(self):
+    try:
+        pass
+    except Exception as ex:
+        self.update_state(
+            state=states.FAILURE,
+            meta=ex,
+        )
+        raise Ignore()
