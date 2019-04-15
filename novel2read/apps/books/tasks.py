@@ -88,7 +88,7 @@ def book_scraper_initial(self):
 
 
 @app.task(bind=True)
-def book_scraper_info(self):
+def book_scraper_update_info(self):
     """
     get-update book info
     """
@@ -96,9 +96,8 @@ def book_scraper_info(self):
 
 
 @app.task(bind=True)
-def book_scraper_chaps(self):
+def book_scraper_update_chaps(self):
     """
     get-update for new book chapters
     """
     pass
-
