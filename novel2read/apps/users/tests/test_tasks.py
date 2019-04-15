@@ -1,5 +1,6 @@
-from django.test import TestCase
+from celery import states
 from django.contrib.auth import get_user_model
+from django.test import TestCase
 
 from ..tasks import update_users_votes
 
@@ -18,9 +19,10 @@ class UserTaskTest(TestCase):
     def test_update_users_votes_task(self):
         self.assertEqual(self.user.profile.votes, 3)
         self.assertEqual(self.user_1.profile.votes, 1)
-        update_users_votes.apply().get()
+        res = update_users_votes.apply()
         user = User.objects.get(username='testuser')
         user_1 = User.objects.get(username='testuser-1')
+        self.assertEqual(res.state, states.SUCCESS)
         self.assertEqual(user.profile.votes, 6)
         self.assertEqual(user.profile.premium, True)
         self.assertEqual(user_1.profile.votes, 3)

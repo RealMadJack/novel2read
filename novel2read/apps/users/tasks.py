@@ -20,10 +20,9 @@ def update_users_votes(self):
         # users_nonprem = users.filter(profile__premium=False)
         # users_prem.update(profile__votes=3)
         # users_nonprem.update(profile__votes=6)
-        return 'success'
     except Exception as ex:
         self.update_state(
             state=states.FAILURE,
-            meta=ex
+            meta=ex,
         )
         raise Ignore()

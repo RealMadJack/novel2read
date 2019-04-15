@@ -176,16 +176,3 @@ def delete_update_chapter_cid(sender, instance, **kwargs):
     del_cid = instance.c_id
     book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug).filter(c_id__gt=del_cid)
     book_chaps.update(c_id=F('c_id') - 1)
-
-
-@receiver(post_save, sender=Book)
-def update_book_ranking(sender, instance, created=False, **kwargs):
-    """
-    TODO: Change to simple func with celery
-    """
-    if created:
-        books = Book.objects.published().order_by('-votes')
-        # books.update(ranking=0)
-        for i, book in enumerate(books, start=1):
-            book.ranking = i
-            book.save()
