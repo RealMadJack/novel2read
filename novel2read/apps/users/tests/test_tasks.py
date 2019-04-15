@@ -7,7 +7,7 @@ from ..tasks import update_users_votes
 User = get_user_model()
 
 
-class UserTaskTest(TestCase):
+class UserTasksTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='test')
         self.user_1 = User.objects.create_user(username='testuser-1', password='test-1')
@@ -20,10 +20,10 @@ class UserTaskTest(TestCase):
         self.assertEqual(self.user.profile.votes, 3)
         self.assertEqual(self.user_1.profile.votes, 1)
         res = update_users_votes.apply()
-        user = User.objects.get(username='testuser')
-        user_1 = User.objects.get(username='testuser-1')
+        self.user.refresh_from_db()
+        self.user_1.refresh_from_db()
         self.assertEqual(res.state, states.SUCCESS)
-        self.assertEqual(user.profile.votes, 6)
-        self.assertEqual(user.profile.premium, True)
-        self.assertEqual(user_1.profile.votes, 3)
-        self.assertEqual(user_1.profile.premium, False)
+        self.assertEqual(self.user.profile.votes, 6)
+        self.assertEqual(self.user.profile.premium, True)
+        self.assertEqual(self.user_1.profile.votes, 3)
+        self.assertEqual(self.user_1.profile.premium, False)

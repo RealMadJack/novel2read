@@ -35,22 +35,15 @@ def debug_task_test(self):
     save_celery_result(self.request.id, self.name)
     """
     print(f"task every 10 sec")
-"""
-@receiver(post_save, sender=Book)
-def update_book_ranking(sender, instance, created=False, **kwargs):
-    if created:
-        books = Book.objects.published().order_by('-votes')
-        # books.update(ranking=0)
-        for i, book in enumerate(books, start=1):
-            book.ranking = i
-            book.save()
-"""
 
 
 @app.task(bind=True)
 def update_book_ranking(self):
     try:
         books = Book.objects.published().order_by('-votes')
+        for i, book in enumerate(books, start=1):
+            book.ranking = i
+            book.save(update_fields=['ranking'])
     except Exception as ex:
         self.update_state(
             state=states.FAILURE,

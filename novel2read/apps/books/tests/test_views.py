@@ -115,9 +115,9 @@ class BookRankingViewTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.bookgenre = BookGenre.objects.create(name='test genre')
-        self.book = Book.objects.create(title='test book one', bookgenre=self.bookgenre, votes=134, status=1)
-        self.book_1 = Book.objects.create(title='test book two', bookgenre=self.bookgenre, votes=74, status=1)
-        self.book_2 = Book.objects.create(title='test book three', bookgenre=self.bookgenre, votes=34, status=1)
+        self.book = Book.objects.create(title='test book one', bookgenre=self.bookgenre, votes=134, status=1, ranking=1)
+        self.book_1 = Book.objects.create(title='test book two', bookgenre=self.bookgenre, votes=74, status=1, ranking=2)
+        self.book_2 = Book.objects.create(title='test book three', bookgenre=self.bookgenre, votes=34, status=1, ranking=3)
         self.response = self.client.get(reverse('books:ranking'))
 
     def test_bookranking_response(self):
