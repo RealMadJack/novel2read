@@ -1,6 +1,27 @@
+import os
 import re
+import requests
 
+from mimetypes import guess_extension
+from django.core.exceptions import ImproperlyConfigured
+from django.conf import settings
 from django.utils.text import slugify
+
+
+def upload_img(url, file_name):
+    resp = requests.get(url, stream=True)
+    resp_type = resp.headers['content-type']
+    if resp_type.partition('/')[0].strip() == 'image':
+        file_ext = guess_extension(resp_type)
+        file_ext = '.jpg' if file_ext == '.jpe' else file_ext
+        media_posters = os.path.join(settings.MEDIA_ROOT, 'posters')
+        f_path = os.path.join(media_posters, f'{file_name}{file_ext}')
+        if not os.path.exists(media_posters):
+            os.makedirs(media_posters)
+        with open(f_path, 'wb') as f:
+            f.write(resp.content)
+    else:
+        raise ImproperlyConfigured
 
 
 def get_unique_slug(cls, name):
