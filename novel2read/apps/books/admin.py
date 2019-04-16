@@ -27,7 +27,8 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
         ('rating', 'ranking', 'votes'),
         'description',
         ('volumes', 'chapters'),
-        'revisit',
+        ('visited', 'visited_id'),
+        ('revisit', 'revisit_id'),
         ('visited_wn', 'id_wn'),
         ('visited_bn', 'id_bn'),
     )
