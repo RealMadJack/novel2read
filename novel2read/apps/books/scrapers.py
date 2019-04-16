@@ -34,6 +34,9 @@ class BookScraper:
         logging.info(f'Creating instance: {self.__class__.__name__}')
         self.wn_bb = 'https://www.webnovel.com/book/'
         self.bn_bb = 'https://boxnovel.com/novel/'
+        self.ww_bb = 'https://www.wuxiaworld.com/novel/'
+        self.gt_bb = 'https://gravitytales.com/novel/'
+        self.lnmtl_bb = 'https://lnmtl.com/novel/'
 
     def get_filter_db_books(self, qs, revisit=False):
         if revisit:
@@ -63,8 +66,7 @@ class BookScraper:
             raise e
 
     def create_book_chapter(self, book, c_title, c_content):
-        bookchapter = BookChapter.objects.create(
-            book=book, title=c_title, text=c_content)
+        bookchapter = BookChapter.objects.create(book=book, title=c_title, text=c_content)
         return bookchapter
 
     def wn_get_book_cids(self, book_url, s_from=0, s_to=0):

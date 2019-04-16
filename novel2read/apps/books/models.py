@@ -91,6 +91,8 @@ class Book(TimeStampedModel):
         ('webnovel', 'Webnovel'),
         ('boxnovel', 'Boxnovel'),
         ('wuxiaworld', 'WuxiaWorld'),
+        ('gravitytails', 'GravityTails'),
+        ('lnmtl', 'LNMTL'),
     )
     visit = models.CharField(
         choices=VISIT_CHOICES, blank=True, default=VISIT_CHOICES.webnovel, max_length=55)
