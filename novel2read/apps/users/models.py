@@ -54,7 +54,7 @@ class Profile(models.Model):
 
 
 @receiver(post_save, sender=Profile)
-def update_default_poster(sender, instance, created=False, **kwargs):
+def update_blank_avatar(sender, instance, created=False, **kwargs):
     if not instance.avatar:
         instance.avatar = 'users/default.png'
         instance.save()

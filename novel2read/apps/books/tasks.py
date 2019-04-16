@@ -85,9 +85,7 @@ def book_scraper_initial(self, book_id):
     get book available chapters
     """
     book = Book.objects.get(pk=book_id)
-    if book.id_wn:
-        pass
-    elif book.id_bn:
+    if book.visit_id:
         pass
     else:
         self.update_state(

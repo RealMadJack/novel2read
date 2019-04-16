@@ -92,9 +92,9 @@ class Book(TimeStampedModel):
         ('boxnovel', 'Boxnovel'),
         ('wuxiaworld', 'WuxiaWorld'),
     )
-    visited = models.CharField(
+    visit = models.CharField(
         choices=VISIT_CHOICES, blank=True, default=VISIT_CHOICES.webnovel, max_length=55)
-    visited_id = models.CharField(_('Visited id'), blank=True, default='', max_length=255)
+    visit_id = models.CharField(_('Visit id'), blank=True, default='', max_length=255)
     revisit = models.CharField(
         choices=VISIT_CHOICES, blank=True, default=VISIT_CHOICES.webnovel, max_length=55)
     revisit_id = models.CharField(_('Revisit id'), blank=True, default='', max_length=255)
@@ -165,7 +165,7 @@ class BookChapter(TimeStampedModel):
 
 
 @receiver(post_save, sender=Book)
-def update_default_poster(sender, instance, created=False, **kwargs):
+def update_blank_poster(sender, instance, created=False, **kwargs):
     if not instance.poster:
         instance.poster = 'posters/default.jpg'
         instance.save()
