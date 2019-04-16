@@ -23,7 +23,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
         'bookgenre',
         'booktag',
         ('author', 'country'),
-        'poster_url',
+        'poster',
         ('rating', 'ranking', 'votes'),
         'description',
         ('volumes', 'chapters'),

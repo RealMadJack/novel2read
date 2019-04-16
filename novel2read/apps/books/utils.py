@@ -9,7 +9,7 @@ from django.utils.text import slugify
 
 
 def upload_img(url, file_name):
-    resp = requests.get(url, stream=True)
+    resp = requests.get(url)
     resp_type = resp.headers['content-type']
     if resp_type.partition('/')[0].strip() == 'image':
         file_ext = guess_extension(resp_type)

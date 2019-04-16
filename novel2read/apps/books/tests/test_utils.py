@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..utils import upload_img, capitalize_slug, capitalize_str, multiple_replace
+from ..utils import capitalize_slug, capitalize_str, multiple_replace
 
 
 class UtilsTest(TestCase):

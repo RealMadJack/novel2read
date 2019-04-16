@@ -82,7 +82,7 @@ class Book(TimeStampedModel):
     poster = models.ImageField(
         _('Poster'), blank=True, null=True,
         upload_to='posters/',
-        default='/static/images/default-612.jpg'
+        default='posters/default.jpg'
     )
     poster_url = models.URLField(_('Poster URL'), blank=True, default='https://media.istockphoto.com/vectors/blank-book-cover-vector-id466036957?k=6&m=466036957&s=612x612&w=0&h=SHDzHMVV6CHMNk6P-7igrYcZTfGryYdk_J7jzf7MwyY=', max_length=255)
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
@@ -164,6 +164,13 @@ class BookChapter(TimeStampedModel):
         if not self.slug or self.title != self.tracker.previous('title'):
             self.slug = get_unique_slug(BookChapter, self.title)
         return super().save(*args, **kwargs)
+
+
+@receiver(post_save, sender=Book)
+def update_default_poster(sender, instance, created=False, **kwargs):
+    if not instance.poster:
+        instance.poster = 'posters/default.jpg'
+        instance.save()
 
 
 @receiver([post_save, post_delete], sender=BookChapter)
