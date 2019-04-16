@@ -84,7 +84,6 @@ class Book(TimeStampedModel):
         upload_to='posters/',
         default='posters/default.jpg'
     )
-    poster_url = models.URLField(_('Poster URL'), blank=True, default='https://media.istockphoto.com/vectors/blank-book-cover-vector-id466036957?k=6&m=466036957&s=612x612&w=0&h=SHDzHMVV6CHMNk6P-7igrYcZTfGryYdk_J7jzf7MwyY=', max_length=255)
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
     ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
     rating = models.FloatField(_('Rating'), blank=True, default=0.0)
