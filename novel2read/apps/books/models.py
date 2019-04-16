@@ -87,6 +87,7 @@ class Book(TimeStampedModel):
     votes = models.PositiveIntegerField(_('Votes'), blank=True, null=True, default=0)
     ranking = models.PositiveIntegerField(_('Ranking'), blank=True, null=True, default=0)
     rating = models.FloatField(_('Rating'), blank=True, default=0.0)
+    recommended = models.BooleanField(blank=True, default=False)
     VISIT_CHOICES = Choices(
         ('webnovel', 'Webnovel'),
         ('boxnovel', 'Boxnovel'),

@@ -67,33 +67,33 @@ class BookScraperTest(TestCase):
         self.assertEqual(bookchapters.count(), 3)
         self.assertEqual(bookchapters[1].title, capitalize_str(self.chaps[1]['title']))
 
-    # @tag('slow')  # +10s
-    # def test_wn_book_get_cids(self):
-    #     resp = self.scraper.wn_get_book_cids(self.wn_url, s_to=5)
-    #     self.assertEqual(len(resp), 5)
-    #     self.assertEqual(resp[0], '30952845050180675')
+    @tag('slow')  # +10s
+    def test_wn_book_get_cids(self):
+        resp = self.scraper.wn_get_book_cids(self.wn_url, s_to=5)
+        self.assertEqual(len(resp), 5)
+        self.assertEqual(resp[0], '30952845050180675')
 
-    # # @tag('slow')  # +2s
-    # def test_wn_get_book_data(self):
-    #     resp = self.scraper.wn_get_book_data(self.wn_url)[0]
-    #     self.assertTrue(isinstance(resp['book_desc'], str))
-    #     self.assertTrue(isinstance(resp['book_name'], str))
-    #     self.assertTrue(isinstance(resp['book_name_sm'], str))
-    #     self.assertTrue(isinstance(resp['book_info_genre'], str))
-    #     self.assertTrue(isinstance(resp['chap_release'], int))
-    #     self.assertTrue(isinstance(resp['book_info_chap_count'], int))
-    #     self.assertTrue(isinstance(resp['book_info_author'], str))
-    #     self.assertTrue(isinstance(resp['book_rating'], float))
-    #     self.assertTrue(isinstance(resp['book_poster_url'], str))
-    #     self.assertTrue(isinstance(resp['book_tag_list'], list))
-    #     self.assertIn('<p>', resp['book_desc'])
-    #     self.assertNotEqual(len(resp['book_name']), 0)
-    #     self.assertNotEqual(len(resp['book_name_sm']), 0)
-    #     self.assertNotEqual(resp['book_info_chap_count'], 0)
-    #     self.assertNotEqual(len(resp['book_info_genre']), 0)
-    #     self.assertNotEqual(len(resp['book_info_author']), 0)
-    #     self.assertNotEqual(len(resp['book_poster_url']), 0)
-    #     self.assertNotEqual(len(resp['book_tag_list']), 0)
+    # @tag('slow')  # +2s
+    def test_wn_get_book_data(self):
+        resp = self.scraper.wn_get_book_data(self.wn_url)[0]
+        self.assertTrue(isinstance(resp['book_desc'], str))
+        self.assertTrue(isinstance(resp['book_name'], str))
+        self.assertTrue(isinstance(resp['book_name_sm'], str))
+        self.assertTrue(isinstance(resp['book_info_genre'], str))
+        self.assertTrue(isinstance(resp['chap_release'], int))
+        self.assertTrue(isinstance(resp['book_info_chap_count'], int))
+        self.assertTrue(isinstance(resp['book_info_author'], str))
+        self.assertTrue(isinstance(resp['book_rating'], float))
+        self.assertTrue(isinstance(resp['book_poster_url'], str))
+        self.assertTrue(isinstance(resp['book_tag_list'], list))
+        self.assertIn('<p>', resp['book_desc'])
+        self.assertNotEqual(len(resp['book_name']), 0)
+        self.assertNotEqual(len(resp['book_name_sm']), 0)
+        self.assertNotEqual(resp['book_info_chap_count'], 0)
+        self.assertNotEqual(len(resp['book_info_genre']), 0)
+        self.assertNotEqual(len(resp['book_info_author']), 0)
+        self.assertNotEqual(len(resp['book_poster_url']), 0)
+        self.assertNotEqual(len(resp['book_tag_list']), 0)
 
     # @tag('slow')  # +5s
     # def test_wn_get_book_chaps(self):

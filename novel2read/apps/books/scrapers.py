@@ -26,10 +26,6 @@ LOGGER.setLevel(logging.WARNING)
 
 
 class BookScraper:
-    """
-    scrap priority - webnovels
-    """
-
     def __init__(self):
         logging.info(f'Creating instance: {self.__class__.__name__}')
         self.wn_bb = 'https://www.webnovel.com/book/'
