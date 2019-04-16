@@ -85,13 +85,9 @@ def book_scraper_initial(self, book_id):
     get book available chapters
     """
     book = Book.objects.get(pk=book_id)
-    if book.visit_id:
+    if book.visit_id and not book.visited:
         pass
     else:
-        self.update_state(
-            state=states.FAILURE,
-            meta=f'Book id was not specified for book - {book.title}',
-        )
         raise Ignore()
 
 
@@ -100,7 +96,10 @@ def book_scraper_update_info(self):
     """
     get-update book info
     """
-    pass
+    self.update_state(
+        state=states.FAILURE,
+        meta=f'Book id was not specified for book - {book.title}',
+    )
 
 
 @app.task(bind=True)

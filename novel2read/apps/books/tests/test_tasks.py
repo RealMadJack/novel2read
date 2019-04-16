@@ -31,6 +31,6 @@ class BookTasksTest(TestCase):
         self.assertEqual(self.book_2.ranking, 2)
 
     # @tag('slow')
-    # def test_book_scraper_initial(self):
-    #     res = book_scraper_initial.apply(self.book.pk)
-    #     self.assertEqual(res.state, states.SUCCESS)
+    def test_book_scraper_initial(self):
+        res = book_scraper_initial.apply(self.book.pk)
+        self.assertEqual(res.state, states.SUCCESS)

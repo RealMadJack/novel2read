@@ -1,6 +1,6 @@
 from django.contrib.postgres.fields import ArrayField
 from django.conf import settings
-from django.db import models
+from django.db import models, transaction
 from django.db.models import F
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
@@ -174,6 +174,13 @@ def update_blank_poster(sender, instance, created=False, **kwargs):
     if not instance.poster:
         instance.poster = 'posters/default.jpg'
         instance.save()
+
+
+@receiver(post_save, sender=Book)
+def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
+    if created:
+        pass
+        # transaction.on_commit(lambda: book_scraper_initial.apply_async(instance.pk))
 
 
 @receiver([post_save, post_delete], sender=BookChapter)

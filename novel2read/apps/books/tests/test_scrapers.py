@@ -145,7 +145,7 @@ class BookScraperTest(TestCase):
         bookchaps = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
         self.scraper.create_update_db_book_chaps(self.book, bookchaps)
 
-    # @tag('slow')  # +30s
+    @tag('slow')  # +30s
     def test_bn_get_book_chaps(self):
         resp = self.scraper.bn_get_book_chaps(self.book, self.bn_url, s_from=450)
         resp_info = resp[-1]
