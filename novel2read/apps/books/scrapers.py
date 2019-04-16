@@ -33,6 +33,11 @@ class BookScraper:
         self.ww_bb = 'https://www.wuxiaworld.com/novel/'
         self.gt_bb = 'https://gravitytales.com/novel/'
         self.lnmtl_bb = 'https://lnmtl.com/novel/'
+        self.to_repl = {
+            '<p>': '', '</p>': '', '  ': '', '\n': '',
+            '‽': '?', '&#13;': '', '*': '',
+            '<script>': '', '</script>': '', '<?php': '',
+        }
 
     def get_filter_db_books(self, qs, revisit=False):
         if revisit:
@@ -91,7 +96,6 @@ class BookScraper:
         book_name_raw = r.html.find('.pt4.pb4.oh.mb4')[0].text
         book_name = ' '.join(book_name_raw.split(' ')[0:-1])
         book_name_sm = book_name_raw.split(' ')[-1]
-        book_info_genre = r.html.find('.det-hd-detail a')[0].text
         chap_release_raw = r.html.find('.det-hd-detail strong')[0].text
         chap_release = chap_release_raw.lower().strip() if len(chap_release_raw) < 20 else int(re.findall('\d+', chap_release_raw)[0])
         book_info_chap_count_raw = r.html.find('.det-hd-detail strong')[1].text
@@ -100,15 +104,14 @@ class BookScraper:
         book_rating = float(r.html.find('._score.ell strong')[0].text)
         book_poster_url = ''.join(r.html.find('i.g_thumb img')[1].attrs['srcset'].split(' '))
         book_desc_raw = r.html.find('p.mb48.fs16.c_000')[0].html.split('<br/>')
-        book_desc_raw = [p.replace('&#13;', '').strip() for p in book_desc_raw]
-        book_desc = ''.join([f"<p>{re.sub(r'<.*?>', '', p)}</p>" for p in book_desc_raw])
+        book_desc_raw = [multiple_replace(self.to_repl, p.strip()) for p in book_desc_raw]
+        book_desc = ''.join([f"<p>{re.sub(r'<.*?>', '', text)}</p>" for text in book_desc_raw])
         book_tag_list = [a.text.strip() for a in r.html.find('.pop-tags a')]
 
         book = []
         book.append({
             'book_name': book_name,
             'book_name_sm': book_name_sm,
-            'book_info_genre': book_info_genre,
             'chap_release': chap_release,
             'book_info_chap_count': book_info_chap_count,
             'book_info_author': book_info_author,
@@ -127,9 +130,7 @@ class BookScraper:
 
         for c_id in c_ids:
             wn_chap = f'{book_url}/{c_id}'
-
             print(wn_chap)
-
             r_chap = session.get(wn_chap)
             chap_tit_raw = r_chap.html.find('.cha-tit h3')[0].text
             chap_lock = r_chap.html.find('.cha-content._lock')
@@ -140,15 +141,11 @@ class BookScraper:
 
                 logging.info(f'Unlocked: {chap_tit}')
 
-                to_repl = {
-                    '<p>': '', '</p>': '', '  ': '', '\n': '',
-                    '<script>': '', '</script>': '', '<?php': '',
-                }
                 chap_content_raw = r_chap.html.find('.cha-words p')
                 chap_content = []
                 for chap_p in chap_content_raw:
                     chap = chap_p.html
-                    chap = multiple_replace(to_repl, chap)
+                    chap = multiple_replace(self.to_repl, chap)
                     if len(chap):
                         chap = f'<p>{chap}</p>'
                         chap_content.append(chap)
@@ -195,7 +192,7 @@ class BookScraper:
 
     def create_update_db_book_chaps(self, book, bookchaps):
         """
-        TODO: check book chapters uniqeness (check last chap c_id)
+        TODO: check book chapter uniq (check last chap c_id)
         """
         if isinstance(bookchaps, list) and len(bookchaps) > 0:
             for chap in bookchaps[0:-1]:
@@ -220,16 +217,12 @@ class BookScraper:
                 chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].strip()
                 chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
 
-                to_repl = {
-                    '<p>': '', '</p>': '', '  ': '', '\n': '',
-                    '<script>': '', '</script>': '', '<?php': '',
-                }
                 chap_content_raw = r_chap.html.find('.reading-content p')
                 chap_content_raw = chap_content_raw[1:] if 'translator' in chap_content_raw[0].text.lower() else chap_content_raw
                 chap_content = []
                 for chap_p in chap_content_raw:
                     chap = chap_p.html
-                    chap = multiple_replace(to_repl, chap)
+                    chap = multiple_replace(self.to_repl, chap)
                     if len(chap):
                         chap = f'<p>{chap}</p>'
                         chap_content.append(chap)
