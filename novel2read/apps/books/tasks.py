@@ -92,7 +92,7 @@ def book_scraper_initial(self, book_id):
     else:
         self.update_state(
             state=states.FAILURE,
-            meta='Book id was not specified',
+            meta=f'Book id was not specified for book - {book.title}',
         )
         raise Ignore()
 
