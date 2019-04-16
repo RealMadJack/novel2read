@@ -95,6 +95,7 @@ class Book(TimeStampedModel):
     visit = models.CharField(
         choices=VISIT_CHOICES, blank=True, default=VISIT_CHOICES.webnovel, max_length=55)
     visit_id = models.CharField(_('Visit id'), blank=True, default='', max_length=255)
+    visited = models.BooleanField(default=False, blank=True)
     revisit = models.CharField(
         choices=VISIT_CHOICES, blank=True, default=VISIT_CHOICES.webnovel, max_length=55)
     revisit_id = models.CharField(_('Revisit id'), blank=True, default='', max_length=255)

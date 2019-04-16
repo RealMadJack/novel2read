@@ -35,13 +35,11 @@ class BookScraper:
         self.wn_bb = 'https://www.webnovel.com/book/'
         self.bn_bb = 'https://boxnovel.com/novel/'
 
-    def get_filter_db_books(self, qs, bn=False, wn=False):
-        if wn:
-            books = qs.filter(visited_wn=False)
-        elif bn:
-            books = qs.filter(visited_bn=False)
+    def get_filter_db_books(self, qs, revisit=False):
+        if revisit:
+            books = qs.filter(revisit_id__isnull=False)
         else:
-            books = qs.filter(visited_wn=False)
+            books = qs.exclude(visit_id__exact='')
         return books
 
     def create_book_tag(self, name):

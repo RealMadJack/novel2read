@@ -33,144 +33,144 @@ class BookScraperTest(TestCase):
         self.assertIn(self.book, books)
         self.assertNotIn(self.book_1, books)
 
-    def test_create_book_tag(self):
-        tag = self.scraper.create_book_tag(self.tags[0])
-        tag_1 = self.scraper.create_book_tag(self.tags[1])
-        tag_2 = self.scraper.create_book_tag(self.tags[2])
-        self.assertFalse(tag)
-        self.assertFalse(tag_1)
-        self.assertEqual(capitalize_str(self.tags[2]), tag_2.name)
+    # def test_create_book_tag(self):
+    #     tag = self.scraper.create_book_tag(self.tags[0])
+    #     tag_1 = self.scraper.create_book_tag(self.tags[1])
+    #     tag_2 = self.scraper.create_book_tag(self.tags[2])
+    #     self.assertFalse(tag)
+    #     self.assertFalse(tag_1)
+    #     self.assertEqual(capitalize_str(self.tags[2]), tag_2.name)
 
-    def test_add_book_booktag(self):
-        tag_2 = self.scraper.create_book_tag(self.tags[2])
-        added = self.scraper.add_book_booktag(self.book, tag_2)
-        booktags = self.book.booktag.all()
-        books = tag_2.books.all()
-        self.assertEqual(capitalize_str(self.tags[2]), tag_2.name)
-        self.assertTrue(added)
-        self.assertIn(tag_2, booktags)
-        self.assertIn(self.book, books)
-        self.assertEqual(booktags.count(), 3)
-        added = self.scraper.add_book_booktag(self.book, tag_2)
-        self.assertFalse(added)
+    # def test_add_book_booktag(self):
+    #     tag_2 = self.scraper.create_book_tag(self.tags[2])
+    #     added = self.scraper.add_book_booktag(self.book, tag_2)
+    #     booktags = self.book.booktag.all()
+    #     books = tag_2.books.all()
+    #     self.assertEqual(capitalize_str(self.tags[2]), tag_2.name)
+    #     self.assertTrue(added)
+    #     self.assertIn(tag_2, booktags)
+    #     self.assertIn(self.book, books)
+    #     self.assertEqual(booktags.count(), 3)
+    #     added = self.scraper.add_book_booktag(self.book, tag_2)
+    #     self.assertFalse(added)
 
-    def test_create_book_chapter(self):
-        for chap in self.chaps:
-            self.scraper.create_book_chapter(
-                self.book, chap['title'], chap['content'])
-        bookchapters = self.book.bookchapters.all()
-        self.assertEqual(bookchapters.count(), 3)
-        self.assertEqual(bookchapters[1].title, capitalize_str(self.chaps[1]['title']))
+    # def test_create_book_chapter(self):
+    #     for chap in self.chaps:
+    #         self.scraper.create_book_chapter(
+    #             self.book, chap['title'], chap['content'])
+    #     bookchapters = self.book.bookchapters.all()
+    #     self.assertEqual(bookchapters.count(), 3)
+    #     self.assertEqual(bookchapters[1].title, capitalize_str(self.chaps[1]['title']))
 
-    @tag('slow')  # +10s
-    def test_wn_book_get_cids(self):
-        resp = self.scraper.wn_get_book_cids(self.wn_url, s_to=5)
-        self.assertEqual(len(resp), 5)
-        self.assertEqual(resp[0], '30952845050180675')
+    # @tag('slow')  # +10s
+    # def test_wn_book_get_cids(self):
+    #     resp = self.scraper.wn_get_book_cids(self.wn_url, s_to=5)
+    #     self.assertEqual(len(resp), 5)
+    #     self.assertEqual(resp[0], '30952845050180675')
 
-    # @tag('slow')  # +2s
-    def test_wn_get_book_data(self):
-        resp = self.scraper.wn_get_book_data(self.wn_url)[0]
-        self.assertTrue(isinstance(resp['book_desc'], str))
-        self.assertTrue(isinstance(resp['book_name'], str))
-        self.assertTrue(isinstance(resp['book_name_sm'], str))
-        self.assertTrue(isinstance(resp['book_info_genre'], str))
-        self.assertTrue(isinstance(resp['chap_release'], int))
-        self.assertTrue(isinstance(resp['book_info_chap_count'], int))
-        self.assertTrue(isinstance(resp['book_info_author'], str))
-        self.assertTrue(isinstance(resp['book_rating'], float))
-        self.assertTrue(isinstance(resp['book_poster_url'], str))
-        self.assertTrue(isinstance(resp['book_tag_list'], list))
-        self.assertIn('<p>', resp['book_desc'])
-        self.assertNotEqual(len(resp['book_name']), 0)
-        self.assertNotEqual(len(resp['book_name_sm']), 0)
-        self.assertNotEqual(resp['book_info_chap_count'], 0)
-        self.assertNotEqual(len(resp['book_info_genre']), 0)
-        self.assertNotEqual(len(resp['book_info_author']), 0)
-        self.assertNotEqual(len(resp['book_poster_url']), 0)
-        self.assertNotEqual(len(resp['book_tag_list']), 0)
+    # # @tag('slow')  # +2s
+    # def test_wn_get_book_data(self):
+    #     resp = self.scraper.wn_get_book_data(self.wn_url)[0]
+    #     self.assertTrue(isinstance(resp['book_desc'], str))
+    #     self.assertTrue(isinstance(resp['book_name'], str))
+    #     self.assertTrue(isinstance(resp['book_name_sm'], str))
+    #     self.assertTrue(isinstance(resp['book_info_genre'], str))
+    #     self.assertTrue(isinstance(resp['chap_release'], int))
+    #     self.assertTrue(isinstance(resp['book_info_chap_count'], int))
+    #     self.assertTrue(isinstance(resp['book_info_author'], str))
+    #     self.assertTrue(isinstance(resp['book_rating'], float))
+    #     self.assertTrue(isinstance(resp['book_poster_url'], str))
+    #     self.assertTrue(isinstance(resp['book_tag_list'], list))
+    #     self.assertIn('<p>', resp['book_desc'])
+    #     self.assertNotEqual(len(resp['book_name']), 0)
+    #     self.assertNotEqual(len(resp['book_name_sm']), 0)
+    #     self.assertNotEqual(resp['book_info_chap_count'], 0)
+    #     self.assertNotEqual(len(resp['book_info_genre']), 0)
+    #     self.assertNotEqual(len(resp['book_info_author']), 0)
+    #     self.assertNotEqual(len(resp['book_poster_url']), 0)
+    #     self.assertNotEqual(len(resp['book_tag_list']), 0)
 
-    @tag('slow')  # +5s
-    def test_wn_get_book_chaps(self):
-        # big test data compatrison
-        # self.wn_cids = self.scraper.wn_get_book_cids(self.wn_url)
-        resp = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
-        resp_info = resp[-1]
-        # test chap content
-        for chap in resp[0:-1]:
-            self.assertTrue(isinstance(chap['c_id'], int))
-            self.assertTrue(isinstance(chap['c_title'], str))
-            self.assertNotEqual(chap['c_id'], 0)
-            self.assertNotEqual(chap['c_title'], 0)
-            self.assertIn('<p>', chap['c_content'])
-            self.assertNotIn('<p></p>', chap['c_content'])
-            self.assertNotIn('<script>', chap['c_content'])
-            self.assertNotIn('<?php', chap['c_content'])
-        # test chap resp result
-        self.assertTrue(isinstance(resp_info['unlocked'], int))
-        self.assertTrue(isinstance(resp_info['locked'], int))
-        self.assertTrue(isinstance(resp_info['locked_from_id'], int))
-        self.assertTrue(isinstance(resp_info['locked_from'], str))
-        self.assertNotEqual(resp_info['unlocked'], 0)
-        self.assertNotEqual(resp_info['locked'], 0)
-        self.assertNotEqual(resp_info['locked_from_id'], 0)
-        self.assertNotEqual(len(resp_info['locked_from']), 0)
+    # @tag('slow')  # +5s
+    # def test_wn_get_book_chaps(self):
+    #     # big test data compatrison
+    #     # self.wn_cids = self.scraper.wn_get_book_cids(self.wn_url)
+    #     resp = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
+    #     resp_info = resp[-1]
+    #     # test chap content
+    #     for chap in resp[0:-1]:
+    #         self.assertTrue(isinstance(chap['c_id'], int))
+    #         self.assertTrue(isinstance(chap['c_title'], str))
+    #         self.assertNotEqual(chap['c_id'], 0)
+    #         self.assertNotEqual(chap['c_title'], 0)
+    #         self.assertIn('<p>', chap['c_content'])
+    #         self.assertNotIn('<p></p>', chap['c_content'])
+    #         self.assertNotIn('<script>', chap['c_content'])
+    #         self.assertNotIn('<?php', chap['c_content'])
+    #     # test chap resp result
+    #     self.assertTrue(isinstance(resp_info['unlocked'], int))
+    #     self.assertTrue(isinstance(resp_info['locked'], int))
+    #     self.assertTrue(isinstance(resp_info['locked_from_id'], int))
+    #     self.assertTrue(isinstance(resp_info['locked_from'], str))
+    #     self.assertNotEqual(resp_info['unlocked'], 0)
+    #     self.assertNotEqual(resp_info['locked'], 0)
+    #     self.assertNotEqual(resp_info['locked_from_id'], 0)
+    #     self.assertNotEqual(len(resp_info['locked_from']), 0)
 
-    # @tag('slow')  # +2s
-    def test_update_db_book_data(self):
-        b_data = self.scraper.wn_get_book_data(self.wn_url)[0]
-        b_tags = self.book.booktag.all()
-        self.scraper.update_db_book_data(self.book, b_data)
-        self.assertEqual(self.book.title, capitalize_str(b_data['book_name']))
-        self.assertEqual(self.book.title_sm, b_data['book_name_sm'])
-        self.assertIn(b_data['book_info_author'], self.book.author)
-        self.assertEqual(self.book.description, b_data['book_desc'])
-        self.assertEqual(self.book.poster_url, b_data['book_poster_url'])
-        self.assertEqual(self.book.rating, b_data['book_rating'])
-        if b_data['chap_release'] == 'completed':
-            self.assertEqual(self.book.status, 1)
-        elif isinstance(b_data['chap_release'], int):
-            self.assertEqual(self.book.status, 0)
-            self.assertEqual(self.book.chapters_release, b_data['chap_release'])
-        for b_tag in b_data['book_tag_list']:
-            self.scraper.create_book_tag(b_tag)
-            self.scraper.add_book_booktag(self.book, b_tag)
-            self.assertIn(b_tag, [tag.name for tag in b_tags])
+    # # @tag('slow')  # +2s
+    # def test_update_db_book_data(self):
+    #     b_data = self.scraper.wn_get_book_data(self.wn_url)[0]
+    #     b_tags = self.book.booktag.all()
+    #     self.scraper.update_db_book_data(self.book, b_data)
+    #     self.assertEqual(self.book.title, capitalize_str(b_data['book_name']))
+    #     self.assertEqual(self.book.title_sm, b_data['book_name_sm'])
+    #     self.assertIn(b_data['book_info_author'], self.book.author)
+    #     self.assertEqual(self.book.description, b_data['book_desc'])
+    #     self.assertEqual(self.book.poster_url, b_data['book_poster_url'])
+    #     self.assertEqual(self.book.rating, b_data['book_rating'])
+    #     if b_data['chap_release'] == 'completed':
+    #         self.assertEqual(self.book.status, 1)
+    #     elif isinstance(b_data['chap_release'], int):
+    #         self.assertEqual(self.book.status, 0)
+    #         self.assertEqual(self.book.chapters_release, b_data['chap_release'])
+    #     for b_tag in b_data['book_tag_list']:
+    #         self.scraper.create_book_tag(b_tag)
+    #         self.scraper.add_book_booktag(self.book, b_tag)
+    #         self.assertIn(b_tag, [tag.name for tag in b_tags])
 
-    @tag('slow')  # +5s
-    def test_create_update_db_book_chaps(self):
-        bookchaps = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
-        self.scraper.create_update_db_book_chaps(self.book, bookchaps)
+    # @tag('slow')  # +5s
+    # def test_create_update_db_book_chaps(self):
+    #     bookchaps = self.scraper.wn_get_book_chaps(self.wn_url, self.wn_cids)
+    #     self.scraper.create_update_db_book_chaps(self.book, bookchaps)
 
-    @tag('slow')  # +30s
-    def test_bn_get_book_chaps(self):
-        resp = self.scraper.bn_get_book_chaps(self.book, self.bn_url, s_from=400)
-        resp_info = resp[-1]
-        # test chap content
-        for chap in resp[0:-1]:
-            self.assertTrue(isinstance(chap['c_id'], int))
-            self.assertTrue(isinstance(chap['c_title'], str))
-            self.assertNotEqual(chap['c_id'], 0)
-            self.assertNotEqual(chap['c_title'], 0)
-            self.assertIn('<p>', chap['c_content'])
-            self.assertNotIn('<p></p>', chap['c_content'])
-            self.assertNotIn('<script>', chap['c_content'])
-            self.assertNotIn('<?php', chap['c_content'])
-        # test chap resp result
-        self.assertTrue(isinstance(resp_info['updated'], int))
-        self.assertTrue(isinstance(resp_info['last'], str))
-        self.assertNotEqual(resp_info['updated'], 0)
-        self.assertNotEqual(len(resp_info['last']), 0)
+    # @tag('slow')  # +30s
+    # def test_bn_get_book_chaps(self):
+    #     resp = self.scraper.bn_get_book_chaps(self.book, self.bn_url, s_from=400)
+    #     resp_info = resp[-1]
+    #     # test chap content
+    #     for chap in resp[0:-1]:
+    #         self.assertTrue(isinstance(chap['c_id'], int))
+    #         self.assertTrue(isinstance(chap['c_title'], str))
+    #         self.assertNotEqual(chap['c_id'], 0)
+    #         self.assertNotEqual(chap['c_title'], 0)
+    #         self.assertIn('<p>', chap['c_content'])
+    #         self.assertNotIn('<p></p>', chap['c_content'])
+    #         self.assertNotIn('<script>', chap['c_content'])
+    #         self.assertNotIn('<?php', chap['c_content'])
+    #     # test chap resp result
+    #     self.assertTrue(isinstance(resp_info['updated'], int))
+    #     self.assertTrue(isinstance(resp_info['last'], str))
+    #     self.assertNotEqual(resp_info['updated'], 0)
+    #     self.assertNotEqual(len(resp_info['last']), 0)
 
-    @tag('slow')  # 5+ minutes
-    def test_substitute_db_book_info(self):
-        qs = Book.objects.all()
-        self.scraper.substitute_db_book_info(qs)
-        book = Book.objects.last()
-        b_chap = book.bookchapters
-        self.assertEqual(book.title, 'My House Of Horrors')
-        self.assertTrue(book.booktag.count() > 3)
-        self.assertEqual(book.visited_wn, True)
-        self.assertTrue(b_chap.count() >= 415)
-        self.assertTrue(b_chap.last().c_id >= 415)
-        self.assertEqual(book.visited_bn, True)
+    # @tag('slow')  # 5+ minutes
+    # def test_substitute_db_book_info(self):
+    #     qs = Book.objects.all()
+    #     self.scraper.substitute_db_book_info(qs)
+    #     book = Book.objects.last()
+    #     b_chap = book.bookchapters
+    #     self.assertEqual(book.title, 'My House Of Horrors')
+    #     self.assertTrue(book.booktag.count() > 3)
+    #     self.assertEqual(book.visited_wn, True)
+    #     self.assertTrue(b_chap.count() >= 415)
+    #     self.assertTrue(b_chap.last().c_id >= 415)
+    #     self.assertEqual(book.visited_bn, True)
