@@ -94,14 +94,10 @@ class Book(TimeStampedModel):
     )
     visited = models.CharField(
         choices=VISIT_CHOICES, blank=True, default=VISIT_CHOICES.default, max_length=55)
-    visited_id = models.CharField(_('Revisit id'), blank=True, default='', max_length=255)
+    visited_id = models.CharField(_('Visited id'), blank=True, default='', max_length=255)
     revisit = models.CharField(
         choices=VISIT_CHOICES, blank=True, default=VISIT_CHOICES.default, max_length=55)
     revisit_id = models.CharField(_('Revisit id'), blank=True, default='', max_length=255)
-    visited_wn = models.BooleanField(_('WebNovel visited'), default=False)
-    visited_bn = models.BooleanField(_('BoxNovel visited'), default=False)
-    id_wn = models.CharField(_('WebNovel id'), blank=True, default='', max_length=255)
-    id_bn = models.CharField(_('BoxNovel id'), blank=True, default='', max_length=255)
     STATUS = Choices(
         (0, 'draft', _('draft')),
         (1, 'published', _('published')),
