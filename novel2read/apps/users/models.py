@@ -53,6 +53,13 @@ class Profile(models.Model):
         verbose_name_plural = _('Profile data')
 
 
+@receiver(post_save, sender=Profile)
+def update_default_poster(sender, instance, created=False, **kwargs):
+    if not instance.avatar:
+        instance.avatar = 'users/default.png'
+        instance.save()
+
+
 class Library(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
     book = models.ManyToManyField(Book, related_name='%(class)ss', blank=True)
