@@ -27,8 +27,8 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
         ('rating', 'ranking', 'votes'),
         'description',
         ('volumes', 'chapters'),
-        ('visit', 'visit_id'),
-        ('revisit', 'revisit_id'),
+        ('visit', 'visit_id', 'visited'),
+        ('revisit', 'revisit_id', 'revisited'),
     )
     summernote_fields = ('description', )
     readonly_fields = ('slug', 'chapters', )

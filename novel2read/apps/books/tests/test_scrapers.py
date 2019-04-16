@@ -12,8 +12,8 @@ class BookScraperTest(TestCase):
         self.bookgenre = BookGenre.objects.create(name='test genre')
         self.booktag = BookTag.objects.create(name='test')
         self.booktag_1 = BookTag.objects.create(name='tag')
-        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0, visited_wn=False, id_wn=11530348105422805, id_bn='my-house-of-horrors')
-        self.book_1 = Book.objects.create(title='test book 123', bookgenre=self.bookgenre, status=0, visited_wn=True)
+        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0, visit_id='11530348105422805', revisit_id='my-house-of-horrors')
+        self.book_1 = Book.objects.create(title='test book 123', bookgenre=self.bookgenre, status=0, visited=True)
         self.book.booktag.add(self.booktag, self.booktag_1)
         self.tags = ['test', 'tag', 'alo']
         self.chaps = [
@@ -21,17 +21,22 @@ class BookScraperTest(TestCase):
             {'title': 'test1', 'content': 'test'},
             {'title': 'test2', 'content': 'test'}
         ]
-        self.wn_url = f'https://www.webnovel.com/book/{self.book.id_wn}/'
+        self.wn_url = f'https://www.webnovel.com/book/{self.book.visit_id}/'
         self.wn_url_1 = 'https://www.webnovel.com/book/8360425206000005/'
         self.wn_cids = ['31433161158217963', '31434466845054269', '31435296830706024', '31456481220024926', '31457257803799212', '31458260947098371', '31478999733560367', '31479978986103973', '31481323864516947', '31502076592844451']
         self.wn_cids_1 = ['22941159621980243']
-        self.bn_url = f'https://boxnovel.com/novel/{self.book.id_bn}/'
+        self.bn_url = f'https://boxnovel.com/novel/{self.book.revisit_id}/'
 
     def test_get_filter_db_books(self):
         qs = Book.objects.all()
         books = self.scraper.get_filter_db_books(qs)
         self.assertIn(self.book, books)
         self.assertNotIn(self.book_1, books)
+        self.book.visited = True
+        self.book.save()
+        books_revisit = self.scraper.get_filter_db_books(qs, revisit=True)
+        self.assertIn(self.book, books_revisit)
+        self.assertNotIn(self.book_1, books_revisit)
 
     # def test_create_book_tag(self):
     #     tag = self.scraper.create_book_tag(self.tags[0])

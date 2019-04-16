@@ -37,9 +37,9 @@ class BookScraper:
 
     def get_filter_db_books(self, qs, revisit=False):
         if revisit:
-            books = qs.filter(revisit_id__isnull=False)
+            books = qs.filter(visited=True).exclude(revisit_id__exact='')
         else:
-            books = qs.exclude(visit_id__exact='')
+            books = qs.filter(visited=False).exclude(visit_id__exact='')
         return books
 
     def create_book_tag(self, name):
