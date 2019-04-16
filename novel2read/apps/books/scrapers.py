@@ -28,15 +28,22 @@ LOGGER.setLevel(logging.WARNING)
 class BookScraper:
     def __init__(self):
         logging.info(f'Creating instance: {self.__class__.__name__}')
-        self.wn_bb = 'https://www.webnovel.com/book/'
-        self.bn_bb = 'https://boxnovel.com/novel/'
-        self.ww_bb = 'https://www.wuxiaworld.com/novel/'
-        self.gt_bb = 'https://gravitytales.com/novel/'
-        self.lnmtl_bb = 'https://lnmtl.com/novel/'
+        self.url_bb = {
+            'webnovel': 'https://www.webnovel.com/book/',
+            'boxnovel': 'https://boxnovel.com/novel/',
+            'wuxiaworld': 'https://www.wuxiaworld.com/novel/',
+            'gravitytails': 'https://gravitytales.com/novel/',
+            'lnmtl': 'https://lnmtl.com/novel/',
+        }
         self.to_repl = {
-            '<p>': '', '</p>': '', '  ': '', '\n': '',
-            '‽': '?', '&#13;': '', '*': '',
-            '<script>': '', '</script>': '', '<?php': '',
+            '<p>': '', '</p>': '',
+            '  ': '',
+            '\n': '',
+            '‽': '?',
+            '&#13;': '',
+            '*': '',
+            '<script>': '', '</script>': '',
+            '<?php': '',
         }
 
     def get_filter_db_books(self, qs, revisit=False):
@@ -242,19 +249,12 @@ class BookScraper:
         return b_chap_list
 
     def substitute_db_book_info(self, qs):
-        """
-        TODO: different f_books for bn & wn and loops
-        wn_visited=True
-        bn_visited=False, bool(book.id_bn)
-        bn_visited = celery task daily
-        check book last c_id => visit book_url/c_id+1
-        """
         f_books_wn = self.get_filter_db_books(qs, wn=True)
         f_books_bn = self.get_filter_db_books(qs, bn=True)
 
         for book in f_books_wn:
             if not book.visited_wn and bool(book.id_wn):
-                book_url = f'{self.wn_bb}{book.id_wn}/'
+                book_url = f"{self.url_bb['webnovel']}{book.id_wn}/"
 
                 # Book index page data with static request
                 book_data = self.wn_get_book_data(book_url)
@@ -270,7 +270,7 @@ class BookScraper:
 
         for book in f_books_bn:
             if not book.visited_bn and bool(book.id_bn):
-                book_url = f'{self.bn_bb}{book.id_bn}/'
+                book_url = f"{self.url_bb['boxnovel']}{book.id_bn}/"
                 # Book chapters data, c_ids with js request
                 bookchaps = self.bn_get_book_chaps(book, book_url)
                 self.create_update_db_book_chaps(book, bookchaps)

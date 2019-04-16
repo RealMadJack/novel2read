@@ -80,13 +80,28 @@ def book_scraper_update(self):
 
 @app.task(bind=True)
 def book_scraper_initial(self, book_id):
-    """
-    get book info
-    get book available chapters
-    """
     book = Book.objects.get(pk=book_id)
     if book.visit_id and not book.visited:
-        pass
+        try:
+            scraper = BookScraper()
+            url_bb = scraper.url_bb[book.visit]
+            book_url = f'{url_bb}{book.visit_id}'
+            # book info
+            book_data = scraper.wn_get_book_data(book_url)
+            scraper.update_db_book_data(book, book_data)
+            # book chapters
+            c_ids = scraper.wn_get_book_cids(book_url)
+            # if book.chapters_count: start_from:
+            bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
+            scraper.create_update_db_book_chaps(book, bookchaps)
+            book.visited = True
+            book.save()
+        except Exception as ex:
+            self.update_state(
+                state=states.FAILURE,
+                meta=ex,
+            )
+            raise Ignore()
     else:
         raise Ignore()
 

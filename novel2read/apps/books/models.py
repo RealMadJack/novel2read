@@ -180,7 +180,7 @@ def update_blank_poster(sender, instance, created=False, **kwargs):
 def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
     if created:
         pass
-        # transaction.on_commit(lambda: book_scraper_initial.apply_async(instance.pk))
+        # transaction.on_commit(lambda: book_scraper_initial.delay(instance.pk))
 
 
 @receiver([post_save, post_delete], sender=BookChapter)
