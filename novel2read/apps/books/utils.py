@@ -9,6 +9,7 @@ from django.utils.text import slugify
 
 
 def download_img(url, file_name):
+    url = f'https:{url}' if url[0:1] == '/' else url
     resp = requests.get(url)
     resp_type = resp.headers['content-type']
     if resp_type.partition('/')[0].strip() == 'image':
@@ -20,7 +21,7 @@ def download_img(url, file_name):
             os.makedirs(media_posters)
         with open(f_path, 'wb') as f:
             f.write(resp.content)
-        return
+        return f'{file_name}{file_ext}'
     else:
         raise ImproperlyConfigured
 

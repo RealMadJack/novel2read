@@ -18,7 +18,7 @@ if __name__ == '__main__':
     django.setup()
 
 from .models import Book, BookChapter, BookTag
-from .utils import download_img, multiple_replace
+from .utils import download_img, multiple_replace, capitalize_str
 
 # Logging restrictions
 LOGGER.setLevel(logging.WARNING)
@@ -180,16 +180,14 @@ class BookScraper:
         return book
 
     def update_db_book_data(self, book, data):
+        print(f'Updating book: {book}')
         data = data[0] if isinstance(data, list) else data
         book.title = data['book_name']
         book.title_sm = data['book_name_sm']
         book.author.append(data['book_info_author']) if data['book_info_author'] not in book.author else False
         book.description = data['book_desc']
-        print(f'Updating book: {book}')
-        poster_filename = download_img(book['book_poster_url'], slugify(book['book_name']))
-        print(poster_filename)
+        poster_filename = download_img(data['book_poster_url'], slugify(data['book_name']))
         book.poster = f'posters/{poster_filename}'
-        print(book.poster)
         book.rating = data['book_rating']
         if data['chap_release'] == 'completed':
             book.status_release = 1
@@ -198,7 +196,8 @@ class BookScraper:
         for tag in data['book_tag_list']:
             self.create_book_tag(tag)
             self.add_book_booktag(book, tag)
-        book.save()
+        book.visited = True
+        # book.save()  # prevent celery post_save closure
 
     def create_update_db_book_chaps(self, book, bookchaps):
         """

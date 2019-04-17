@@ -1,20 +1,21 @@
 from django.db import transaction
 from django.db.models import F
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 
 from .models import Book, BookChapter
 from .tasks import book_scraper_initial
 
 
-@receiver(post_save, sender=Book)
+@receiver(pre_save, sender=Book)
 def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
     print(f'SCRAPER SIGNAL {instance}')
-    if not instance.poster:
-        instance.poster = 'posters/default.jpg'
-        instance.save()
     if not instance.visited and instance.visit_id:
-        book_scraper_initial.delay(instance.pk, s_to=5)
+        transaction.on_commit(
+            lambda: book_scraper_initial.apply_async(
+                args=(instance.pk,)
+            )
+        )
 
 
 @receiver([post_save, post_delete], sender=BookChapter)

@@ -80,7 +80,7 @@ def book_scraper_update(self):
 
 
 @app.task(bind=True)
-def book_scraper_initial(self, book_id, s_to=0):
+def book_scraper_initial(self, book_id):
     """
     TODO: smart_scraper(book, url)
           if book.visit == 'webnovel'...
@@ -92,19 +92,11 @@ def book_scraper_initial(self, book_id, s_to=0):
             url_bb = scraper.url_bb[book.visit]
             book_url = f'{url_bb}{book.visit_id}'
             # book info
-            print('book_data')
             book_data = scraper.wn_get_book_data(book_url)
-            # print(book_data)
             scraper.update_db_book_data(book, book_data)
-            # book chapters
-            # c_ids = scraper.wn_get_book_cids(book_url)
-            # if book.chapters_count: start_from:
-            # bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
-            # scraper.create_update_db_book_chaps(book, bookchaps)
-            print('saving visited')
-            book.visited = True
             book.save()
         except Exception as exc:
+            print(exc)
             save_celery_result(
                 task_id=self.request.id,
                 task_name=self.name,
@@ -118,19 +110,12 @@ def book_scraper_initial(self, book_id, s_to=0):
 
 
 @app.task(bind=True)
-def book_scraper_update_info(self):
-    """
-    get-update book info
-    """
-    self.update_state(
-        state=states.FAILURE,
-        meta=f'Book id was not specified for book - {book.title}',
-    )
-
-
-@app.task(bind=True)
-def book_scraper_update_chaps(self):
+def book_scraper_update_chaps(self, initial=False):
     """
     get-update for new book chapters
     """
+    # elif book.visit_id and book.visited and not book.chapters_count:
+    #     c_ids = scraper.wn_get_book_cids(book_url)
+    #     bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
+    #     scraper.create_update_db_book_chaps(book, bookchaps)
     pass
