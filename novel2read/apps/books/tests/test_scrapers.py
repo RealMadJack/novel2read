@@ -124,11 +124,10 @@ class BookScraperTest(TestCase):
         b_data = self.scraper.wn_get_book_data(self.wn_url)[0]
         b_tags = self.book.booktag.all()
         self.scraper.update_db_book_data(self.book, b_data)
-        self.assertEqual(self.book.title, capitalize_str(b_data['book_name']))
+        self.assertEqual(self.book.title, b_data['book_name'])
         self.assertEqual(self.book.title_sm, b_data['book_name_sm'])
         self.assertIn(b_data['book_info_author'], self.book.author)
         self.assertEqual(self.book.description, b_data['book_desc'])
-        self.assertEqual(self.book.poster_url, b_data['book_poster_url'])
         self.assertEqual(self.book.rating, b_data['book_rating'])
         if b_data['chap_release'] == 'completed':
             self.assertEqual(self.book.status, 1)

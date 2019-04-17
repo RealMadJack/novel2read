@@ -5,7 +5,6 @@ from ..models import Book, BookGenre
 from ..tasks import (
     update_book_ranking,
     book_scraper_initial,
-    book_scraper_update_info,
     book_scraper_update_chaps
 )
 

@@ -9,7 +9,7 @@ class TestCeleryApp(TestCase):
         pass
 
     def test_save_celery_result(self):
-        save_celery_result('123', 'test task', states.SUCCESS)
+        save_celery_result(task_id='123', task_name='test task', status=states.SUCCESS)
         results = TaskResult.objects.all()
         self.assertEqual(results.count(), 1)
         results = results.first()
