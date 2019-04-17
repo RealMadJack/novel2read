@@ -180,12 +180,12 @@ class BookScraper:
         return book
 
     def update_db_book_data(self, book, data):
-        logging.info(f'Updating book: {book}')
         data = data[0] if isinstance(data, list) else data
         book.title = data['book_name']
         book.title_sm = data['book_name_sm']
         book.author.append(data['book_info_author']) if data['book_info_author'] not in book.author else False
         book.description = data['book_desc']
+        print(f'Updating book: {book}')
         poster_filename = download_img(book['book_poster_url'], slugify(book['book_name']))
         print(poster_filename)
         book.poster = f'posters/{poster_filename}'

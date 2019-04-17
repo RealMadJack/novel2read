@@ -1,6 +1,7 @@
+import traceback
 from celery import states
 from celery.exceptions import Ignore
-from novel2read.taskapp.celery import app
+from novel2read.taskapp.celery import app, save_celery_result
 
 from .models import Book
 from .scrapers import BookScraper
@@ -93,20 +94,23 @@ def book_scraper_initial(self, book_id, s_to=0):
             # book info
             print('book_data')
             book_data = scraper.wn_get_book_data(book_url)
-            print('updating book_data')
+            # print(book_data)
             scraper.update_db_book_data(book, book_data)
             # book chapters
             # c_ids = scraper.wn_get_book_cids(book_url)
             # if book.chapters_count: start_from:
             # bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
             # scraper.create_update_db_book_chaps(book, bookchaps)
-            print('saving book_data')
+            print('saving visited')
             book.visited = True
             book.save()
-        except Exception as ex:
-            self.update_state(
-                state=states.FAILURE,
-                meta=ex,
+        except Exception as exc:
+            save_celery_result(
+                task_id=self.request.id,
+                task_name=self.name,
+                status=states.FAILURE,
+                result=exc,
+                traceback=traceback.format_exc(),
             )
             raise Ignore()
     else:

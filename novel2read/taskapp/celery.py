@@ -43,10 +43,19 @@ class RequestBaseTask(Task):
         pass
 
 
-def save_celery_result(task_id='', task_name='', status='', *args, **kwargs):
+def save_celery_result(*args, **kwargs):
     from django_celery_results.models import TaskResult
     try:
-        TaskResult.objects.create(task_id=task_id, task_name=task_name, status=status)
+        TaskResult.objects.create(
+            task_id=kwargs.get('task_id', ''),
+            task_name=kwargs.get('task_name', ''),
+            status=kwargs.get('status', ''),
+            content_type=kwargs.get('content_type', 'application/json'),
+            content_encoding=kwargs.get('content_encoding', 'utf-8'),
+            result=kwargs.get('result', ''),
+            meta=kwargs.get('meta', ''),
+            traceback=kwargs.get('traceback', ''),
+        )
     except Exception as e:
         raise e
 
