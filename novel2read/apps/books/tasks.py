@@ -80,6 +80,10 @@ def book_scraper_update(self):
 
 @app.task(bind=True)
 def book_scraper_initial(self, book_id):
+    """
+    TODO: smart_scraper(book, url)
+          if book.visit == 'webnovel'...
+    """
     book = Book.objects.get(pk=book_id)
     if book.visit_id and not book.visited:
         try:

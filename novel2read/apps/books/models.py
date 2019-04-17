@@ -1,9 +1,6 @@
+from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from django.conf import settings
-from django.db import models, transaction
-from django.db.models import F
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
+# from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices, FieldTracker
@@ -167,41 +164,3 @@ class BookChapter(TimeStampedModel):
         if not self.slug or self.title != self.tracker.previous('title'):
             self.slug = get_unique_slug(BookChapter, self.title)
         return super().save(*args, **kwargs)
-
-
-@receiver(post_save, sender=Book)
-def update_blank_poster(sender, instance, created=False, **kwargs):
-    if not instance.poster:
-        instance.poster = 'posters/default.jpg'
-        instance.save()
-
-
-@receiver(post_save, sender=Book)
-def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
-    if created:
-        pass
-        # transaction.on_commit(lambda: book_scraper_initial.delay(instance.pk))
-
-
-@receiver([post_save, post_delete], sender=BookChapter)
-def save_book_chapters_count(sender, instance, created=False, **kwargs):
-    chapters_count = instance.book.get_chapters_count()
-    chapters_count_previous = instance.book.tracker.previous('chapters')
-    if chapters_count != chapters_count_previous:
-        instance.book.chapters = chapters_count
-        instance.book.save()
-
-
-@receiver(post_save, sender=BookChapter)
-def create_update_chapter_cid(sender, instance, created=False, **kwargs):
-    chapters_count = instance.book.get_chapters_count()
-    if created:
-        instance.c_id = chapters_count
-        instance.save()
-
-
-@receiver(post_delete, sender=BookChapter)
-def delete_update_chapter_cid(sender, instance, **kwargs):
-    del_cid = instance.c_id
-    book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug).filter(c_id__gt=del_cid)
-    book_chaps.update(c_id=F('c_id') - 1)
