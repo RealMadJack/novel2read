@@ -96,7 +96,6 @@ def book_scraper_initial(self, book_id):
             book.status = 1
             book.save()
         except Exception as exc:
-            print(exc)
             save_celery_result(
                 task_id=self.request.id,
                 task_name=self.name,
@@ -110,12 +109,26 @@ def book_scraper_initial(self, book_id):
 
 
 @app.task(bind=True)
-def book_scraper_update_chaps(self, initial=False):
-    """
-    get-update for new book chapters
-    """
-    # elif book.visit_id and book.visited and not book.chapters_count:
-    #     c_ids = scraper.wn_get_book_cids(book_url)
-    #     bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
-    #     scraper.create_update_db_book_chaps(book, bookchaps)
-    pass
+def book_scraper_update_chaps(self, book_id, s_from=0, s_to=0, initial=False):
+    book = Book.objects.get(pk=book_id)
+    s_from = book.chapters
+    if book.visited and book.visit_id:
+        try:
+            scraper = BookScraper()
+            url_bb = scraper.url_bb[book.visit]
+            book_url = f'{url_bb}{book.visit_id}'
+            c_ids = scraper.wn_get_book_cids(book_url)
+            c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
+            bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
+            scraper.create_update_db_book_chaps(book, bookchaps)
+        except Exception as exc:
+            save_celery_result(
+                task_id=self.request.id,
+                task_name=self.name,
+                status=states.FAILURE,
+                result=exc,
+                traceback=traceback.format_exc(),
+            )
+            raise Ignore()
+    else:
+        raise Ignore()
