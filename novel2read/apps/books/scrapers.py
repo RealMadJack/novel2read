@@ -39,7 +39,7 @@ class BookScraper:
             '<p>': '', '</p>': '',
             '  ': '',
             '\n': '',
-            '‽': '?',
+            '‽': '?!',
             '&#13;': '',
             '*': '',
             '<script>': '', '</script>': '',
@@ -101,7 +101,7 @@ class BookScraper:
         session = HTMLSession()
         r = session.get(book_url)
         book_name_raw = r.html.find('.pt4.pb4.oh.mb4')[0].text
-        book_name = ' '.join(book_name_raw.split(' ')[0:-1])
+        book_name = ' '.join(book_name_raw.split(' ')[0:-1]).replace('‽', '?!')
         book_name_sm = book_name_raw.split(' ')[-1]
         chap_release_raw = r.html.find('.det-hd-detail strong')[0].text
         chap_release = chap_release_raw.lower().strip() if len(chap_release_raw) < 20 else int(re.findall('\d+', chap_release_raw)[0])

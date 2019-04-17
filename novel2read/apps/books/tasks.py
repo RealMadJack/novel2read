@@ -91,9 +91,9 @@ def book_scraper_initial(self, book_id):
             scraper = BookScraper()
             url_bb = scraper.url_bb[book.visit]
             book_url = f'{url_bb}{book.visit_id}'
-            # book info
             book_data = scraper.wn_get_book_data(book_url)
             scraper.update_db_book_data(book, book_data)
+            book.status = 1
             book.save()
         except Exception as exc:
             print(exc)
