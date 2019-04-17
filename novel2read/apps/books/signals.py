@@ -8,16 +8,13 @@ from .tasks import book_scraper_initial
 
 
 @receiver(post_save, sender=Book)
-def update_blank_poster(sender, instance, created=False, **kwargs):
+def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
+    print(f'SCRAPER SIGNAL {instance}')
     if not instance.poster:
         instance.poster = 'posters/default.jpg'
         instance.save()
-
-
-@receiver(post_save, sender=Book)
-def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
-    if created:
-        transaction.on_commit(lambda: book_scraper_initial.delay(instance.pk))
+    if not instance.visited and instance.visit_id:
+        book_scraper_initial.delay(instance.pk, s_to=5)
 
 
 @receiver([post_save, post_delete], sender=BookChapter)

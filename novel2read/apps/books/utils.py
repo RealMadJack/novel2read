@@ -8,7 +8,7 @@ from django.conf import settings
 from django.utils.text import slugify
 
 
-def upload_img(url, file_name):
+def download_img(url, file_name):
     resp = requests.get(url)
     resp_type = resp.headers['content-type']
     if resp_type.partition('/')[0].strip() == 'image':
@@ -20,6 +20,7 @@ def upload_img(url, file_name):
             os.makedirs(media_posters)
         with open(f_path, 'wb') as f:
             f.write(resp.content)
+        return
     else:
         raise ImproperlyConfigured
 

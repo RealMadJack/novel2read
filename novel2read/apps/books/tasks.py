@@ -79,7 +79,7 @@ def book_scraper_update(self):
 
 
 @app.task(bind=True)
-def book_scraper_initial(self, book_id):
+def book_scraper_initial(self, book_id, s_to=0):
     """
     TODO: smart_scraper(book, url)
           if book.visit == 'webnovel'...
@@ -91,13 +91,16 @@ def book_scraper_initial(self, book_id):
             url_bb = scraper.url_bb[book.visit]
             book_url = f'{url_bb}{book.visit_id}'
             # book info
+            print('book_data')
             book_data = scraper.wn_get_book_data(book_url)
+            print('updating book_data')
             scraper.update_db_book_data(book, book_data)
             # book chapters
-            c_ids = scraper.wn_get_book_cids(book_url)
+            # c_ids = scraper.wn_get_book_cids(book_url)
             # if book.chapters_count: start_from:
-            bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
-            scraper.create_update_db_book_chaps(book, bookchaps)
+            # bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
+            # scraper.create_update_db_book_chaps(book, bookchaps)
+            print('saving book_data')
             book.visited = True
             book.save()
         except Exception as ex:
