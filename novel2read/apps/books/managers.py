@@ -20,4 +20,4 @@ class BookManager(models.Manager):
         return self.get_queryset().published()
 
     def random_qslist(self, **kwargs):
-        return self.get_queryset().random(only=kwargs.get('only', 10))
+        return self.get_queryset().random_qslist(only=kwargs.get('only', 10))

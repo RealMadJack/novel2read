@@ -34,7 +34,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
     readonly_fields = ('slug', 'chapters_count', )
     filter_horizontal = ('booktag', )
     list_select_related = ('bookgenre', )
-    list_display = ('title', 'get_bookgenre', 'chapters_count', 'status', 'visited', 'visit', 'visit_id', 'revisit_id', 'created', 'modified', )
+    list_display = ('title', 'get_bookgenre', 'recommended', 'chapters_count', 'status', 'visited', 'visit', 'visit_id', 'revisit_id', 'created', 'modified', )
 
     def get_bookgenre(self, obj):
         return obj.bookgenre.name

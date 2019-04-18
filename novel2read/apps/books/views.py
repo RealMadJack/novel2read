@@ -19,7 +19,7 @@ from .utils import capitalize_slug
 
 class FrontPageView(View):
     def get(self, request, *args, **kwargs):
-        books = Book.objects.published().prefetch_related('bookchapters').filter(recommended=True).random_qslist(only=7)
+        books = Book.objects.published().prefetch_related('bookchapters').filter(recommended=True).random_qslist(only=8)
         promo_title = 'Read your favourite novels with comfort'
         promo_subtitle = 'Get access to the latest releases of novels and light-novels.'
         context = {'books': books, 'promo_title': promo_title, 'promo_subtitle': promo_subtitle}

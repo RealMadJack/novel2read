@@ -474,35 +474,48 @@
     padding: 30px 20px
   .swiper-slide.bookslide
     width: 100%
-    height: 285px
+    max-width: 370px
+    height: 425px
+    position: relative
   .bookslide
-    grid-template-columns: 120px 1fr
-    grid-template-rows: 160px 1fr
-    padding: 8px
+    display: block
+    position: relative
     &__hf
+      display: block
     &__title
+      text-align: center
+      height: 25px
+      overflow: hidden
       .h2-title-sm
         font-size: 1.15rem
-        margin-bottom: 15px
+        margin-bottom: 5px
     &__poster
-      width: 100%
-      margin-right: 8px
+      width: 180px
+      margin: 0 auto
+        bottom: 10px
       img
         width: 100%
-        height: 160px
-    &__info.d-sm
-      grid-column: 1/3
+        height: auto
+        max-height: 230px
+
     &__info
-      padding: 0
+      display: block
+      padding: 0 5px
+      height: 120px
       &--desc
         max-height: 85px
+        overflow: hidden
+        p
+          margin-bottom: 0
       &--rate
     &__nav
+      width: calc(100% - 20px)
+      position: absolute
+      bottom: 10px
       a
         .btn
           font-size: .9rem
           padding: 6px
-
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 575px)
@@ -591,28 +604,6 @@
   .js-filter-form
     grid-gap: 0 10px
     grid-template-columns: repeat(2, 1fr)
-
-  .swiper-pagination.swiper-pagination-bullets
-    bottom: 0
-  .swiper-container
-    padding: 30px 8px
-  .swiper-slide.bookslide
-    height: 263px
-  .bookslide
-    grid-template-columns: 110px 1fr
-    padding: 8px
-    &__title
-      .h2-title-sm
-        font-size: 1rem
-    &__info
-      &--desc
-        max-height: 80px
-        p
-          font-size: .8rem
-      &--rate
-    &__nav
-      a
-        .btn
 
   .tag-card
       min-width: 120px

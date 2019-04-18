@@ -131,7 +131,6 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
 @app.task(bind=True)
 def book_scraper_chaps_update(self, s_from=0, s_to=0):
     books = Book.objects.filter(visited=True).exclude(visit_id__iexact='')
-    print(books)
     for book in books:
         c_count = book.chapters_count
         s_from = c_count

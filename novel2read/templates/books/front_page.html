@@ -32,9 +32,9 @@
             </div>
             <div class="bookslide__hf">
               <div class="bookslide__title"><h2 class="h2-title-sm">{{book.title}}</h2></div>
-              <div class="bookslide__info d-lg">
+              <div class="bookslide__info">
                 <div class="bookslide__info--desc">
-                  {{book.description|safe}}
+                  {{book.description|truncatechars_html:350|safe}}
                 </div>
                 <!--
                   <div class="bookslide__info--rate">
@@ -53,11 +53,6 @@
                     <button type="button" class="btn btn-light">More</button>
                   </a>
                 {% endwith %}
-              </div>
-            </div>
-            <div class="bookslide__info d-sm">
-              <div class="bookslide__info--desc">
-                {{book.description|safe}}
               </div>
             </div>
           </div>
