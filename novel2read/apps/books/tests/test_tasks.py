@@ -51,6 +51,7 @@ class BookTasksTest(TestCase):
     def test_book_scraper_initial(self):
         """
         Test celery initial scraper info + unlocked chapters
+        s_to=5 (first 5 chapters)
         """
         res = book_scraper_info.apply_async(args=(self.book.pk, ))
         self.book.refresh_from_db()

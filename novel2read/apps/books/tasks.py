@@ -47,10 +47,13 @@ def update_book_ranking(self):
         for i, book in enumerate(books, start=1):
             book.ranking = i
             book.save(update_fields=['ranking'])
-    except Exception as ex:
-        self.update_state(
-            state=states.FAILURE,
-            meta=ex,
+    except Exception as exc:
+        save_celery_result(
+            task_id=self.request.id,
+            task_name=self.name,
+            status=states.FAILURE,
+            result=exc,
+            traceback=traceback.format_exc(),
         )
         raise Ignore()
 
@@ -60,10 +63,13 @@ def update_book_revisited(self):
     try:
         books = Book.objects.all()
         books.update(revisited=False)
-    except Exception as ex:
-        self.update_state(
-            state=states.FAILURE,
-            meta=ex,
+    except Exception as exc:
+        save_celery_result(
+            task_id=self.request.id,
+            task_name=self.name,
+            status=states.FAILURE,
+            result=exc,
+            traceback=traceback.format_exc(),
         )
         raise Ignore()
 
