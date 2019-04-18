@@ -5,7 +5,8 @@ from ..models import Book, BookGenre
 from ..tasks import (
     update_book_ranking,
     book_scraper_info,
-    book_scraper_chaps
+    book_scraper_chaps,
+    book_scraper_chaps_update,
 )
 
 
@@ -29,7 +30,7 @@ class BookTasksTest(TestCase):
         self.assertEqual(self.book_1.ranking, 3)
         self.assertEqual(self.book_2.ranking, 2)
 
-    # @tag('slow')
+    @tag('slow')
     def test_book_scraper_initial(self):
         """
         Test celery initial scraper info + unlocked chapters
@@ -57,3 +58,21 @@ class BookTasksTest(TestCase):
         self.assertEqual(len(b_chaps_list), 5)
         self.assertEqual(b_chaps_f.slug, 'swindler')
         self.assertEqual(b_chaps_l.slug, 'young-mistress')
+
+    # @tag('slow')
+    def test_book_scraper_revisit_webnovel(self):
+        self.book.visited = True
+        self.book.save()
+        # res = book_scraper_chaps.apply_async(args=(self.book.pk, ), kwargs={'s_to': 5, })
+        self.book.refresh_from_db()
+        # b_chaps = self.book.bookchapters.all()
+        # b_chaps_list = list(b_chaps)
+        # b_chaps_f = b_chaps_list[0]
+        # b_chaps_l = b_chaps_list[-1]
+        # self.assertEqual(res.state, states.SUCCESS)
+        # self.assertEqual(len(b_chaps_list), 5)
+        # self.assertEqual(b_chaps_f.slug, 'swindler')
+        # self.assertEqual(b_chaps_l.slug, 'young-mistress')
+
+        res = book_scraper_chaps_update.apply_async(kwargs={'s_to': 10, })
+        self.assertEqual(res.state, states.SUCCESS)

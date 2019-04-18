@@ -135,17 +135,24 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
 
 @app.task(bind=True)
 def book_scraper_chaps_update(self, s_from=0, s_to=0):
-    book = Book.objects.get(slug='im-really-a-superstar')
-    c_count = book.chapters_count
-    s_from = c_count
-    initial = True if not c_count else False
-    if not initial:
-        if book.visited and book.visit_id:
-            to_visit = book.visit if initial else book.revisit
-            to_visit_id = book.visit_id if initial else book.revisit_id
+    books = Book.objects.filter(visited=True).exclude(visit_id__iexact='')
+    print(books)
+    for book in books:
+        c_count = book.chapters_count
+        s_from = c_count
+        initial = True if not c_count else False
+        to_visit = book.visit if initial else book.revisit
+        to_visit_id = book.visit_id if initial else book.revisit_id
+        if not book.revisited:
             try:
+                # book.revisited = True
+                # book.save()
                 scraper = BookScraper()
                 url_bb = scraper.url_bb[to_visit]
+                if to_visit == 'webnovel':
+                    pass
+                elif to_visit == 'boxnovel':
+                    pass
                 book_url = f'{url_bb}{to_visit_id}'
                 c_ids = scraper.wn_get_book_cids(book_url)
                 c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
@@ -160,5 +167,5 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                     traceback=traceback.format_exc(),
                 )
                 raise Ignore()
-    else:
-        raise Ignore()
+        else:
+            raise Ignore()
