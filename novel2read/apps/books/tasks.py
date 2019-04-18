@@ -109,7 +109,7 @@ def book_scraper_info(self, book_id):
 
 
 @app.task(bind=True)
-def book_scraper_chaps(self, book_id):
+def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
     book = Book.objects.get(pk=book_id)
     if book.visited and book.visit_id:
         try:
@@ -117,6 +117,7 @@ def book_scraper_chaps(self, book_id):
             url_bb = scraper.url_bb[book.visit]
             book_url = f'{url_bb}{book.visit_id}'
             c_ids = scraper.wn_get_book_cids(book_url)
+            c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
             bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
             scraper.create_update_db_book_chaps(book, bookchaps)
         except Exception as exc:
@@ -133,7 +134,7 @@ def book_scraper_chaps(self, book_id):
 
 
 @app.task(bind=True)
-def book_scraper_chaps_update(self, s_from=0, s_to=20):
+def book_scraper_chaps_update(self, s_from=0, s_to=0):
     book = Book.objects.get(slug='im-really-a-superstar')
     c_count = book.chapters_count
     s_from = c_count

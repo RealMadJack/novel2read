@@ -31,6 +31,9 @@ class BookTasksTest(TestCase):
 
     # @tag('slow')
     def test_book_scraper_initial(self):
+        """
+        Test celery initial scraper info + unlocked chapters
+        """
         res = book_scraper_info.apply_async(args=(self.book.pk, ))
         book = Book.objects.get(pk=self.book.pk)
         book_tags = book.booktag.all()
@@ -41,3 +44,16 @@ class BookTasksTest(TestCase):
         self.assertIn('Weak To Strong', [b_tag.name for b_tag in book_tags])
         self.assertEqual(c_count, 0)
         self.assertTrue(book.visited)
+
+        res = book_scraper_info.apply_async(args=(self.book.pk, ))
+        self.assertEqual(res.state, states.IGNORED)
+
+        res = book_scraper_chaps.apply_async(args=(self.book.pk, ), kwargs={'s_to': 5, })
+        b_chaps = book.bookchapters.all()
+        b_chaps_list = list(b_chaps)
+        b_chaps_f = b_chaps_list[0]
+        b_chaps_l = b_chaps_list[-1]
+        self.assertEqual(res.state, states.SUCCESS)
+        self.assertEqual(len(b_chaps_list), 5)
+        self.assertEqual(b_chaps_f.slug, 'swindler')
+        self.assertEqual(b_chaps_l.slug, 'young-mistress')
