@@ -18,25 +18,17 @@ def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
         )
 
 
-# @receiver([post_save, post_delete], sender=BookChapter)
-# def save_book_chapters_count(sender, instance, created=False, **kwargs):
-#     c_count = instance.book.get_chapters_count()
-#     c_count_previous = instance.book.tracker.previous('chapters_count')
-#     if c_count != c_count_previous:
-#         instance.book.chapters = c_count
-#         instance.book.save()
-
-
 @receiver(post_save, sender=BookChapter)
 def create_update_chapter_cid(sender, instance, created=False, **kwargs):
-    chapters_count = instance.book.get_chapters_count()
     if created:
-        instance.c_id = chapters_count
+        instance.book.update_chapters_count()
+        instance.c_id = instance.book.chapters_count
         instance.save()
 
 
 @receiver(post_delete, sender=BookChapter)
 def delete_update_chapter_cid(sender, instance, **kwargs):
-    del_cid = instance.c_id
-    book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug).filter(c_id__gt=del_cid)
+    instance.book.update_chapters_count()
+    c_id_del = instance.c_id
+    book_chaps = BookChapter.objects.filter(book__slug=instance.book.slug).filter(c_id__gt=c_id_del)
     book_chaps.update(c_id=F('c_id') - 1)
