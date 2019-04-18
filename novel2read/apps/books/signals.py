@@ -4,15 +4,20 @@ from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 
 from .models import Book, BookChapter
-from .tasks import book_scraper_initial
+from .tasks import book_scraper_info, book_scraper_chaps
 
 
-@receiver(pre_save, sender=Book)
+@receiver(post_save, sender=Book)
 def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
-    print(f'SCRAPER SIGNAL {instance.chapters_count}')
-    if not instance.visited and instance.visit_id:
+    transaction.on_commit(
+        lambda: book_scraper_info.apply_async(
+            args=(instance.pk,)
+        )
+    )
+
+    if created:
         transaction.on_commit(
-            lambda: book_scraper_initial.apply_async(
+            lambda: book_scraper_chaps.apply_async(
                 args=(instance.pk,)
             )
         )

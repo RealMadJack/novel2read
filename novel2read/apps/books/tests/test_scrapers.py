@@ -73,7 +73,7 @@ class BookScraperTest(TestCase):
         self.assertEqual(len(resp), 5)
         self.assertEqual(resp[0], '30952845050180675')
 
-    # @tag('slow')  # +2s
+    @tag('slow')  # +2s
     def test_wn_get_book_data(self):
         resp = self.scraper.wn_get_book_data(self.wn_url)[0]
         self.assertTrue(isinstance(resp['book_desc'], str))
@@ -119,7 +119,7 @@ class BookScraperTest(TestCase):
         self.assertNotEqual(resp_info['locked_from_id'], 0)
         self.assertNotEqual(len(resp_info['locked_from']), 0)
 
-    # # @tag('slow')  # +2s
+    @tag('slow')  # +2s
     def test_update_db_book_data(self):
         b_data = self.scraper.wn_get_book_data(self.wn_url)[0]
         b_tags = self.book.booktag.all()

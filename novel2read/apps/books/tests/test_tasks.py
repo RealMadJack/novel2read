@@ -4,8 +4,8 @@ from django.test import TestCase, tag
 from ..models import Book, BookGenre
 from ..tasks import (
     update_book_ranking,
-    book_scraper_initial,
-    book_scraper_update_chaps
+    book_scraper_info,
+    book_scraper_chaps
 )
 
 
@@ -30,8 +30,8 @@ class BookTasksTest(TestCase):
         self.assertEqual(self.book_2.ranking, 2)
 
     @tag('slow')
-    def test_book_scraper_initial(self):
-        res = book_scraper_initial.delay(self.book.pk)
+    def test_book_scraper_info(self):
+        res = book_scraper_info.delay(self.book.pk)
         book = Book.objects.get(pk=37)
         book_tags = book.booktag.all()
         b_chaps = list(book.bookchapters.all())

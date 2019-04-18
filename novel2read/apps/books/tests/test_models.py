@@ -231,14 +231,14 @@ class BookChapterTest(TestCase):
         # book
         bookchapter_1 = BookChapter.objects.create(title='test chapter 1', book=self.book)
         bookchapter_2 = BookChapter.objects.create(title='test chapter 2', book=self.book)
-        self.assertEqual(self.bookchapter.book.chapters, 3)
+        self.assertEqual(self.bookchapter.book.chapters_count, 3)
         self.assertEqual(self.bookchapter.c_id, 1)
         self.assertEqual(bookchapter_1.c_id, 2)
         self.assertEqual(bookchapter_2.c_id, 3)
         #   book_1
         bookchapter_11 = BookChapter.objects.create(title='test chapter 11', book=self.book_1)
         bookchapter_22 = BookChapter.objects.create(title='test chapter 22', book=self.book_1)
-        self.assertEqual(self.bookchapter_1.book.chapters, 3)
+        self.assertEqual(self.bookchapter_1.book.chapters_count, 3)
         self.assertEqual(self.bookchapter_1.c_id, 1)
         self.assertEqual(bookchapter_11.c_id, 2)
         self.assertEqual(bookchapter_22.c_id, 3)
@@ -246,11 +246,11 @@ class BookChapterTest(TestCase):
         # delete first and second BC
         self.bookchapter.delete()
         bookchapter_1.delete()
-        self.assertEqual(bookchapter_2.book.chapters, 1)
+        self.assertEqual(bookchapter_2.book.chapters_count, 1)
         #   book_1
         self.bookchapter_1.delete()
         bookchapter_11.delete()
-        self.assertEqual(bookchapter_22.book.chapters, 1)
+        self.assertEqual(bookchapter_22.book.chapters_count, 1)
 
         # create 2 new bc
         bookchapter_3 = BookChapter.objects.create(title='test chapter 3', book=self.book)
