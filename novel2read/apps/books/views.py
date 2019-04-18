@@ -21,7 +21,7 @@ class FrontPageView(View):
     def get(self, request, *args, **kwargs):
         books = Book.objects.published().prefetch_related('bookchapters').filter(recommended=True).random_qslist(only=7)
         promo_title = 'Read your favourite novels with comfort'
-        promo_subtitle = 'Get access to t`he latest releases of novels and light-novels.'
+        promo_subtitle = 'Get access to the latest releases of novels and light-novels.'
         context = {'books': books, 'promo_title': promo_title, 'promo_subtitle': promo_subtitle}
 
         return render(request, template_name='books/front_page.html', context=context)

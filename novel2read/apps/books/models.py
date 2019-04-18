@@ -74,7 +74,7 @@ class Book(TimeStampedModel):
     country = models.CharField(default='', max_length=255, blank=True)
     description = models.TextField(_('Description'), blank=True, default='')
     volumes = ArrayField(models.SmallIntegerField(default=0), blank=True, default=list)
-    chapters = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
+    chapters_count = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
     chapters_release = models.SmallIntegerField(_('Chapters update'), blank=True, null=True, default=0)
     poster = models.ImageField(
         _('Poster'), blank=True, null=True,
@@ -132,11 +132,11 @@ class Book(TimeStampedModel):
             self.slug = get_unique_slug(Book, self.title)
         return super().save(*args, **kwargs)
 
-    @property
-    def chapters_count(self):
-        return self.bookchapters.count()
+    # @property
+    # def chapters_count(self):
+    #     return self.bookchapters.count()
 
-    def get_chapters_count(self):
+    def update_chapters_count(self):
         return self.bookchapters.count()
 
 

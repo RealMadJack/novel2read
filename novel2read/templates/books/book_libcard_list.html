@@ -16,7 +16,11 @@
       {% if book.bookprogress %}
         <a class="libcard__link" href="{% url 'books:bookchapter' book.slug book.bookprogress.c_id %}">
       {% else %}
-        <a class="libcard__link" href="{% url 'books:bookchapter' book.slug 1 %}">
+        {% if book.chapters_count %}
+          <a class="libcard__link" href="{% url 'books:bookchapter' book.slug 1 %}">
+        {% else %}
+          <a class="libcard__link" href="{% url 'books:book' book.slug %}">
+        {% endif %}
       {% endif %}
           <div class="libcard__poster">
               <img class="libcard__poster--image" src="{{book.poster.url}}" alt="{{book.title}}">
