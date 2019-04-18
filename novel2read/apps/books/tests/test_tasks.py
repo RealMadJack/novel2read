@@ -29,19 +29,15 @@ class BookTasksTest(TestCase):
         self.assertEqual(self.book_1.ranking, 3)
         self.assertEqual(self.book_2.ranking, 2)
 
-    @tag('slow')
-    def test_book_scraper_info(self):
-        res = book_scraper_info.delay(self.book.pk)
-        book = Book.objects.get(pk=37)
+    # @tag('slow')
+    def test_book_scraper_initial(self):
+        res = book_scraper_info.apply_async(args=(self.book.pk, ))
+        book = Book.objects.get(pk=self.book.pk)
         book_tags = book.booktag.all()
-        b_chaps = list(book.bookchapters.all())
-        b_chap_first = b_chaps[0]
-        b_chap_last = b_chaps[-1]
+        c_count = book.bookchapters.count()
         self.assertEqual(res.state, states.SUCCESS)
         self.assertEqual(book.title, "Library Of Heaven's Path")
         self.assertIn('Cultivation', [b_tag.name for b_tag in book_tags])
         self.assertIn('Weak To Strong', [b_tag.name for b_tag in book_tags])
-        self.assertEqual(len(b_chaps), 80)
-        self.assertTrue(b_chap_first.title, 'Swindler')
-        self.assertTrue(b_chap_last.title, 'How Do I Teach You?')
+        self.assertEqual(c_count, 0)
         self.assertTrue(book.visited)

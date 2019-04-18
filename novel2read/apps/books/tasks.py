@@ -138,25 +138,26 @@ def book_scraper_chaps_update(self, s_from=0, s_to=20):
     c_count = book.chapters_count
     s_from = c_count
     initial = True if not c_count else False
-    if book.visited and book.visit_id:
-        to_visit = book.visit if initial else book.revisit
-        to_visit_id = book.visit_id if initial else book.revisit_id
-        try:
-            scraper = BookScraper()
-            url_bb = scraper.url_bb[to_visit]
-            book_url = f'{url_bb}{to_visit_id}'
-            c_ids = scraper.wn_get_book_cids(book_url)
-            c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
-            bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
-            scraper.create_update_db_book_chaps(book, bookchaps)
-        except Exception as exc:
-            save_celery_result(
-                task_id=self.request.id,
-                task_name=self.name,
-                status=states.FAILURE,
-                result=exc,
-                traceback=traceback.format_exc(),
-            )
-            raise Ignore()
+    if not initial:
+        if book.visited and book.visit_id:
+            to_visit = book.visit if initial else book.revisit
+            to_visit_id = book.visit_id if initial else book.revisit_id
+            try:
+                scraper = BookScraper()
+                url_bb = scraper.url_bb[to_visit]
+                book_url = f'{url_bb}{to_visit_id}'
+                c_ids = scraper.wn_get_book_cids(book_url)
+                c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
+                bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
+                scraper.create_update_db_book_chaps(book, bookchaps)
+            except Exception as exc:
+                save_celery_result(
+                    task_id=self.request.id,
+                    task_name=self.name,
+                    status=states.FAILURE,
+                    result=exc,
+                    traceback=traceback.format_exc(),
+                )
+                raise Ignore()
     else:
         raise Ignore()
