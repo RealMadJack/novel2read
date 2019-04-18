@@ -109,8 +109,32 @@ def book_scraper_info(self, book_id):
 
 
 @app.task(bind=True)
-def book_scraper_chaps(self, book_id, s_from=0, s_to=5):
+def book_scraper_chaps(self, book_id):
     book = Book.objects.get(pk=book_id)
+    if book.visited and book.visit_id:
+        try:
+            scraper = BookScraper()
+            url_bb = scraper.url_bb[book.visit]
+            book_url = f'{url_bb}{book.visit_id}'
+            c_ids = scraper.wn_get_book_cids(book_url)
+            bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
+            scraper.create_update_db_book_chaps(book, bookchaps)
+        except Exception as exc:
+            save_celery_result(
+                task_id=self.request.id,
+                task_name=self.name,
+                status=states.FAILURE,
+                result=exc,
+                traceback=traceback.format_exc(),
+            )
+            raise Ignore()
+    else:
+        raise Ignore()
+
+
+@app.task(bind=True)
+def book_scraper_chaps_update(self, s_from=0, s_to=20):
+    book = Book.objects.get(slug='im-really-a-superstar')
     c_count = book.chapters_count
     s_from = c_count
     initial = True if not c_count else False

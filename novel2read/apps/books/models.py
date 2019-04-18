@@ -166,7 +166,7 @@ class BookChapter(TimeStampedModel):
             'book_slug': self.book.slug, 'c_id': self.c_id})
 
     def save(self, *args, **kwargs):
-        self.title = capitalize_str(self.title)
-        if not self.slug or self.title != self.tracker.previous('title'):
+        if not self.slug:
             self.slug = get_unique_slug(BookChapter, self.title)
+        self.title = capitalize_str(self.title)
         return super().save(*args, **kwargs)
