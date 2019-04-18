@@ -56,21 +56,10 @@ def update_book_ranking(self):
 
 
 @app.task(bind=True)
-def book_scraper_update(self):
-    """
-    Divide task
-        book_scraper_info
-        book_scraper_chaps
-        book_scraper_chaps_initial
-        pass queryset with different book filters
-        async object(1) - task - que
-        chain: filter books - substitute
-    """
+def update_book_revisited(self):
     try:
-        qs = Book.objects.all()
-        scraper = BookScraper()
-        f_books = scraper.get_filter_db_books(qs)
-        print(f_books)
+        books = Book.objects.all()
+        books.update(revisited=False)
     except Exception as ex:
         self.update_state(
             state=states.FAILURE,
@@ -150,14 +139,13 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                 scraper = BookScraper()
                 url_bb = scraper.url_bb[to_visit]
                 if to_visit == 'webnovel':
-                    pass
+                    book_url = f'{url_bb}{to_visit_id}'
+                    c_ids = scraper.wn_get_book_cids(book_url)
+                    c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
+                    bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
+                    scraper.create_update_db_book_chaps(book, bookchaps)
                 elif to_visit == 'boxnovel':
                     pass
-                book_url = f'{url_bb}{to_visit_id}'
-                c_ids = scraper.wn_get_book_cids(book_url)
-                c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
-                bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
-                scraper.create_update_db_book_chaps(book, bookchaps)
             except Exception as exc:
                 save_celery_result(
                     task_id=self.request.id,

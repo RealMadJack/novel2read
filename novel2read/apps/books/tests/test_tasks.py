@@ -4,6 +4,7 @@ from django.test import TestCase, tag
 from ..models import Book, BookGenre
 from ..tasks import (
     update_book_ranking,
+    update_book_revisited,
     book_scraper_info,
     book_scraper_chaps,
     book_scraper_chaps_update,
@@ -30,27 +31,44 @@ class BookTasksTest(TestCase):
         self.assertEqual(self.book_1.ranking, 3)
         self.assertEqual(self.book_2.ranking, 2)
 
-    @tag('slow')
+    def test_update_book_revisited(self):
+        self.book.revisited = True
+        self.book.save()
+        self.book_1.revisited = True
+        self.book_1.save()
+        self.book.refresh_from_db()
+        self.book_1.refresh_from_db()
+        self.assertTrue(self.book.revisited)
+        self.assertTrue(self.book_1.revisited)
+        res = update_book_revisited.delay()
+        self.book.refresh_from_db()
+        self.book_1.refresh_from_db()
+        self.assertEqual(res.state, states.SUCCESS)
+        self.assertFalse(self.book.revisited)
+        self.assertFalse(self.book_1.revisited)
+
+    @tag('slow')  # 30s
     def test_book_scraper_initial(self):
         """
         Test celery initial scraper info + unlocked chapters
         """
         res = book_scraper_info.apply_async(args=(self.book.pk, ))
-        book = Book.objects.get(pk=self.book.pk)
-        book_tags = book.booktag.all()
-        c_count = book.bookchapters.count()
+        self.book.refresh_from_db()
+        book_tags = self.book.booktag.all()
+        c_count = self.book.bookchapters.count()
         self.assertEqual(res.state, states.SUCCESS)
-        self.assertEqual(book.title, "Library Of Heaven's Path")
+        self.assertEqual(self.book.title, "Library Of Heaven's Path")
         self.assertIn('Cultivation', [b_tag.name for b_tag in book_tags])
         self.assertIn('Weak To Strong', [b_tag.name for b_tag in book_tags])
         self.assertEqual(c_count, 0)
-        self.assertTrue(book.visited)
+        self.assertTrue(self.book.visited)
 
         res = book_scraper_info.apply_async(args=(self.book.pk, ))
         self.assertEqual(res.state, states.IGNORED)
 
         res = book_scraper_chaps.apply_async(args=(self.book.pk, ), kwargs={'s_to': 5, })
-        b_chaps = book.bookchapters.all()
+        self.book.refresh_from_db()
+        b_chaps = self.book.bookchapters.all()
         b_chaps_list = list(b_chaps)
         b_chaps_f = b_chaps_list[0]
         b_chaps_l = b_chaps_list[-1]
@@ -59,7 +77,7 @@ class BookTasksTest(TestCase):
         self.assertEqual(b_chaps_f.slug, 'swindler')
         self.assertEqual(b_chaps_l.slug, 'young-mistress')
 
-    # @tag('slow')
+    # @tag('slow')  # 30s
     def test_book_scraper_revisit_webnovel(self):
         self.book.visited = True
         self.book.save()
