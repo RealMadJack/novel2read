@@ -9,7 +9,7 @@ from .tasks import book_scraper_initial
 
 @receiver(pre_save, sender=Book)
 def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
-    # print(f'SCRAPER SIGNAL {instance}')
+    print(f'SCRAPER SIGNAL {instance.chapters_count}')
     if not instance.visited and instance.visit_id:
         transaction.on_commit(
             lambda: book_scraper_initial.apply_async(

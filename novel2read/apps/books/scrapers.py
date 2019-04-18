@@ -1,8 +1,5 @@
 import logging
 import re
-import sys
-import os
-import django
 
 from django.conf import settings
 from django.utils.text import slugify
@@ -12,16 +9,11 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.remote_connection import LOGGER
 
-if __name__ == '__main__':
-    sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__name__))))
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
-    django.setup()
-
 from .models import Book, BookChapter, BookTag
 from .utils import download_img, multiple_replace, capitalize_str
 
 # Logging restrictions
-LOGGER.setLevel(logging.WARNING)
+# LOGGER.setLevel(logging.WARNING)
 # logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 

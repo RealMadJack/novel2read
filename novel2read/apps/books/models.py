@@ -132,6 +132,10 @@ class Book(TimeStampedModel):
             self.slug = get_unique_slug(Book, self.title)
         return super().save(*args, **kwargs)
 
+    @property
+    def chapters_count(self):
+        return self.bookchapters.count()
+
     def get_chapters_count(self):
         return self.bookchapters.count()
 
