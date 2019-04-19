@@ -982,62 +982,70 @@ a.disabled, button.disabled {
           padding-right: 10px; }
   .book .bookbody .h2-title {
     margin-bottom: 20px; }
-  .book .bookbody__tabs .tab-content {
-    margin-top: 20px; }
-  .book .bookbody__tabs--desc p {
-    font-size: 16px;
-    font-size: 1rem;
-    margin-bottom: 11.2px;
-    margin-bottom: .7rem; }
-  .book .bookbody__tabs--chaps .chap-latest {
-    margin-top: 10px;
-    margin-bottom: 10px; }
-    .book .bookbody__tabs--chaps .chap-latest span {
-      padding-right: 5px; }
-    .book .bookbody__tabs--chaps .chap-latest a {
-      color: #6A57F9; }
-      .book .bookbody__tabs--chaps .chap-latest a:hover, .book .bookbody__tabs--chaps .chap-latest a:active, .book .bookbody__tabs--chaps .chap-latest a:focus {
+  .book .bookbody__tabs {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    .book .bookbody__tabs .tab-content {
+      margin-top: 20px; }
+    .book .bookbody__tabs--desc p {
+      font-size: 16px;
+      font-size: 1rem;
+      margin-bottom: 11.2px;
+      margin-bottom: .7rem; }
+    .book .bookbody__tabs--chaps .chap-latest {
+      margin-top: 10px;
+      margin-bottom: 10px; }
+      .book .bookbody__tabs--chaps .chap-latest span {
+        padding-right: 5px; }
+      .book .bookbody__tabs--chaps .chap-latest a {
+        color: #6A57F9; }
+        .book .bookbody__tabs--chaps .chap-latest a:hover, .book .bookbody__tabs--chaps .chap-latest a:active, .book .bookbody__tabs--chaps .chap-latest a:focus {
+          color: black; }
+    .book .bookbody__tabs--chaps .chap-volume {
+      position: relative;
+      display: block;
+      width: 100%;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 10px; }
+    .book .bookbody__tabs--chaps .chap-nav-card {
+      float: left;
+      width: 50%;
+      padding: 5px; }
+      .book .bookbody__tabs--chaps .chap-nav-card:nth-of-type(even) {
+        padding-left: 0; }
+      .book .bookbody__tabs--chaps .chap-nav-card:nth-of-type(odd) {
+        padding-right: 0; }
+      .book .bookbody__tabs--chaps .chap-nav-card a {
+        display: grid;
+        grid-template-columns: 50px 1fr;
+        grid-gap: 0 5px;
+        border: 1px solid #6A57F9;
+        border-radius: 8px;
         color: black; }
-  .book .bookbody__tabs--chaps .chap-volume {
-    position: relative;
-    display: block;
-    width: 100%;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 10px; }
-  .book .bookbody__tabs--chaps .chap-nav-card {
-    float: left;
-    width: 50%;
-    padding: 5px; }
-    .book .bookbody__tabs--chaps .chap-nav-card:nth-of-type(odd) {
-      padding-left: 0; }
-    .book .bookbody__tabs--chaps .chap-nav-card:nth-of-type(even) {
-      padding-right: 0; }
-    .book .bookbody__tabs--chaps .chap-nav-card:last-of-type {
-      margin-bottom: 40px; }
-    .book .bookbody__tabs--chaps .chap-nav-card a {
-      display: grid;
-      grid-template-columns: 50px 1fr;
-      grid-gap: 0 5px;
-      border: 1px solid #6A57F9;
-      border-radius: 8px;
-      color: black; }
-      .book .bookbody__tabs--chaps .chap-nav-card a:hover, .book .bookbody__tabs--chaps .chap-nav-card a:active, .book .bookbody__tabs--chaps .chap-nav-card a:focus {
-        color: #fff;
-        background-color: #6A57F9; }
-      .book .bookbody__tabs--chaps .chap-nav-card a span {
-        padding-top: 5px; }
-        .book .bookbody__tabs--chaps .chap-nav-card a span:first-of-type {
-          grid-column-start: 1;
-          grid-row-start: 1;
-          font-weight: bold;
-          padding-left: 10px; }
-        .book .bookbody__tabs--chaps .chap-nav-card a span:last-of-type {
-          grid-column-start: 2;
-          padding-right: 10px; }
-      .book .bookbody__tabs--chaps .chap-nav-card a small {
-        padding-bottom: 5px;
-        grid-column-start: 2; }
+        .book .bookbody__tabs--chaps .chap-nav-card a:hover, .book .bookbody__tabs--chaps .chap-nav-card a:active, .book .bookbody__tabs--chaps .chap-nav-card a:focus {
+          color: #6A57F9; }
+        .book .bookbody__tabs--chaps .chap-nav-card a span {
+          padding-top: 5px; }
+          .book .bookbody__tabs--chaps .chap-nav-card a span:first-of-type {
+            grid-column-start: 1;
+            grid-row-start: 1;
+            font-weight: bold;
+            padding-left: 10px; }
+          .book .bookbody__tabs--chaps .chap-nav-card a span:last-of-type {
+            grid-column-start: 2;
+            padding-right: 10px; }
+        .book .bookbody__tabs--chaps .chap-nav-card a small {
+          opacity: .8;
+          font-size: 11.2px;
+          font-size: .7rem;
+          padding-bottom: 5px;
+          grid-column-start: 2; }
   .book .bookbody__vote {
     margin: 50px 0; }
     .book .bookbody__vote .votecard {

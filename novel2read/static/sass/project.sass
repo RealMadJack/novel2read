@@ -891,6 +891,8 @@ a.disabled, button.disabled
     .h2-title
       margin-bottom: 20px
     &__tabs
+      display: flex
+      flex-direction: column
       .tab-content
         margin-top: 20px
       &--desc
@@ -918,12 +920,10 @@ a.disabled, button.disabled
           float: left
           width: 50%
           padding: 5px
-          &:nth-of-type(odd)
-            padding-left: 0
           &:nth-of-type(even)
+            padding-left: 0
+          &:nth-of-type(odd)
             padding-right: 0
-          &:last-of-type
-            margin-bottom: 40px
           a
             display: grid
             grid-template-columns: 50px 1fr
@@ -932,8 +932,7 @@ a.disabled, button.disabled
             border-radius: 8px
             color: $default
             &:hover, &:active, &:focus
-              color: $white
-              background-color: $accent
+              color: $accent
             span
               padding:
                 top: 5px
@@ -946,6 +945,8 @@ a.disabled, button.disabled
                 grid-column-start: 2
                 padding-right: 10px
             small
+              opacity: .8
+              font-size: .7rem
               padding:
                 bottom: 5px
               grid-column-start: 2
