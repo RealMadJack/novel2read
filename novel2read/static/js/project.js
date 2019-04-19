@@ -43,6 +43,7 @@ let swiperOptions = {
         delay: 7000,
         disableOnInteraction: true,
     },
+    roundLengths: true,
     centeredSlides: true,
     loop: true,
     slidesPerView: slides,

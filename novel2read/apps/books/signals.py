@@ -11,16 +11,12 @@ from .tasks import book_scraper_info, book_scraper_chaps
 def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
     if not instance.visited and instance.visit_id:
         transaction.on_commit(
-            lambda: book_scraper_info.apply_async(
-                args=(instance.pk,)
-            )
+            lambda: book_scraper_info.apply_async(args=(instance.pk,))
         )
 
     if created:
         transaction.on_commit(
-            lambda: book_scraper_chaps.apply_async(
-                args=(instance.pk,)
-            )
+            lambda: book_scraper_chaps.apply_async(args=(instance.pk,))
         )
 
 

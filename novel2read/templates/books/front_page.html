@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+
+{% load humanize %}
+
 {% block title %}Home - {{block.super}}{% endblock %}
+
 {% block content %}
     <div class="frontpage__promo mt-30">
       <div class="container text-center">
@@ -75,8 +79,30 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="frontpage__latest"></div>
+  <div class="container mt-30">
+    <div class="frontpage__latest">
+      <div class="frontpage__latest--title">
+        <h2 class="h2-title">Latest updates:</h2>
+      </div>
+      <div class="row mt-30">
+      {% for b_chap in b_chaps %}
+        <div class="col-md-6 col-sm-12">
+          <a href="{{b_chap.get_absolute_url}}" class="b-chap-card-sm">
+            <div class="b-chap-card-sm__poster">
+              <img src="{{b_chap.book.poster.url}}" alt="{{b_chap.book.title}}">
+            </div>
+            <div class="b-chap-card-sm__info">
+              <h3 class="h3-title-sm">{{b_chap.book.title}}</h3>
+              <h4 class="h4-title-sm">
+                <span>#{{b_chap.c_id}}: {{b_chap.title}}</span>
+                <small>{{b_chap.created|naturaltime}}</small>
+              </h4>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
   </div>
 
 {% endblock content %}
