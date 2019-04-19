@@ -122,10 +122,12 @@ class BookTasksTest(TestCase):
         self.assertEqual(b_chaps_l.slug, 'test-2')
 
         res = book_scraper_chaps_update.apply_async(kwargs={'s_to': s_to, })
+        # boxnovel while
+        # res = book_scraper_chaps_update.apply_async()
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
         self.assertTrue(self.book.revisited)
         self.assertEqual(res.state, states.SUCCESS)
-        # self.assertEqual(self.book.bookchapters.count(), s_to)
-        # self.assertEqual(b_chaps[2].slug, 'imperfections-in-heavens-path')
-        # self.assertEqual(b_chaps[3].slug, 'slapping-face')
+        self.assertEqual(self.book.bookchapters.count(), s_to)
+        self.assertEqual(b_chaps[2].slug, 'imperfections-in-heavens-path')
+        self.assertEqual(b_chaps[3].slug, 'slapping-face')

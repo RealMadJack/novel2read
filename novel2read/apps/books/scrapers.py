@@ -66,6 +66,7 @@ class BookScraper:
             raise e
 
     def create_book_chapter(self, book, c_title, c_content):
+        print(f'Creating: {c_title}')
         bookchapter = BookChapter.objects.create(book=book, title=c_title, text=c_content)
         return bookchapter
 
@@ -201,82 +202,66 @@ class BookScraper:
         else:
             raise Exception("You didn't provide chapter list")
 
-    def bn_get_book_chaps(self, book, book_url, s_to=0):
+    def bn_get_book_chap(self, bn_chap_url):
+        session = HTMLSession()
+        r_chap = session.get(bn_chap_url)
+        try:
+            chap_tit_raw = r_chap.html.find('.reading-content h3')[0].text
+        except IndexError:
+            chap_tit_raw = r_chap.html.find('.reading-content p')[0].text
+        chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].replace('‽', '?!').strip()
+        chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
+        chap_content_raw = r_chap.html.find('.reading-content p')
+        chap_content = []
+        for chap_p in chap_content_raw:
+            chap = chap_p.html
+            chap = multiple_replace(self.to_repl, chap)
+            if chap.lower().startswith('translator') or chap.lower().startswith('chapter'):
+                chap = ''
+            if len(chap):
+                chap = f'<p>{chap}</p>'
+                chap_content.append(chap)
+
+        b_chap = {
+            'c_id': chap_tit_id,
+            'c_title': chap_tit,
+            'c_content': ''.join(chap_content)[:4],
+        }
+
+        return b_chap
+
+    def bn_get_update_book_chaps(self, book, book_url, s_to=0):
         s_to = s_to + 1 if s_to else s_to
         b_chaps = book.bookchapters.all()
         b_chaps_len = b_chaps.count()
         c_ids = list(range(b_chaps_len + 1, s_to)) if s_to else False
-        print(c_ids)
-        session = HTMLSession()
-        b_chap_list = []
 
-        # while True:
-        #     b_chaps_len += 1
-        #     bn_chap_url = f'{book_url}/chapter-{b_chaps_len}'
-        #     print(bn_chap_url)
-        #     try:
-        #         r_chap = session.get(bn_chap_url)
-        #         chap_tit_raw = r_chap.html.find('.reading-content h3')[0].text
-        #         chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].replace('‽', '?!').strip()
-        #         chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
-
-        #         chap_content_raw = r_chap.html.find('.reading-content p')
-        #         chap_content_raw = chap_content_raw[1:] if 'translator' in chap_content_raw[0].text.lower() else chap_content_raw
-        #         chap_content = []
-        #         for chap_p in chap_content_raw:
-        #             chap = chap_p.html
-        #             chap = multiple_replace(self.to_repl, chap)
-        #             if len(chap):
-        #                 chap = f'<p>{chap}</p>'
-        #                 chap_content.append(chap)
-
-        #         b_chap_list.append({
-        #             'c_id': chap_tit_id,
-        #             'c_title': chap_tit,
-        #             'c_content': ''.join(chap_content),
-        #         })
-        #     except IndexError as e:
-        #         # print(f'Book has: {b_chaps_len - 1} chapters')
-        #         b_chap_list.append({
-        #             'updated': b_chaps_len - 1,
-        #             'last': bn_chap_url,
-        #         })
-        #         break
-        # return b_chap_list
-
-    def substitute_db_book_info(self, qs):
-        f_books_wn = self.get_filter_db_books(qs, wn=True)
-        f_books_bn = self.get_filter_db_books(qs, bn=True)
-
-        for book in f_books_wn:
-            if not book.visited_wn and bool(book.id_wn):
-                book_url = f"{self.url_bb['webnovel']}{book.id_wn}/"
-
-                # Book index page data with static request
-                book_data = self.wn_get_book_data(book_url)
-                self.update_db_book_data(book, book_data)
-                # Book chapters data, c_ids with js request
-                c_ids = self.wn_get_book_cids(book_url)
-                bookchaps = self.wn_get_book_chaps(book_url, c_ids)
-                self.create_update_db_book_chaps(book, bookchaps)
-
-                # Book update
-                book.visited_wn = True
-                book.save()
-
-        for book in f_books_bn:
-            if not book.visited_bn and bool(book.id_bn):
-                book_url = f"{self.url_bb['boxnovel']}{book.id_bn}/"
-                # Book chapters data, c_ids with js request
-                bookchaps = self.bn_get_book_chaps(book, book_url)
-                self.create_update_db_book_chaps(book, bookchaps)
-
-                # Book update
-                book.visited_bn = True
-                book.save()
-
-    def run(self):
-        self.substitute_db_book_info()
+        if s_to:
+            for c_id in c_ids:
+                bn_chap_url = f'{book_url}/chapter-{c_id}'
+                b_chap = self.bn_get_book_chap(bn_chap_url)
+                self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+            b_chap_info = {
+                'updated': len(c_ids),
+                'last': f'{book_url}/chapter-{c_ids[-1]}',
+            }
+            return b_chap_info
+        else:
+            b_chaps_upd = 0
+            while True:
+                b_chaps_len += 1
+                b_chaps_upd += 1
+                bn_chap_url = f'{book_url}/chapter-{b_chaps_len}'
+                try:
+                    b_chap = self.bn_get_book_chap(bn_chap_url)
+                    self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+                except IndexError as e:
+                    b_chap_info = {
+                        'updated': b_chaps_upd,
+                        'last': bn_chap_url,
+                    }
+                    break
+            return b_chap_info
 
 
 def main():

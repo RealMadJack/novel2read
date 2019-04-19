@@ -135,6 +135,7 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
         c_count = book.chapters_count
         s_from = c_count if c_count else s_from
         initial = True if not c_count else False
+        # race condition with book_scraper_chaps(if added to que)
         to_visit = book.visit if initial else book.revisit
         to_visit_id = book.visit_id if initial else book.revisit_id
         if not book.revisited and to_visit_id:
@@ -162,8 +163,20 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                         """,
                     )
                 elif to_visit == 'boxnovel':
-                    bookchaps = scraper.bn_get_book_chaps(book, book_url, s_to=s_to)
+                    b_chap_info = scraper.bn_get_update_book_chaps(book, book_url, s_to=s_to)
+                    if b_chap_info['updated'] >= 10:
+                        save_celery_result(
+                            task_id=self.request.id,
+                            task_name=self.name,
+                            status=states.SUCCESS,
+                            result=f"""
+                                Updated book: {book.title};
+                                Updated len: {b_chap_info['updated']}
+                                Updated last: {b_chap_info['last']}
+                            """,
+                        )
             except Exception as exc:
+                print(traceback.format_exc())
                 save_celery_result(
                     task_id=self.request.id,
                     task_name=self.name,
