@@ -143,8 +143,8 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                 book.save()
                 scraper = BookScraper()
                 url_bb = scraper.url_bb[to_visit]
+                book_url = f'{url_bb}{to_visit_id}'
                 if to_visit == 'webnovel':
-                    book_url = f'{url_bb}{to_visit_id}'
                     c_ids = scraper.wn_get_book_cids(book_url)
                     c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
                     bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
@@ -162,7 +162,7 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                         """,
                     )
                 elif to_visit == 'boxnovel':
-                    pass
+                    bookchaps = scraper.bn_get_book_chaps(book, book_url, s_to=s_to)
             except Exception as exc:
                 save_celery_result(
                     task_id=self.request.id,
@@ -171,6 +171,7 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                     result=exc,
                     traceback=traceback.format_exc(),
                 )
+
                 raise Ignore()
         else:
             raise Ignore()

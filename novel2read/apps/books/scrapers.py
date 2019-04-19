@@ -135,7 +135,7 @@ class BookScraper:
             chap_lock = r_chap.html.find('.cha-content._lock')
 
             if len(chap_lock) == 0:
-                chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].strip()
+                chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].strip().replace('‽', '?!')
                 chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
 
                 logging.info(f'Unlocked: {chap_tit}')
@@ -201,46 +201,48 @@ class BookScraper:
         else:
             raise Exception("You didn't provide chapter list")
 
-    def bn_get_book_chaps(self, book, book_url, s_from=0, s_to=0):
+    def bn_get_book_chaps(self, book, book_url, s_to=0):
+        s_to = s_to + 1 if s_to else s_to
         b_chaps = book.bookchapters.all()
         b_chaps_len = b_chaps.count()
-        b_chaps_len = b_chaps_len + s_from if s_from else b_chaps_len
+        c_ids = list(range(b_chaps_len + 1, s_to)) if s_to else False
+        print(c_ids)
         session = HTMLSession()
         b_chap_list = []
 
-        while True:
-            b_chaps_len += 1
-            bn_chap_url = f'{book_url}/chapter-{b_chaps_len}'
-            print(bn_chap_url)
-            try:
-                r_chap = session.get(bn_chap_url)
-                chap_tit_raw = r_chap.html.find('.reading-content h3')[0].text
-                chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].strip()
-                chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
+        # while True:
+        #     b_chaps_len += 1
+        #     bn_chap_url = f'{book_url}/chapter-{b_chaps_len}'
+        #     print(bn_chap_url)
+        #     try:
+        #         r_chap = session.get(bn_chap_url)
+        #         chap_tit_raw = r_chap.html.find('.reading-content h3')[0].text
+        #         chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].replace('‽', '?!').strip()
+        #         chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
 
-                chap_content_raw = r_chap.html.find('.reading-content p')
-                chap_content_raw = chap_content_raw[1:] if 'translator' in chap_content_raw[0].text.lower() else chap_content_raw
-                chap_content = []
-                for chap_p in chap_content_raw:
-                    chap = chap_p.html
-                    chap = multiple_replace(self.to_repl, chap)
-                    if len(chap):
-                        chap = f'<p>{chap}</p>'
-                        chap_content.append(chap)
+        #         chap_content_raw = r_chap.html.find('.reading-content p')
+        #         chap_content_raw = chap_content_raw[1:] if 'translator' in chap_content_raw[0].text.lower() else chap_content_raw
+        #         chap_content = []
+        #         for chap_p in chap_content_raw:
+        #             chap = chap_p.html
+        #             chap = multiple_replace(self.to_repl, chap)
+        #             if len(chap):
+        #                 chap = f'<p>{chap}</p>'
+        #                 chap_content.append(chap)
 
-                b_chap_list.append({
-                    'c_id': chap_tit_id,
-                    'c_title': chap_tit,
-                    'c_content': ''.join(chap_content),
-                })
-            except IndexError as e:
-                # print(f'Book has: {b_chaps_len - 1} chapters')
-                b_chap_list.append({
-                    'updated': b_chaps_len - 1,
-                    'last': bn_chap_url,
-                })
-                break
-        return b_chap_list
+        #         b_chap_list.append({
+        #             'c_id': chap_tit_id,
+        #             'c_title': chap_tit,
+        #             'c_content': ''.join(chap_content),
+        #         })
+        #     except IndexError as e:
+        #         # print(f'Book has: {b_chaps_len - 1} chapters')
+        #         b_chap_list.append({
+        #             'updated': b_chaps_len - 1,
+        #             'last': bn_chap_url,
+        #         })
+        #         break
+        # return b_chap_list
 
     def substitute_db_book_info(self, qs):
         f_books_wn = self.get_filter_db_books(qs, wn=True)
