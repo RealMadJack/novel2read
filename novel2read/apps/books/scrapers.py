@@ -65,30 +65,40 @@ class BookScraper:
         except (BookTag.DoesNotExist, Book.DoesNotExist) as e:
             raise e
 
+    def update_db_book_data(self, book, data):
+        print(f'Updating book: {book}')
+        data = data[0] if isinstance(data, list) else data
+        book.title = data['book_name']
+        book.title_sm = data['book_name_sm']
+        book.author.append(data['book_info_author']) if data['book_info_author'] not in book.author else False
+        book.description = data['book_desc']
+        poster_filename = download_img(data['book_poster_url'], slugify(data['book_name']))
+        book.poster = f'posters/{poster_filename}'
+        book.rating = data['book_rating']
+        if data['chap_release'] == 'completed':
+            book.status_release = 1
+        elif isinstance(data['chap_release'], int):
+            book.chapters_release = data['chap_release']
+        for tag in data['book_tag_list']:
+            self.create_book_tag(tag)
+            self.add_book_booktag(book, tag)
+        book.visited = True
+        # book.save()  # prevent celery post_save closure
+
     def create_book_chapter(self, book, c_title, c_content):
         print(f'Creating: {c_title}')
         bookchapter = BookChapter.objects.create(book=book, title=c_title, text=c_content)
         return bookchapter
 
-    def wn_get_book_cids(self, book_url, s_from=0, s_to=0):
-        driver_opts = webdriver.ChromeOptions()
-        driver_opts.add_argument('headless')
-        driver_opts.add_argument('disable-gpu')
-        driver_opts.add_argument('log-level=3')
-        driver_opts.add_argument('silent')
-
-        driver = webdriver.Chrome(chrome_options=driver_opts)
-        wait = WebDriverWait(driver, 5)
-        driver.get(book_url)
-        # DOM
-        driver.find_element_by_css_selector('a.j_show_contents').click()
-        if s_to:
-            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li')[s_from:s_to])
+    def create_update_db_book_chaps(self, book, bookchaps):
+        """
+        TODO: check book chapter uniq (check last chap c_id)
+        """
+        if isinstance(bookchaps, list) and len(bookchaps) > 0:
+            for chap in bookchaps[0:-1]:
+                self.create_book_chapter(book, chap['c_title'], chap['c_content'])
         else:
-            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
-        c_ids = [li.get_attribute("data-cid") for li in c_list]
-        driver.close()
-        return c_ids
+            raise Exception("You didn't provide chapter list")
 
     def wn_get_book_data(self, book_url):
         session = HTMLSession()
@@ -123,6 +133,27 @@ class BookScraper:
         })
         return book
 
+    def wn_get_book_cids(self, book_url, s_from=0, s_to=0):
+        driver_opts = webdriver.ChromeOptions()
+        driver_opts.add_argument('headless')
+        driver_opts.add_argument('disable-gpu')
+        driver_opts.add_argument('log-level=3')
+        driver_opts.add_argument('silent')
+
+        driver = webdriver.Chrome(chrome_options=driver_opts)
+        wait = WebDriverWait(driver, 5)
+        driver.get(book_url)
+        # DOM
+        driver.find_element_by_css_selector('a.j_show_contents').click()
+        if s_to:
+            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li')[s_from:s_to])
+        else:
+            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
+        c_ids = [li.get_attribute("data-cid") for li in c_list]
+        driver.close()
+        return c_ids
+
+    # bn_get_book_chap same
     def wn_get_book_chaps(self, book_url, c_ids):
         session = HTMLSession()
         c_ids_len = len(c_ids)
@@ -173,35 +204,9 @@ class BookScraper:
 
         return book
 
-    def update_db_book_data(self, book, data):
-        print(f'Updating book: {book}')
-        data = data[0] if isinstance(data, list) else data
-        book.title = data['book_name']
-        book.title_sm = data['book_name_sm']
-        book.author.append(data['book_info_author']) if data['book_info_author'] not in book.author else False
-        book.description = data['book_desc']
-        poster_filename = download_img(data['book_poster_url'], slugify(data['book_name']))
-        book.poster = f'posters/{poster_filename}'
-        book.rating = data['book_rating']
-        if data['chap_release'] == 'completed':
-            book.status_release = 1
-        elif isinstance(data['chap_release'], int):
-            book.chapters_release = data['chap_release']
-        for tag in data['book_tag_list']:
-            self.create_book_tag(tag)
-            self.add_book_booktag(book, tag)
-        book.visited = True
-        # book.save()  # prevent celery post_save closure
-
-    def create_update_db_book_chaps(self, book, bookchaps):
-        """
-        TODO: check book chapter uniq (check last chap c_id)
-        """
-        if isinstance(bookchaps, list) and len(bookchaps) > 0:
-            for chap in bookchaps[0:-1]:
-                self.create_book_chapter(book, chap['c_title'], chap['c_content'])
-        else:
-            raise Exception("You didn't provide chapter list")
+    # bn_get_update_book_chaps same
+    def wn_get_update_book_chaps(self, book, book_url, s_to=0):
+        pass
 
     def bn_get_book_chap(self, bn_chap_url):
         session = HTMLSession()
