@@ -718,8 +718,10 @@ a.disabled, button.disabled {
       width: 165px; }
 
 .tag-card {
-  display: inline-block;
-  min-width: 200px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 200px;
   position: relative;
   margin-right: 10px;
   margin-bottom: 15px; }
@@ -1026,7 +1028,7 @@ a.disabled, button.disabled {
         grid-template-columns: 50px 1fr;
         grid-gap: 0 5px;
         border: 1px solid #6A57F9;
-        border-radius: 8px;
+        border-radius: 3px;
         color: black; }
         .book .bookbody__tabs--chaps .chap-nav-card a:hover, .book .bookbody__tabs--chaps .chap-nav-card a:active, .book .bookbody__tabs--chaps .chap-nav-card a:focus {
           color: #6A57F9; }
@@ -1496,7 +1498,7 @@ a.disabled, button.disabled {
     grid-gap: 0 10px;
     grid-template-columns: repeat(3, 1fr); }
   .tag-card {
-    min-width: 140px;
+    width: 140px;
     font-size: .9rem; }
   .browsebooks__books .book-lg-wide {
     margin-bottom: 30px; }
@@ -1784,7 +1786,7 @@ a.disabled, button.disabled {
     grid-gap: 0 10px;
     grid-template-columns: repeat(2, 1fr); }
   .tag-card {
-    min-width: 120px;
+    width: 120px;
     font-size: .8rem; }
   .tag-card.active::before {
     width: 100%; } }
