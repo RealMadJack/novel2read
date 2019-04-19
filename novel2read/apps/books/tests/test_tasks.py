@@ -53,6 +53,7 @@ class BookTasksTest(TestCase):
         Test celery initial scraper info + unlocked chapters
         s_to=5 (first 5 chapters)
         """
+        s_to = 5
         res = book_scraper_info.apply_async(args=(self.book.pk, ))
         self.book.refresh_from_db()
         book_tags = self.book.booktag.all()
@@ -67,31 +68,40 @@ class BookTasksTest(TestCase):
         res = book_scraper_info.apply_async(args=(self.book.pk, ))
         self.assertEqual(res.state, states.IGNORED)
 
-        res = book_scraper_chaps.apply_async(args=(self.book.pk, ), kwargs={'s_to': 5, })
+        res = book_scraper_chaps.apply_async(args=(self.book.pk, ), kwargs={'s_to': s_to, })
         self.book.refresh_from_db()
         b_chaps = self.book.bookchapters.all()
         b_chaps_list = list(b_chaps)
         b_chaps_f = b_chaps_list[0]
         b_chaps_l = b_chaps_list[-1]
         self.assertEqual(res.state, states.SUCCESS)
-        self.assertEqual(len(b_chaps_list), 5)
+        self.assertEqual(len(b_chaps_list), s_to)
         self.assertEqual(b_chaps_f.slug, 'swindler')
         self.assertEqual(b_chaps_l.slug, 'young-mistress')
 
     # @tag('slow')  # 30s
     def test_book_scraper_revisit_webnovel(self):
+        s_to_init = 2
+        s_to = 4
         self.book.visited = True
+        self.book.revisit_id = self.book.visit_id
         self.book.save()
-        # res = book_scraper_chaps.apply_async(args=(self.book.pk, ), kwargs={'s_to': 5, })
+        res = book_scraper_chaps.apply_async(args=(self.book.pk, ), kwargs={'s_to': s_to_init, })
         self.book.refresh_from_db()
-        # b_chaps = self.book.bookchapters.all()
-        # b_chaps_list = list(b_chaps)
-        # b_chaps_f = b_chaps_list[0]
-        # b_chaps_l = b_chaps_list[-1]
-        # self.assertEqual(res.state, states.SUCCESS)
-        # self.assertEqual(len(b_chaps_list), 5)
-        # self.assertEqual(b_chaps_f.slug, 'swindler')
-        # self.assertEqual(b_chaps_l.slug, 'young-mistress')
-
-        res = book_scraper_chaps_update.apply_async(kwargs={'s_to': 10, })
+        b_chaps = self.book.bookchapters.all()
+        b_chaps_list = list(b_chaps)
+        b_chaps_f = b_chaps_list[0]
+        b_chaps_l = b_chaps_list[-1]
         self.assertEqual(res.state, states.SUCCESS)
+        self.assertEqual(len(b_chaps_list), s_to_init)
+        self.assertEqual(b_chaps_f.slug, 'swindler')
+        self.assertEqual(b_chaps_l.slug, 'shameless')
+
+        res = book_scraper_chaps_update.apply_async(kwargs={'s_to': s_to, })
+        self.book.refresh_from_db()
+        b_chaps = list(self.book.bookchapters.all())
+        self.assertEqual(res.state, states.SUCCESS)
+        self.assertTrue(self.book.revisited)
+        self.assertEqual(self.book.bookchapters.count(), s_to)
+        self.assertEqual(b_chaps[2].slug, 'imperfections-in-heavens-path')
+        self.assertEqual(b_chaps[3].slug, 'slapping-face')
