@@ -73,7 +73,7 @@ class Book(TimeStampedModel):
     author = ArrayField(models.CharField(max_length=112), blank=True, default=list)
     country = models.CharField(default='', max_length=255, blank=True)
     description = models.TextField(_('Description'), blank=True, default='')
-    volumes = ArrayField(models.SmallIntegerField(default=0), blank=True, default=list)
+    volumes = ArrayField(models.SmallIntegerField(default=1), blank=True, default=list)
     chapters_count = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
     chapters_release = models.SmallIntegerField(_('Chapters update'), blank=True, null=True, default=0)
     poster = models.ImageField(
