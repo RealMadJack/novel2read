@@ -5,6 +5,7 @@ from django.db.models import CharField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from .managers import UserManager
@@ -76,6 +77,7 @@ class BookProgress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='%(class)ses')
     book = models.OneToOneField(Book, on_delete=models.CASCADE, primary_key=True)
     c_id = models.IntegerField('Progress ID', blank=True, null=True, default=0, db_index=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True)
 
     class Meta:
         verbose_name = 'Book Progress'

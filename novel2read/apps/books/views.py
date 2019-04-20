@@ -174,7 +174,7 @@ class BookRankingView(ListView):
         user_auth = self.request.user.is_authenticated
         books = qs[3:]
         books_top = qs[:3]
-        paginator = Paginator(books, 2)
+        paginator = Paginator(books, 7)
         page = self.request.GET.get('page')
         books = paginator.get_page(page)
         context = {

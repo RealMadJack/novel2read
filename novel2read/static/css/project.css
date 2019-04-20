@@ -107,7 +107,7 @@ a.disabled, button.disabled {
     margin: 0 10px;
       margin-left: 7px; }
 
-.fas, .far {
+.fas, .far, .fal {
   pointer-events: none; }
 
 .c-grn {
@@ -287,7 +287,8 @@ a.disabled, button.disabled {
       padding-top: 8px; }
 
 .mw-swiper {
-  width: calc(100% - 22.5%); }
+  width: calc(100% - 22.5%);
+  max-width: 1600px; }
   .mw-swiper .row {
     position: relative; }
 
@@ -313,7 +314,7 @@ a.disabled, button.disabled {
   background-image: none;
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
-  .swiper-button-prev .fas, .swiper-button-prev .fal, .swiper-button-next .fas, .swiper-button-next .fal {
+  .swiper-button-prev .fas, .swiper-button-prev .far, .swiper-button-prev .fal, .swiper-button-next .fas, .swiper-button-next .far, .swiper-button-next .fal {
     font-size: 48px;
     font-size: 3rem; }
   .swiper-button-prev:hover, .swiper-button-next:hover {
@@ -439,7 +440,7 @@ a.disabled, button.disabled {
       font-size: 17.6px;
       font-size: 1.1rem;
       color: #6A57F9;
-      font-weight: bold;
+      font-weight: 600;
       padding: 6px 32px;
       padding: 6px 2rem; }
       .frontpage__promo .btn-grp .btn:focus, .frontpage__promo .btn-grp .btn:active {
@@ -575,11 +576,11 @@ a.disabled, button.disabled {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center; }
-    .rankcard__nav .fas {
+    .rankcard__nav .fas, .rankcard__nav .far, .rankcard__nav .fal {
       font-size: 12.8px;
       font-size: .8rem;
       padding-right: 5px; }
-      .rankcard__nav .fas a .btn {
+      .rankcard__nav .fas a .btn, .rankcard__nav .far a .btn, .rankcard__nav .fal a .btn {
         margin: 0;
         padding: 0; }
     .rankcard__nav > form, .rankcard__nav > a, .rankcard__nav > .btn {
@@ -663,7 +664,7 @@ a.disabled, button.disabled {
       margin-bottom: 10px; }
     .rankcard-wide__info .stars-rating-sm {
       margin-bottom: 20px; }
-    .rankcard-wide__info--nav .fas {
+    .rankcard-wide__info--nav .fas, .rankcard-wide__info--nav .far, .rankcard-wide__info--nav .fal {
       font-size: 12.8px;
       font-size: .8rem;
       padding-right: 5px;
@@ -706,7 +707,7 @@ a.disabled, button.disabled {
       font-weight: bold;
       margin-bottom: 15px;
       text-align: center; }
-    .rankcard-wide__nav .fas {
+    .rankcard-wide__nav .fas, .rankcard-wide__nav .far, .rankcard-wide__nav .fal {
       font-size: 12.8px;
       font-size: .8rem;
       padding-right: 5px; }
@@ -776,8 +777,8 @@ a.disabled, button.disabled {
       padding: 6px 13px;
       border-radius: 0;
       border: 0;
-      background-color: #E61A80; }
-      .libcard__remove .btn .fas {
+      background-color: #6A57F9; }
+      .libcard__remove .btn .fas, .libcard__remove .btn .far, .libcard__remove .btn .fal {
         font-size: 14.4px;
         font-size: .9rem;
         color: #fff; }
@@ -815,7 +816,7 @@ a.disabled, button.disabled {
   font-weight: normal;
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
-  .filters-dropdown .fas, .tags-dropdown .fas {
+  .filters-dropdown .fas, .filters-dropdown .far, .filters-dropdown .fal, .tags-dropdown .fas, .tags-dropdown .far, .tags-dropdown .fal {
     font-size: 24px;
     font-size: 1.5rem; }
   .filters-dropdown::after, .tags-dropdown::after {
@@ -978,7 +979,7 @@ a.disabled, button.disabled {
           font-size: 19.2px;
           font-size: 1.2rem;
           padding: 10px 30px; }
-        .book .bookhead__info--read .fas {
+        .book .bookhead__info--read .fas, .book .bookhead__info--read .far, .book .bookhead__info--read .fal {
           font-size: 16px;
           font-size: 1rem;
           padding-right: 10px; }
@@ -1072,7 +1073,7 @@ a.disabled, button.disabled {
             -ms-flex-align: center;
                 align-items: center;
         margin-right: 20px; }
-        .book .bookbody__vote .votecard--ranking .fas {
+        .book .bookbody__vote .votecard--ranking .fas, .book .bookbody__vote .votecard--ranking .far, .book .bookbody__vote .votecard--ranking .fal {
           color: #6A57F9;
           font-size: 32px;
           font-size: 2rem;
@@ -1161,7 +1162,7 @@ a.disabled, button.disabled {
               order: 3; }
     .bookchapter__nav--link .btn {
       padding: 4px 22px; }
-      .bookchapter__nav--link .btn .fas {
+      .bookchapter__nav--link .btn .fas, .bookchapter__nav--link .btn .far, .bookchapter__nav--link .btn .fal {
         font-size: 19.2px;
         font-size: 1.2rem; }
     .bookchapter__nav--link .btn-dark {
@@ -1242,7 +1243,7 @@ a.disabled, button.disabled {
 
 .bookchapter__styles {
   position: relative; }
-  .bookchapter__styles .fas {
+  .bookchapter__styles .fas, .bookchapter__styles .far, .bookchapter__styles .fal {
     pointer-events: none; }
   .bookchapter__styles .styles {
     display: -webkit-box;
@@ -1522,7 +1523,7 @@ a.disabled, button.disabled {
       width: 100%;
       font-size: 1rem;
       padding: 10px 23px; }
-    .book .bookhead__info--read .fas {
+    .book .bookhead__info--read .fas, .book .bookhead__info--read .far, .book .bookhead__info--read .fal {
       font-size: .9rem; }
   .book .bookbody__tabs--chaps .chap-latest {
     display: inline-grid;
@@ -1535,7 +1536,7 @@ a.disabled, button.disabled {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex; }
-    .book .bookbody .votecard--ranking .fas {
+    .book .bookbody .votecard--ranking .fas, .book .bookbody .votecard--ranking .far, .book .bookbody .votecard--ranking .fal {
       font-size: 1.5rem;
       margin: 0 10px; }
     .book .bookbody .votecard--ranking span:first-of-type {
@@ -1751,7 +1752,7 @@ a.disabled, button.disabled {
     .book .bookbody .votecard--ranking {
       margin-right: 0;
       margin-bottom: 1rem; }
-      .book .bookbody .votecard--ranking .fas {
+      .book .bookbody .votecard--ranking .fas, .book .bookbody .votecard--ranking .far, .book .bookbody .votecard--ranking .fal {
         font-size: 1.5rem;
         margin: 0 10px; }
       .book .bookbody .votecard--ranking span:first-of-type {
