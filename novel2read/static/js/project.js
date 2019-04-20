@@ -9,14 +9,15 @@ const ajaxDelaySearch = 350
 
 
 // Infinite Scroll
-var infinite = new Waypoint.Infinite({
-    element: $('.infinite-container')[0],
-    onBeforePageLoad: () => {
-        $('.loading').show();
-    },
-    onAfterPageLoad: ($items) => {
-        $('.loading').hide();
-    },
+let scrollThreshold = location.pathname === "/" ? false : true;
+let scrollHistory = location.pathname === "/" ? false : true;
+$('.infinite-container').infiniteScroll({
+    path: '.infinite-more-link',
+    append: '.infinite-item',
+    button: '.infinite-more-link',
+    scrollThreshold: scrollThreshold,
+    status: '.loading',
+    history: scrollHistory,
 });
 
 

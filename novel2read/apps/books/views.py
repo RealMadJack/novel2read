@@ -20,10 +20,12 @@ from .utils import capitalize_slug
 class FrontPageView(View):
     def get(self, request, *args, **kwargs):
         books = Book.objects.published().prefetch_related('bookchapters').filter(recommended=True).random_qslist(only=8)
-        b_chaps = BookChapter.objects.select_related('book').order_by('-created')
-        b_chaps = list(b_chaps)[:20]
+        b_chaps = BookChapter.objects.select_related('book').order_by('book_id', '-created').distinct('book_id')
         promo_title = 'Read your favourite novels with comfort'
         promo_subtitle = 'Get access to the latest releases of novels and light-novels.'
+        paginator = Paginator(b_chaps, 10)
+        page = self.request.GET.get('page')
+        b_chaps = paginator.get_page(page)
         context = {'books': books, 'b_chaps': b_chaps, 'promo_title': promo_title, 'promo_subtitle': promo_subtitle}
 
         return render(request, template_name='books/front_page.html', context=context)
@@ -172,7 +174,7 @@ class BookRankingView(ListView):
         user_auth = self.request.user.is_authenticated
         books = qs[3:]
         books_top = qs[:3]
-        paginator = Paginator(books, 5)
+        paginator = Paginator(books, 2)
         page = self.request.GET.get('page')
         books = paginator.get_page(page)
         context = {

@@ -85,9 +85,9 @@
       <div class="frontpage__latest--title">
         <h2 class="h2-title">Latest updates:</h2>
       </div>
-      <div class="row mt-30">
+      <div class="row mt-30 infinite-container">
       {% for b_chap in b_chaps %}
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12 infinite-item">
           <a href="{{b_chap.get_absolute_url}}" class="b-chap-card-sm">
             <div class="b-chap-card-sm__poster">
               <img src="{{b_chap.book.poster.url}}" alt="{{b_chap.book.title}}">
@@ -95,7 +95,7 @@
             <div class="b-chap-card-sm__info">
               <h3 class="h3-title-sm">{{b_chap.book.title}}</h3>
               <h4 class="h4-title-sm">
-                <span>#{{b_chap.c_id}}: {{b_chap.title}}</span>
+                <span>Chapter {{b_chap.c_id}}: {{b_chap.title}}</span>
                 <small>{{b_chap.created|naturaltime}}</small>
               </h4>
             </div>
@@ -103,6 +103,14 @@
         </div>
       {% endfor %}
       </div>
+
+      {% if b_chaps.has_next %}
+        <a class="infinite-more-link mb-30"
+           href="?page={{ b_chaps.next_page_number }}">
+           <button class="btn btn-dark">More</button>
+        </a>
+      {% endif %}
+
     </div>
   </div>
 
