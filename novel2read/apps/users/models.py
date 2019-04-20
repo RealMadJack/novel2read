@@ -78,6 +78,7 @@ class BookProgress(models.Model):
     book = models.OneToOneField(Book, on_delete=models.CASCADE, primary_key=True)
     c_id = models.IntegerField('Progress ID', blank=True, null=True, default=0, db_index=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Book Progress'
