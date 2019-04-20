@@ -39,6 +39,9 @@
         <div class="chaps">
           <button class="chaps--toggle btn" id="chaps-toggle"><i class="fas fa-list"></i></button>
           <ul class="chaps--nav scrollbar" id="chaps-nav">
+            {% if not bookchapter.book.volumes %}
+              <span class="chaps--volume">Volume 1</span>
+            {% endif %}
             {% for chapter in bookchapters %}
               {% with loop_counter=forloop.counter %}
                 {% if chapter.book.volumes|length >= 1 %}

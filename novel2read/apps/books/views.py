@@ -21,7 +21,7 @@ class FrontPageView(View):
     def get(self, request, *args, **kwargs):
         books = Book.objects.published().prefetch_related('bookchapters').filter(recommended=True).random_qslist(only=8)
         b_chaps = BookChapter.objects.select_related('book').order_by('-created')
-        b_chaps = list(b_chaps)[:10]
+        b_chaps = list(b_chaps)[:20]
         promo_title = 'Read your favourite novels with comfort'
         promo_subtitle = 'Get access to the latest releases of novels and light-novels.'
         context = {'books': books, 'b_chaps': b_chaps, 'promo_title': promo_title, 'promo_subtitle': promo_subtitle}
