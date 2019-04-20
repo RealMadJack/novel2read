@@ -295,14 +295,16 @@ a.disabled, button.disabled {
   width: 100%;
   margin: 0 12px;
   padding-top: 50px;
-  padding-bottom: 50px;
-  visibility: visible;
-  opacity: 0; }
+  padding-bottom: 50px; }
 
 .swiper-slide {
-  display: inline-table;
   width: 640px;
-  height: 350px; }
+  height: 350px;
+  opacity: .0;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease; }
+  .swiper-slide-active, .swiper-slide-prev, .swiper-slide-next {
+    opacity: 1; }
 
 .swiper-button-prev, .swiper-button-next {
   padding: 0;

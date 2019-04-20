@@ -282,13 +282,14 @@ a.disabled, button.disabled
   margin: 0 12px
   padding-top: 50px
   padding-bottom: 50px
-  visibility: visible
-  opacity: 0
 
 .swiper-slide
-  display: inline-table
   width: 640px
   height: 350px
+  opacity: .0
+  transition: all .3s ease
+  &-active, &-prev, &-next
+    opacity: 1
 .swiper-button-prev, .swiper-button-next
   padding: 0
   border-radius: 50%
