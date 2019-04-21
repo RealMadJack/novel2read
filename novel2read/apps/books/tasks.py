@@ -80,9 +80,17 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
             book_url = f'{url_bb}{book.visit_id}'
             c_ids = scraper.wn_get_book_cids(book_url)
             c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
-            scraper.wn_get_update_book_chaps(book, book_url, c_ids)
-            # bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
-            # scraper.create_update_db_book_chaps(book, bookchaps)
+            b_chap_info = scraper.wn_get_update_book_chaps(book, book_url, c_ids)
+            b_result = '\n'.join([f'{k}: {v},' for k, v in b_chap_info.items()])
+            save_celery_result(
+                task_id=self.request.id,
+                task_name=self.name,
+                status=states.SUCCESS,
+                result=f"""
+                    Updated book: {book.title}
+                    {b_result}
+                """,
+            )
         except Exception as exc:
             save_celery_result(
                 task_id=self.request.id,
@@ -116,18 +124,15 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                 if to_visit == 'webnovel':
                     c_ids = scraper.wn_get_book_cids(book_url)
                     c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
-                    bookchaps = scraper.wn_get_book_chaps(book_url, c_ids)
-                    scraper.create_update_db_book_chaps(book, bookchaps)
+                    b_chap_info = scraper.wn_get_update_book_chaps(book_url, c_ids)
+                    b_result = '\n'.join([f'{k}: {v},' for k, v in b_chap_info.items()])
                     save_celery_result(
                         task_id=self.request.id,
                         task_name=self.name,
                         status=states.SUCCESS,
                         result=f"""
-                            Updated book: {book.title};
-                            Unlocked: {bookchaps[-1]['unlocked']}
-                            Locked: {bookchaps[-1]['locked']}
-                            Loked_from: {bookchaps[-1]['locked_from']}
-                            Loked_from_id: {bookchaps[-1]['locked_from_id']}
+                            Updated book: {book.title}
+                            {b_result}
                         """,
                     )
                 elif to_visit == 'boxnovel':

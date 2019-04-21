@@ -195,9 +195,6 @@ class BookScraper:
         return book
 
     def wn_get_book_chap(self, wn_chap_url):
-        """
-        visit wn_chap_url get_content - return object
-        """
         session = HTMLSession()
         r_chap = session.get(wn_chap_url)
         print(wn_chap_url)
@@ -227,13 +224,21 @@ class BookScraper:
             return b_chap
         return chap_tit_raw
 
-    # bn_get_update_book_chaps same
     def wn_get_update_book_chaps(self, book, book_url, c_ids, s_to=0):
-        """
-        loop through c_ids - wn_get_book_chap - save_book_chap - repeat
-        return stat_info
-        """
-        pass
+        s_from = book.bookchapters.count()
+        c_ids = c_ids[s_from:] if not s_to else c_ids[s_from:s_to]
+
+        for c_id in c_ids:
+            bn_chap_url = f'{book_url}/{c_id}'
+            b_chap = self.wn_get_book_chap(bn_chap_url)
+            if isinstance(b_chap, dict):
+                self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+        b_chap = b_chap['c_title'] if isinstance(b_chap, dict) else b_chap
+        b_chap_info = {
+            'Source': 'webnovel',
+            'locked_ended_from': b_chap,
+        }
+        return b_chap_info
 
     def bn_get_book_chap(self, bn_chap_url):
         session = HTMLSession()
@@ -260,13 +265,11 @@ class BookScraper:
             'c_title': chap_tit,
             'c_content': ''.join(chap_content)[:4],
         }
-
         return b_chap
 
     def bn_get_update_book_chaps(self, book, book_url, s_to=0):
         s_to = s_to + 1 if s_to else s_to
-        b_chaps = book.bookchapters.all()
-        b_chaps_len = b_chaps.count()
+        b_chaps_len = book.bookchapters.count()
         c_ids = list(range(b_chaps_len + 1, s_to)) if s_to else False
 
         if s_to:

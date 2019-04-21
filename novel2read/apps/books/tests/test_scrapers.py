@@ -136,9 +136,23 @@ class BookScraperTest(TestCase):
         self.assertIn('101', resp_locked.lower())
         self.assertIn('chapter', resp_locked.lower())
 
+    @factory.django.mute_signals(signals.post_save)
+    @tag('slow')  # +20s
+    def test_wn_get_update_book_chaps(self):
+        c_ids = self.scraper.wn_get_book_cids(self.wn_url)
+        res = self.scraper.wn_get_update_book_chaps(self.book, self.wn_url, c_ids, s_to=5)
+        b_chaps = list(self.book.bookchapters.all())
+        self.assertTrue(isinstance(res, dict))
+        self.assertEqual(len(b_chaps), 5)
+        self.assertEqual(b_chaps[-1].slug, 'dying-house-of-horrors')
+        self.assertEqual(b_chaps[0].slug, '25-minutes-and-14-seconds')
+
+    def test_bn_get_book_chap(self):
+        pass
+
     @tag('slow')  # +30s
-    def test_bn_get_book_chaps(self):
-        resp = self.scraper.bn_get_book_chaps(self.book, self.bn_url, s_from=450)
+    def bn_get_update_book_chaps(self):
+        resp = self.scraper.bn_get_update_book_chaps(self.book, self.bn_url, s_to=5)
         resp_info = resp[-1]
         # test chap content
         for chap in resp[0:-1]:
@@ -155,16 +169,3 @@ class BookScraperTest(TestCase):
         self.assertTrue(isinstance(resp_info['last'], str))
         self.assertNotEqual(resp_info['updated'], 0)
         self.assertNotEqual(len(resp_info['last']), 0)
-
-    # @tag('slow')  # 5+ minutes
-    # def test_substitute_db_book_info(self):
-    #     qs = Book.objects.all()
-    #     self.scraper.substitute_db_book_info(qs)
-    #     book = Book.objects.last()
-    #     b_chap = book.bookchapters
-    #     self.assertEqual(book.title, 'My House Of Horrors')
-    #     self.assertTrue(book.booktag.count() > 3)
-    #     self.assertEqual(book.visited_wn, True)
-    #     self.assertTrue(b_chap.count() >= 415)
-    #     self.assertTrue(b_chap.last().c_id >= 415)
-    #     self.assertEqual(book.visited_bn, True)
