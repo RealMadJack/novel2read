@@ -143,57 +143,6 @@ class BookScraper:
         driver.close()
         return c_ids
 
-    # bn_get_book_chap same
-    def wn_get_book_chaps(self, book_url, c_ids):
-        session = HTMLSession()
-        c_ids_len = len(c_ids)
-        c_unlocked = 0
-        book = []
-
-        for c_id in c_ids:
-            wn_chap = f'{book_url}/{c_id}'
-            print(wn_chap)
-            r_chap = session.get(wn_chap)
-            chap_tit_raw = r_chap.html.find('.cha-tit h3')[0].text
-            chap_lock = r_chap.html.find('.cha-content._lock')
-
-            if len(chap_lock) == 0:
-                chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].strip().replace('‽', '?!')
-                chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
-
-                logging.info(f'Unlocked: {chap_tit}')
-
-                chap_content_raw = r_chap.html.find('.cha-words p')
-                chap_content = []
-                for chap_p in chap_content_raw:
-                    chap = chap_p.html
-                    chap = multiple_replace(self.to_repl, chap)
-                    if len(chap):
-                        chap = f'<p>{chap}</p>'
-                        chap_content.append(chap)
-
-                book.append({
-                    'c_id': chap_tit_id,
-                    'c_title': chap_tit,
-                    'c_content': ''.join(chap_content),
-                })
-                c_unlocked += 1
-                continue
-            else:
-                break
-
-        # Stats
-        c_locked = c_ids_len - c_unlocked
-        logging.info(f'Unlocked: {c_unlocked}, Locked: {c_locked}, Locked from: {chap_tit_raw}')
-        book.append({
-            'unlocked': c_unlocked,
-            'locked': c_locked,
-            'locked_from': chap_tit_raw,
-            'locked_from_id': int(re.findall('\d+', chap_tit_raw)[0]),
-        })
-
-        return book
-
     def wn_get_book_chap(self, wn_chap_url):
         session = HTMLSession()
         r_chap = session.get(wn_chap_url)
