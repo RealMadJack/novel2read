@@ -26,6 +26,10 @@ def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
         )
 
         if not instance.chapters_count:
+            schedule, created = IntervalSchedule.objects.get_or_create(
+                every=20,
+                period=IntervalSchedule.SECONDS,
+            )
             PeriodicTask.objects.create(
                 one_off=True,
                 interval=schedule,

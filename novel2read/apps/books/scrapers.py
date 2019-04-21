@@ -7,10 +7,10 @@ from datetime import datetime
 from requests_html import HTMLSession
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.remote.remote_connection import LOGGER
+# from selenium.webdriver.remote.remote_connection import LOGGER
 
 from .models import Book, BookChapter, BookTag
-from .utils import download_img, multiple_replace, capitalize_str
+from .utils import download_img, multiple_replace
 
 # Logging restrictions
 # LOGGER.setLevel(logging.WARNING)
@@ -143,6 +143,35 @@ class BookScraper:
         driver.close()
         return c_ids
 
+    def raw_html_text_filter(self, html_text):
+        if html_text[0].text[:100] == html_text[1].text[:100]:
+            del html_text[0]
+        if len(html_text[0].text) >= 2500:
+            del html_text[0]
+        for i, text_node in enumerate(html_text):
+            text = text_node.text.lower()
+            html = text_node.html.lower()
+            # print(html_node)
+            if i >= 5:
+                break
+            if text.startswith('chapter'):
+                del text_node
+            if 'translator' and 'editor' in text:
+                del text_node
+            if '<ol' in html:
+                del text_node
+
+        filtered_html_text = []
+
+        for text_node in html_text:
+            text_node = text_node.html
+            node = multiple_replace(self.to_repl, text_node)
+            if len(node):
+                node = f'<p>{node}</p>'
+                filtered_html_text.append(node)
+
+        return filtered_html_text
+
     def wn_get_book_chap(self, wn_chap_url):
         session = HTMLSession()
         r_chap = session.get(wn_chap_url)
@@ -154,21 +183,12 @@ class BookScraper:
             chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].strip().replace('‽', '?!')
             chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
 
-            logging.info(f'Unlocked: {chap_tit}')
-
             chap_content_raw = r_chap.html.find('.cha-words p')
-            chap_content = []
-            for chap_p in chap_content_raw:
-                chap = chap_p.html
-                chap = multiple_replace(self.to_repl, chap)
-                if len(chap):
-                    chap = f'<p>{chap}</p>'
-                    chap_content.append(chap)
-
+            chap_content_filtered = self.raw_html_text_filter(chap_content_raw)
             b_chap = {
                 'c_id': chap_tit_id,
                 'c_title': chap_tit,
-                'c_content': ''.join(chap_content),
+                'c_content': ''.join(chap_content_filtered),
             }
             return b_chap
         return chap_tit_raw
@@ -182,6 +202,8 @@ class BookScraper:
             b_chap = self.wn_get_book_chap(bn_chap_url)
             if isinstance(b_chap, dict):
                 self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+            else:
+                break
         b_chap = b_chap['c_title'] if isinstance(b_chap, dict) else b_chap
         b_chap_info = {
             'Source': 'webnovel',

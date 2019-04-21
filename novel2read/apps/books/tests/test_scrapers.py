@@ -119,7 +119,7 @@ class BookScraperTest(TestCase):
         self.assertEqual(len(resp), 5)
         self.assertEqual(resp[0], '30952845050180675')
 
-    @tag('slow')  # +4s
+    # @tag('slow')  # +4s
     def test_wn_get_book_chap(self):
         url = f'{self.wn_url}{self.wn_cids[0]}'
         url_locked = f'{self.wn_url}{self.wn_cids[5]}'
