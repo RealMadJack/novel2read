@@ -38,6 +38,35 @@ class BookScraper:
             '<?php': '',
         }
 
+    def raw_html_text_filter(self, html_text):
+        if html_text[0].text[:100] == html_text[1].text[:100]:
+            del html_text[0]
+        if len(html_text[0].text) >= 2500:
+            del html_text[0]
+        for i, text_node in enumerate(html_text):
+            text = text_node.text.lower()
+            html = text_node.html.lower()
+            # print(html_node)
+            if i >= 5:
+                break
+            if text.startswith('chapter'):
+                del text_node
+            if 'translator' and 'editor' in text:
+                del text_node
+            if '<ol' in html:
+                del text_node
+
+        filtered_html_text = []
+
+        for text_node in html_text:
+            text_node = text_node.html
+            node = multiple_replace(self.to_repl, text_node)
+            if len(node):
+                node = f'<p>{node}</p>'
+                filtered_html_text.append(node)
+
+        return filtered_html_text
+
     def get_filter_db_books(self, qs, revisit=False):
         if revisit:
             books = qs.filter(visited=True).exclude(revisit_id__exact='')
@@ -142,35 +171,6 @@ class BookScraper:
         c_ids = [li.get_attribute("data-cid") for li in c_list]
         driver.close()
         return c_ids
-
-    def raw_html_text_filter(self, html_text):
-        if html_text[0].text[:100] == html_text[1].text[:100]:
-            del html_text[0]
-        if len(html_text[0].text) >= 2500:
-            del html_text[0]
-        for i, text_node in enumerate(html_text):
-            text = text_node.text.lower()
-            html = text_node.html.lower()
-            # print(html_node)
-            if i >= 5:
-                break
-            if text.startswith('chapter'):
-                del text_node
-            if 'translator' and 'editor' in text:
-                del text_node
-            if '<ol' in html:
-                del text_node
-
-        filtered_html_text = []
-
-        for text_node in html_text:
-            text_node = text_node.html
-            node = multiple_replace(self.to_repl, text_node)
-            if len(node):
-                node = f'<p>{node}</p>'
-                filtered_html_text.append(node)
-
-        return filtered_html_text
 
     def wn_get_book_chap(self, wn_chap_url):
         session = HTMLSession()

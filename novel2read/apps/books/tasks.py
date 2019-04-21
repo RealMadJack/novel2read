@@ -86,8 +86,7 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
                 task_id=self.request.id,
                 task_name=self.name,
                 status=states.SUCCESS,
-                result=f"""
-                    Updated book: {book.title}
+                result=f"""Updated book: {book.title}
                     {b_result}
                 """,
             )
@@ -130,8 +129,7 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                         task_id=self.request.id,
                         task_name=self.name,
                         status=states.SUCCESS,
-                        result=f"""
-                            Updated book: {book.title}
+                        result=f"""Updated book: {book.title}
                             {b_result}
                         """,
                     )

@@ -19,11 +19,12 @@ from .utils import capitalize_slug
 
 class FrontPageView(View):
     def get(self, request, *args, **kwargs):
-        books = Book.objects.published().prefetch_related('bookchapters').filter(recommended=True).random_qslist(only=8)
-        b_chaps = BookChapter.objects.select_related('book').order_by('book_id', '-created').distinct('book_id')
+        books = Book.objects.published().filter(recommended=True).random_qslist(only=8)
+        b_chaps = BookChapter.objects.order_by('book_id', '-created').distinct('book_id').values_list('id', flat=True)
+        b_chaps = BookChapter.objects.select_related('book').filter(id__in=b_chaps).order_by('-created')
         promo_title = 'Read your favourite novels with comfort'
         promo_subtitle = 'Get access to the latest releases of novels and light-novels.'
-        paginator = Paginator(b_chaps, 10)
+        paginator = Paginator(b_chaps, 12)
         page = self.request.GET.get('page')
         b_chaps = paginator.get_page(page)
         context = {'books': books, 'b_chaps': b_chaps, 'promo_title': promo_title, 'promo_subtitle': promo_subtitle}
