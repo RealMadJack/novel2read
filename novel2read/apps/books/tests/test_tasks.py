@@ -1,5 +1,7 @@
+import factory
 from celery import states
 from django.test import TestCase, tag
+from django.db.models import signals
 
 from ..models import Book, BookGenre, BookChapter
 from ..tasks import (
@@ -12,6 +14,7 @@ from ..tasks import (
 
 
 class BookTasksTest(TestCase):
+    @factory.django.mute_signals(signals.post_save)
     def setUp(self):
         self.bookgenre = BookGenre.objects.create(name='test genre')
         self.book = Book.objects.create(title='test book one', bookgenre=self.bookgenre, votes=134, status=1, visit_id='6831850602000905')

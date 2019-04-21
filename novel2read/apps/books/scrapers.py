@@ -204,8 +204,11 @@ class BookScraper:
 
         return book
 
+    def wn_get_book_chap(self, wn_chap_url):
+        pass
+
     # bn_get_update_book_chaps same
-    def wn_get_update_book_chaps(self, book, book_url, s_to=0):
+    def wn_get_update_book_chaps(self, book, book_url, c_ids, s_to=0):
         pass
 
     def bn_get_book_chap(self, bn_chap_url):

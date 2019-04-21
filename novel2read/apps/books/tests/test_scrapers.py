@@ -1,4 +1,6 @@
+import factory
 from django.test import Client, TestCase, tag
+from django.db.models import signals
 
 from ..models import Book, BookGenre, BookTag
 from ..utils import capitalize_str
@@ -6,13 +8,16 @@ from ..scrapers import BookScraper
 
 
 class BookScraperTest(TestCase):
+    @factory.django.mute_signals(signals.post_save)
     def setUp(self):
         self.client = Client()
         self.scraper = BookScraper()
         self.bookgenre = BookGenre.objects.create(name='test genre')
         self.booktag = BookTag.objects.create(name='test')
         self.booktag_1 = BookTag.objects.create(name='tag')
-        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0, visit_id='11530348105422805', revisit_id='my-house-of-horrors')
+        self.book = Book.objects.create(title='test book', bookgenre=self.bookgenre, status=0,
+            visit_id='11530348105422805', revisit_id='my-house-of-horrors'
+        )
         self.book_1 = Book.objects.create(title='test book 123', bookgenre=self.bookgenre, status=0, visited=True)
         self.book.booktag.add(self.booktag, self.booktag_1)
         self.tags = ['test', 'tag', 'alo']
@@ -59,6 +64,7 @@ class BookScraperTest(TestCase):
         added = self.scraper.add_book_booktag(self.book, tag_2)
         self.assertFalse(added)
 
+    @factory.django.mute_signals(signals.post_save)
     def test_create_book_chapter(self):
         for chap in self.chaps:
             self.scraper.create_book_chapter(
