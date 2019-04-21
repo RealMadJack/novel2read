@@ -90,16 +90,6 @@ class BookScraper:
         bookchapter = BookChapter.objects.create(book=book, title=c_title, text=c_content)
         return bookchapter
 
-    def create_update_db_book_chaps(self, book, bookchaps):
-        """
-        TODO: check book chapter uniq (check last chap c_id)
-        """
-        if isinstance(bookchaps, list) and len(bookchaps) > 0:
-            for chap in bookchaps[0:-1]:
-                self.create_book_chapter(book, chap['c_title'], chap['c_content'])
-        else:
-            raise Exception("You didn't provide chapter list")
-
     def wn_get_book_data(self, book_url):
         session = HTMLSession()
         r = session.get(book_url)
@@ -205,10 +195,44 @@ class BookScraper:
         return book
 
     def wn_get_book_chap(self, wn_chap_url):
-        pass
+        """
+        visit wn_chap_url get_content - return object
+        """
+        session = HTMLSession()
+        r_chap = session.get(wn_chap_url)
+        print(wn_chap_url)
+        chap_tit_raw = r_chap.html.find('.cha-tit h3')[0].text
+        chap_lock = r_chap.html.find('.cha-content._lock')
+
+        if len(chap_lock) == 0:
+            chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].strip().replace('‽', '?!')
+            chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
+
+            logging.info(f'Unlocked: {chap_tit}')
+
+            chap_content_raw = r_chap.html.find('.cha-words p')
+            chap_content = []
+            for chap_p in chap_content_raw:
+                chap = chap_p.html
+                chap = multiple_replace(self.to_repl, chap)
+                if len(chap):
+                    chap = f'<p>{chap}</p>'
+                    chap_content.append(chap)
+
+            b_chap = {
+                'c_id': chap_tit_id,
+                'c_title': chap_tit,
+                'c_content': ''.join(chap_content),
+            }
+            return b_chap
+        return chap_tit_raw
 
     # bn_get_update_book_chaps same
     def wn_get_update_book_chaps(self, book, book_url, c_ids, s_to=0):
+        """
+        loop through c_ids - wn_get_book_chap - save_book_chap - repeat
+        return stat_info
+        """
         pass
 
     def bn_get_book_chap(self, bn_chap_url):
