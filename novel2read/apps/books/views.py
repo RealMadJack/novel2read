@@ -123,6 +123,9 @@ class BookChapterView(DetailView):
         try:
             b_chap = BookChapter.objects.select_related('book').get(book__slug=kwargs['book_slug'], c_id=kwargs['c_id'])
             b_chaps = BookChapter.objects.filter(book__slug=kwargs['book_slug']).values('c_id', 'title', 'created').order_by('c_id')
+            for chap in b_chaps:
+                url = reverse('books:bookchapter', kwargs={'book_slug': b_chap.book.slug, 'c_id': chap['c_id']})
+                chap.update({'absolute_url': url})
 
             try:
                 prev_chap = b_chaps[kwargs['c_id'] - 2:kwargs['c_id'] - 1][0]
