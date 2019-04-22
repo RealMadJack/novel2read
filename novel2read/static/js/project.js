@@ -150,10 +150,31 @@ $.ajaxSetup({
 });
 
 
-// Ajax loading
-function ajaxLoader(btn) {
-    btn.html('<i class="fas fa-ellipsis-h"></i>')
+// Ajax theming
+function cookie_theme_post(btn) {
+    data = {
+        'theme-color': btn.attr("data-theme-color"),
+    }
+    $.ajax({
+        url: btn.attr("data-theme-url"),
+        type: "post",
+        dataType: "json",
+        data: data,
+        success: function (data) {
+            console.log(data)
+        },
+        error: function (xhr, errmsg, err) {
+            let msg = `${xhr.status} ${xhr.statusText}`
+            eventNotification(msg, 'error')
+        },
+    });
 }
+$(".js-theme").click(function () {
+    let btn = $(this);
+    wto = setTimeout(function() {
+        session_theme_post(btn);
+    }, ajaxDelay);
+})
 
 
 // Ajax Votes

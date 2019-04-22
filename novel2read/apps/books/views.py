@@ -269,7 +269,15 @@ def book_vote_ajax_view(request, *args, **kwargs):
                 user.profile.votes = F('votes') - 1
                 user.save()
                 book.votes = F('votes') + 1
-                book.save()
+                book.save(update_fields=['votes'])
             except Exception as e:
                 data['error'] = str(e)
+    return JsonResponse(data)
+
+
+def cookie_theme_ajax_view(request, *args, **kwargs):
+    data = {}
+    if request.is_ajax():
+        theme_color = request.POST.get('theme-color', 'light')
+        print(theme_color)
     return JsonResponse(data)

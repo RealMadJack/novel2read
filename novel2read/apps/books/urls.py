@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from .apps import BooksConfig
-from .views import FrontPageView, BookGenreView, BookTagView, BookView, BookChapterView, BookRankingView, BookSearchView, book_vote_view, book_vote_ajax_view
+from .views import FrontPageView, BookGenreView, BookTagView, BookView, BookChapterView, BookRankingView, BookSearchView, book_vote_view, book_vote_ajax_view, cookie_theme_ajax_view
 
 app_name = BooksConfig.verbose_name
 
@@ -22,4 +22,5 @@ urlpatterns = [
     path("books/<slug:book_slug>/vote-ajax/", book_vote_ajax_view, name="vote-ajax"),
     path("ranking/", BookRankingView.as_view(), name="ranking"),
     path("search/", BookSearchView.as_view(), name="search"),
+    path("ajax/session-theme/", cookie_theme_ajax_view, name="session-theme-ajax")
 ]

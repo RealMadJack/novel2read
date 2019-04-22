@@ -1,6 +1,5 @@
 (function () {
 
-
 // Toggles
 let chapToggle = document.getElementById('chaps-toggle');
 let chapNav = document.getElementById('chaps-nav');
@@ -37,7 +36,6 @@ let pos_url = localStorage.getItem('chap_url', '')
 let posList = localStorage.getItem('pos-list')
 let list = []
 posList = posList !== null ? posList : localStorage.setItem('pos-list', list)
-console.log(localStorage)
 
 window.onscroll = () => {
   const offset = 100;
