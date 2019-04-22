@@ -1,6 +1,7 @@
 import os
+import traceback
 from celery import Celery, Task, states
-from celery.result import AsyncResult
+from celery.exceptions import Ignore
 from django.apps import apps, AppConfig
 from django.conf import settings
 
@@ -62,11 +63,31 @@ def save_celery_result(*args, **kwargs):
 
 @app.task(bind=True)
 def clean_oneoff_tasks(self):
-    from django_celery_results.models import TaskResult
-    TaskResult.objects.filter(state=states.SUCCESS).delete()
+    try:
+        from django_celery_results.models import TaskResult
+        TaskResult.objects.filter(state=states.SUCCESS).delete()
+    except Exception as exc:
+        save_celery_result(
+            task_id=self.request.id,
+            task_name=self.name,
+            status=states.FAILURE,
+            result=exc,
+            traceback=traceback.format_exc(),
+        )
+        raise Ignore()
 
 
 @app.task(bind=True)
 def clean_success_tasks(self):
-    from django_celery_beat.models import PeriodicTask
-    PeriodicTask.objects.filter().delete()
+    try:
+        from django_celery_beat.models import PeriodicTask
+        PeriodicTask.objects.filter().delete()
+    except Exception as exc:
+        save_celery_result(
+            task_id=self.request.id,
+            task_name=self.name,
+            status=states.FAILURE,
+            result=exc,
+            traceback=traceback.format_exc(),
+        )
+        raise Ignore()
