@@ -135,7 +135,7 @@ class BookScraper:
         book_desc_raw = r.html.find('p.mb48.fs16.c_000')[0].html.split('<br/>')
         book_desc_raw = ['' if 'webnovel' in p.lower() else p for p in book_desc_raw]
         book_desc_raw = [multiple_replace(self.to_repl, p.strip()) for p in book_desc_raw]
-        book_desc = ''.join([f"<p>{re.sub(r'<.*?>', '', text)}</p>" for text in book_desc_raw])
+        book_desc = ''.join([f"<p>{re.sub(r'<.*?>', '', text)}</p>" for text in book_desc_raw]).exclude('<p></p>')
         book_tag_list = [a.text.strip() for a in r.html.find('.pop-tags a')]
 
         book = []
