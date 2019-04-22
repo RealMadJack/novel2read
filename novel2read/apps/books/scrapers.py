@@ -39,9 +39,10 @@ class BookScraper:
         }
 
     def raw_html_text_filter(self, html_text):
-        if html_text[0].text[:100] == html_text[1].text[:100]:
+        html_node_3 = ''.join([html_node.text for html_node in html_text[0:3]])
+        if html_text[0].text[:100] == html_node_3[:100]:
             del html_text[0]
-        if len(html_text[0].text) >= 2500:
+        if len(html_text[0].text) >= 2000:
             del html_text[0]
         for i, text_node in enumerate(html_text):
             text = text_node.text.lower()
@@ -55,7 +56,6 @@ class BookScraper:
                 del text_node
             if '<ol' in html:
                 del text_node
-
         filtered_html_text = []
 
         for text_node in html_text:
