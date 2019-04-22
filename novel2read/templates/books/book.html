@@ -109,7 +109,7 @@
             <div class="bookbody__tabs--chaps">
               <div class="chap-latest">
                 <span>Latest release:</span>
-                <a href="{{last_chap.get_absolute_url}}">
+                <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=last_chap.c_id %}">
                   <span>{{last_chap.title}}</span>
                 </a>
                 <small>{{last_chap.created|naturaltime}}</small>

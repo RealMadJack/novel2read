@@ -17,18 +17,21 @@
 
   {% render_breadcrumbs %}
 
+  {% url 'books:bookchapter' book_slug=b_chap.book.slug c_id=prev_chap.c_id as prev_chap_url %}
+  {% url 'books:bookchapter' book_slug=b_chap.book.slug c_id=next_chap.c_id as next_chap_url %}
+
   <div class="bookchapter">
 
     <div class="bookchapter__nav">
       <div class="bookchapter__nav--link">
-        <a href="{{prev_chap.absolute_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
+        <a href="{{prev_chap_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
           <button type="button" class="btn btn-dark">
             <i class="far fa-long-arrow-left"></i>
           </button>
         </a>
       </div>
       <div class="bookchapter__nav--link">
-        <a href="{{next_chap.absolute_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
+        <a href="{{next_chap_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
           <button type="button" class="btn btn-dark">
             <i class="far fa-long-arrow-right"></i>
           </button>
@@ -51,8 +54,11 @@
                     {% endif %}
                   {% endfor %}
                 {% endif %}
-                <li {% if request.path == chap.absolute_url %}class="active" id="activeChap"{% endif %}>
-                  <a href="{{chap.absolute_url}}">
+
+                {% url 'books:bookchapter' book_slug=b_chap.book.slug c_id=chap.c_id as chap_url %}
+
+                <li {% if request.path == chap_url %}class="active" id="activeChap"{% endif %}>
+                  <a href="{{chap_url}}">
                     <span>#{{chap.c_id}}: {{chap.title}}</span>
                   </a>
                 </li>
@@ -92,14 +98,15 @@
 
     <div class="bookchapter__nav">
       <div class="bookchapter__nav--link">
-        <a href="{{prev_chap.absolute_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
+
+        <a href="{{prev_chap_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
           <button type="button" class="btn btn-dark">
             <i class="far fa-long-arrow-left"></i>
           </button>
         </a>
       </div>
       <div class="bookchapter__nav--link">
-        <a href="{{next_chap.absolute_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
+        <a href="{{next_chap_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
           <button type="button" class="btn btn-dark">
             <i class="far fa-long-arrow-right"></i>
           </button>
