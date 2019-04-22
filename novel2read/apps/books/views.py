@@ -97,7 +97,6 @@ class BookView(DetailView):
             bookchapters = list(book.bookchapters.values_list(
                 'c_id', 'title', 'created', named=True))
             last_chap = bookchapters[-1] if len(bookchapters) >= 1 else None
-            # print(last_chap)
             user_auth = request.user.is_authenticated
             context = {
                 'book': book,
@@ -127,8 +126,8 @@ class BookChapterView(DetailView):
     def get(self, request, *args, **kwargs):
         try:
             c_id = kwargs['c_id']
-            bookchapters = BookChapter.objects.filter(book__slug=kwargs['book_slug']).select_related('book')
-            cached_qs = list(bookchapters.iterator())
+            bookchapters = BookChapter.objects.defer('text').filter(book__slug=kwargs['book_slug']).select_related('book').order_by('c_id')
+            cached_qs = list(bookchapters)
             try:
                 bookchapter = cached_qs[c_id - 1:c_id][0]
             except IndexError:
@@ -144,6 +143,8 @@ class BookChapterView(DetailView):
                 next_chap = cached_qs[c_id:c_id + 2][0]
             except IndexError:
                 next_chap = None
+            # bookchapters = list(bookchapters.values_list(
+            #     'c_id', 'title', 'created', named=True))
             context = {
                 'bookchapters': bookchapters,
                 'bookchapter': bookchapter,
@@ -168,7 +169,7 @@ class BookChapterView(DetailView):
 
 class BookRankingView(ListView):
     template_name = 'books/bookranking.html'
-    queryset = Book.objects.published().filter(ranking__gt=0).order_by('-votes')
+    queryset = Book.objects.published().filter(ranking__gt=0).order_by('ranking')
     context_object_name = 'books_all'
 
     def get_context_data(self, **kwargs):
