@@ -69,8 +69,8 @@
                 <button type="button" class="btn btn-dark">Continue Reading</button>
               </a>
             {% else %}
-              {% if first_chap %}
-                <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=first_chap.c_id %}">
+              {% if book.chapters_count %}
+                <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=1 %}">
                   <button type="button" class="btn btn-dark">Read</button>
                 </a>
               {% endif %}
@@ -79,8 +79,8 @@
 
           {% else %}
 
-            {% if first_chap %}
-              <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=first_chap.c_id %}">
+            {% if book.chapters_count %}
+              <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=1 %}">
                 <button type="button" class="btn btn-dark">Read</button>
               </a>
             {% endif %}

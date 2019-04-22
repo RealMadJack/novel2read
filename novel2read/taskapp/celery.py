@@ -1,5 +1,5 @@
 import os
-from celery import Celery, Task
+from celery import Celery, Task, states
 from celery.result import AsyncResult
 from django.apps import apps, AppConfig
 from django.conf import settings
@@ -61,5 +61,12 @@ def save_celery_result(*args, **kwargs):
 
 
 @app.task(bind=True)
-def debug_task(self):
-    print(f"Request: {self.request!r}")  # pragma: no cover
+def clean_oneoff_tasks(self):
+    from django_celery_results.models import TaskResult
+    TaskResult.objects.filter(state=states.SUCCESS).delete()
+
+
+@app.task(bind=True)
+def clean_success_tasks(self):
+    from django_celery_beat.models import PeriodicTask
+    PeriodicTask.objects.filter().delete()

@@ -11,6 +11,8 @@ from .scrapers import BookScraper
 def update_book_ranking(self):
     try:
         books = Book.objects.published().order_by('-votes')
+        # update book.ranking = 0
+        # update book.ranking.f(+1)
         for i, book in enumerate(books, start=1):
             book.ranking = i
             book.save(update_fields=['ranking'])
@@ -62,7 +64,7 @@ def book_scraper_info(self, book_id):
                 task_id=self.request.id,
                 task_name=self.name,
                 status=states.FAILURE,
-                result=exc,
+                result='\n'.join([f'Book: {book.title}', exc]),
                 traceback=traceback.format_exc(),
             )
             raise Ignore()
@@ -95,7 +97,7 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
                 task_id=self.request.id,
                 task_name=self.name,
                 status=states.FAILURE,
-                result=exc,
+                result='\n'.join([f'Book: {book.title}', exc]),
                 traceback=traceback.format_exc(),
             )
             raise Ignore()
@@ -147,12 +149,11 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                             """,
                         )
             except Exception as exc:
-                print(traceback.format_exc())
                 save_celery_result(
                     task_id=self.request.id,
                     task_name=self.name,
                     status=states.FAILURE,
-                    result=exc,
+                    result='\n'.join([f'Book: {book.title}', exc]),
                     traceback=traceback.format_exc(),
                 )
 
