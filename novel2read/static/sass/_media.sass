@@ -151,12 +151,13 @@
 
   .rankcard-wide
     &__rank
+      font-size: 2.2rem
       span
     &__poster
       img
     &__info
       .h2-title-sm
-        font-size: 1.3rem
+        font-size: 1.2rem
       .stars-rating-sm
       &--nav
         a
@@ -319,8 +320,11 @@
     max-width: 360px
     margin-left: auto
     margin-right: auto
+    position: relative
     &__rank
-      font-size: 2rem
+      position: absolute
+      top: 0
+      font-size: 2.1rem
       span
         line-height: 1.6
     &__poster
@@ -330,6 +334,7 @@
         width: 150px
         height: 200px
     &__info
+      text-align: center
       align-items: center
       margin-bottom: 20px
       .h2-title-sm
