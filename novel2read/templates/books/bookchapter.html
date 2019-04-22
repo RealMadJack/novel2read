@@ -7,8 +7,8 @@
 
 {% block breadcrumbs %}
     {{ block.super }}
-    {% breadcrumb bookchapter.book.title bookchapter.book.get_absolute_url %}
-    {% breadcrumb bookchapter.title bookchapter.get_absolute_url %}
+    {% breadcrumb b_chap.book.title b_chap.book.get_absolute_url %}
+    {% breadcrumb b_chap.title b_chap.get_absolute_url %}
 {% endblock %}
 
 {% block content %}
@@ -21,14 +21,14 @@
 
     <div class="bookchapter__nav">
       <div class="bookchapter__nav--link">
-        <a href="{{prev_chap.get_absolute_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
+        <a href="{{prev_chap.absolute_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
           <button type="button" class="btn btn-dark">
             <i class="far fa-long-arrow-left"></i>
           </button>
         </a>
       </div>
       <div class="bookchapter__nav--link">
-        <a href="{{next_chap.get_absolute_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
+        <a href="{{next_chap.absolute_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
           <button type="button" class="btn btn-dark">
             <i class="far fa-long-arrow-right"></i>
           </button>
@@ -39,21 +39,21 @@
         <div class="chaps">
           <button class="chaps--toggle btn" id="chaps-toggle"><i class="fas fa-list"></i></button>
           <ul class="chaps--nav scrollbar" id="chaps-nav">
-            {% if not bookchapter.book.volumes %}
+            {% if not b_chap.book.volumes %}
               <span class="chaps--volume">Volume 1</span>
             {% endif %}
-            {% for chapter in bookchapters %}
+            {% for chap in b_chaps %}
               {% with loop_counter=forloop.counter %}
-                {% if bookchapter.book.volumes|length >= 1 %}
-                  {% for volume in bookchapter.book.volumes %}
+                {% if b_chap.book.volumes|length >= 1 %}
+                  {% for volume in b_chap.book.volumes %}
                     {% if loop_counter == volume %}
                       <span class="chaps--volume">Volume {{forloop.counter}}</span>
                     {% endif %}
                   {% endfor %}
                 {% endif %}
-                <li {% if request.path == chapter.get_absolute_url %}class="active" id="activeChap"{% endif %}>
-                  <a href="{{chapter.get_absolute_url}}">
-                    <span>#{{chapter.c_id}}: {{chapter.title}}</span>
+                <li {% if request.path == chap.absolute_url %}class="active" id="activeChap"{% endif %}>
+                  <a href="{{chap.absolute_url}}">
+                    <span>#{{chap.c_id}}: {{chap.title}}</span>
                   </a>
                 </li>
               {% endwith %}
@@ -61,7 +61,9 @@
           </ul>
         </div>
 
-        {% include 'books/lib-bookmark-btn-ajax.html' %}
+        {% with bookchapter=b_chap %}
+          {% include 'books/lib-bookmark-btn-ajax.html' %}
+        {% endwith %}
 
         <div class="bookchapter__styles chap-styles">
           <button class="btn" id="toggleStyles">
@@ -81,23 +83,23 @@
     </div>
 
     <div class="bookchapter__title">
-      <h1 class="h1-title-sm">Chapter {{bookchapter.c_id}}: {{bookchapter.title}}</h1>
+      <h1 class="h1-title-sm">Chapter {{b_chap.c_id}}: {{b_chap.title}}</h1>
     </div>
 
     <div class="bookchapter__body">
-      {{bookchapter.text|safe}}
+      {{b_chap.text|safe}}
     </div>
 
     <div class="bookchapter__nav">
       <div class="bookchapter__nav--link">
-        <a href="{{prev_chap.get_absolute_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
+        <a href="{{prev_chap.absolute_url}}" {% if prev_chap == None %}class="disabled"{% endif %}>
           <button type="button" class="btn btn-dark">
             <i class="far fa-long-arrow-left"></i>
           </button>
         </a>
       </div>
       <div class="bookchapter__nav--link">
-        <a href="{{next_chap.get_absolute_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
+        <a href="{{next_chap.absolute_url}}" {% if next_chap == None %}class="disabled"{% endif %}>
           <button type="button" class="btn btn-dark">
             <i class="far fa-long-arrow-right"></i>
           </button>

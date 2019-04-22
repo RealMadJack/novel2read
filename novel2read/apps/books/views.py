@@ -121,42 +121,40 @@ class BookChapterView(DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            c_id = kwargs['c_id']
-            bookchapters = BookChapter.objects.defer('text').filter(book__slug=kwargs['book_slug']).select_related('book').order_by('c_id')
-            cached_qs = list(bookchapters)
+            b_chap = BookChapter.objects.select_related('book').get(book__slug=kwargs['book_slug'], c_id=kwargs['c_id'])
+            b_chaps = BookChapter.objects.filter(book__slug=kwargs['book_slug']).values('c_id', 'title', 'created').order_by('c_id')
+            for chap in b_chaps:
+                url = reverse('books:bookchapter', kwargs={'book_slug': b_chap.book.slug, 'c_id': chap['c_id']})
+                chap.update({'absolute_url': url})
+
             try:
-                bookchapter = cached_qs[c_id - 1:c_id][0]
-            except IndexError:
-                if cached_qs:
-                    bookchapter = cached_qs[0]
-                else:
-                    return redirect('/404/')
-            try:
-                prev_chap = cached_qs[c_id - 2:c_id - 1][0]
-            except IndexError:
+                prev_chap = b_chaps[kwargs['c_id'] - 2:kwargs['c_id'] - 1][0]
+            except (IndexError, AssertionError):
                 prev_chap = None
             try:
-                next_chap = cached_qs[c_id:c_id + 2][0]
+                next_chap = b_chaps[kwargs['c_id']:kwargs['c_id'] + 2][0]
             except IndexError:
                 next_chap = None
-            # bookchapters = list(bookchapters.values_list(
-            #     'c_id', 'title', 'created', named=True))
+
             context = {
-                'bookchapters': bookchapters,
-                'bookchapter': bookchapter,
-                'prev_chap': prev_chap, 'next_chap': next_chap}
+                'b_chap': b_chap,
+                'b_chaps': b_chaps,
+                'prev_chap': prev_chap,
+                'next_chap': next_chap,
+            }
+
             if request.user.is_authenticated:
                 context['user_lib'] = list(request.user.library.book.all())
                 try:
-                    book_prog = BookProgress.objects.get(user=request.user, book=bookchapter.book)
-                    if book_prog.c_id != bookchapter.c_id:
-                        book_prog.c_id = bookchapter.c_id
+                    book_prog = BookProgress.objects.get(user=request.user, book=b_chap.book)
+                    if book_prog.c_id != b_chap.c_id:
+                        book_prog.c_id = b_chap.c_id
                         book_prog.save()
                 except BookProgress.DoesNotExist:
                     BookProgress.objects.create(
-                        book=bookchapter.book,
+                        book=b_chap.book,
                         user=request.user,
-                        c_id=bookchapter.c_id,
+                        c_id=b_chap.c_id,
                     )
             return render(request, template_name=self.template_name, context=context)
         except (Book.DoesNotExist, BookChapter.DoesNotExist):
