@@ -124,7 +124,7 @@
                     {% endfor %}
                   {% endif %}
                   <div class="chap-nav-card">
-                    <a href="{{bookchapter.get_absolute_url}}">
+                    <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=bookchapter.c_id %}">
                       <span>{{bookchapter.c_id}}</span>
                       <span>{{bookchapter.title}}</span>
                       <small>{{ bookchapter.created|date:"M d, Y" }}</small>

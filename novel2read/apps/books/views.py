@@ -93,10 +93,9 @@ class BookView(DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            book = Book.objects.select_related('bookgenre').prefetch_related('booktag', 'bookchapters').get(slug=kwargs['book_slug'])
-            bookchapters = list(
-                book.bookchapters.defer('title')
-            )
+            book = Book.objects.select_related('bookgenre').prefetch_related('booktag').get(slug=kwargs['book_slug'])
+            bookchapters = list(book.bookchapters.values_list(
+                'c_id', 'title', 'created', named=True))
             last_chap = bookchapters[-1] if len(bookchapters) >= 1 else None
             # print(last_chap)
             user_auth = request.user.is_authenticated

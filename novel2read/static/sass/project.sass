@@ -920,15 +920,16 @@ a.disabled, button.disabled
           float: left
           width: 50%
           padding: 5px
-          &:nth-of-type(even)
-            padding-left: 0
           &:nth-of-type(odd)
+            padding-left: 0
+          &:nth-of-type(even)
             padding-right: 0
           a
             display: grid
             grid-template-columns: 50px 1fr
             grid-gap: 0 5px
-            border: 1px solid $accent
+            border: 1px solid $accent-opa5
+            box-shadow: $material-1
             border-radius: 3px
             color: $default
             &:hover, &:active, &:focus
@@ -942,8 +943,11 @@ a.disabled, button.disabled
                 font-weight: bold
                 padding-left: 10px
               &:last-of-type
+                white-space: nowrap
+                overflow: hidden
                 grid-column-start: 2
                 padding-right: 10px
+                margin-right: 10px
             small
               opacity: .8
               font-size: .7rem

@@ -44,8 +44,8 @@
             {% endif %}
             {% for chapter in bookchapters %}
               {% with loop_counter=forloop.counter %}
-                {% if chapter.book.volumes|length >= 1 %}
-                  {% for volume in chapter.book.volumes %}
+                {% if bookchapter.book.volumes|length >= 1 %}
+                  {% for volume in bookchapter.book.volumes %}
                     {% if loop_counter == volume %}
                       <span class="chaps--volume">Volume {{forloop.counter}}</span>
                     {% endif %}
