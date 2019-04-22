@@ -64,8 +64,8 @@ def save_celery_result(*args, **kwargs):
 @app.task(bind=True)
 def clean_oneoff_tasks(self):
     try:
-        from django_celery_results.models import TaskResult
-        TaskResult.objects.filter(state=states.SUCCESS).delete()
+        from django_celery_beat.models import PeriodicTask
+        PeriodicTask.objects.filter(one_off=True, enabled=False).delete()
     except Exception as exc:
         save_celery_result(
             task_id=self.request.id,
@@ -78,10 +78,10 @@ def clean_oneoff_tasks(self):
 
 
 @app.task(bind=True)
-def clean_success_tasks(self):
+def clean_success_result_tasks(self):
     try:
-        from django_celery_beat.models import PeriodicTask
-        PeriodicTask.objects.filter().delete()
+        from django_celery_results.models import TaskResult
+        TaskResult.objects.filter(state=states.SUCCESS).delete()
     except Exception as exc:
         save_celery_result(
             task_id=self.request.id,

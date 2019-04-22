@@ -42,8 +42,8 @@ body.dark-theme
     &:hover
       opacity: .9
     &:active, &:focus
-      background-color: $accent-hot!important
       border-color: $accent-hot-dark!important
+      background-color: $accent-hot!important
 
   .bookchapter
     &__title .h1-title-sm
@@ -60,10 +60,10 @@ body.dark-theme
     // Global //
 ////////////////////////////////
 img
-  position: relative
-  width: 100%
   max-width: 100%
+  width: 100%
   height: auto
+  position: relative
   object-fit: cover
 
 li, a, button, .btn, ::placeholder
@@ -85,23 +85,23 @@ select
 
 a, form a, .btn-link
   color: $accent
-  text-decoration: none
   outline: none
+  text-decoration: none
   &:hover, &:focus, &:active
-    text-decoration: none
-    outline: none
     color: $accent-hot
+    outline: none
+    text-decoration: none
 
 form.disabled
-    display: none
+  display: none
 a.disabled, button.disabled
-  pointer-events: none
   opacity: .5
+  pointer-events: none
 
 .breadcrumb
-  background-color: transparent
   padding: .75rem 0
     top: 1rem
+  background-color: transparent
   li
     margin: 0
     padding: 0
@@ -127,8 +127,8 @@ a.disabled, button.disabled
 // bootstrap alert CSS, translated to the django-standard levels of
 // debug, info, success, warning, error
 .alert-container
-  position: fixed
   margin: 30px auto
+  position: fixed
   top: 0
   left: 0
   right: 0
@@ -143,30 +143,29 @@ a.disabled, button.disabled
   top: 10px
   opacity: 1
 .alert-debug
-  background-color: $white
-  border-color: $mint-green
   color: $black
+  border-color: $mint-green
+  background-color: $white
 
 .alert-error
-  background-color: $pink
-  border-color: $dark-pink
   color: $accent-hot-dark
-.alert-
+  border-color: $dark-pink
+  background-color: $pink
 
 
 // Scrollbar
 .scrollbar
   overflow-y: scroll
   &::-webkit-scrollbar-track
-    background-color: $white
     border-left: 1px solid rgba(0, 0, 0, 0.1)
+    background-color: $white
   &::-webkit-scrollbar
     width: 10px
     height: 10px
     background-color: $f5
   &::-webkit-scrollbar-thumb
-    background-color: $accent
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3)
+    background-color: $accent
 
 // Default
 .h1-title
@@ -228,10 +227,10 @@ a.disabled, button.disabled
 
 // Loaders
 .loader
-  border-radius: 100%
+  text-align: center
   position: relative
   margin: 0 auto
-  text-align: center
+  border-radius: 100%
 .loader-dots span
   display: inline-block
   width: 12px
@@ -260,11 +259,11 @@ a.disabled, button.disabled
 .infinite-more-link
   display: flex
   .btn
-    width: 100%
     max-width: 250px
+    width: 100%
+    line-height: 1.1
     font-size: 1.2rem
     font-weight: bold
-    line-height: 1.1
     margin: 0 auto
     padding: 10px
       top: 8px
@@ -292,11 +291,11 @@ a.disabled, button.disabled
   &-active, &-prev, &-next
     opacity: 1
 .swiper-button-prev, .swiper-button-next
-  padding: 0
-  border-radius: 50%
   color: $accent
-  background-image: none
+  padding: 0
   transition: all .3s ease-in-out
+  border-radius: 50%
+  background-image: none
   .fas, .far, .fal
     font-size: 3rem
   &:hover
@@ -315,23 +314,23 @@ a.disabled, button.disabled
 
 .bookslide
   display: grid
-  position: relative
-  background-color: $white
   grid-template-columns: 240px 1fr
   grid-gap: 8px
+  position: relative
   padding: 15px 8px
   border-radius: 5px
+  background-color: $white
   &::before
+    width: 100%
+    height: 100%
     display: block
     content: ''
     position: absolute
     top: 0
     left: 0
-    width: 100%
-    height: 100%
+    transition: all .2s ease-in-out
     box-shadow: $material-1
     background-color: transparent
-    transition: all .2s ease-in-out
   &:hover
     &::before
       box-shadow: $material-2
@@ -367,11 +366,11 @@ a.disabled, button.disabled
       &:first-of-type
         padding-right: 10px
       .btn
-        color: $white
-        background-color: $accent
-        padding: 6px 10px
         width: 100%
+        color: $white
+        padding: 6px 10px
         outline: none!important
+        background-color: $accent
         &:hover
           opacity: .8
         &:focus, &:active
@@ -433,8 +432,8 @@ a.disabled, button.disabled
     position: relative
     top: -4px
     .h3-title-sm, .h4-title-sm
-      font-size: 1rem
       line-height: 1.3
+      font-size: 1rem
       margin: 0
     .h3-title-sm
       margin-bottom: 5px
@@ -442,10 +441,10 @@ a.disabled, button.disabled
       font-size: .85rem
       font-weight: normal
     small
-      margin-top: 5px
       display: block
       font-size: .6
       opacity: .8
+      margin-top: 5px
 
 .booktag
   display: inline-block
@@ -486,14 +485,14 @@ a.disabled, button.disabled
           background-color: #DDC690
 
 .rankcard
-  position: relative
   display: flex
   flex-direction: column
-  background-color: $f5
+  position: relative
   padding: 20px 10px
-  border-radius: 4px
   margin-bottom: 30px
+  border-radius: 4px
   box-shadow: $material-1
+  background-color: $f5
   &__rank
     position: absolute
     top: 0
@@ -531,14 +530,14 @@ a.disabled, button.disabled
           margin: 0
           padding: 0
     > form, > a, > .btn
-      text-align: center
       width: 50%
+      text-align: center
       margin-bottom: 10px
       .btn
         width: 100%
     .btn.js-vote-btn
-      padding: 5px 12px
       line-height: 1.1
+      padding: 5px 12px
       > span
         position: relative
         top: -2px
@@ -546,9 +545,9 @@ a.disabled, button.disabled
         display: block
         font-size: .7rem
     .btn.js-lib-btn, a .btn-dark
+      color: $accent
       padding: 0
       margin-bottom: 0
-      color: $accent
       border: none!important
       box-shadow: none!important
       background-color: transparent!important
@@ -556,15 +555,15 @@ a.disabled, button.disabled
         color: $accent-hot!important
 
 .rankcard-wide
-  position: relative
   display: flex
   flex-direction: row
   flex-wrap: nowrap
-  background-color: $f5
+  position: relative
   padding: 30px 40px
-  border-radius: 4px
   margin-bottom: 30px
+  border-radius: 4px
   box-shadow: $material-1
+  background-color: $f5
   &__rank
     display: block
     position: relative
@@ -803,8 +802,6 @@ a.disabled, button.disabled
         &--stars
         &--desc
           font-size: 1rem
-          height: 75px
-          overflow-y: hidden
 
 
 .browsetags
@@ -1126,8 +1123,8 @@ a.disabled, button.disabled
         &:last-of-type
           margin-right: 0
     .styles.visible
-      visibility: visible
       opacity: 1
+      visibility: visible
       left: 50px
       pointer-events: auto
     .styles.db
@@ -1172,17 +1169,17 @@ a.disabled, button.disabled
   display: flex
   flex-direction: row
   flex-wrap: nowrap
-  width: 100%
   max-width: 100%
+  width: 100%
   color: $default
-  background-color: $f5
-  border-radius: 6px
   border: 1px solid transparent
+  border-radius: 6px
   box-shadow: $material-1
+  background-color: $f5
   &:hover, &:active, &:focus
     color: $accent
-    background-color: $white
     border-color: $accent
+    background-color: $white
   &__counter
     span
       font-weight: bold

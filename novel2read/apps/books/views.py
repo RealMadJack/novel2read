@@ -117,10 +117,6 @@ class BookView(DetailView):
 
 
 class BookChapterView(DetailView):
-    """
-    TODO: refactor next-prev-chap: bookchaps in list and slicing
-    """
-
     template_name = 'books/bookchapter.html'
 
     def get(self, request, *args, **kwargs):

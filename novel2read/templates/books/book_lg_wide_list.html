@@ -1,4 +1,5 @@
 {% load static %}
+{% load books_extras %}
 
 <div class="row">
   {% for book in books %}
@@ -32,7 +33,9 @@
           <span>{{book.rating}}</span>
         </div>
         <div class="book-lg-wide__info--desc">
-          <a href="{{book.get_absolute_url}}">{{book.description|safe}}</a>
+          <a href="{{book.get_absolute_url}}">
+            {{book.description|htmlfree|truncatechars:150}}
+          </a>
         </div>
       </div>
     </div>

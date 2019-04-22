@@ -47,7 +47,7 @@ def create_update_chapter_cid(sender, instance, created=False, **kwargs):
     if created:
         instance.book.update_chapters_count()
         instance.c_id = instance.book.chapters_count
-        instance.save()
+        instance.save(update_fields=['c_id'])
 
 
 @receiver(post_delete, sender=BookChapter)

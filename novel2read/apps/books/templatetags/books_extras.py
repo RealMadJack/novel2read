@@ -13,3 +13,11 @@ def ifinlist(value, list):
 @register.filter(name='sliceintchar')
 def sliceintchar(value):
     return re.split('([a-z]+)', str(value).strip())
+
+
+@register.filter(name='htmlfree')
+def htmlfree(html_text):
+    regex = re.compile('<.*?>')
+    cleantext = re.sub(regex, '', html_text)
+    cleantext = '. '.join(cleantext.strip().split('.'))
+    return cleantext
