@@ -6,33 +6,33 @@ body {
   color: black;
   background-color: #fff; }
 
-body.dark-theme {
+body.tm-color-dark {
   color: rgba(255, 255, 255, 0.75);
   background-color: #222337; }
-  body.dark-theme .navbar {
+  body.tm-color-dark .navbar {
     background-color: #2b2e4a !important; }
-    body.dark-theme .navbar .navbar-nav a, body.dark-theme .navbar .navbar-brand {
+    body.tm-color-dark .navbar .navbar-nav a, body.tm-color-dark .navbar .navbar-brand {
       color: #fff !important; }
-    body.dark-theme .navbar .dropdown-menu, body.dark-theme .navbar .dropdown-divider {
+    body.tm-color-dark .navbar .dropdown-menu, body.tm-color-dark .navbar .dropdown-divider {
       border-color: rgba(255, 255, 255, 0.2); }
-    body.dark-theme .navbar .dropdown-menu {
+    body.tm-color-dark .navbar .dropdown-menu {
       background-color: #2b2e4a !important; }
-      body.dark-theme .navbar .dropdown-menu a {
+      body.tm-color-dark .navbar .dropdown-menu a {
         color: #fff; }
-        body.dark-theme .navbar .dropdown-menu a:hover, body.dark-theme .navbar .dropdown-menu a:active, body.dark-theme .navbar .dropdown-menu a:focus {
+        body.tm-color-dark .navbar .dropdown-menu a:hover, body.tm-color-dark .navbar .dropdown-menu a:active, body.tm-color-dark .navbar .dropdown-menu a:focus {
           background-color: #FF0099; }
-  body.dark-theme .breadcrumb {
+  body.tm-color-dark .breadcrumb {
     color: #fff; }
-  body.dark-theme .btn-dark {
+  body.tm-color-dark .btn-dark {
     background-color: #E61A80; }
-    body.dark-theme .btn-dark:hover {
+    body.tm-color-dark .btn-dark:hover {
       opacity: .9; }
-    body.dark-theme .btn-dark:active, body.dark-theme .btn-dark:focus {
+    body.tm-color-dark .btn-dark:active, body.tm-color-dark .btn-dark:focus {
       border-color: #E61A80 !important;
       background-color: #FF0099 !important; }
-  body.dark-theme .bookchapter__title .h1-title-sm {
+  body.tm-color-dark .bookchapter__title .h1-title-sm {
     color: rgba(255, 255, 255, 0.9); }
-  body.dark-theme .bookchapter__nav--select .chaps > .btn, body.dark-theme .bookchapter__nav--select .chaps form .btn, body.dark-theme .bookchapter__nav--select .chaps a .btn, body.dark-theme .bookchapter__nav--select .bookmark > .btn, body.dark-theme .bookchapter__nav--select .bookmark form .btn, body.dark-theme .bookchapter__nav--select .bookmark a .btn, body.dark-theme .bookchapter__nav--select .chap-styles > .btn, body.dark-theme .bookchapter__nav--select .chap-styles form .btn, body.dark-theme .bookchapter__nav--select .chap-styles a .btn {
+  body.tm-color-dark .bookchapter__nav--select .chaps > .btn, body.tm-color-dark .bookchapter__nav--select .chaps form .btn, body.tm-color-dark .bookchapter__nav--select .chaps a .btn, body.tm-color-dark .bookchapter__nav--select .bookmark > .btn, body.tm-color-dark .bookchapter__nav--select .bookmark form .btn, body.tm-color-dark .bookchapter__nav--select .bookmark a .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles > .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles form .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles a .btn {
     color: #fff; }
 
 img {

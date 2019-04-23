@@ -4,8 +4,8 @@
 
 // Global vars
 let wto;
-const ajaxDelay = 300
-const ajaxDelaySearch = 350
+const ajaxDelay = 200
+const ajaxDelaySearch = 250
 
 
 // Infinite Scroll
@@ -151,9 +151,23 @@ $.ajaxSetup({
 
 
 // Ajax theming
-function cookie_theme_post(btn) {
-    data = {
-        'theme-color': btn.attr("data-theme-color"),
+function themeStylesPost(btn) {
+    data = {}
+    let btn_tm_color = btn.attr("data-theme-color")
+    let btn_tm_font = btn.attr("data-theme-font")
+    let btn_tm_fz = btn.attr("data-theme-fz")
+    let btn_tm_lh = btn.attr("data-theme-lh")
+    if (btn_tm_color) {
+        data['tm_color'] = btn_tm_color
+    }
+    if (btn_tm_font) {
+        data['tm_font'] = btn_tm_font
+    }
+    if (btn_tm_fz) {
+        data['tm_fz'] = btn_tm_fz
+    }
+    if (btn_tm_lh) {
+        data['tm_lh'] = btn_tm_lh
     }
     $.ajax({
         url: btn.attr("data-theme-url"),
@@ -172,7 +186,7 @@ function cookie_theme_post(btn) {
 $(".js-theme").click(function () {
     let btn = $(this);
     wto = setTimeout(function() {
-        session_theme_post(btn);
+        themeStylesPost(btn);
     }, ajaxDelay);
 })
 

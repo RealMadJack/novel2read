@@ -35,7 +35,14 @@
 
   </head>
 
-  <body>
+  {% with req_cookie=request.COOKIES %}
+  <body class="
+    {{req_cookie.tm_color}}
+    {{req_cookie.tm_font}}
+    {{req_cookie.tm_fz}}
+    {{req_cookie.tm_lh}}
+  ">
+  {% endwith %}
 
     <div class="mb-1">
       <nav class="navbar navbar-expand-md navbar-light bg-light">

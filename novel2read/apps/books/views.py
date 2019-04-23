@@ -1,8 +1,9 @@
+import datetime
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
 from django.db.models import F
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 # from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.shortcuts import render, redirect
@@ -276,8 +277,24 @@ def book_vote_ajax_view(request, *args, **kwargs):
 
 
 def cookie_theme_ajax_view(request, *args, **kwargs):
-    data = {}
+    data = {
+        'state': 'pending',
+        'error': {},
+    }
+    resp = JsonResponse(data)
+
     if request.is_ajax():
-        theme_color = request.POST.get('theme-color', 'light')
-        print(theme_color)
-    return JsonResponse(data)
+        default_color = request.COOKIES.get('tm_color', 'tm-color-light')
+        default_font = request.COOKIES.get('tm_font', 'tm-font-std')
+        default_fz = request.COOKIES.get('tm_fz', 'tm-fz-16')
+        default_lh = request.COOKIES.get('tm_lh', 'tm-lh-16')
+        theme_color = request.POST.get('tm_color', default_color)
+        theme_font = request.POST.get('tm_font', default_font)
+        theme_fz = request.POST.get('tm_fz', default_fz)
+        theme_lh = request.POST.get('tm_lh', default_lh)
+        max_age = 30
+        resp.set_cookie('tm_color', theme_color, max_age=max_age)
+        resp.set_cookie('tm_font', theme_font, max_age=max_age)
+        resp.set_cookie('tm_fz', theme_fz, max_age=max_age)
+        resp.set_cookie('tm_lh', theme_lh, max_age=max_age)
+    return resp
