@@ -171,6 +171,7 @@ class BookVoteViewTest(TestCase):
         self.rev_vote = reverse('books:vote', kwargs={'book_slug': self.book.slug})
         self.rev_vote_ajax = reverse('books:vote-ajax', kwargs={'book_slug': self.book.slug})
         self.rev_ranking = reverse('books:ranking')
+        self.rev_session_theme_ajax = reverse('books:session-theme-ajax')
 
     def test_book_votes(self):
         self.book.refresh_from_db()
@@ -192,4 +193,21 @@ class BookVoteViewTest(TestCase):
         self.assertJSONEqual(
             str(resp.content, encoding='utf8'),
             {'is_valid': True, 'user_votes': 1, 'book_votes': 2}
+        )
+
+    def test_session_theme_ajax_view(self):
+        resp = self.client.post(
+            self.rev_session_theme_ajax,
+            {
+                'tm_color': 'tm-color-dark',
+                'tm_font': 'tm-font-std',
+                'tm_fz': 'tm-fz-15',
+                'tm-lh': 'tm-lh-15',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertJSONEqual(
+            str(resp.content, encoding='utf8'),
+            {'state': 'pending', 'error': {}}
         )

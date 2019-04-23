@@ -1,4 +1,3 @@
-import datetime
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector
@@ -276,7 +275,7 @@ def book_vote_ajax_view(request, *args, **kwargs):
     return JsonResponse(data)
 
 
-def cookie_theme_ajax_view(request, *args, **kwargs):
+def session_theme_ajax_view(request, *args, **kwargs):
     data = {
         'state': 'pending',
         'error': {},
