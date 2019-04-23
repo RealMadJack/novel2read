@@ -1023,9 +1023,9 @@ a.disabled, button.disabled {
       float: left;
       width: 50%;
       padding: 5px; }
-      .book .bookbody__tabs--chaps .chap-nav-card:nth-of-type(odd) {
-        padding-left: 0; }
       .book .bookbody__tabs--chaps .chap-nav-card:nth-of-type(even) {
+        padding-left: 0; }
+      .book .bookbody__tabs--chaps .chap-nav-card:nth-of-type(odd) {
         padding-right: 0; }
       .book .bookbody__tabs--chaps .chap-nav-card a {
         display: grid;

@@ -22,5 +22,5 @@ urlpatterns = [
     path("books/<slug:book_slug>/vote-ajax/", book_vote_ajax_view, name="vote-ajax"),
     path("ranking/", BookRankingView.as_view(), name="ranking"),
     path("search/", BookSearchView.as_view(), name="search"),
-    path("ajax/session-theme/", cookie_theme_ajax_view, name="session-theme-ajax")
+    path("ajax/session-theme/", cookie_theme_ajax_view, name="session-theme-ajax"),
 ]

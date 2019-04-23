@@ -169,6 +169,7 @@ function themeStylesPost(btn) {
     if (btn_tm_lh) {
         data['tm_lh'] = btn_tm_lh
     }
+    console.log(data)
     $.ajax({
         url: btn.attr("data-theme-url"),
         type: "post",

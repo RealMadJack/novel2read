@@ -109,10 +109,12 @@
             <div class="bookbody__tabs--chaps">
               <div class="chap-latest">
                 <span>Latest release:</span>
-                <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=last_chap.c_id %}">
-                  <span>{{last_chap.title}}</span>
-                </a>
-                <small>{{last_chap.created|naturaltime}}</small>
+                {% if last_chap %}
+                  <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=last_chap.c_id %}">
+                    <span>{{last_chap.title}}</span>
+                  </a>
+                  <small>{{last_chap.created|naturaltime}}</small>
+                {% endif %}
               </div>
               {% for bookchapter in bookchapters %}
                 {% with loop_counter=forloop.counter %}

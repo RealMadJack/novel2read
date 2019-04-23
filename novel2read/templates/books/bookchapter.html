@@ -3,7 +3,7 @@
 {% load static %}
 {% load django_bootstrap_breadcrumbs %}
 
-{% block title %}Chapter {{bookchapter.c_id}} - {{bookchapter.title}}{% endblock %}
+{% block title %}Chapter {{b_chap.c_id}} - {{b_chap.title}} - {{b_chap.book}} - {{block.super}}{% endblock %}
 
 {% block breadcrumbs %}
     {{ block.super }}
@@ -16,7 +16,6 @@
   {% include 'components/csrf_gen_form.html' %}
 
   {% render_breadcrumbs %}
-
   <div class="bookchapter">
 
     <div class="bookchapter__nav">

@@ -11,8 +11,6 @@ from .scrapers import BookScraper
 def update_book_ranking(self):
     try:
         books = Book.objects.published().order_by('-votes')
-        # update book.ranking = 0
-        # update book.ranking.f(+1)
         for i, book in enumerate(books, start=1):
             book.ranking = i
             book.save(update_fields=['ranking'])

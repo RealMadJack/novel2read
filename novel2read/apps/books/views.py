@@ -284,6 +284,7 @@ def cookie_theme_ajax_view(request, *args, **kwargs):
     resp = JsonResponse(data)
 
     if request.is_ajax():
+        max_age = 30
         default_color = request.COOKIES.get('tm_color', 'tm-color-light')
         default_font = request.COOKIES.get('tm_font', 'tm-font-std')
         default_fz = request.COOKIES.get('tm_fz', 'tm-fz-16')
@@ -292,7 +293,6 @@ def cookie_theme_ajax_view(request, *args, **kwargs):
         theme_font = request.POST.get('tm_font', default_font)
         theme_fz = request.POST.get('tm_fz', default_fz)
         theme_lh = request.POST.get('tm_lh', default_lh)
-        max_age = 30
         resp.set_cookie('tm_color', theme_color, max_age=max_age)
         resp.set_cookie('tm_font', theme_font, max_age=max_age)
         resp.set_cookie('tm_fz', theme_fz, max_age=max_age)
