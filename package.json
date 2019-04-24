@@ -1,7 +1,9 @@
 {
   "name": "novel2read",
   "version": "0.1.0",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-concat": "^2.6.1"
+  },
   "devDependencies": {
     "autoprefixer": "^9.4.7",
     "browser-sync": "^2.14.0",

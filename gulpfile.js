@@ -10,6 +10,7 @@ const pjson = require('./package.json')
 const autoprefixer = require('autoprefixer')
 const browserSync = require('browser-sync').create()
 
+const concat = require('gulp-concat')
 const cssnano = require ('cssnano')
 const imagemin = require('gulp-imagemin')
 const pixrem = require('pixrem')
@@ -35,6 +36,7 @@ function pathsConfig(appName) {
     fonts: `${this.app}/static/fonts`,
     images: `${this.app}/static/images`,
     js: `${this.app}/static/js`,
+    libs: `${this.app}/static/libs`,
   }
 }
 
@@ -69,6 +71,18 @@ function styles() {
     .pipe(postcss(minifyCss)) // Minifies the result
     .pipe(dest(paths.css))
 }
+
+// libs.js
+function libs() {
+  return src([
+      `${paths.libs}/jquery.min.js`,
+    ])
+    .pipe(concat('libs.min.js'))
+    .pipe(uglify())
+    .pipe(dest(paths.js))
+    .pipe(browserSync.reload({ stream: true }));
+}
+
 
 // Javascript minification
 function scripts() {
@@ -115,12 +129,14 @@ function watchPaths() {
   watch(`${paths.sass}/*.sass`, styles)
   watch(`${paths.templates}/**/*.html`).on("change", reload)
   watch([`${paths.js}/*.js`, `!${paths.js}/*.min.js`], scripts).on("change", reload)
+  watch(`${paths.libs}/*.min.js`).on("change", reload)
 }
 
 // Generate all assets
 const generateAssets = parallel(
   styles,
   scripts,
+  libs,
 
   imgCompression
 )
