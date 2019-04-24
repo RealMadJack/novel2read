@@ -1,10 +1,33 @@
+@font-face {
+  font-family: "roboto";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/RobotoRegular/RobotoRegular.eot");
+  src: url("../fonts/RobotoRegular/RobotoRegular.eot?#iefix") format("embedded-opentype"), url("../fonts/RobotoRegular/RobotoRegular.woff") format("woff"), url("../fonts/RobotoRegular/RobotoRegular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "roboto";
+  font-weight: 100;
+  font-style: normal;
+  src: url("../fonts/RobotoLight/RobotoLight.eot");
+  src: url("../fonts/RobotoLight/RobotoLight.eot?#iefix") format("embedded-opentype"), url("../fonts/RobotoLight/RobotoLight.woff") format("woff"), url("../fonts/RobotoLight/RobotoLight.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "roboto";
+  font-weight: bold;
+  font-style: normal;
+  src: url("../fonts/RobotoBold/RobotoBold.eot");
+  src: url("../fonts/RobotoBold/RobotoBold.eot?#iefix") format("embedded-opentype"), url("../fonts/RobotoBold/RobotoBold.woff") format("woff"), url("../fonts/RobotoBold/RobotoBold.ttf") format("truetype"); }
+
 body {
   position: relative;
   min-width: 320px;
   max-width: 100%;
   min-height: 100vh;
   color: black;
-  background-color: #fff; }
+  background-color: #fff;
+  font-family: "roboto", sans-serif;
+  font-weight: normal; }
 
 body.tm-color-dark {
   color: rgba(255, 255, 255, 0.75);
@@ -167,27 +190,26 @@ a.disabled, button.disabled {
             box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #6A57F9; }
 
+.h1-title, .h1-title-sm, .h2-title, .h2-title-sm, .h3-title, .h3-title-sm {
+  font-weight: bold; }
+
 .h1-title {
   font-size: 40px;
   font-size: 2.5rem;
-  margin-bottom: 30px;
-  font-weight: 600; }
+  margin-bottom: 30px; }
 
 .h1-title-sm {
   font-size: 32px;
   font-size: 2rem;
-  margin-bottom: 15px;
-  font-weight: 600; }
+  margin-bottom: 15px; }
 
 .h2-title {
   font-size: 32px;
-  font-size: 2rem;
-  font-weight: 600; }
+  font-size: 2rem; }
 
 .h2-title-sm {
   font-size: 25.6px;
-  font-size: 1.6rem;
-  font-weight: 600; }
+  font-size: 1.6rem; }
 
 .h3-title {
   font-size: 24px;
@@ -281,8 +303,8 @@ a.disabled, button.disabled {
     line-height: 1.1;
     font-size: 19.2px;
     font-size: 1.2rem;
-    font-weight: bold;
     margin: 0 auto;
+      margin-top: 15px;
     padding: 10px;
       padding-top: 8px; }
 
@@ -862,6 +884,8 @@ a.disabled, button.disabled {
       height: 235px;
       max-width: 100%; }
   .browsebooks__books .book-lg-wide__info--title {
+    font-size: 21.6px;
+    font-size: 1.35rem;
     margin: 0;
       margin-bottom: 16px;
       margin-bottom: 1rem; }
@@ -1282,9 +1306,12 @@ a.disabled, button.disabled {
 .bookchapter__title .h1-title-sm {
   margin-bottom: 40px; }
 
-.bookchapter__body p {
-  margin-bottom: 16px;
-  margin-bottom: 1rem; }
+.bookchapter__body {
+  font-size: 16px;
+  font-size: 1rem; }
+  .bookchapter__body p {
+    margin-bottom: 16px;
+    margin-bottom: 1rem; }
 
 .booksearch {
   margin-bottom: 30px; }
