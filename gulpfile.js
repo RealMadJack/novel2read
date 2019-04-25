@@ -76,6 +76,7 @@ function styles() {
 function libs() {
   return src([
       `${paths.libs}/jquery.min.js`,
+      `${paths.libs}/*.js`,
     ])
     .pipe(concat('libs.min.js'))
     .pipe(uglify())

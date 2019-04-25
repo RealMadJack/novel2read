@@ -146,21 +146,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     {% block javascript %}
 
-      <!-- Required by Bootstrap v4.1.1 -->
       <script type="text/javascript" src="{% static 'js/libs.min.js' %}"></script>
-      <script type="text/javascript" src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
-
-      <!-- Your stuff: Third-party javascript libraries go here -->
-
-
-      <!-- place project specific Javascript in this file -->
-
       <script src="{% static 'js/project.js' %}"></script>
-
 
     {% endblock javascript %}
   </body>
