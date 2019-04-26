@@ -4,21 +4,19 @@
   {% for book in books %}
     <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
       <div class="libcard">
-        <div class="libcard__remove">
-          <button
-            type="submit" class="btn js-lib-btn"
-            data-lib-url="{% url 'users:lib-add-remove-ajax' book.slug %}"
-            data-lib-in=1
-            data-lib-remonly=true>
-            <i class="fal fa-times"></i>
-          </button>
-        </div>
         <div class="libcard__nav">
-          <button class="btn" class="js-toggle">
+          <button class="btn js-toggle-next">
             <i class="fas fa-ellipsis-v"></i>
           </button>
           <div class="js-toggle-content" style="display: none;">
-            <p>hallo</p>
+            <button
+              type="submit" class="btn js-lib-btn"
+              data-lib-url="{% url 'users:lib-add-remove-ajax' book.slug %}"
+              data-lib-in=1
+              data-lib-remonly=true>
+              <i class="fas fa-trash-alt"></i>
+              <span>Remove</span>
+            </button>
           </div>
         </div>
       {% if book.bookprogress %}
@@ -36,12 +34,12 @@
           <div class="libcard__info">
             <div class="libcard__info--title"><h4 class="h4-title">{{book.title|truncatewords:5}}</h4></div>
             <div class="libcard__info--chaps">
-              Progress
               {% if book.bookprogress %}
-                {{book.bookprogress.c_id}}
+                Progress {{book.bookprogress.c_id}} / {{book.chapters_count}}
               {% else %}
-                0
-              {% endif %} / {{book.chapters_count}}</div>
+                Progress 0 / {{book.chapters_count}}
+              {% endif %}
+            </div>
           </div>
         </a>
       </div>

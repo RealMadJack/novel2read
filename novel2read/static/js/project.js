@@ -64,6 +64,14 @@ let swiper = new Swiper('.swiper-container', swiperOptions);
 $('.swiper-container').animate({opacity: 1.0}, 150)
 
 
+
+// Global Toggle next
+$(".js-toggle-next").on('click', function () {
+    let btn = $(this);
+    btn.next().toggle();
+})
+
+
 // Tags nav
 $(".tags-dropdown").on('click', function() {
     $('.js-tags-nav').slideToggle(300);
@@ -247,7 +255,7 @@ function library_post(btn) {
                         btn.html('<i class="far fa-bookmark"></i>')
                         eventNotification('Book removed from Library.')
                     } else if (btn[0].hasAttribute("data-lib-remonly")) {
-                        btn.parents()[2].remove();
+                        btn.parents()[3].remove();
                         // eventNotification('Book removed from Library.');
                     } else {
                         btn.html('Add to Library')
