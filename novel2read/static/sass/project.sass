@@ -705,13 +705,13 @@ a.disabled, button.disabled
     .btn
       width: 100%
       text-align: right
-      padding: 6px 15px
+      padding: 5px 15px
       border: 0
       border-radius: 0
       background-color: transparent
       .fas, .far, .fal
         color: $accent
-        font-size: 1rem
+        font-size: 1.2rem
       &:hover, &:focus, &:active
         color: $accent
         .fas, .far, .fal
@@ -719,18 +719,20 @@ a.disabled, button.disabled
     .js-toggle-content
       display: flex
       flex-direction: column
-      position: absolute
-      background-color: $white
-      left: 0
       width: 100%
+      position: absolute
+      left: 0
+      background-color: rgba(255, 255, 255, 0.7)
       .btn
         display: flex
         justify-content: center
         align-items: center
-        font-size: .9rem
+        font-size: .95rem
         padding: 3px 5px
         margin: 5px 0
+        background-color: transparent
         .fas, .far, .fal
+          font-size: .9rem
           margin-right: 5px
   &__link
     display: block

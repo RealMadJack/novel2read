@@ -802,14 +802,14 @@ a.disabled, button.disabled {
     .libcard__nav .btn {
       width: 100%;
       text-align: right;
-      padding: 6px 15px;
+      padding: 5px 15px;
       border: 0;
       border-radius: 0;
       background-color: transparent; }
       .libcard__nav .btn .fas, .libcard__nav .btn .far, .libcard__nav .btn .fal {
         color: #6A57F9;
-        font-size: 16px;
-        font-size: 1rem; }
+        font-size: 19.2px;
+        font-size: 1.2rem; }
       .libcard__nav .btn:hover, .libcard__nav .btn:focus, .libcard__nav .btn:active {
         color: #6A57F9; }
         .libcard__nav .btn:hover .fas, .libcard__nav .btn:hover .far, .libcard__nav .btn:hover .fal, .libcard__nav .btn:focus .fas, .libcard__nav .btn:focus .far, .libcard__nav .btn:focus .fal, .libcard__nav .btn:active .fas, .libcard__nav .btn:active .far, .libcard__nav .btn:active .fal {
@@ -822,10 +822,10 @@ a.disabled, button.disabled {
       -webkit-box-direction: normal;
           -ms-flex-direction: column;
               flex-direction: column;
+      width: 100%;
       position: absolute;
-      background-color: #fff;
       left: 0;
-      width: 100%; }
+      background-color: rgba(255, 255, 255, 0.7); }
       .libcard__nav .js-toggle-content .btn {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -836,11 +836,14 @@ a.disabled, button.disabled {
         -webkit-box-align: center;
             -ms-flex-align: center;
                 align-items: center;
-        font-size: 14.4px;
-        font-size: .9rem;
+        font-size: 15.2px;
+        font-size: .95rem;
         padding: 3px 5px;
-        margin: 5px 0; }
+        margin: 5px 0;
+        background-color: transparent; }
         .libcard__nav .js-toggle-content .btn .fas, .libcard__nav .js-toggle-content .btn .far, .libcard__nav .js-toggle-content .btn .fal {
+          font-size: 14.4px;
+          font-size: .9rem;
           margin-right: 5px; }
   .libcard__link {
     display: block;
