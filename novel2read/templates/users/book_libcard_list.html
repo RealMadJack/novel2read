@@ -2,7 +2,7 @@
 
 <div class="row">
   {% for book in books %}
-    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
       <div class="libcard">
         <div class="libcard__remove">
           <button
@@ -12,6 +12,14 @@
             data-lib-remonly=true>
             <i class="fal fa-times"></i>
           </button>
+        </div>
+        <div class="libcard__nav">
+          <button class="btn" class="js-toggle">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+          <div class="js-toggle-content" style="display: none;">
+            <p>hallo</p>
+          </div>
         </div>
       {% if book.bookprogress %}
         <a class="libcard__link" href="{% url 'books:bookchapter' book.slug book.bookprogress.c_id %}">
@@ -26,7 +34,7 @@
               <img class="libcard__poster--image" src="{{book.poster.url}}" alt="{{book.title}}">
           </div>
           <div class="libcard__info">
-            <div class="libcard__info--title"><h4 class="h4-title-sm">{{book.title}}</h4></div>
+            <div class="libcard__info--title"><h4 class="h4-title">{{book.title|truncatewords:5}}</h4></div>
             <div class="libcard__info--chaps">
               Progress
               {% if book.bookprogress %}

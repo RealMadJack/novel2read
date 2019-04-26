@@ -48,10 +48,11 @@
       &:hover, &:active, &:focus
     &__poster
       &--image
-        height: 250px
+        height: 175px
     &__info
       &--title
-        .h4-title-sm
+        .h4-title
+          font-size: .85rem
       &--chaps
 
 
@@ -178,10 +179,11 @@
       &:hover, &:active, &:focus
     &__poster
       &--image
-        height: 420px
+        height: 200px
     &__info
       &--title
-        .h4-title-sm
+        .h4-title
+          font-size: .9rem
       &--chaps
 
 /* Small Devices, Tablets */
@@ -375,12 +377,11 @@
       &:hover, &:active, &:focus
     &__poster
       &--image
-        height: 340px
+        height: 215px
     &__info
       &--title
-        .h4-title-sm
+        .h4-title
       &--chaps
-        font-size: .9rem
 
   .bookchapter
     &__title .h1-title-sm
@@ -527,6 +528,9 @@
     padding: 0 15px
 
   .libcard
+    max-width: 240px
+    margin-left: auto
+    margin-right: auto
     &__remove
       a .btn
         &:hover, &:focus, &:active
@@ -534,8 +538,9 @@
       &:hover, &:active, &:focus
     &__poster
       &--image
+        max-width: 100%
         height: auto
-        max-height: 660px
+        max-height: 320px
     &__info
       &--title
         .h4-title-sm

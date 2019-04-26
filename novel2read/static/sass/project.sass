@@ -171,7 +171,7 @@ a.disabled, button.disabled
     background-color: $accent
 
 // Default
-.h1-title, .h1-title-sm, .h2-title, .h2-title-sm, .h3-title, .h3-title-sm
+.h1-title, .h1-title-sm, .h2-title, .h2-title-sm, .h3-title, .h4-title
   font-weight: bold
 
 .h1-title
@@ -697,9 +697,8 @@ a.disabled, button.disabled
 .libcard
   position: relative
   margin-bottom: 30px
-  &__remove
+  &__remove, &__nav
     position: absolute
-    right: 0
     top: 0
     right: 0
     z-index: 1
@@ -707,12 +706,15 @@ a.disabled, button.disabled
       padding: 6px 13px
       border-radius: 0
       border: 0
-      background-color: $accent
+      background-color: transparent
       .fas, .far, .fal
         font-size: .9rem
-        color: $white
+        color: $default
       &:hover, &:focus, &:active
         background-color: $red
+  &__nav
+    top: 40px
+    display: none
   &__link
     display: block
     color: $default
@@ -724,15 +726,16 @@ a.disabled, button.disabled
     max-width: 100%
     &--image
       width: 100%
-      height: 300px
+      height: 210px
   &__info
     &--title
       margin-top: 6px
-      .h4-title-sm
+      .h4-title
+        font-size: .9rem
         margin-bottom: 4px
     &--chaps
-      opacity: .7
-      font-size: .95rem
+      opacity: .65
+      font-size: .85rem
 
 
 .filters-dropdown, .tags-dropdown

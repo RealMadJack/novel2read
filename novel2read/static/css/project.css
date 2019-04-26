@@ -190,7 +190,7 @@ a.disabled, button.disabled {
             box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #6A57F9; }
 
-.h1-title, .h1-title-sm, .h2-title, .h2-title-sm, .h3-title, .h3-title-sm {
+.h1-title, .h1-title-sm, .h2-title, .h2-title-sm, .h3-title, .h4-title {
   font-weight: bold; }
 
 .h1-title {
@@ -794,23 +794,25 @@ a.disabled, button.disabled {
 .libcard {
   position: relative;
   margin-bottom: 30px; }
-  .libcard__remove {
+  .libcard__remove, .libcard__nav {
     position: absolute;
-    right: 0;
     top: 0;
     right: 0;
     z-index: 1; }
-    .libcard__remove .btn {
+    .libcard__remove .btn, .libcard__nav .btn {
       padding: 6px 13px;
       border-radius: 0;
       border: 0;
-      background-color: #6A57F9; }
-      .libcard__remove .btn .fas, .libcard__remove .btn .far, .libcard__remove .btn .fal {
+      background-color: transparent; }
+      .libcard__remove .btn .fas, .libcard__remove .btn .far, .libcard__remove .btn .fal, .libcard__nav .btn .fas, .libcard__nav .btn .far, .libcard__nav .btn .fal {
         font-size: 14.4px;
         font-size: .9rem;
-        color: #fff; }
-      .libcard__remove .btn:hover, .libcard__remove .btn:focus, .libcard__remove .btn:active {
+        color: black; }
+      .libcard__remove .btn:hover, .libcard__remove .btn:focus, .libcard__remove .btn:active, .libcard__nav .btn:hover, .libcard__nav .btn:focus, .libcard__nav .btn:active {
         background-color: #B4094E; }
+  .libcard__nav {
+    top: 40px;
+    display: none; }
   .libcard__link {
     display: block;
     color: black; }
@@ -822,15 +824,17 @@ a.disabled, button.disabled {
     max-width: 100%; }
     .libcard__poster--image {
       width: 100%;
-      height: 300px; }
+      height: 210px; }
   .libcard__info--title {
     margin-top: 6px; }
-    .libcard__info--title .h4-title-sm {
+    .libcard__info--title .h4-title {
+      font-size: 14.4px;
+      font-size: .9rem;
       margin-bottom: 4px; }
   .libcard__info--chaps {
-    opacity: .7;
-    font-size: 15.2px;
-    font-size: .95rem; }
+    opacity: .65;
+    font-size: 13.6px;
+    font-size: .85rem; }
 
 .filters-dropdown, .tags-dropdown {
   display: -webkit-box;
@@ -1448,7 +1452,9 @@ a.disabled, button.disabled {
   .rankcard__info .h2-title-sm {
     font-size: 1.10rem; }
   .libcard__poster--image {
-    height: 250px; } }
+    height: 175px; }
+  .libcard__info--title .h4-title {
+    font-size: .85rem; } }
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 991px) {
@@ -1505,7 +1511,9 @@ a.disabled, button.disabled {
   .rankcard-wide__nav form .btn {
     width: 100%; }
   .libcard__poster--image {
-    height: 420px; } }
+    height: 200px; }
+  .libcard__info--title .h4-title {
+    font-size: .9rem; } }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
@@ -1646,9 +1654,7 @@ a.disabled, button.disabled {
         .rankcard-wide__nav .js-lib-btn:hover, .rankcard-wide__nav .js-lib-btn:active, .rankcard-wide__nav .lib-anon .btn:hover, .rankcard-wide__nav .lib-anon .btn:active {
           color: #FF0099 !important; }
   .libcard__poster--image {
-    height: 340px; }
-  .libcard__info--chaps {
-    font-size: .9rem; }
+    height: 215px; }
   .bookchapter__title .h1-title-sm {
     font-size: 1.7rem; }
   .bookchapter__nav {
@@ -1764,11 +1770,16 @@ a.disabled, button.disabled {
 @media only screen and (max-width: 575px) {
   .container {
     padding: 0 15px; }
-  .libcard__poster--image {
-    height: auto;
-    max-height: 660px; }
-  .libcard__info--chaps {
-    font-size: .9rem; }
+  .libcard {
+    max-width: 240px;
+    margin-left: auto;
+    margin-right: auto; }
+    .libcard__poster--image {
+      max-width: 100%;
+      height: auto;
+      max-height: 320px; }
+    .libcard__info--chaps {
+      font-size: .9rem; }
   .book .bookhead__info--read > a {
     width: 50%; }
   .book .bookhead__info--read form {
