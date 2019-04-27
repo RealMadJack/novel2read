@@ -1143,24 +1143,23 @@ a.disabled, button.disabled
             bottom: 6px
           &:first-of-type
             padding-top: 5px
-        &--nav.dblock
-          display: block
-        &--nav.active
+        &--nav.visible
+          top: 3rem
           opacity: 1
-          margin-top: 10px
-          transition: all .3s ease-in-out
+          visibility: visible
         &--nav
-          position: relative
-          display: none
           opacity: 0
+          visibility: hidden
+          transition: all .2s ease-in-out
+          position: relative
           width: 100%
           min-height: 50px
           max-height: 295px
           overflow-y: scroll
           overflow-x: hidden
           position: absolute
+          top: 2rem
           left: 0
-          list-style-type: none
           margin: 0
           padding: 0
           z-index: 20
@@ -1223,14 +1222,16 @@ a.disabled, button.disabled
           margin-bottom: 8px
         .btn.btn-ctm
           position: relative
-          width: 30px
-          height: 30px
+          width: 32px
+          height: 32px
           border-radius: 50%
           .fas, .far, .fal
+            line-height: 0
             position: absolute
-            top: 9px
-            left: 9px
+            top: 1.03rem
+            left: 0.62rem
             margin: 0
+            font-size: .8rem
         .btn
           font-size: .85rem
           padding: 3px 10px
@@ -1249,7 +1250,7 @@ a.disabled, button.disabled
           &:hover
             opacity: .9
           &:active, &:focus
-            background-color: $accent-hot-dark!important
+            background-color: $accent
   &__title
     .h1-title-sm
       margin-bottom: 40px

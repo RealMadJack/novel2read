@@ -1,35 +1,5 @@
 (function () {
 
-// Toggles
-let chapToggle = document.getElementById('chaps-toggle');
-let chapNav = document.getElementById('chaps-nav');
-let activeChap = document.getElementById('activeChap')
-
-function toggleElem(e) {
-  e.preventDefault();
-  chapNav.classList.toggle('dblock');
-  setTimeout(() => {
-    chapNav.classList.toggle('active');
-  }, 10)
-  activeChap.scrollIntoView(false);
-}
-
-function closeElem(e) {
-  if (chapNav.classList.contains('active')) {
-    if (e.target !== chapToggle) {
-      chapNav.classList.toggle('dblock');
-      setTimeout(() => {
-        chapNav.classList.toggle('active');
-      }, 10)
-    }
-  }
-  return false
-}
-
-chapToggle.addEventListener('click', toggleElem);
-document.body.addEventListener('click', closeElem)
-
-
 // Scroll Position
 let pos = localStorage.getItem('chap_scroll', 0)
 let pos_url = localStorage.getItem('chap_url', '')
@@ -123,7 +93,12 @@ function manageStyles(e) {
   }
 }
 
-function closeStyles(e) {
+function closeToggles(e) {
+  if (chapNav.classList.contains('visible')) {
+    if (e.target !== chapToggle && !$(e.target).closest(chapNav).length) {
+      chapNav.classList.remove('visible')
+    }
+  }
   if (stylesMenu.classList.contains('visible')) {
     if (e.target !== stylesBtn && !$(e.target).closest(stylesMenu).length) {
       stylesMenu.classList.remove('visible')
@@ -131,7 +106,19 @@ function closeStyles(e) {
   }
 }
 
+// ChapNavToggle
+let chapToggle = document.getElementById('chaps-toggle');
+let chapNav = document.getElementById('chaps-nav');
+let activeChap = document.getElementById('activeChap')
+
+function toggleChapNav(e) {
+  chapNav.classList.toggle('visible')
+  activeChap.scrollIntoView(false);
+}
+chapToggle.addEventListener('click', toggleChapNav);
+
+
 styles.addEventListener('click', manageStyles, false)
-document.body.addEventListener('click', closeStyles, false)
+document.body.addEventListener('click', closeToggles, false)
 
 })();

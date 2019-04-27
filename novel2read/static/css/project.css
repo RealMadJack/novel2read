@@ -1348,25 +1348,26 @@ a.disabled, button.disabled {
       padding-bottom: 6px; }
       .bookchapter__nav--select .chaps--volume:first-of-type {
         padding-top: 5px; }
-    .bookchapter__nav--select .chaps--nav.dblock {
-      display: block; }
-    .bookchapter__nav--select .chaps--nav.active {
+    .bookchapter__nav--select .chaps--nav.visible {
+      top: 48px;
+      top: 3rem;
       opacity: 1;
-      margin-top: 10px;
-      -webkit-transition: all .3s ease-in-out;
-      transition: all .3s ease-in-out; }
+      visibility: visible; }
     .bookchapter__nav--select .chaps--nav {
-      position: relative;
-      display: none;
       opacity: 0;
+      visibility: hidden;
+      -webkit-transition: all .2s ease-in-out;
+      transition: all .2s ease-in-out;
+      position: relative;
       width: 100%;
       min-height: 50px;
       max-height: 295px;
       overflow-y: scroll;
       overflow-x: hidden;
       position: absolute;
+      top: 32px;
+      top: 2rem;
       left: 0;
-      list-style-type: none;
       margin: 0;
       padding: 0;
       z-index: 20;
@@ -1448,14 +1449,19 @@ a.disabled, button.disabled {
       margin-bottom: 8px; }
     .bookchapter__styles .styles--row .btn.btn-ctm {
       position: relative;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%; }
       .bookchapter__styles .styles--row .btn.btn-ctm .fas, .bookchapter__styles .styles--row .btn.btn-ctm .far, .bookchapter__styles .styles--row .btn.btn-ctm .fal {
+        line-height: 0;
         position: absolute;
-        top: 9px;
-        left: 9px;
-        margin: 0; }
+        top: 16.48px;
+        top: 1.03rem;
+        left: 9.92px;
+        left: 0.62rem;
+        margin: 0;
+        font-size: 12.8px;
+        font-size: .8rem; }
     .bookchapter__styles .styles--row .btn {
       font-size: 13.6px;
       font-size: .85rem;
@@ -1476,7 +1482,7 @@ a.disabled, button.disabled {
     .bookchapter__styles .styles--row .btn-dark:hover {
       opacity: .9; }
     .bookchapter__styles .styles--row .btn-dark:active, .bookchapter__styles .styles--row .btn-dark:focus {
-      background-color: #E61A80 !important; }
+      background-color: #6A57F9; }
 
 .bookchapter__title .h1-title-sm {
   margin-bottom: 40px; }
