@@ -69,21 +69,27 @@
             <i class="fas fa-cog"></i>
           </button>
           <div class="styles" id="stylesMenu">
-            <div class="styles--color">
+            <div class="styles--row">
+              <h4 class="h4-title-sm">
+                Color theme:
+              </h4>
               <button
-                class="btn btn-dark js-theme" id="lightTheme"
+                class="btn btn-dark btn-ctm js-theme" id="lightTheme"
                 data-theme-url="{% url 'books:session-theme-ajax' %}"
                 data-theme-color="tm-color-light">
                 <i class="fas fa-sun"></i>
               </button>
               <button
-                class="btn btn-dark js-theme" id="darkTheme"
+                class="btn btn-dark btn-ctm js-theme" id="darkTheme"
                 data-theme-url="{% url 'books:session-theme-ajax' %}"
                 data-theme-color="tm-color-dark">
                 <i class="fas fa-moon"></i>
               </button>
             </div>
-            <div class="styles--font">
+            <div class="styles--row">
+              <h4 class="h4-title-sm">
+                Font:
+              </h4>
               <button
                 class="btn btn-dark js-theme"
                 data-theme-url="{% url 'books:session-theme-ajax' %}"
@@ -106,7 +112,10 @@
                 Roboto
               </button>
             </div>
-            <div class="styles--fz">
+            <div class="styles--row">
+              <h4 class="h4-title-sm">
+                Font size:
+              </h4>
               <button
                 class="btn btn-dark js-theme"
                 data-theme-url="{% url 'books:session-theme-ajax' %}"
@@ -143,7 +152,10 @@
                 14px
               </button>
             </div>
-            <div class="styles--lh">
+            <div class="styles--row">
+              <h4 class="h4-title-sm">
+                Margin:
+              </h4>
               <button
                 class="btn btn-dark js-theme"
                 data-theme-url="{% url 'books:session-theme-ajax' %}"
