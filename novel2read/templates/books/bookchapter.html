@@ -69,18 +69,45 @@
             <i class="fas fa-cog"></i>
           </button>
           <div class="styles" id="stylesCollapse">
-            <button
-              class="btn btn-dark js-theme" id="lightTheme"
-              data-theme-url="{% url 'books:session-theme-ajax' %}"
-              data-theme-color="tm-color-light">
-              <i class="fas fa-sun"></i>
-            </button>
-            <button
-              class="btn btn-dark js-theme" id="darkTheme"
-              data-theme-url="{% url 'books:session-theme-ajax' %}"
-              data-theme-color="tm-color-dark">
-              <i class="fas fa-moon"></i>
-            </button>
+            <div class="styles--color">
+              <button
+                class="btn btn-dark js-theme" id="lightTheme"
+                data-theme-url="{% url 'books:session-theme-ajax' %}"
+                data-theme-color="tm-color-light">
+                <i class="fas fa-sun"></i>
+              </button>
+              <button
+                class="btn btn-dark js-theme" id="darkTheme"
+                data-theme-url="{% url 'books:session-theme-ajax' %}"
+                data-theme-color="tm-color-dark">
+                <i class="fas fa-moon"></i>
+              </button>
+            </div>
+            <div class="styles--font">
+              <button
+                class="btn btn-dark js-theme" id="darkTheme"
+                data-theme-url="{% url 'books:session-theme-ajax' %}"
+                data-theme-font="tm-font-arial">
+                <i class="fas fa-pen-fancy"></i>
+                Arial
+              </button>
+              <button
+                class="btn btn-dark js-theme" id="darkTheme"
+                data-theme-url="{% url 'books:session-theme-ajax' %}"
+                data-theme-font="tm-font-lora">
+                <i class="fas fa-pen"></i>
+                Lora
+              </button>
+              <button
+                class="btn btn-dark js-theme" id="darkTheme"
+                data-theme-url="{% url 'books:session-theme-ajax' %}"
+                data-theme-font="tm-font-roboto">
+                <i class="fal fa-pen-fancy"></i>
+                Roboto
+              </button>
+            </div>
+            <div class="styles--fz"></div>
+            <div class="styles--lh"></div>
           </div>
         </div>
       </div>

@@ -1,4 +1,32 @@
 @font-face {
+  font-family: "arial";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/ArialRegular/ArialRegular.eot");
+  src: url("../fonts/ArialRegular/ArialRegular.eot?#iefix") format("embedded-opentype"), url("../fonts/ArialRegular/ArialRegular.woff") format("woff"), url("../fonts/ArialRegular/ArialRegular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "arial";
+  font-weight: bold;
+  font-style: normal;
+  src: url("../fonts/ArialBold/ArialBold.eot");
+  src: url("../fonts/ArialBold/ArialBold.eot?#iefix") format("embedded-opentype"), url("../fonts/ArialBold/ArialBold.woff") format("woff"), url("../fonts/ArialBold/ArialBold.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "lora";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/LoraRegular/LoraRegular.eot");
+  src: url("../fonts/LoraRegular/LoraRegular.eot?#iefix") format("embedded-opentype"), url("../fonts/LoraRegular/LoraRegular.woff") format("woff"), url("../fonts/LoraRegular/LoraRegular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "lora";
+  font-weight: bold;
+  font-style: normal;
+  src: url("../fonts/LoraBold/LoraBold.eot");
+  src: url("../fonts/LoraBold/LoraBold.eot?#iefix") format("embedded-opentype"), url("../fonts/LoraBold/LoraBold.woff") format("woff"), url("../fonts/LoraBold/LoraBold.ttf") format("truetype"); }
+
+@font-face {
   font-family: "roboto";
   font-weight: normal;
   font-style: normal;
@@ -57,6 +85,15 @@ body.tm-color-dark {
     color: rgba(255, 255, 255, 0.9); }
   body.tm-color-dark .bookchapter__nav--select .chaps > .btn, body.tm-color-dark .bookchapter__nav--select .chaps form .btn, body.tm-color-dark .bookchapter__nav--select .chaps a .btn, body.tm-color-dark .bookchapter__nav--select .bookmark > .btn, body.tm-color-dark .bookchapter__nav--select .bookmark form .btn, body.tm-color-dark .bookchapter__nav--select .bookmark a .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles > .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles form .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles a .btn {
     color: #fff; }
+
+body.tm-font-arial .bookchapter__title, body.tm-font-arial .bookchapter__body {
+  font-family: "arial", sans-serif !important; }
+
+body.tm-font-lora .bookchapter__title, body.tm-font-lora .bookchapter__body {
+  font-family: "lora", serif !important; }
+
+body.tm-font-roboto .bookchapter__title, body.tm-font-roboto .bookchapter__body {
+  font-family: "roboto", sans-serif !important; }
 
 img {
   max-width: 100%;
@@ -1744,6 +1781,8 @@ a.disabled, button.disabled {
     left: 0; }
   .bookchapter__title .h1-title-sm {
     margin-bottom: 30px; }
+  .bookchapter__body {
+    font-size: .9rem; }
   .booksearch__form--form .form-group .form-control {
     font-size: 1rem; }
   .booksearch__form--btn .btn {
@@ -1876,9 +1915,7 @@ a.disabled, button.disabled {
         .book .bookbody .votecard--vote a small, .book .bookbody .votecard--vote .btn small {
           font-size: .7rem; }
   .bookchapter__title .h1-title-sm {
-    font-size: 1.4rem; }
-  .bookchapter__body p {
-    font-size: .9rem; } }
+    font-size: 1.4rem; } }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
