@@ -54,44 +54,56 @@ if (pos_url === location.pathname) {
 
 
 // Theming
-const styles = document.body.querySelector('.bookchapter__styles')
-const stylesCollapse = document.getElementById('stylesCollapse')
-const toggleStyles = document.getElementById('toggleStyles')
-
-function setDomTheme(theme) {
+function setBodyCls(cls) {
   let body = document.body.classList;
-  if (theme == 'dark') {
-    body.remove('tm-color-light')
-    body.add('tm-color-dark')
-  } else if (theme == 'light') {
-    body.remove('tm-color-dark');
-    body.add('tm-color-light');
+  let c_light = 'tm-color-light'
+  let c_dark = 'tm-color-dark'
+  let f_arial = 'tm-font-arial'
+  let f_lora = 'tm-font-lora'
+  let f_roboto = 'tm-font-roboto'
+  if (cls.includes('color')) {
+    if (body.contains(c_light) || body.contains(c_dark)) {
+      body.remove(c_light, c_dark);
+    }
+    body.add(cls)
+  }
+  if (cls.includes('font')) {
+    if (body.contains(f_arial) || body.contains(f_lora) || body.contains(f_roboto)) {
+      body.remove(f_arial, f_lora, f_roboto);
+    }
+    body.add(cls)
   }
 }
 
+const styles = document.body.querySelector('.chap-styles')
+const stylesMenu = document.getElementById('stylesMenu')
+const stylesBtn = document.getElementById('stylesBtn')
+
 function manageStyles(e) {
-  e.preventDefault();
-  const lt = document.getElementById('lightTheme');
-  const dt = document.getElementById('darkTheme');
-  if (e.target === toggleStyles) {
-    stylesCollapse.classList.toggle('visible')
+  const tm_color = e.target.getAttribute('data-theme-color');
+  const tm_font = e.target.getAttribute('data-theme-font');
+
+  if (e.target === stylesBtn) {
+    stylesMenu.classList.toggle('visible')
   }
-  if (e.target === lt) {
-    setDomTheme('light');
-  } else if (e.target === dt) {
-    setDomTheme('dark');
+
+  if (tm_color) {
+    setBodyCls(tm_color)
   }
-  return false
+  if (tm_font) {
+    setBodyCls(tm_font)
+  }
 }
 
 function closeStyles(e) {
-  if (e.target !== toggleStyles) {
-    stylesCollapse.classList.remove('visible')
+  if (stylesMenu.classList.contains('visible')) {
+    if (e.target !== stylesBtn && !$(e.target).closest(stylesMenu).length) {
+      stylesMenu.classList.remove('visible')
+    }
   }
-  return false
 }
 
-styles.addEventListener('click', manageStyles)
-document.body.addEventListener('click', closeStyles)
+styles.addEventListener('click', manageStyles, false)
+document.body.addEventListener('click', closeStyles, false)
 
 })();

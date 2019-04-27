@@ -1257,6 +1257,9 @@ a.disabled, button.disabled {
       -ms-flex-order: 2;
           order: 2; }
 
+.bookchapter__title, .bookchapter__body {
+  font-family: "arial", sans-serif; }
+
 .bookchapter__title .h1-title-sm {
   font-size: 30.4px;
   font-size: 1.9rem; }

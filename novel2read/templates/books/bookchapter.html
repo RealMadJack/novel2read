@@ -65,10 +65,10 @@
         {% endwith %}
 
         <div class="bookchapter__styles chap-styles">
-          <button class="btn" id="toggleStyles">
+          <button class="btn" id="stylesBtn">
             <i class="fas fa-cog"></i>
           </button>
-          <div class="styles" id="stylesCollapse">
+          <div class="styles" id="stylesMenu">
             <div class="styles--color">
               <button
                 class="btn btn-dark js-theme" id="lightTheme"
@@ -85,24 +85,24 @@
             </div>
             <div class="styles--font">
               <button
-                class="btn btn-dark js-theme" id="darkTheme"
+                class="btn btn-dark js-theme"
                 data-theme-url="{% url 'books:session-theme-ajax' %}"
                 data-theme-font="tm-font-arial">
                 <i class="fas fa-pen-fancy"></i>
                 Arial
               </button>
               <button
-                class="btn btn-dark js-theme" id="darkTheme"
+                class="btn btn-dark js-theme"
                 data-theme-url="{% url 'books:session-theme-ajax' %}"
                 data-theme-font="tm-font-lora">
-                <i class="fas fa-pen"></i>
+                <i class="fas fa-pen-fancy"></i>
                 Lora
               </button>
               <button
-                class="btn btn-dark js-theme" id="darkTheme"
+                class="btn btn-dark js-theme"
                 data-theme-url="{% url 'books:session-theme-ajax' %}"
                 data-theme-font="tm-font-roboto">
-                <i class="fal fa-pen-fancy"></i>
+                <i class="fas fa-pen-fancy"></i>
                 Roboto
               </button>
             </div>
