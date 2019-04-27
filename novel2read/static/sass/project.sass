@@ -55,6 +55,7 @@ body.tm-color-dark
     .chaps, .bookmark, .chap-styles
       > .btn, , form .btn, a .btn
         color: $white
+
 body.tm-font-arial
   .bookchapter
     &__title, &__body
@@ -68,6 +69,34 @@ body.tm-font-roboto
     &__title, &__body
       font-family: $roboto!important
 
+body.tm-fz-18
+  .bookchapter__body
+    font-size: 18px!important
+body.tm-fz-17
+  .bookchapter__body
+    font-size: 17px!important
+body.tm-fz-16
+  .bookchapter__body
+    font-size: 16px!important
+body.tm-fz-15
+  .bookchapter__body
+    font-size: 15px!important
+body.tm-fz-14
+  .bookchapter__body
+    font-size: 14px!important
+
+body.tm-lh-20
+  .bookchapter__body p
+    margin-bottom: 20px!important
+body.tm-lh-15
+  .bookchapter__body p
+    margin-bottom: 15px!important
+body.tm-lh-10
+  .bookchapter__body p
+    margin-bottom: 10px!important
+body.tm-lh-5
+  .bookchapter__body p
+    margin-bottom: 5px!important
 
 ////////////////////////////////
     // Global //
@@ -1195,7 +1224,8 @@ a.disabled, button.disabled
   &__body
     font-size: 1rem
     p
-      margin-bottom: 1rem
+      line-height: 1.6
+      margin-bottom: 15px
 
 // Search
 .booksearch

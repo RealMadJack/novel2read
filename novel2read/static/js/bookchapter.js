@@ -61,6 +61,15 @@ function setBodyCls(cls) {
   let f_arial = 'tm-font-arial'
   let f_lora = 'tm-font-lora'
   let f_roboto = 'tm-font-roboto'
+  let fz_18 = 'tm-fz-18'
+  let fz_17 = 'tm-fz-17'
+  let fz_16 = 'tm-fz-16'
+  let fz_15 = 'tm-fz-15'
+  let fz_14 = 'tm-fz-14'
+  let lh_20 = 'tm-lh-20'
+  let lh_15 = 'tm-lh-15'
+  let lh_10 = 'tm-lh-10'
+  let lh_5 = 'tm-lh-5'
   if (cls.includes('color')) {
     if (body.contains(c_light) || body.contains(c_dark)) {
       body.remove(c_light, c_dark);
@@ -73,6 +82,18 @@ function setBodyCls(cls) {
     }
     body.add(cls)
   }
+  if (cls.includes('fz')) {
+    if (body.contains(fz_18) || body.contains(fz_17) || body.contains(fz_16) || body.contains(fz_15) || body.contains(fz_14)) {
+      body.remove(fz_18, fz_17, fz_16, fz_15, fz_14);
+    }
+    body.add(cls)
+  }
+  if (cls.includes('lh')) {
+    if (body.contains(lh_20) || body.contains(lh_15) || body.contains(lh_10) || body.contains(lh_5)) {
+      body.remove(lh_20, lh_15, lh_10, lh_5);
+    }
+    body.add(cls)
+  }
 }
 
 const styles = document.body.querySelector('.chap-styles')
@@ -82,16 +103,23 @@ const stylesBtn = document.getElementById('stylesBtn')
 function manageStyles(e) {
   const tm_color = e.target.getAttribute('data-theme-color');
   const tm_font = e.target.getAttribute('data-theme-font');
+  const tm_fz = e.target.getAttribute('data-theme-fz');
+  const tm_lh = e.target.getAttribute('data-theme-lh');
 
   if (e.target === stylesBtn) {
     stylesMenu.classList.toggle('visible')
   }
-
   if (tm_color) {
     setBodyCls(tm_color)
   }
   if (tm_font) {
     setBodyCls(tm_font)
+  }
+  if (tm_fz) {
+    setBodyCls(tm_fz)
+  }
+  if (tm_lh) {
+    setBodyCls(tm_lh)
   }
 }
 
