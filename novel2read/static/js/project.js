@@ -222,7 +222,7 @@ function vote_post(btn) {
     });
 }
 
-$(".js-vote-btn").click(function () {
+$(document).on('click', '.js-vote-btn', function () {
     let btn = $(this);
     wto = setTimeout(function() {
         vote_post(btn);
@@ -273,7 +273,7 @@ function library_post(btn) {
     });
 }
 
-$(".js-lib-btn").click(function () {
+$(document).on('click', '.js-lib-btn', function () {
     clearTimeout(wto);
     let btn = $(this);
     wto = setTimeout(function() {
