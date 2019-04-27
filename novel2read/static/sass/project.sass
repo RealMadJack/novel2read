@@ -69,7 +69,7 @@ img
   position: relative
   object-fit: cover
 
-li, a, button, .btn, ::placeholder, .fas, .far, .fal
+li, a, button, .btn, ::placeholder
   transition: all .3s ease-in-out
 
 .btn, .form-control
@@ -130,30 +130,49 @@ a.disabled, button.disabled
 // bootstrap alert CSS, translated to the django-standard levels of
 // debug, info, success, warning, error
 .alert-container
-  margin: 30px auto
+  min-width: 280px
+  width: 100%
+  max-width: 660px
+  margin: 0 auto
   position: fixed
-  top: 0
+  bottom: 0
   left: 0
   right: 0
   z-index: 99
+  .alert
+    &:last-of-type
+      margin-bottom: 0
 .alert
   position: relative
-  top: -10px
+  bottom: -10px
   opacity: 0
   transition: all .3s ease-in-out
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2)
+  border-radius: 0
+  border: none
+  box-shadow: $material-1
 .alert.animate
-  top: 10px
+  bottom: 10px
   opacity: 1
 .alert-debug
   color: $black
-  border-color: $mint-green
+  border-left: 8px solid $default
   background-color: $white
-
+.alert-info
+  color: $white
+  background-color: #256ED5
+  border-left: 8px solid #1C52A0
+.alert-success
+  color: $white
+  background-color: #4CC639
+  border-left: 8px solid #39942B
+.alert-warning
+  color: $white
+  background-color: #E99011
+  border-left: 8px solid #AF6C0D
 .alert-error
-  color: $accent-hot-dark
-  border-color: $dark-pink
-  background-color: $pink
+  color: $white
+  background-color: #F13130
+  border-left: 8px solid #B52524
 
 
 // Scrollbar

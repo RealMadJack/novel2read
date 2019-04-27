@@ -283,7 +283,7 @@ def session_theme_ajax_view(request, *args, **kwargs):
     resp = JsonResponse(data)
 
     if request.is_ajax():
-        max_age = 30
+        max_age = 60 * 60 * 24 * 30
         default_color = request.COOKIES.get('tm_color', 'tm-color-light')
         default_font = request.COOKIES.get('tm_font', 'tm-font-std')
         default_fz = request.COOKIES.get('tm_fz', 'tm-fz-16')

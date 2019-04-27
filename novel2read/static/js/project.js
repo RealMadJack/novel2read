@@ -177,14 +177,13 @@ function themeStylesPost(btn) {
     if (btn_tm_lh) {
         data['tm_lh'] = btn_tm_lh
     }
-    console.log(data)
     $.ajax({
         url: btn.attr("data-theme-url"),
         type: "post",
         dataType: "json",
         data: data,
         success: function (data) {
-            console.log(data)
+            // console.log(data)
         },
         error: function (xhr, errmsg, err) {
             let msg = `${xhr.status} ${xhr.statusText}`

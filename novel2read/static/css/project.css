@@ -66,19 +66,19 @@ img {
   -o-object-fit: cover;
      object-fit: cover; }
 
-li, a, button, .btn, ::-webkit-input-placeholder, .fas, .far, .fal {
+li, a, button, .btn, ::-webkit-input-placeholder {
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
 
-li, a, button, .btn, :-ms-input-placeholder, .fas, .far, .fal {
+li, a, button, .btn, :-ms-input-placeholder {
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
 
-li, a, button, .btn, ::-ms-input-placeholder, .fas, .far, .fal {
+li, a, button, .btn, ::-ms-input-placeholder {
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
 
-li, a, button, .btn, ::placeholder, .fas, .far, .fal {
+li, a, button, .btn, ::placeholder {
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
 
@@ -146,35 +146,57 @@ a.disabled, button.disabled {
   color: #f5f5f5; }
 
 .alert-container {
-  margin: 30px auto;
+  min-width: 280px;
+  width: 100%;
+  max-width: 660px;
+  margin: 0 auto;
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   z-index: 99; }
+  .alert-container .alert:last-of-type {
+    margin-bottom: 0; }
 
 .alert {
   position: relative;
-  top: -10px;
+  bottom: -10px;
   opacity: 0;
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
-  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); }
+  border-radius: 0;
+  border: none;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
 
 .alert.animate {
-  top: 10px;
+  bottom: 10px;
   opacity: 1; }
 
 .alert-debug {
   color: #000;
-  border-color: #d6e9c6;
+  border-left: 8px solid black;
   background-color: #fff; }
 
+.alert-info {
+  color: #fff;
+  background-color: #256ED5;
+  border-left: 8px solid #1C52A0; }
+
+.alert-success {
+  color: #fff;
+  background-color: #4CC639;
+  border-left: 8px solid #39942B; }
+
+.alert-warning {
+  color: #fff;
+  background-color: #E99011;
+  border-left: 8px solid #AF6C0D; }
+
 .alert-error {
-  color: #E61A80;
-  border-color: #eed3d7;
-  background-color: #f2dede; }
+  color: #fff;
+  background-color: #F13130;
+  border-left: 8px solid #B52524; }
 
 .scrollbar {
   overflow-y: scroll; }
