@@ -1075,6 +1075,7 @@ a.disabled, button.disabled
       margin-top: 70px
     &--link
       order: 1
+      z-index: 1
       &:nth-of-type(2)
         order: 3
       .btn
@@ -1096,7 +1097,7 @@ a.disabled, button.disabled
       order: 2
       margin: 0 10px
       padding: 0
-      max-width: 320px
+      max-width: 420px
       .chaps
         &--toggle
         &--volume
@@ -1116,20 +1117,23 @@ a.disabled, button.disabled
           margin-top: 10px
           transition: all .3s ease-in-out
         &--nav
+          position: relative
           display: none
           opacity: 0
           width: 100%
           min-height: 50px
-          max-height: 250px
+          max-height: 295px
           overflow-y: scroll
           overflow-x: hidden
           position: absolute
           left: 0
           list-style-type: none
           margin: 0
-          padding: 5px 0
+          padding: 0
           z-index: 20
           box-shadow: 0 0 6px rgba(0, 0, 0, 0.6)
+          border-top: 8px solid $white
+          border-bottom: 10px solid $white
           border-radius: 5px
           background-color: $white
           li
