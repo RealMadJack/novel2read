@@ -114,33 +114,10 @@ function manageStyles(e) {
 }
 styles.addEventListener('click', manageStyles)
 
-// ChapNav
-function getChapsAjax(btn) {
-  let loaded = btn.attr("data-loaded");
-  if (!!+loaded) {
-    return false
-  }
-  $.ajax({
-    url: btn.attr("data-url-chaps"),
-    type: "get",
-    dataType: "json",
-    success: function (data) {
-      btn.next().html(data['html_chaps']);
-      btn.attr("data-loaded", 1);
-      let activeChap = document.getElementById('activeChap')
-      activeChap.scrollIntoView(false);
-    },
-    error: function (xhr, errmsg, err) {
-        let msg = `${xhr.status} ${xhr.statusText}`
-        eventNotification(msg, 'error')
-    },
-  });
-}
-
+// ChapNav Toggle
 function toggleChapNav(e) {
   let btn = $(this);
   btn.next()[0].classList.toggle('visible')
-  getChapsAjax(btn);
 }
 $('#chaps-toggle')[0].addEventListener('click', toggleChapNav);
 
