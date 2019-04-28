@@ -96,7 +96,8 @@
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Synopsis</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Table of Contents</a>
+            <a class="nav-item nav-link js-load-chaps" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"
+            data-chaps-url="{{book.get_absolute_url}}" data-loaded=0>Table of Contents</a>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -107,33 +108,9 @@
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <div class="bookbody__tabs--chaps">
-              <div class="chap-latest">
-                <span>Latest release:</span>
-                {% if last_chap %}
-                  <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=last_chap.c_id %}">
-                    <span>{{last_chap.title}}</span>
-                  </a>
-                  <small>{{last_chap.created|naturaltime}}</small>
-                {% endif %}
-              </div>
-              {% for bookchapter in bookchapters %}
-                {% with loop_counter=forloop.counter %}
-                  {% if book.volumes|length >= 1 %}
-                    {% for volume in book.volumes %}
-                      {% if loop_counter == volume %}
-                        <div class="chap-volume"><span>Volume {{forloop.counter}}</span></div>
-                      {% endif %}
-                    {% endfor %}
-                  {% endif %}
-                  <div class="chap-nav-card">
-                    <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=bookchapter.c_id %}">
-                      <span>{{bookchapter.c_id}}</span>
-                      <span>{{bookchapter.title}}</span>
-                      <small>{{ bookchapter.created|date:"M d, Y" }}</small>
-                    </a>
-                  </div>
-                {% endwith %}
-              {% endfor %}
+              {% with margin='mt-15 mb-30' %}
+                {% include 'components/loader-dots.html' %}
+              {% endwith %}
             </div>
           </div>
         </div>

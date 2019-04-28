@@ -158,6 +158,33 @@ $.ajaxSetup({
 });
 
 
+// Ajax book chaps
+function getChapsAjax(btn) {
+  let loaded = btn.attr("data-loaded");
+  if (!!+loaded) {
+    return false
+  }
+  $.ajax({
+    url: btn.attr("data-url-chaps"),
+    type: "get",
+    dataType: "json",
+    success: function (data) {
+      $('.bookbody__tabs--chaps').html(data['html_chaps']);
+      btn.attr("data-loaded", 1);
+    },
+    error: function (xhr, errmsg, err) {
+        let msg = `${xhr.status} ${xhr.statusText}`
+        eventNotification(msg, 'error')
+    },
+  });
+}
+
+$('.js-load-chaps').on('click', function (e) {
+    let btn = $(this);
+    getChapsAjax(btn);
+})
+
+
 // Ajax theming
 function themeStylesPost(btn) {
     data = {}

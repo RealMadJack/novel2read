@@ -94,18 +94,28 @@ class BookView(DetailView):
     def get(self, request, *args, **kwargs):
         try:
             book = Book.objects.select_related('bookgenre').prefetch_related('booktag').get(slug=kwargs['book_slug'])
-            bookchapters = list(book.bookchapters.values_list(
-                'c_id', 'title', 'created', named=True))
-            last_chap = bookchapters[-1] if len(bookchapters) >= 1 else None
             user_auth = request.user.is_authenticated
 
             if request.is_ajax():
-                print('ajaxing book')
+                data = {}
+                bookchapters = list(book.bookchapters.values_list(
+                    'c_id', 'title', 'created', named=True).order_by('c_id'))
+                last_chap = bookchapters[-1] if len(bookchapters) >= 1 else None
+                template_name = 'books/book_chap_nav.html'
+                context = {
+                    'book': book,
+                    'bookchapters': bookchapters,
+                    'last_chap': last_chap,
+                }
+                data['html_chaps'] = render_to_string(
+                    template_name,
+                    context=context,
+                    request=request
+                )
+                return JsonResponse(data)
 
             context = {
                 'book': book,
-                'bookchapters': bookchapters,
-                'last_chap': last_chap,
                 'user_auth': user_auth}
             if user_auth:
                 book_prog = False
