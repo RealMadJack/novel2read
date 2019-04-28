@@ -136,9 +136,19 @@ class BookChapterView(DetailView):
             except IndexError:
                 next_chap = None
 
+            if request.is_ajax():
+                data = {}
+                template_name = 'books/bookchapter_chap_nav.html'
+                context = {'b_chaps': b_chaps}
+                data['html_chaps'] = render_to_string(
+                    template_name,
+                    context=context,
+                    request=request
+                )
+                return JsonResponse(data)
+
             context = {
                 'b_chap': b_chap,
-                'b_chaps': b_chaps,
                 'prev_chap': prev_chap,
                 'next_chap': next_chap,
             }

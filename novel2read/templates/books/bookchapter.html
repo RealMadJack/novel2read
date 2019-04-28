@@ -36,27 +36,13 @@
 
       <div class="bookchapter__nav--select">
         <div class="chaps">
-          <button class="chaps--toggle btn" id="chaps-toggle"><i class="fas fa-list"></i></button>
+          <button class="chaps--toggle btn"
+                  id="chaps-toggle"
+                  data-url-chaps="{{b_chap.get_absolute_url}}"
+                  data-loaded=0>
+            <i class="fas fa-list"></i></button>
           <ul class="chaps--nav scrollbar" id="chaps-nav">
-            {% if not b_chap.book.volumes %}
-              <span class="chaps--volume">Volume 1</span>
-            {% endif %}
-            {% for chap in b_chaps %}
-              {% with loop_counter=forloop.counter %}
-                {% if b_chap.book.volumes|length >= 1 %}
-                  {% for volume in b_chap.book.volumes %}
-                    {% if loop_counter == volume %}
-                      <span class="chaps--volume">Volume {{forloop.counter}}</span>
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-                <li {% if request.path == chap.absolute_url %}class="active" id="activeChap"{% endif %}>
-                  <a href="{{chap.absolute_url}}">
-                    <span>#{{chap.c_id}}: {{chap.title}}</span>
-                  </a>
-                </li>
-              {% endwith %}
-            {% endfor %}
+            {% include 'components/loader-dots.html' %}
           </ul>
         </div>
 
@@ -220,8 +206,3 @@
 
 </div> <!-- Container -->
 {% endblock content %}
-
-{% block javascript %}
-  {{ block.super }}
-  <script type="text/javascript" src="{% static 'js/bookchapter.js' %}"></script>
-{% endblock javascript %}
