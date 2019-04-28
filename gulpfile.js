@@ -6,6 +6,9 @@
 const { src, dest, parallel, series, watch } = require('gulp')
 const pjson = require('./package.json')
 
+var devip = require('dev-ip');
+devip();
+
 // Plugins
 const autoprefixer = require('autoprefixer')
 const browserSync = require('browser-sync').create()
@@ -120,7 +123,9 @@ function initBrowserSync() {
         `${paths.js}/*.js`,
         `${paths.templates}/*.html`
       ], {
-        proxy: "localhost:8000"
+        proxy: "localhost:8000",
+        host: devip(),
+        open: false,
       }
     )
 }

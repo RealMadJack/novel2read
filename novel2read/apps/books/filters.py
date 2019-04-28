@@ -46,11 +46,11 @@ class BookFilter(FilterSet):
         return qs
 
     def filter_by_chapters(self, qs, name, value):
-        expression = 'chapters' if value == 'low' else '-chapters'
+        expression = 'chapters_count' if value == 'low' else '-chapters_count'
         return qs.order_by(expression)
 
     def filter_by_votes(self, qs, name, value):
-        expression = 'chapters' if value == 'low' else '-chapters'
+        expression = 'chapters_count' if value == 'low' else '-chapters_count'
         return qs.order_by(expression)
 
     def filter_by_rating(self, qs, name, value):

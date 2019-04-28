@@ -92,19 +92,8 @@ function manageStyles(e) {
     setBodyCls(tm_lh)
   }
 }
+styles.addEventListener('click', manageStyles, false)
 
-function closeToggles(e) {
-  if (chapNav.classList.contains('visible')) {
-    if (e.target !== chapToggle && !$(e.target).closest(chapNav).length) {
-      chapNav.classList.remove('visible')
-    }
-  }
-  if (stylesMenu.classList.contains('visible')) {
-    if (e.target !== stylesBtn && !$(e.target).closest(stylesMenu).length) {
-      stylesMenu.classList.remove('visible')
-    }
-  }
-}
 
 // ChapNavToggle
 let chapToggle = document.getElementById('chaps-toggle');
@@ -118,7 +107,20 @@ function toggleChapNav(e) {
 chapToggle.addEventListener('click', toggleChapNav);
 
 
-styles.addEventListener('click', manageStyles, false)
+// Close Toggles
+function closeToggles(e) {
+  if (chapNav.classList.contains('visible')) {
+    if (e.target !== chapToggle && !$(e.target).closest(chapNav).length) {
+      chapNav.classList.remove('visible')
+    }
+  }
+  if (stylesMenu.classList.contains('visible')) {
+    if (e.target !== stylesBtn && !$(e.target).closest(stylesMenu).length) {
+      stylesMenu.classList.remove('visible')
+    }
+  }
+}
+
 document.body.addEventListener('click', closeToggles, false)
 
 })();

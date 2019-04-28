@@ -2,6 +2,7 @@
   "name": "novel2read",
   "version": "0.1.0",
   "dependencies": {
+    "dev-ip": "^1.0.1",
     "gulp-concat": "^2.6.1"
   },
   "devDependencies": {
