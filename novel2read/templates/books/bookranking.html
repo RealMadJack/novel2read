@@ -103,13 +103,9 @@
     </div>
   </div>
 
-  <div class="loading ">
-    <div class="loader loader-dots mb-30">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
+  {% with margin='mb-30' %}
+    {% include 'components/loader-dots.html' %}
+  {% endwith %}
 
   {% if books.has_next %}
     <a class="infinite-more-link mb-30"

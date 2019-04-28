@@ -98,6 +98,10 @@ class BookView(DetailView):
                 'c_id', 'title', 'created', named=True))
             last_chap = bookchapters[-1] if len(bookchapters) >= 1 else None
             user_auth = request.user.is_authenticated
+
+            if request.is_ajax():
+                print('ajaxing book')
+
             context = {
                 'book': book,
                 'bookchapters': bookchapters,

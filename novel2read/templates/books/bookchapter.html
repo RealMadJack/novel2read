@@ -206,3 +206,8 @@
 
 </div> <!-- Container -->
 {% endblock content %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script src="{% static 'js/bookchapter.js' %}"></script>
+{% endblock javascript %}
