@@ -169,15 +169,12 @@ function getChapsAjax(btn) {
     type: "get",
     dataType: "json",
     success: function (data) {
+      $('.js-chap-container').html(data['html_chaps']);
+      btn.attr("data-loaded", 1);
       if (btn[0].classList.contains('chaps--toggle')) {
-          btn.next().html(data['html_chaps']);
-          btn.attr("data-loaded", 1);
           let activeChap = document.getElementById('activeChap')
           activeChap.scrollIntoView(false);
-      } else {
-        $('.bookbody__tabs--chaps').html(data['html_chaps']);
       }
-      btn.attr("data-loaded", 1);
     },
     error: function (xhr, errmsg, err) {
         let msg = `${xhr.status} ${xhr.statusText}`

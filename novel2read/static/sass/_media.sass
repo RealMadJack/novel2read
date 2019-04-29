@@ -58,6 +58,15 @@
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 991px)
+  .alert-container
+    max-width: 460px
+  .alert
+    margin-bottom: 0
+    bottom: -20px
+  .alert.animate
+    bottom: 0
+
+
   .frontpage
     &__promo
       min-height: 250px
@@ -188,6 +197,9 @@
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px)
+  .alert-container
+    max-width: 75%
+
   .container
     padding: 0
 
@@ -585,6 +597,10 @@
       font-size: 1.4rem
     &__body
       p
+    &__nav
+      &--link
+        .btn
+          padding: 4px 22px
 
 
 /* Extra Small Devices, Phones */

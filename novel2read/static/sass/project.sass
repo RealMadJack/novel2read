@@ -20,29 +20,29 @@ body
 ////////////////////////////////
 body.tm-color-light
 body.tm-color-dark
-  color: rgba(255, 255, 255, .75)
-  background-color: $dark-grey
+  color: $tm-grey-td
+  background-color: $tm-grey-d
 
   .navbar
-    background-color: $accent-dark!important
+    background-color: $tm-grey-l!important
     .navbar-nav a, .navbar-brand
-      color: $white!important
+      color: $white
     .dropdown-menu, .dropdown-divider
       border-color: rgba(255, 255, 255, .2)
     .dropdown-menu
-      background-color: $accent-dark!important
+      background-color: $tm-grey-l
       .dropdown-divider
       a
-        color: $white
+        color: $f5
         &:hover, &:active, &:focus
-          background-color: $accent-hot
+          background-color: $accent
 
   .breadcrumb
     color: $white
 
   .bookchapter
     &__title .h1-title-sm
-      color: rgba(255, 255, 255, .9)
+      color: $tm-grey-tl
   .bookchapter__nav--select
     .chaps, .bookmark, .chap-styles
       > .btn, , form .btn, a .btn
@@ -1108,7 +1108,7 @@ a.disabled, button.disabled
       &:nth-of-type(2)
         order: 3
       .btn
-        padding: 4px 22px
+        padding: 4px 25px
         .fas, .far, .fal
           font-size: 1.2rem
       .btn-dark

@@ -58,24 +58,24 @@ body {
   font-weight: normal; }
 
 body.tm-color-dark {
-  color: rgba(255, 255, 255, 0.75);
-  background-color: #222337; }
+  color: #99999A;
+  background-color: #1B1B1B; }
   body.tm-color-dark .navbar {
-    background-color: #2b2e4a !important; }
+    background-color: #333333 !important; }
     body.tm-color-dark .navbar .navbar-nav a, body.tm-color-dark .navbar .navbar-brand {
-      color: #fff !important; }
+      color: #fff; }
     body.tm-color-dark .navbar .dropdown-menu, body.tm-color-dark .navbar .dropdown-divider {
       border-color: rgba(255, 255, 255, 0.2); }
     body.tm-color-dark .navbar .dropdown-menu {
-      background-color: #2b2e4a !important; }
+      background-color: #333333; }
       body.tm-color-dark .navbar .dropdown-menu a {
-        color: #fff; }
+        color: #f5f5f5; }
         body.tm-color-dark .navbar .dropdown-menu a:hover, body.tm-color-dark .navbar .dropdown-menu a:active, body.tm-color-dark .navbar .dropdown-menu a:focus {
-          background-color: #FF0099; }
+          background-color: #6A57F9; }
   body.tm-color-dark .breadcrumb {
     color: #fff; }
   body.tm-color-dark .bookchapter__title .h1-title-sm {
-    color: rgba(255, 255, 255, 0.9); }
+    color: #b9b9b9; }
   body.tm-color-dark .bookchapter__nav--select .chaps > .btn, body.tm-color-dark .bookchapter__nav--select .chaps form .btn, body.tm-color-dark .bookchapter__nav--select .chaps a .btn, body.tm-color-dark .bookchapter__nav--select .bookmark > .btn, body.tm-color-dark .bookchapter__nav--select .bookmark form .btn, body.tm-color-dark .bookchapter__nav--select .bookmark a .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles > .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles form .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles a .btn {
     color: #fff; }
 
@@ -1308,7 +1308,7 @@ a.disabled, button.disabled {
           -ms-flex-order: 3;
               order: 3; }
     .bookchapter__nav--link .btn {
-      padding: 4px 22px; }
+      padding: 4px 25px; }
       .bookchapter__nav--link .btn .fas, .bookchapter__nav--link .btn .far, .bookchapter__nav--link .btn .fal {
         font-size: 19.2px;
         font-size: 1.2rem; }
@@ -1631,6 +1631,13 @@ a.disabled, button.disabled {
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 991px) {
+  .alert-container {
+    max-width: 460px; }
+  .alert {
+    margin-bottom: 0;
+    bottom: -20px; }
+  .alert.animate {
+    bottom: 0; }
   .frontpage__promo {
     min-height: 250px; }
     .frontpage__promo .h1-title {
@@ -1690,6 +1697,8 @@ a.disabled, button.disabled {
 
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
+  .alert-container {
+    max-width: 75%; }
   .container {
     padding: 0; }
   .mw-swiper {
@@ -1982,7 +1991,9 @@ a.disabled, button.disabled {
         .book .bookbody .votecard--vote a small, .book .bookbody .votecard--vote .btn small {
           font-size: .7rem; }
   .bookchapter__title .h1-title-sm {
-    font-size: 1.4rem; } }
+    font-size: 1.4rem; }
+  .bookchapter__nav--link .btn {
+    padding: 4px 22px; } }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
