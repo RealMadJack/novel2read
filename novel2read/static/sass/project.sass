@@ -26,14 +26,17 @@ body.tm-color-dark
   .navbar
     background-color: $tm-grey-l!important
     .navbar-nav a, .navbar-brand
-      color: $white
+      color: $white!important
+    .navbar-nav a
+      &:hover, &:focus, &:active
+        opacity: .8
     .dropdown-menu, .dropdown-divider
       border-color: rgba(255, 255, 255, .2)
     .dropdown-menu
-      background-color: $tm-grey-l
+      background-color: $tm-grey-l!important
       .dropdown-divider
       a
-        color: $f5
+        color: $f5!important
         &:hover, &:active, &:focus
           background-color: $accent
 
@@ -455,10 +458,11 @@ a.disabled, button.disabled
     .btn-grp
       margin-top: 1rem
       .btn
-        font-size: 1.1rem
+        font-size: 1rem
         color: $accent
-        font-weight: 600
+        font-weight: bold
         padding: 6px 2rem
+        margin: 0 3px
         &:focus, &:active
           color: $accent-hot
         span
@@ -472,7 +476,7 @@ a.disabled, button.disabled
 .b-chap-card-sm
   display: flex
   color: $default
-  margin-bottom: 15px
+  margin-bottom: 6px
   &__poster
     flex: 0 0 45px
     margin-right: 10px
@@ -755,13 +759,13 @@ a.disabled, button.disabled
     .btn
       width: 100%
       text-align: right
-      padding: 5px 15px
+      padding: 4px 12px
       border: 0
       border-radius: 0
-      background-color: transparent
+      background-color: rgba(255, 255, 255, .7)
       .fas, .far, .fal
         color: $accent
-        font-size: 1.2rem
+        font-size: 1rem
       &:hover, &:focus, &:active
         color: $accent
         .fas, .far, .fal
@@ -772,14 +776,15 @@ a.disabled, button.disabled
       width: 100%
       position: absolute
       left: 0
-      background-color: rgba(255, 255, 255, 0.7)
+      background-color: rgba(255, 255, 255, 1)
+      box-shadow: $material-1
       .btn
         display: flex
         justify-content: center
         align-items: center
         font-size: .95rem
-        padding: 3px 5px
-        margin: 5px 0
+        padding: 5px
+        margin: 0
         background-color: transparent
         .fas, .far, .fal
           font-size: .9rem
@@ -793,6 +798,7 @@ a.disabled, button.disabled
     position: relative
     display: block
     max-width: 100%
+    box-shadow: $material-1
     &--image
       width: 100%
       height: 210px
@@ -945,25 +951,16 @@ a.disabled, button.disabled
         flex-grow: 1
         flex-shrink: 1
         align-items: flex-end
-        form
-          a .btn
-            color: $white
-            background-color: #343a40
-            border-color: #343a40
-            &:hover, &:active, &:focus
-              background-color: #212427
-              border-color: #212427
-        a
-          display: block
+        a, .btn
+          min-width: 130px
         > a
           margin-right: 10px
         .btn
-          display: block
-          font-size: 1.2rem
+          font-size: 1.1rem
           padding: 10px 30px
         .fas, .far, .fal
-          font-size: 1rem
-          padding-right: 10px
+          font-size: .95rem
+          padding-right: 5px
   .bookbody
     .h2-title
       margin-bottom: 20px
@@ -1050,7 +1047,7 @@ a.disabled, button.disabled
               margin-right: 5px
             &:last-of-type
               font-size: .8rem
-              opacity: .8
+              opacity: .6
         &--vote
           margin-left: auto
           text-align: center

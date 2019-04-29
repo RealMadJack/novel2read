@@ -240,7 +240,7 @@ function vote_post(btn) {
             if (data.is_valid) {
                 btn.parent().parent().find('.js-bvotes').html(data.book_votes)
                 $(".js-uvotes").html(data.user_votes)
-                // eventNotification('Successfuly voted.')
+                eventNotification('Successfully voted')
             } else {
                 eventNotification(data.info_msg, 'warning');
             }
@@ -275,22 +275,21 @@ function library_post(btn) {
                 if (!data.in_lib) {
                     if (btn[0].hasAttribute("data-bookmark")) {
                         btn.html('<i class="fas fa-bookmark"></i>');
-                        eventNotification('Book added to Library.');
                     } else {
                         btn.html('<i class="fas fa-check"></i> In Library');
                     }
                     btn.attr("data-lib-in", 1);
+                    eventNotification('Book added to Library');
                 } else {
                     if (btn[0].hasAttribute("data-bookmark")) {
                         btn.html('<i class="far fa-bookmark"></i>')
-                        eventNotification('Book removed from Library.')
                     } else if (btn[0].hasAttribute("data-lib-remonly")) {
                         btn.parents()[3].remove();
-                        // eventNotification('Book removed from Library.');
                     } else {
                         btn.html('Add to Library')
                     }
                     btn.attr("data-lib-in", 0)
+                    eventNotification('Book removed from Library')
                 }
             } else {
                 eventNotification(data.info_msg, 'warning');

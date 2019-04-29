@@ -4,7 +4,7 @@
   <span>Latest release:</span>
   {% if last_chap %}
     <a href="{% url 'books:bookchapter' book_slug=book.slug c_id=last_chap.c_id %}">
-      <span>{{last_chap.title}}</span>
+      <span>Chapter {{last_chap.c_id}}: {{last_chap.title}}</span>
     </a>
     <small>{{last_chap.created|naturaltime}}</small>
   {% endif %}
