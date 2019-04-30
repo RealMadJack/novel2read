@@ -63,6 +63,8 @@ DJANGO_APPS = [
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
+    'django_comments_xtd',
+    'django_comments',
     'crispy_forms',
     'allauth',
     'allauth.account',
@@ -203,6 +205,12 @@ TEMPLATES = [
 ]
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# COMMENTS
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 10  # nested level
+COMMENTS_XTD_CONFIRM_EMAIL = True  # only confirmed
 
 # FIXTURES
 # ------------------------------------------------------------------------------

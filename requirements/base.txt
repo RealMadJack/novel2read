@@ -20,6 +20,7 @@ django-redis==4.10.0  # https://github.com/niwinz/django-redis
 django-bootstrap-breadcrumbs>=0.9.1  # https://django-bootstrap-breadcrumbs.readthedocs.io/en/latest/
 django-summernote>=0.8.11.4  # https://github.com/summernote/django-summernote
 django-filter>=2.1.0  # https://django-filter.readthedocs.io/
+django-comments-xtd>=2.4.0
 
 
 # Django REST Framework
