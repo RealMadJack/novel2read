@@ -71,6 +71,7 @@ class Book(TimeStampedModel):
     )
     booktag = models.ManyToManyField(BookTag, related_name='%(class)ss', blank=True)
     author = ArrayField(models.CharField(max_length=112), blank=True, default=list)
+    allow_comments = models.BooleanField('allow comments', default=True)
     country = models.CharField(default='', max_length=255, blank=True)
     description = models.TextField(_('Description'), blank=True, default='')
     volumes = ArrayField(models.SmallIntegerField(default=1), blank=True, default=list)
