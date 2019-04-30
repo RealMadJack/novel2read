@@ -13,6 +13,7 @@ urlpatterns = [
         include("novel2read.apps.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
+    path("comments/", include("django_comments_xtd.urls")),
     path("summernote/", include("django_summernote.urls")),
     # Your stuff: custom urls includes go here
     path("", include("novel2read.apps.books.urls"))

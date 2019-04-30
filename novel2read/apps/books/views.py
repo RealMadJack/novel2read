@@ -116,7 +116,9 @@ class BookView(DetailView):
 
             context = {
                 'book': book,
-                'user_auth': user_auth}
+                'next': reverse('comments-xtd-sent'),
+                'user_auth': user_auth
+            }
             if user_auth:
                 book_prog = False
                 context['user_lib'] = list(request.user.library.book.all())
