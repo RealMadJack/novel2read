@@ -887,7 +887,7 @@ a.disabled, button.disabled {
       padding: 4px 12px;
       border: 0;
       border-radius: 0;
-      background-color: rgba(255, 255, 255, 0.7); }
+      background-color: rgba(0, 0, 0, 0.2); }
       .libcard__nav .btn .fas, .libcard__nav .btn .far, .libcard__nav .btn .fal {
         color: #6A57F9;
         font-size: 16px;

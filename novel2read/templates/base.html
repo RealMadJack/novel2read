@@ -47,7 +47,7 @@
   {% endif %}
   {% endwith %}
 
-    <div class="mb-1">
+    <header class="mb-1">
       <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container">
 
@@ -112,8 +112,7 @@
           </div>
         </div>
       </nav>
-
-    </div>
+    </header>
 
     <div class="container alert-container">
 
@@ -125,6 +124,7 @@
 
     </div> <!-- container -->
 
+    <main>
       {% load django_bootstrap_breadcrumbs %}
 
       {% block breadcrumbs %}
@@ -137,16 +137,15 @@
         <p>Default new page.</p>
       {% endblock content %}
 
+      {% block modal %}{% endblock modal %}
+    </main>
 
-    {% block modal %}{% endblock modal %}
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Le javascript -->
     {% block javascript %}
 
       <script type="text/javascript" src="{% static 'js/libs.min.js' %}"></script>
-      <script src="{% static 'js/project.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
 
 
     {% endblock javascript %}
