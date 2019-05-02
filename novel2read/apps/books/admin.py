@@ -22,6 +22,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
         ('status', 'status_release'),
         'bookgenre',
         'booktag',
+        'allow_comments',
         ('author', 'country'),
         'poster',
         ('rating', 'ranking', 'votes', 'recommended'),

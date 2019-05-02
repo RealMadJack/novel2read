@@ -209,7 +209,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # COMMENTS
 COMMENTS_APP = 'django_comments_xtd'
-COMMENTS_XTD_MAX_THREAD_LEVEL = 10  # nested level
+COMMENTS_XTD_MAX_THREAD_LEVEL = 3  # nested level
 COMMENTS_XTD_CONFIRM_EMAIL = True  # Set to False to disable confirmation
 
 # FIXTURES

@@ -389,6 +389,17 @@ a.disabled, button.disabled {
     padding: 10px;
       padding-top: 8px; }
 
+.comments__list img, .comments__tree img {
+  max-width: 60px;
+  height: auto; }
+
+.comments__form {
+  margin: 30px 0; }
+  .comments__form--disabled h5 {
+    color: #E61A80;
+    font-size: 22.4px;
+    font-size: 1.4rem; }
+
 .mw-swiper {
   width: calc(100% - 22.5%);
   max-width: 1600px; }

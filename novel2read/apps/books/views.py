@@ -24,7 +24,7 @@ class FrontPageView(View):
         b_chaps = BookChapter.objects.select_related('book').filter(id__in=b_chaps).order_by('-created')
         promo_title = 'Read your favourite novels with comfort'
         promo_subtitle = 'Get access to the latest releases of novels and light-novels.'
-        paginator = Paginator(b_chaps, 6)
+        paginator = Paginator(b_chaps, 10)
         page = self.request.GET.get('page')
         b_chaps = paginator.get_page(page)
         context = {'books': books, 'b_chaps': b_chaps, 'promo_title': promo_title, 'promo_subtitle': promo_subtitle}
@@ -286,7 +286,7 @@ def book_vote_ajax_view(request, *args, **kwargs):
         user_votes = user.profile.votes
         book = Book.objects.get(slug=kwargs['book_slug'])
         if user_votes <= 0:
-            data['info_msg'] = 'You have no votes for today.'
+            data['info_msg'] = 'You are out of votes'
         else:
             try:
                 data['is_valid'] = True

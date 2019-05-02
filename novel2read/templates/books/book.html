@@ -153,6 +153,9 @@
         <div class="bookbody__comments--title">
           <h2 class="h2-title">Discussion</h2>
         </div>
+        {% with object=book %}
+          {% include 'components/comments_tree.html' %}
+        {% endwith %}
       </div>
 
     </div>
