@@ -2,6 +2,21 @@
 
 (function () {
 
+// Tooltip
+$('[data-toggle="tooltip"]').tooltip()
+
+
+// Dom Reverse
+$.fn.reverseChildren = function() {
+};
+$('.js-filter-reverse').on('click', function (e) {
+      return $('.js-reverse-content').each(function(){
+        var $this = $(this);
+        $this.children().each(function(){ $this.prepend(this) });
+      });
+});
+
+
 // Global vars
 let wto;
 const ajaxDelay = 200

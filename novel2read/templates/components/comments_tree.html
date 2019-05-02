@@ -4,21 +4,36 @@
 <div class="comments">
   {% get_comment_count for object as comment_count %}
 
-  {% comment %}
-    {% if comment_count %}
-      <div class="comments__count">
-        <h5 class="text-center">
-          {% with comment_count=comment_count %}
-            There are {{ comment_count }} comments below.
-          {% endwith %}
-        </h5>
+  {% if comment_count %}
+    <div class="comments__count">
+      <h5 class="comments__count--title">
+        {% with comment_count=comment_count %}
+          {{ comment_count }} comments
+        {% endwith %}
+      </h5>
+      <div class="comments__count--filter">
+        <div class="btn-group">
+          <div class="btn btn-link"
+               data-toggle="tooltip"
+               data-placement="top"
+               title="Sort by Likes">
+            <i class="fas fa-thumbs-up"></i>
+          </div>
+          <div class="btn btn-link js-filter-reverse"
+               data-toggle="tooltip"
+               data-placement="top"
+               title="Sort by Time">
+            <i class="fas fa-clock"></i>
+          </div>
+        </div>
       </div>
-    {% endif %}
-  {% endcomment %}
+    </div>
+    <hr/>
+  {% endif %}
 
   {% if comment_count %}
-    <div class="comments__tree">
-      {% render_xtdcomment_tree for object %}
+    <div class="comments__tree js-reverse-content">
+      {% render_xtdcomment_tree for object allow_flagging allow_feedback show_feedback %}
     </div>
   {% endif %}
 
