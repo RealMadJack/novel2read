@@ -5,24 +5,14 @@ from django_comments_xtd.forms import XtdCommentForm
 from django_comments_xtd.models import TmpXtdComment
 
 
-class BookSearchForm(forms.Form):
-    search_field = forms.CharField(
-        label='Search for book title:', max_length=100,
-        widget=forms.TextInput(attrs={
-            'placeholder': 'Any book info...',
-            'class': 'form-control',
-        })
-    )
-
-
-class BookCommentForm(XtdCommentForm):
+class BasicCommentForm(XtdCommentForm):
     avatar = forms.CharField(
         max_length=255,
         widget=forms.TextInput(attrs={'placeholder': _('avatar')})
     )
 
     def get_comment_create_data(self, *args, **kwargs):
-        data = super(BookCommentForm, self).get_comment_create_data(*args, **kwargs)
+        data = super(BasicCommentForm, self).get_comment_create_data(*args, **kwargs)
         data.update({'avatar': self.cleaned_data['avatar']})
         print(self.user)
         print(data)

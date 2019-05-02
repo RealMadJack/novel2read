@@ -43,7 +43,7 @@
 
   {% if comment_count %}
     <div class="comments__tree js-reverse-content">
-      {% render_xtdcomment_tree for object with_flagging %}
+      {% render_xtdcomment_tree for object allow_flagging %}
     </div>
   {% endif %}
 

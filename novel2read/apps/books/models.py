@@ -6,14 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices, FieldTracker
 from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
-from django_comments_xtd.models import XtdComment
 
 from .managers import BookManager
 from .utils import get_unique_slug, capitalize_str
-
-
-class BookComment(XtdComment):
-    avatar = models.CharField(blank=True, max_length=255)
 
 
 class BookGenre(TimeStampedModel):

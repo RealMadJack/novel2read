@@ -79,6 +79,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'novel2read.apps.users.apps.UsersAppConfig',
     'novel2read.apps.books.apps.BooksConfig',
+    'novel2read.apps.comments.apps.CommentsConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -219,7 +220,8 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
         'show_feedback': True,
     }
 }
-COMMENTS_XTD_FORM_CLASS = 'novel2read.apps.books.forms.BookCommentsForm'
+COMMENTS_XTD_MODEL = 'novel2read.apps.comments.models.BasicComment'
+COMMENTS_XTD_FORM_CLASS = 'novel2read.apps.comments.forms.BasicCommentForm'
 
 # FIXTURES
 # ------------------------------------------------------------------------------
