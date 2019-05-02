@@ -14,9 +14,6 @@ class BasicCommentForm(XtdCommentForm):
         max_length=255,
         widget=forms.TextInput(attrs={'placeholder': _('avatar')})
     )
-    id_name = forms.HiddenInput()
-    user_name = forms.HiddenInput()
-    name = forms.HiddenInput()
 
     def get_comment_create_data(self, **kwargs):
         data = super(BasicCommentForm, self).get_comment_create_data(**kwargs)

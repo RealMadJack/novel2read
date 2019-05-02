@@ -12,7 +12,7 @@ class BasicCommentAdmin(XtdCommentsAdmin):
     list_display_links = ('cid', )
     fieldsets = (
         (None, {'fields': ('content_type', 'object_pk', 'site')}),
-        (_('Content'), {'fields': ('title', 'user', 'user_name', 'user_avatar', 'user_email', 'user_url', 'comment', 'followup')}),
+        (_('Content'), {'fields': ('user', 'user_name', 'user_avatar', 'user_email', 'user_url', 'comment', 'followup')}),
         (_('Metadata'), {'fields': ('submit_date', 'ip_address', 'is_public', 'is_removed')}),
     )
 
