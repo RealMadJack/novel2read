@@ -269,7 +269,7 @@ def book_vote_view(request, *args, **kwargs):
             else:
                 user.profile.votes = F('votes') - 1
                 user.save()
-                book.votes += 1
+                book.votes = F('votes') + 1
                 book.save()
             return redirect(next_url)
         except Book.DoesNotExist:

@@ -328,8 +328,9 @@ a.disabled, button.disabled
 // Comments
 .media, .comments__list .media, .comments__tree .media
   img
-    max-width: 60px
-    height: auto
+    max-width: 35px
+    height: 35px
+    object-fit: cover
 .comments
     &__count
       display: flex
@@ -337,15 +338,12 @@ a.disabled, button.disabled
       justify-content: space-between
       align-items: center
       &--title
+        margin-bottom: 0
       &--filter
         .btn
           padding: 0 8px
           &:last-of-type
             margin-right: -8px
-    &__list, &__tree
-      img
-        max-width: 60px
-        height: auto
     &__list
     &__tree
       .media
@@ -354,10 +352,10 @@ a.disabled, button.disabled
           display: block
           content: ''
           width: 1px
-          height: calc(100% - 94px)
+          height: calc(100% - 50px)
           position: absolute
-          top: 70px
-          left: 30px
+          top: 35px
+          left: 18px
           background-color: $default
           opacity: .2
     &__form

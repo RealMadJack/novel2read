@@ -390,8 +390,10 @@ a.disabled, button.disabled {
       padding-top: 8px; }
 
 .media img, .comments__list .media img, .comments__tree .media img {
-  max-width: 60px;
-  height: auto; }
+  max-width: 35px;
+  height: 35px;
+  -o-object-fit: cover;
+     object-fit: cover; }
 
 .comments__count {
   display: -webkit-box;
@@ -407,14 +409,12 @@ a.disabled, button.disabled {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center; }
+  .comments__count--title {
+    margin-bottom: 0; }
   .comments__count--filter .btn {
     padding: 0 8px; }
     .comments__count--filter .btn:last-of-type {
       margin-right: -8px; }
-
-.comments__list img, .comments__tree img {
-  max-width: 60px;
-  height: auto; }
 
 .comments__tree .media {
   position: relative; }
@@ -422,10 +422,10 @@ a.disabled, button.disabled {
     display: block;
     content: '';
     width: 1px;
-    height: calc(100% - 94px);
+    height: calc(100% - 50px);
     position: absolute;
-    top: 70px;
-    left: 30px;
+    top: 35px;
+    left: 18px;
     background-color: black;
     opacity: .2; }
 
