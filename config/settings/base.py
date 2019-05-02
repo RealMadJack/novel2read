@@ -210,6 +210,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # COMMENTS
 COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MODEL = 'novel2read.apps.comments.models.BasicComment'
+COMMENTS_XTD_FORM_CLASS = 'novel2read.apps.comments.forms.BasicCommentForm'
 COMMENTS_XTD_MAX_THREAD_LEVEL = 3  # nested level
 COMMENTS_XTD_CONFIRM_EMAIL = True  # Set to False to disable confirmation
 COMMENTS_XTD_LIST_ORDER = ('-thread_id', 'order')
@@ -220,8 +222,7 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
         'show_feedback': True,
     }
 }
-COMMENTS_XTD_MODEL = 'novel2read.apps.comments.models.BasicComment'
-COMMENTS_XTD_FORM_CLASS = 'novel2read.apps.comments.forms.BasicCommentForm'
+
 
 # FIXTURES
 # ------------------------------------------------------------------------------
