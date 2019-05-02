@@ -343,7 +343,7 @@ a.disabled, button.disabled
         .btn
           padding: 0 8px
           &:last-of-type
-            margin-right: -8px
+            padding-right: 0
     &__list
     &__tree
       .media
@@ -358,12 +358,13 @@ a.disabled, button.disabled
           left: 18px
           background-color: $default
           opacity: .2
+        .media-body
+          font-size: 1rem
     &__form
       margin: 30px 0
-      &--disabled
-        h5
-          color: $accent-hot-dark
-          font-size: 1.4rem
+      &--disabled h5
+        color: $accent-hot-dark
+        font-size: 1.4rem
 
 
 

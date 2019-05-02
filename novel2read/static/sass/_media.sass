@@ -66,6 +66,32 @@
   .alert.animate
     bottom: 0
 
+  .media, .comments__list .media, .comments__tree .media
+    img
+      max-width: 30px
+      height: 30px
+      object-fit: cover
+      margin-right: .5rem!important
+  .comments
+    &__count
+      &--title
+      &--filter
+        .btn
+    &__list
+    &__tree
+      .media
+        &::after
+          height: calc(100% - 50px)
+          top: 30px
+          left: 15px
+        .media-body
+          font-size: .9rem
+        .media
+          position: relative
+    &__form
+      &--disabled h5
+        font-size: 1.2rem
+
 
   .frontpage
     &__promo
@@ -544,6 +570,27 @@
 @media only screen and (max-width : 575px)
   .container
     padding: 0 15px
+
+
+  .media, .comments__list .media, .comments__tree .media
+    img
+      max-width: 30px
+      height: 30px
+      object-fit: cover
+      margin-right: .5rem!important
+  .comments
+    &__count
+      &--title
+      &--filter
+        .btn
+    &__list
+    &__tree
+      .media
+        .media
+          left: -15px
+          width: calc(100% + 15px)
+    &__form
+      &--disabled h5
 
   .libcard
     max-width: 240px
