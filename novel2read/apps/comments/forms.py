@@ -8,7 +8,7 @@ from django_comments_xtd.models import TmpXtdComment
 User = get_user_model()
 
 
-class BasicCommentForm(XtdCommentForm):
+class CustomCommentForm(XtdCommentForm):
     user_avatar = forms.CharField(
         required=False,
         max_length=255,
@@ -16,7 +16,7 @@ class BasicCommentForm(XtdCommentForm):
     )
 
     def get_comment_create_data(self, **kwargs):
-        data = super(BasicCommentForm, self).get_comment_create_data(**kwargs)
+        data = super(CustomCommentForm, self).get_comment_create_data(**kwargs)
         try:
             user = User.objects.get(email=data['user_email'])
             data.update({

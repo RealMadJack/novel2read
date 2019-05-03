@@ -222,8 +222,8 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
         'show_feedback': True,
     }
 }
-COMMENTS_XTD_MODEL = 'novel2read.apps.comments.models.BasicComment'
-COMMENTS_XTD_FORM_CLASS = 'novel2read.apps.comments.forms.BasicCommentForm'
+COMMENTS_XTD_MODEL = 'novel2read.apps.comments.models.CustomComment'
+COMMENTS_XTD_FORM_CLASS = 'novel2read.apps.comments.forms.CustomCommentForm'
 
 
 # FIXTURES

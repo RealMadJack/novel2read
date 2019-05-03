@@ -2,10 +2,10 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from django_comments_xtd.admin import XtdCommentsAdmin
-from .models import BasicComment
+from .models import CustomComment
 
 
-class BasicCommentAdmin(XtdCommentsAdmin):
+class CustomCommentAdmin(XtdCommentsAdmin):
     list_display = ('thread_level', 'user_avatar', 'cid', 'name', 'content_type',
                     'object_pk', 'submit_date', 'followup', 'is_public',
                     'is_removed')
@@ -17,4 +17,4 @@ class BasicCommentAdmin(XtdCommentsAdmin):
     )
 
 
-admin.site.register(BasicComment, BasicCommentAdmin)
+admin.site.register(CustomComment, CustomCommentAdmin)
