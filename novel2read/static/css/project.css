@@ -151,14 +151,6 @@ select {
 
 .form-control:active, .form-control:focus {
   border-color: #6A57F9; }
-  .form-control:active::-webkit-input-placeholder, .form-control:focus::-webkit-input-placeholder {
-    color: #6A57F9; }
-  .form-control:active:-ms-input-placeholder, .form-control:focus:-ms-input-placeholder {
-    color: #6A57F9; }
-  .form-control:active::-ms-input-placeholder, .form-control:focus::-ms-input-placeholder {
-    color: #6A57F9; }
-  .form-control:active::placeholder, .form-control:focus::placeholder {
-    color: #6A57F9; }
 
 a, form a, .btn-link {
   color: #6A57F9;
@@ -421,6 +413,8 @@ a.disabled, button.disabled {
   .comments__list .media .media-body, .comments__tree .media .media-body {
     font-size: 16px;
     font-size: 1rem; }
+    .comments__list .media .media-body .comment .text-muted, .comments__tree .media .media-body .comment .text-muted {
+      margin-bottom: 0; }
     .comments__list .media .media-body .comment__title--time, .comments__tree .media .media-body .comment__title--time {
       padding: 0 5px; }
 
@@ -448,7 +442,7 @@ a.disabled, button.disabled {
 
 .comments__form {
   margin: 10px 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   position: relative; }
   .comments__form--field:last-of-type {
     margin-top: 10px; }
@@ -456,8 +450,9 @@ a.disabled, button.disabled {
     position: relative; }
     .comments__form--comment .form-control {
       min-height: 80px;
-      -webkit-transition: all .3s ease;
-      transition: all .3s ease; }
+      -webkit-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      resize: none; }
     .comments__form--comment .form-control.active {
       min-height: 180px; }
       .comments__form--comment .form-control.active + .form-group {

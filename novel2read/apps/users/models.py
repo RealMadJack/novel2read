@@ -1,3 +1,4 @@
+import uuid
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.db import models
@@ -74,8 +75,9 @@ class Library(models.Model):
 
 
 class BookProgress(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='%(class)ses')
-    book = models.OneToOneField(Book, on_delete=models.CASCADE, primary_key=True)
+    book = models.OneToOneField(Book, on_delete=models.CASCADE)
     c_id = models.IntegerField('Progress ID', blank=True, null=True, default=0, db_index=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
     updated = models.DateTimeField(auto_now=True, blank=True, null=True)

@@ -117,8 +117,6 @@ select
 .form-control
   &:active, &:focus
     border-color: $accent
-    &::placeholder
-      color: $accent
 
 a, form a, .btn-link
   color: $accent
@@ -350,6 +348,8 @@ a.disabled, button.disabled
         .media-body
           font-size: 1rem
           .comment
+            .text-muted
+              margin-bottom: 0
             &__title
               &--name
               &--badge
@@ -380,7 +380,7 @@ a.disabled, button.disabled
             opacity: .2
     &__form
       margin: 10px 0
-        bottom: 20px
+        bottom: 10px
       position: relative
       &--field
         &:last-of-type
@@ -389,7 +389,8 @@ a.disabled, button.disabled
         position: relative
         .form-control
           min-height: 80px
-          transition: all .3s ease
+          transition: all .3s ease-in-out
+          resize: none
         .form-control.active
           min-height: 180px
           + .form-group

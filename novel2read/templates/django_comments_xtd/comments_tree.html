@@ -20,13 +20,15 @@
             {% if item.comment.url %}
             </a>
             {% endif %}
-            {% comment %}
+
+          {% comment %}
             {% if item.comment.user and item.comment.user|has_permission:"django_comments.can_moderate" %}
               <span class="comment__title--badge badge badge-secondary">
                 {% trans "moderator" %}
               </span>
             {% endif %}
-            {% endcomment %}
+          {% endcomment %}
+
             <span class="comment__title--time">
               {{item.comment.submit_date|naturaltime}}
             </span>
