@@ -27,6 +27,6 @@ class BlackListedDomainAdmin(admin.ModelAdmin):
 
 if get_model() is CustomComment:
     admin.site.register(CustomComment, CustomCommentAdmin)
-    admin.site.register(XtdComment, XtdCommentsAdmin)
+    # admin.site.register(XtdComment, XtdCommentsAdmin)
     admin.site.register(CommentFlag)
     admin.site.register(BlackListedDomain, BlackListedDomainAdmin)

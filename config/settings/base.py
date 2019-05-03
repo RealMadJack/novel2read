@@ -217,9 +217,9 @@ COMMENTS_XTD_MAX_THREAD_LEVEL = 3  # nested level
 COMMENTS_XTD_LIST_ORDER = ('-thread_id', 'order')
 COMMENTS_XTD_APP_MODEL_OPTIONS = {
     'books.book': {
-        'allow_flagging': True,
-        'allow_feedback': True,
-        'show_feedback': True,
+        'allow_flagging': False,
+        'allow_feedback': False,
+        'show_feedback': False,
     }
 }
 COMMENTS_XTD_MODEL = 'novel2read.apps.comments.models.CustomComment'
