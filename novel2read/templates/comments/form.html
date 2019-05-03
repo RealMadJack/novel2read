@@ -13,8 +13,6 @@
           {% if field.is_hidden %}<div>{{ field }}</div>{% endif %}
         {% endfor %}
 
-        {{ form.user_avatar }}
-
         <div style="display:none">{{ form.honeypot }}</div>
 
         <div class="row form-group {% if 'comment' in form.errors %}has-danger{% endif %}">

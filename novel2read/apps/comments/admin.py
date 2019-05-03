@@ -3,6 +3,10 @@ from django.utils.translation import ugettext_lazy as _
 
 from django_comments_xtd.admin import XtdCommentsAdmin
 from .models import CustomComment
+from django_comments import get_model
+from django_comments.admin import CommentsAdmin
+from django_comments.models import CommentFlag
+from django_comments_xtd.models import XtdComment, BlackListedDomain
 
 
 class CustomCommentAdmin(XtdCommentsAdmin):
@@ -17,4 +21,12 @@ class CustomCommentAdmin(XtdCommentsAdmin):
     )
 
 
-admin.site.register(CustomComment, CustomCommentAdmin)
+class BlackListedDomainAdmin(admin.ModelAdmin):
+    search_fields = ['domain']
+
+
+if get_model() is CustomComment:
+    admin.site.register(CustomComment, CustomCommentAdmin)
+    admin.site.register(XtdComment, XtdCommentsAdmin)
+    admin.site.register(CommentFlag)
+    admin.site.register(BlackListedDomain, BlackListedDomainAdmin)
