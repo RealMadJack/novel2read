@@ -87,6 +87,12 @@ $(".js-toggle-next").on('click', function () {
 })
 
 
+// Comments
+$("#id_comment").on('click', function () {
+    $(this)[0].classList.add('active');
+})
+
+
 // Tags nav
 $(".tags-dropdown").on('click', function() {
     $('.js-tags-nav').slideToggle(300);

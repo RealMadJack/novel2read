@@ -91,6 +91,20 @@
         .media
           position: relative
     &__form
+      margin: 10px 0
+        bottom: 20px
+      font-size: .9rem
+      .form-control
+        font-size: .95rem
+      &--field
+      &--comment
+        .form-control.active
+          min-height: 200px
+        .form-group
+          .btn
+            min-width: 80px
+            font-size: .95rem
+      &--submit
       &--disabled h5
         font-size: 1.2rem
 
@@ -592,7 +606,7 @@
           left: -15px
           width: calc(100% + 15px)
     &__form
-      &--disabled h5
+
 
   .libcard
     max-width: 240px

@@ -379,7 +379,32 @@ a.disabled, button.disabled
             background-color: $default
             opacity: .2
     &__form
-      margin: 30px 0
+      margin: 10px 0
+        bottom: 20px
+      position: relative
+      &--field
+        &:last-of-type
+          margin-top: 10px
+      &--comment
+        position: relative
+        .form-control
+          min-height: 80px
+          transition: all .3s ease
+        .form-control.active
+          min-height: 180px
+          + .form-group
+            display: block
+            + .form-group
+              display: block
+        .form-group
+          z-index: 1
+          display: none
+          .btn
+            min-width: 90px
+      &--submit
+        position: absolute
+        bottom: 30px
+        right: 13px
       &--disabled h5
         color: $accent-hot-dark
         font-size: 1.4rem
