@@ -12,7 +12,8 @@ class CustomCommentForm(XtdCommentForm):
     user_avatar = forms.CharField(
         required=False,
         max_length=255,
-        widget=forms.TextInput(attrs={'placeholder': _('avatar')})
+        widget=forms.HiddenInput(),
+        initial='/users/default.png',
     )
 
     def get_comment_create_data(self, **kwargs):
