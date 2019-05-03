@@ -25,7 +25,6 @@ class CustomCommentForm(XtdCommentForm):
             })
         except User.DoesNotExist:
             data.update({
-                'user_name': data.get('user_name', 'Guest'),
-                'user_avatar': 'users/default.png',
+                'user_name': data.get('user_name', 'Guest')
             })
         return data

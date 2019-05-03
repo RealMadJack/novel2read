@@ -9,7 +9,7 @@ class CustomCommentAdmin(XtdCommentsAdmin):
     list_display = ('thread_level', 'user_avatar', 'cid', 'name', 'content_type',
                     'object_pk', 'submit_date', 'followup', 'is_public',
                     'is_removed')
-    list_display_links = ('cid', )
+    list_display_links = ('cid', 'user_avatar', )
     fieldsets = (
         (None, {'fields': ('content_type', 'object_pk', 'site')}),
         (_('Content'), {'fields': ('user', 'user_name', 'user_avatar', 'user_email', 'user_url', 'comment', 'followup')}),
