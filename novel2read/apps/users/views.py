@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
 from novel2read.apps.books.models import Book
+from .models import BookProgress
 
 User = get_user_model()
 
@@ -17,9 +18,15 @@ User = get_user_model()
 def library_view(request, *args, **kwargs):
     if request.method == 'GET':
         template_name = 'users/user_library.html'
-        b_qs = request.user.library.book.all()
-        bookprogresses = request.user.bookprogresses.values_list(named=True)
-        context = {'books': b_qs, 'bookprogresses': bookprogresses}
+        b_qs = request.user.library.book.order_by('title')
+        bookprogresses = request.user.bookprogresses.all()
+        prog_book_val = bookprogresses.values_list('book_id', named=True)
+        prog_book_ids = [i.book_id for i in prog_book_val]
+        context = {
+            'books': b_qs,
+            'bookprogresses': bookprogresses,
+            'prog_book_ids': prog_book_ids,
+        }
         return render(request, template_name=template_name, context=context)
 
 
