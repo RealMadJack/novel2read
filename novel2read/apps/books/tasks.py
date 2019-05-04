@@ -58,6 +58,7 @@ def book_scraper_info(self, book_id):
             book.status = 1
             book.save()
         except Exception as exc:
+            print(book.title)
             save_celery_result(
                 task_id=self.request.id,
                 task_name=self.name,

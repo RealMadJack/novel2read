@@ -17,11 +17,9 @@ User = get_user_model()
 def library_view(request, *args, **kwargs):
     if request.method == 'GET':
         template_name = 'users/user_library.html'
-        b_qs = request.user.library.book.select_related('bookprogress')
-        books_blank = b_qs.exclude(bookprogress__isnull=False).order_by('title')
-        books = b_qs.exclude(bookprogress__isnull=True).order_by('-bookprogress__updated')
-        books = list(chain(books, books_blank))
-        context = {'books': books}
+        b_qs = request.user.library.book.all()
+        bookprogresses = request.user.bookprogresses.values_list(named=True)
+        context = {'books': b_qs, 'bookprogresses': bookprogresses}
         return render(request, template_name=template_name, context=context)
 
 

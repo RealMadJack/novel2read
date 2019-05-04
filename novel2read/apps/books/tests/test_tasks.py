@@ -75,8 +75,8 @@ class BookTasksTest(TestCase):
         self.book.refresh_from_db()
         b_chaps = self.book.bookchapters.all()
         b_chaps_list = list(b_chaps)
-        b_chaps_f = b_chaps_list[0]
-        b_chaps_l = b_chaps_list[-1]
+        b_chaps_l = b_chaps_list[0]
+        b_chaps_f = b_chaps_list[-1]
         self.assertEqual(res.state, states.SUCCESS)
         self.assertEqual(len(b_chaps_list), s_to)
         self.assertEqual(b_chaps_f.slug, 'swindler')
