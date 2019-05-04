@@ -37,6 +37,6 @@ class UserAdmin(auth_admin.UserAdmin):
 
 @admin.register(BookProgress)
 class BookProgress(admin.ModelAdmin):
-    fields = ('user', 'book', 'c_id', )
+    fields = ('user', 'book', 'c_id')
     list_select_related = ('book',)
     list_display = ('user', 'book', 'c_id')
