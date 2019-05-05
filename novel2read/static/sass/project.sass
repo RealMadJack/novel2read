@@ -51,6 +51,35 @@ body.tm-color-dark
       > .btn, , form .btn, a .btn
         color: $white
 
+  hr
+    background-color: $white
+  .form-control
+    background-color: $f5
+
+  .media, .comments__list .media, .comments__tree .media
+    > img
+      background-color: $f5
+  .comments
+    color: $tm-grey-tl
+    &__list, &__tree
+      .media
+        .media-body
+          .comment
+            .text-muted
+            &__title
+              &--name
+                color: $white
+              &--badge
+                background-color: $tm-grey-d
+              &--time
+              &--permalink
+      .media.has-children
+        &::after
+          background-color: $f5
+        .media
+          &::after
+            background-color: $f5
+
 body.tm-font-arial
   .bookchapter
     &__title, &__body
@@ -247,6 +276,10 @@ a.disabled, button.disabled
 .h4-title-sm
   font-size: 1.1rem
 
+.mt-50
+  margin-top: 50px!important
+.mb-50
+  margin-bottom: 50px!important
 .mt-30
   margin-top: 30px!important
 .mb-30
@@ -325,7 +358,8 @@ a.disabled, button.disabled
 
 // Comments
 .media, .comments__list .media, .comments__tree .media
-  img
+  > img
+    background-color: $white
     max-width: 35px
     height: 35px
     object-fit: cover
