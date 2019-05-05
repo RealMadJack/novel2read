@@ -147,6 +147,7 @@ class BookChapter(TimeStampedModel):
         related_name='%(class)ss',
         related_query_name='%(class)s',
     )
+    allow_comments = models.BooleanField('allow comments', default=True)
     c_id = models.IntegerField('Chapter ID', blank=True, null=True, default=0)
     title = models.CharField(_('Title'), blank=False, default='', max_length=255)
     slug = models.SlugField(default='', max_length=255, unique=True)
