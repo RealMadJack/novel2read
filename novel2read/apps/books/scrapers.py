@@ -44,23 +44,20 @@ class BookScraper:
             del html_text[0]
         if len(html_text[0].text) >= 2000:
             del html_text[0]
-        for i, text_node in enumerate(html_text):
-            text = text_node.text.lower()
-            html = text_node.html.lower()
-            # print(html_node)
-            if i >= 5:
-                break
-            if text.startswith('chapter'):
-                del text_node
-            if 'translator' and 'editor' in text:
-                del text_node
-            if '<ol' in html:
-                del text_node
-        filtered_html_text = []
 
-        for text_node in html_text:
+        filtered_html_text = []
+        for i, text_node in enumerate(html_text):
             text_node = text_node.html
             node = multiple_replace(self.to_repl, text_node)
+
+            if i <= 5:
+                if node.lower().startswith('chapter'):
+                    node = ''
+                if 'translator' and 'editor' in node.lower():
+                    node = ''
+                if '<ol' in node.lower():
+                    node = ''
+
             if len(node):
                 node = f'<p>{node}</p>'
                 filtered_html_text.append(node)
@@ -220,7 +217,6 @@ class BookScraper:
         chap_content_raw = r_chap.html.find('.reading-content p')
         chap_content_filtered = self.raw_html_text_filter(chap_content_raw)
 
-        print(chap_content_filtered)
         b_chap = {
             'c_id': chap_tit_id,
             'c_title': chap_tit,
