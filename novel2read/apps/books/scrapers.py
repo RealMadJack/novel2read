@@ -49,6 +49,7 @@ class BookScraper:
         for i, text_node in enumerate(html_text):
             text_node = text_node.html
             node = multiple_replace(self.to_repl, text_node)
+            node = node.encode("ascii", errors="ignore").decode('utf-8')
 
             if i <= 5:
                 if node.lower().startswith('chapter'):

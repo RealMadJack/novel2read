@@ -109,7 +109,7 @@ class BookTasksTest(TestCase):
         self.assertTrue(len(b_chaps[1].text) > 3000)
         self.assertTrue(len(b_chaps[0].text) > 3000)
 
-    # @tag('slow')  # 30s
+    @tag('slow')  # 30s
     def test_book_scraper_revisit_boxnovel(self):
         s_to = 4
         self.book.visited = True
