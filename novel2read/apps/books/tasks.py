@@ -157,7 +157,7 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
     for book in books:
         if book.chapters_count and book.revisit_id and not book.revisited:
             try:
-                interval += 10
+                interval += 5
                 book.revisited = True
                 book.save()
                 schedule, created = IntervalSchedule.objects.get_or_create(

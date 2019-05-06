@@ -54,9 +54,13 @@ class BookScraper:
             if i <= 5:
                 if node.lower().startswith('chapter'):
                     node = ''
+                if node[0].isdigit():
+                    node = ''
                 if 'translator' and 'editor' in node.lower():
                     node = ''
                 if '<ol' in node.lower():
+                    node = ''
+                if 'webnovel' in re.sub('[^a-zA-Z]+', '', node.lower()):
                     node = ''
 
             if len(node):
@@ -213,8 +217,12 @@ class BookScraper:
             chap_tit_raw = r_chap.html.find('.reading-content h3')[0].text
         except IndexError:
             chap_tit_raw = r_chap.html.find('.reading-content p')[0].text
-        chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].replace('‽', '?!').strip()
-        chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
+        if bool(re.findall('\d+', chap_tit_raw)):
+            chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].replace('‽', '?!').strip()
+            chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
+        else:
+            chap_tit = 'unnamed'
+            chap_tit_id = 0
         chap_content_raw = r_chap.html.find('.reading-content p')
         chap_content_filtered = self.raw_html_text_filter(chap_content_raw)
 
@@ -223,13 +231,13 @@ class BookScraper:
             'c_title': chap_tit,
             'c_content': ''.join(chap_content_filtered),
         }
+        print(b_chap)
         return b_chap
 
     def bn_get_update_book_chaps(self, book, book_url, s_to=0):
         s_to = s_to + 1 if s_to else s_to
         b_chaps_len = book.chapters_count
         c_ids = list(range(b_chaps_len + 1, s_to)) if s_to else False
-        print(c_ids)
 
         if s_to:
             for c_id in c_ids:
