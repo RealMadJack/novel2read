@@ -58,7 +58,6 @@ def book_scraper_info(self, book_id):
             book.status = 1
             book.save()
         except Exception as exc:
-            print(book.title)
             save_celery_result(
                 task_id=self.request.id,
                 task_name=self.name,
@@ -77,8 +76,7 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
     if book.visited and book.visit_id:
         try:
             scraper = BookScraper()
-            url_bb = scraper.url_bb[book.visit]
-            book_url = f'{url_bb}{book.visit_id}'
+            book_url = f'{scraper.url_bb[book.visit]}{book.visit_id}'
             c_ids = scraper.wn_get_book_cids(book_url)
             c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
             b_chap_info = scraper.wn_get_update_book_chaps(book, book_url, c_ids)
@@ -92,11 +90,12 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
                 """,
             )
         except Exception as exc:
+            exc_result = '\n'.join([f'Book: {book.title}', f'{exc}'])
             save_celery_result(
                 task_id=self.request.id,
                 task_name=self.name,
                 status=states.FAILURE,
-                result='\n'.join([f'Book: {book.title}', exc]),
+                result=exc_result,
                 traceback=traceback.format_exc(),
             )
             raise Ignore()
@@ -108,33 +107,29 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
 def book_scraper_chaps_update(self, s_from=0, s_to=0):
     books = Book.objects.filter(visited=True).exclude(visit_id__iexact='')
     for book in books:
-        c_count = book.chapters_count
-        s_from = c_count if c_count else s_from
-        initial = True if not c_count else False
-        # race condition with book_scraper_chaps(if added to que)
-        to_visit = book.visit if initial else book.revisit
-        to_visit_id = book.visit_id if initial else book.revisit_id
-        if not book.revisited and to_visit_id:
+        if book.chapters_count and book.revisit_id and not book.revisited:
             try:
                 book.revisited = True
                 book.save()
                 scraper = BookScraper()
-                url_bb = scraper.url_bb[to_visit]
-                book_url = f'{url_bb}{to_visit_id}'
-                if to_visit == 'webnovel':
-                    c_ids = scraper.wn_get_book_cids(book_url)
-                    c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
+                url_bb = scraper.url_bb[book.revisit]
+                book_url = f'{url_bb}{book.revisit_id}'
+
+                if book.revisit == 'webnovel':
+                    c_ids = scraper.wn_get_book_cids(book_url, s_from=s_from, s_to=s_to)
                     b_chap_info = scraper.wn_get_update_book_chaps(book, book_url, c_ids)
                     b_result = '\n'.join([f'{k}: {v},' for k, v in b_chap_info.items()])
                     save_celery_result(
                         task_id=self.request.id,
                         task_name=self.name,
                         status=states.SUCCESS,
-                        result=f"""Updated book: {book.title}
+                        result=f"""
+                            Updated book: {book.title}
                             {b_result}
                         """,
                     )
-                elif to_visit == 'boxnovel':
+
+                elif book.revisit == 'boxnovel':
                     b_chap_info = scraper.bn_get_update_book_chaps(book, book_url, s_to=s_to)
                     if b_chap_info['updated'] >= 10:
                         save_celery_result(
@@ -147,15 +142,16 @@ def book_scraper_chaps_update(self, s_from=0, s_to=0):
                                 Updated last: {b_chap_info['last']}
                             """,
                         )
+
             except Exception as exc:
+                exc_result = '\n'.join([f'Book: {book.title}', f'{exc}'])
                 save_celery_result(
                     task_id=self.request.id,
                     task_name=self.name,
                     status=states.FAILURE,
-                    result='\n'.join([f'Book: {book.title}', exc]),
+                    result=exc_result,
                     traceback=traceback.format_exc(),
                 )
-
                 raise Ignore()
         else:
             raise Ignore()

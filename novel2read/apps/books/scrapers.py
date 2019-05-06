@@ -193,11 +193,8 @@ class BookScraper:
             return b_chap
         return chap_tit_raw
 
-    def wn_get_update_book_chaps(self, book, book_url, c_ids, s_to=0):
-        s_from = book.bookchapters.count()
-        c_ids = c_ids[s_from:] if not s_to else c_ids[s_from:s_to]
-
-        for c_id in c_ids:
+    def wn_get_update_book_chaps(self, book, book_url, c_ids):
+        for c_id in c_ids[book.chapters_count:]:
             bn_chap_url = f'{book_url}/{c_id}'
             b_chap = self.wn_get_book_chap(bn_chap_url)
             if isinstance(b_chap, dict):
@@ -240,8 +237,9 @@ class BookScraper:
 
     def bn_get_update_book_chaps(self, book, book_url, s_to=0):
         s_to = s_to + 1 if s_to else s_to
-        b_chaps_len = book.bookchapters.count()
+        b_chaps_len = book.chapters_count
         c_ids = list(range(b_chaps_len + 1, s_to)) if s_to else False
+        print(c_ids)
 
         if s_to:
             for c_id in c_ids:
