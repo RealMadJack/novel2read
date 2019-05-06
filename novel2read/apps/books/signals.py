@@ -36,9 +36,6 @@ def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
                 name=f'Update book chapters: {instance.title}',
                 task='novel2read.apps.books.tasks.book_scraper_chaps',
                 args=json.dumps([instance.pk]),
-                # kwargs=json.dumps({
-                #     's_to': 5,
-                # }),
             )
 
 

@@ -218,20 +218,13 @@ class BookScraper:
         chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].replace('‽', '?!').strip()
         chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
         chap_content_raw = r_chap.html.find('.reading-content p')
-        chap_content = []
-        for chap_p in chap_content_raw:
-            chap = chap_p.html
-            chap = multiple_replace(self.to_repl, chap)
-            if chap.lower().startswith('translator') or chap.lower().startswith('chapter'):
-                chap = ''
-            if len(chap):
-                chap = f'<p>{chap}</p>'
-                chap_content.append(chap)
+        chap_content_filtered = self.raw_html_text_filter(chap_content_raw)
 
+        print(chap_content_filtered)
         b_chap = {
             'c_id': chap_tit_id,
             'c_title': chap_tit,
-            'c_content': ''.join(chap_content)[:4],
+            'c_content': ''.join(chap_content_filtered),
         }
         return b_chap
 

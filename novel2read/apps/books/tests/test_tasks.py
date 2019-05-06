@@ -9,7 +9,7 @@ from ..tasks import (
     update_book_revisited,
     book_scraper_info,
     book_scraper_chaps,
-    book_scraper_chaps_update,
+    book_revisit_novel,
 )
 
 
@@ -98,10 +98,10 @@ class BookTasksTest(TestCase):
         self.assertEqual(b_chaps_f.slug, 'test-2')
         self.assertEqual(b_chaps_l.slug, 'test-1')
 
-        res = book_scraper_chaps_update.apply_async(kwargs={'s_to': s_to, })
+        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': s_to, })
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
-        self.assertTrue(self.book.revisited)
+        self.assertFalse(self.book.revisited)
         self.assertEqual(res.state, states.SUCCESS)
         self.assertEqual(self.book.bookchapters.count(), s_to)
         self.assertEqual(b_chaps[1].slug, 'imperfections-in-heavens-path')
@@ -127,13 +127,15 @@ class BookTasksTest(TestCase):
         self.assertEqual(b_chaps_l.slug, 'test-1')
 
         # boxnovel for loop
-        res = book_scraper_chaps_update.apply_async(kwargs={'s_to': s_to, })
+        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': s_to, })
         # boxnovel while loop
-        # res = book_scraper_chaps_update.apply_async()
+        # res = book_revisit_novel.apply_async(args=[self.book.pk])
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
-        self.assertTrue(self.book.revisited)
+        self.assertFalse(self.book.revisited)
         self.assertEqual(res.state, states.SUCCESS)
         self.assertEqual(self.book.bookchapters.count(), s_to)
         self.assertEqual(b_chaps[1].slug, 'imperfections-in-heavens-path')
         self.assertEqual(b_chaps[0].slug, 'slapping-face')
+        self.assertTrue(len(b_chaps[1].text) > 3000)
+        self.assertTrue(len(b_chaps[0].text) > 3000)
