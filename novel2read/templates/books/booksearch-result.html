@@ -8,7 +8,11 @@
       <img src="{{book.poster.url}}" alt="{{book.title}}">
     </div>
     <div class="searchcard-lg__info">
-      <h2 class="h2-title-sm">{{book.title}}</h2>
+      <h2 class="h2-title-sm">
+        {{book.title}}
+        <br>
+        <small>{{book.bookgenre}}</small>
+      </h2>
       <div class="searchcard-lg__info--stars stars-rating-sm">
         <img src="{% static 'images/star.png' %}" alt="star">
         <img src="{% static 'images/star.png' %}" alt="star">

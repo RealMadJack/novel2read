@@ -215,7 +215,7 @@ class BookRankingView(ListView):
 class BookSearchView(ListView):
     template_name = 'books/booksearch.html'
     form = BookSearchForm
-    context = {'form': form, 'page_title': 'Search for Books'}
+    context = {'form': form, 'page_title': 'Search Books'}
 
     def get(self, request, **kwargs):
         return render(request, template_name=self.template_name, context=self.context)
@@ -234,7 +234,7 @@ class BookSearchView(ListView):
                 # handle ajax error
                 return JsonResponse(data, status=403)
 
-            books = Book.objects.published().annotate(
+            books = Book.objects.published().select_related('bookgenre').annotate(
                 search=SearchVector('title', 'description'),
             ).filter(search=search_field)
             context['books'] = books
@@ -248,7 +248,7 @@ class BookSearchView(ListView):
 
         if form.is_valid():
             search_field = form.cleaned_data['search_field']
-            books = Book.objects.published().annotate(
+            books = Book.objects.published().select_related('bookgenre').annotate(
                 search=SearchVector('title', 'description'),
             ).filter(search=search_field)
             context['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''

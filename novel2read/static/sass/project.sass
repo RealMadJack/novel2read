@@ -70,7 +70,7 @@ body.tm-color-dark
               &--name
                 color: $white
               &--badge
-                background-color: $tm-grey-d
+                background-color: $accent
               &--time
               &--permalink
       .media.has-children
@@ -423,10 +423,10 @@ a.disabled, button.disabled
         position: relative
         .form-control
           min-height: 80px
-          transition: all .3s ease-in-out
           resize: none
         .form-control.active
           min-height: 180px
+          transition: all .3s ease
           + .form-group
             display: block
             + .form-group
@@ -1389,10 +1389,8 @@ a.disabled, button.disabled
       .form-group
         width: 100%
         .form-control
-          font-size: 1.3rem
-          border-radius: 0
-          &:active, &:focus
-            &::placeholder
+          font-size: 1.2rem
+          font-weight: 100
     &--btn
       .btn
         padding: 10px 30px
@@ -1416,7 +1414,7 @@ a.disabled, button.disabled
   box-shadow: $material-1
   background-color: $f5
   &:hover, &:active, &:focus
-    color: $accent
+    color: $default
     border-color: $accent
     background-color: $white
   &__counter
@@ -1461,6 +1459,10 @@ a.disabled, button.disabled
       height: 120px
   &__info
     .h2-title-sm
+      small
+        font-size: 1rem
+        color: $default
+        opacity: .8
     &--stars
       padding-right: 20px
 

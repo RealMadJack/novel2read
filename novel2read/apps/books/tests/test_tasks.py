@@ -82,7 +82,7 @@ class BookTasksTest(TestCase):
         self.assertEqual(b_chaps_f.slug, 'swindler')
         self.assertEqual(b_chaps_l.slug, 'young-mistress')
 
-    @tag('slow')  # 30s
+    # @tag('slow')  # 30s
     def test_book_scraper_revisit_webnovel(self):
         s_to = 4
         self.book.visited = True

@@ -91,7 +91,7 @@ body.tm-color-dark {
     body.tm-color-dark .comments__list .media .media-body .comment__title--name, body.tm-color-dark .comments__tree .media .media-body .comment__title--name {
       color: #fff; }
     body.tm-color-dark .comments__list .media .media-body .comment__title--badge, body.tm-color-dark .comments__tree .media .media-body .comment__title--badge {
-      background-color: #1B1B1B; }
+      background-color: #6A57F9; }
     body.tm-color-dark .comments__list .media.has-children::after, body.tm-color-dark .comments__tree .media.has-children::after {
       background-color: #f5f5f5; }
     body.tm-color-dark .comments__list .media.has-children .media::after, body.tm-color-dark .comments__tree .media.has-children .media::after {
@@ -473,11 +473,11 @@ a.disabled, button.disabled {
     position: relative; }
     .comments__form--comment .form-control {
       min-height: 80px;
-      -webkit-transition: all .3s ease-in-out;
-      transition: all .3s ease-in-out;
       resize: none; }
     .comments__form--comment .form-control.active {
-      min-height: 180px; }
+      min-height: 180px;
+      -webkit-transition: all .3s ease;
+      transition: all .3s ease; }
       .comments__form--comment .form-control.active + .form-group {
         display: block; }
         .comments__form--comment .form-control.active + .form-group + .form-group {
@@ -1618,9 +1618,9 @@ a.disabled, button.disabled {
       .booksearch__form--form .form-group {
         width: 100%; }
         .booksearch__form--form .form-group .form-control {
-          font-size: 20.8px;
-          font-size: 1.3rem;
-          border-radius: 0; }
+          font-size: 19.2px;
+          font-size: 1.2rem;
+          font-weight: 100; }
     .booksearch__form--btn .btn {
       padding: 10px 30px;
       border-radius: 0; }
@@ -1650,7 +1650,7 @@ a.disabled, button.disabled {
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   background-color: #f5f5f5; }
   .searchcard-sm:hover, .searchcard-sm:active, .searchcard-sm:focus, .searchcard-lg:hover, .searchcard-lg:active, .searchcard-lg:focus {
-    color: #6A57F9;
+    color: black;
     border-color: #6A57F9;
     background-color: #fff; }
   .searchcard-sm__counter span, .searchcard-lg__counter span {
@@ -1700,6 +1700,11 @@ a.disabled, button.disabled {
     .searchcard-lg__poster img {
       width: 90px;
       height: 120px; }
+  .searchcard-lg__info .h2-title-sm small {
+    font-size: 16px;
+    font-size: 1rem;
+    color: black;
+    opacity: .8; }
   .searchcard-lg__info--stars {
     padding-right: 20px; }
 
@@ -1733,7 +1738,9 @@ a.disabled, button.disabled {
   .libcard__poster--image {
     height: 175px; }
   .libcard__info--title .h4-title {
-    font-size: .85rem; } }
+    font-size: .85rem; }
+  .searchcard-lg__info .h2-title-sm {
+    font-size: 1.3rem; } }
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 991px) {
@@ -2112,6 +2119,21 @@ a.disabled, button.disabled {
       max-height: 320px; }
     .libcard__info--chaps {
       font-size: .9rem; }
+  .searchcard-lg__counter {
+    display: none; }
+    .searchcard-lg__counter span {
+      font-size: 1.5rem; }
+  .searchcard-lg__poster {
+    margin: 0 10px; }
+    .searchcard-lg__poster img {
+      width: 60px;
+      height: 80px; }
+  .searchcard-lg__info .h2-title-sm {
+    font-size: 1rem; }
+    .searchcard-lg__info .h2-title-sm small {
+      font-size: .9rem; }
+  .searchcard-lg__info--stars {
+    margin-bottom: 0; }
   .book .bookhead__info--read .btn {
     font-size: .8rem;
     padding: 10px 16px; }
