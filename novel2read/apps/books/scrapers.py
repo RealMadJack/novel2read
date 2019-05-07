@@ -219,9 +219,10 @@ class BookScraper:
         except IndexError:
             chap_tit_raw = r_chap.html.find('.reading-content p')[0].text
 
+        chap_tit_raw = chap_tit_raw.encode("ascii", errors="ignore").decode('utf-8')
         chap_tit = re.search(r'(\d+:|\d+ -|\d+ –|\d+)(.*)$', chap_tit_raw.lower())
         if not chap_tit:
-            chap_tit = 'unnamed'
+            chap_tit = 'untitled'
             chap_tit_id = 0
         elif 'translator' in chap_tit.group(2):
             chap_tit = re.search(r'(.*)(translator(.*))$', chap_tit.group(2))
