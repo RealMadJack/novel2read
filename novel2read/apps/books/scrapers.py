@@ -29,6 +29,7 @@ class BookScraper:
         }
         self.to_repl = {
             '<p>': '', '</p>': '',
+            '”': '"', '“': '"',
             '  ': '',
             '\n': '',
             '‽': '?!',
@@ -54,15 +55,14 @@ class BookScraper:
             if i <= 5:
                 if node.lower().startswith('chapter'):
                     node = ''
-                if node[0].isdigit():
+                elif node[0].isdigit():
                     node = ''
-                if 'translator' and 'editor' in node.lower():
+                elif 'translator' and 'editor' in node.lower():
                     node = ''
-                if '<ol' in node.lower():
+                elif '<ol' in node.lower():
                     node = ''
-                if 'webnovel' in re.sub('[^a-zA-Z]+', '', node.lower()):
+                elif 'webnovel' in re.sub('[^a-zA-Z]+', '', node.lower()):
                     node = ''
-
             if len(node):
                 node = f'<p>{node}</p>'
                 filtered_html_text.append(node)
@@ -217,12 +217,14 @@ class BookScraper:
             chap_tit_raw = r_chap.html.find('.reading-content h3')[0].text
         except IndexError:
             chap_tit_raw = r_chap.html.find('.reading-content p')[0].text
+        chap_tit = 'unnamed'
+        chap_tit_id = 0
         if bool(re.findall('\d+', chap_tit_raw)):
-            chap_tit = re.split(r':|-|–', chap_tit_raw, maxsplit=1)[1].replace('‽', '?!').strip()
+            to_repl = {'-': '', '–': '', 'chapter': '', ':': ''}
+            chap_tit = multiple_replace(to_repl, re.sub('\d+', ' ', chap_tit_raw).lower().strip())
+            if 'translator' and 'editor' in chap_tit:
+                print(chap_tit.split('translator')[0])
             chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
-        else:
-            chap_tit = 'unnamed'
-            chap_tit_id = 0
         chap_content_raw = r_chap.html.find('.reading-content p')
         chap_content_filtered = self.raw_html_text_filter(chap_content_raw)
 
@@ -231,7 +233,6 @@ class BookScraper:
             'c_title': chap_tit,
             'c_content': ''.join(chap_content_filtered),
         }
-        print(b_chap)
         return b_chap
 
     def bn_get_update_book_chaps(self, book, book_url, s_to=0):

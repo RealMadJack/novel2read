@@ -520,6 +520,16 @@ a.disabled, button.disabled
     .h2-title-sm
       font-size: 1.2rem
       margin-bottom: 15px
+      display: flex
+      flex-direction: column
+      span
+        order: 2
+      small
+        order: 1
+        position: relative
+        top: -3px
+        font-weight: 100
+        padding-bottom: 8px
   &__poster
     img
       width: 100%
@@ -611,7 +621,8 @@ a.disabled, button.disabled
     top: -4px
     .h3-title-sm, .h4-title-sm
       line-height: 1.3
-      font-size: 1rem
+      font-size: .95rem
+      font-weight: bold
       margin: 0
     .h3-title-sm
       margin-bottom: 5px
@@ -1188,7 +1199,7 @@ a.disabled, button.disabled
 
 .bookchapter__nav--select
   .bookmark .btn, a .btn
-    &:hover, &:focus, &:active
+    &:focus, &:active
       opacity: 1!important
   .chaps, .bookmark, .chap-styles
     > .btn, form .btn, a .btn
@@ -1230,7 +1241,7 @@ a.disabled, button.disabled
         .fas, .far, .fal
           font-size: 1.2rem
       .btn-dark
-        background-color: $accent-hot-dark
+        background-color: $accent
         border: none
         &:active, &:focus
           box-shadow: none!important

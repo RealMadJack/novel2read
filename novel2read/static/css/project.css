@@ -583,7 +583,26 @@ a.disabled, button.disabled {
   .bookslide__title .h2-title-sm {
     font-size: 19.2px;
     font-size: 1.2rem;
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    .bookslide__title .h2-title-sm span {
+      -webkit-box-ordinal-group: 3;
+          -ms-flex-order: 2;
+              order: 2; }
+    .bookslide__title .h2-title-sm small {
+      -webkit-box-ordinal-group: 2;
+          -ms-flex-order: 1;
+              order: 1;
+      position: relative;
+      top: -3px;
+      font-weight: 100;
+      padding-bottom: 8px; }
   .bookslide__poster img {
     width: 100%;
     height: 320px; }
@@ -686,8 +705,9 @@ a.disabled, button.disabled {
     top: -4px; }
     .b-chap-card-sm__info .h3-title-sm, .b-chap-card-sm__info .h4-title-sm {
       line-height: 1.3;
-      font-size: 16px;
-      font-size: 1rem;
+      font-size: 15.2px;
+      font-size: .95rem;
+      font-weight: bold;
       margin: 0; }
     .b-chap-card-sm__info .h3-title-sm {
       margin-bottom: 5px; }
@@ -1352,7 +1372,7 @@ a.disabled, button.disabled {
             font-size: .75rem;
             display: block !important; }
 
-.bookchapter__nav--select .bookmark .btn:hover, .bookchapter__nav--select .bookmark .btn:focus, .bookchapter__nav--select .bookmark .btn:active, .bookchapter__nav--select a .btn:hover, .bookchapter__nav--select a .btn:focus, .bookchapter__nav--select a .btn:active {
+.bookchapter__nav--select .bookmark .btn:focus, .bookchapter__nav--select .bookmark .btn:active, .bookchapter__nav--select a .btn:focus, .bookchapter__nav--select a .btn:active {
   opacity: 1 !important; }
 
 .bookchapter__nav--select .chaps > .btn, .bookchapter__nav--select .chaps form .btn, .bookchapter__nav--select .chaps a .btn, .bookchapter__nav--select .bookmark > .btn, .bookchapter__nav--select .bookmark form .btn, .bookchapter__nav--select .bookmark a .btn, .bookchapter__nav--select .chap-styles > .btn, .bookchapter__nav--select .chap-styles form .btn, .bookchapter__nav--select .chap-styles a .btn {
@@ -1419,7 +1439,7 @@ a.disabled, button.disabled {
         font-size: 19.2px;
         font-size: 1.2rem; }
     .bookchapter__nav--link .btn-dark {
-      background-color: #E61A80;
+      background-color: #6A57F9;
       border: none; }
       .bookchapter__nav--link .btn-dark:active, .bookchapter__nav--link .btn-dark:focus {
         -webkit-box-shadow: none !important;
@@ -2066,11 +2086,16 @@ a.disabled, button.disabled {
       display: block; }
     .bookslide__title {
       text-align: center;
-      height: 25px;
+      height: 45px;
       overflow: hidden; }
       .bookslide__title .h2-title-sm {
-        font-size: 1.15rem;
+        font-size: 1.10rem;
         margin-bottom: 5px; }
+        .bookslide__title .h2-title-sm span {
+          padding: 0 10px; }
+        .bookslide__title .h2-title-sm small {
+          top: 0;
+          padding-bottom: 5px; }
     .bookslide__poster {
       width: 180px;
       margin: 0 auto;
@@ -2082,12 +2107,14 @@ a.disabled, button.disabled {
     .bookslide__info {
       display: block;
       padding: 0 5px;
-      height: 120px; }
+      height: 120px;
+      padding-top: 5px; }
       .bookslide__info--desc {
-        max-height: 85px;
+        max-height: 65px;
         overflow: hidden; }
         .bookslide__info--desc p {
-          margin-bottom: 0; }
+          margin-bottom: 0;
+          font-size: 14px; }
     .bookslide__nav {
       width: calc(100% - 20px);
       position: absolute;

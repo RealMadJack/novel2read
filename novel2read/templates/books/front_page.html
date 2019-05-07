@@ -35,10 +35,19 @@
               </div>
             </div>
             <div class="bookslide__hf">
-              <div class="bookslide__title"><h2 class="h2-title-sm">{{book.title}}</h2></div>
+              <div class="bookslide__title">
+                <h2 class="h2-title-sm">
+                  <span>{{book.title}}</span>
+                  <small>
+                    <a href="{{book.bookgenre.get_absolute_url}}">
+                      {{book.bookgenre}}
+                    </a>
+                  </small>
+                </h2>
+              </div>
               <div class="bookslide__info">
                 <div class="bookslide__info--desc">
-                  {{book.description|truncatechars_html:350|safe}}
+                  {{book.description|truncatechars_html:300|safe}}
                 </div>
                 <!--
                   <div class="bookslide__info--rate">
