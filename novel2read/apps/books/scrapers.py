@@ -50,9 +50,9 @@ class BookScraper:
         for i, text_node in enumerate(html_text):
             text_node = text_node.html
             node = multiple_replace(self.to_repl, text_node)
-            node = node.encode("ascii", errors="ignore").decode('utf-8')
+            node = node.encode("ascii", errors="ignore").decode()
 
-            if i <= 5:
+            if i <= 5 and node:
                 if node.lower().startswith('chapter'):
                     node = ''
                 elif node[0].isdigit():
@@ -63,7 +63,8 @@ class BookScraper:
                     node = ''
                 elif 'webnovel' in re.sub('[^a-zA-Z]+', '', node.lower()):
                     node = ''
-            if len(node):
+
+            if node:
                 node = f'<p>{node}</p>'
                 filtered_html_text.append(node)
 
@@ -221,6 +222,7 @@ class BookScraper:
 
         chap_tit_raw = chap_tit_raw.encode("ascii", errors="ignore").decode('utf-8')
         chap_tit = re.search(r'(\d+:|\d+ -|\d+ –|\d+)(.*)$', chap_tit_raw.lower())
+
         if not chap_tit:
             chap_tit = 'untitled'
             chap_tit_id = 0
@@ -267,11 +269,19 @@ class BookScraper:
                     b_chap = self.bn_get_book_chap(bn_chap_url)
                     self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
                 except IndexError as e:
-                    b_chap_info = {
-                        'updated': b_chaps_upd,
-                        'last': bn_chap_url,
-                    }
-                    break
+                    try:
+                        b_chaps_len += 1
+                        bn_chap_url = f'{book_url}/chapter-{b_chaps_len}'
+                        b_chap = self.bn_get_book_chap(bn_chap_url)
+                        if b_chap['c_title']:
+                            self.create_book_chapter(book, 'blank', '')
+                        self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+                    except IndexError as e:
+                        b_chap_info = {
+                            'updated': b_chaps_upd,
+                            'last': bn_chap_url,
+                        }
+                        break
             return b_chap_info
 
 
