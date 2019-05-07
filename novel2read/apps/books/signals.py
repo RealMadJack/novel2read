@@ -14,7 +14,7 @@ from .tasks import book_scraper_info, book_scraper_chaps
 def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
     if not instance.visited and instance.visit_id:
         schedule, created = IntervalSchedule.objects.get_or_create(
-            every=10,
+            every=15,
             period=IntervalSchedule.SECONDS,
         )
         PeriodicTask.objects.create(
@@ -27,7 +27,7 @@ def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
 
         if not instance.chapters_count:
             schedule, created = IntervalSchedule.objects.get_or_create(
-                every=20,
+                every=25,
                 period=IntervalSchedule.SECONDS,
             )
             PeriodicTask.objects.create(

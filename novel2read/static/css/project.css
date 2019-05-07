@@ -403,6 +403,60 @@ a.disabled, button.disabled {
     padding: 10px;
       padding-top: 8px; }
 
+main {
+  min-height: calc(100vh - 720px); }
+
+.footer {
+  min-height: 180px;
+  margin-top: 100px;
+  padding: 30px 0;
+  color: #fff;
+  background-color: #212529; }
+  .footer a {
+    color: #fff;
+    opacity: .7;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+    font-size: 15px;
+    font-weight: 100;
+    padding-bottom: 10px; }
+    .footer a:hover, .footer a:focus, .footer a:active {
+      color: #fff;
+      opacity: 1;
+      text-decoration: underline; }
+  .footer a.active {
+    opacity: 1;
+    text-decoration: none; }
+  .footer__col {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    height: 100%; }
+    .footer__col--title {
+      margin-bottom: 20px; }
+  .footer__col.brand {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
+    .footer__col.brand .navbar-brand {
+      color: #fff;
+      font-size: 24px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 0;
+      line-height: 1;
+      opacity: 1; }
+      .footer__col.brand .navbar-brand:hover, .footer__col.brand .navbar-brand:focus, .footer__col.brand .navbar-brand:active {
+        text-decoration: none; }
+    .footer__col.brand span {
+      opacity: .7; }
+
 .media > img, .comments__list .media > img, .comments__tree .media > img {
   background-color: #fff;
   max-width: 35px;

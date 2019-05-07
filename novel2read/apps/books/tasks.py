@@ -30,7 +30,7 @@ def update_book_ranking(self):
 @app.task(bind=True)
 def update_book_revisited(self):
     try:
-        books = Book.objects.all()
+        books = Book.objects.filter(status_release=0)
         books.update(revisited=False)
     except Exception as exc:
         save_celery_result(

@@ -141,6 +141,39 @@
     </main>
 
 
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="footer__col brand">
+              <a class="navbar-brand" href="{% url 'books:front_page' %}">
+                novel2read
+              </a>
+              <span>© {% now "Y" %} novel2read</span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="footer__col">
+              <h4 class="footer__col--title h4-title">Contacts</h4>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="footer__col">
+              <h4 class="footer__col--title h4-title">Genres</h4>
+                {% for bookgenre in bookgenres %}
+                  <a class="{% if request.path == bookgenre.get_absolute_url %}active{% endif %}" href="{{bookgenre.get_absolute_url}}">{{bookgenre.name}}</a>
+                {% endfor %}
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="footer__col">
+              <h4 class="footer__col--title h4-title">Resources</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
     <!-- Le javascript -->
     {% block javascript %}
 
