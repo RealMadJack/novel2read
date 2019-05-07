@@ -213,18 +213,24 @@ class BookScraper:
     def bn_get_book_chap(self, bn_chap_url):
         session = HTMLSession()
         r_chap = session.get(bn_chap_url)
+
         try:
             chap_tit_raw = r_chap.html.find('.reading-content h3')[0].text
         except IndexError:
             chap_tit_raw = r_chap.html.find('.reading-content p')[0].text
-        chap_tit = 'unnamed'
-        chap_tit_id = 0
-        if bool(re.findall('\d+', chap_tit_raw)):
-            to_repl = {'-': '', '–': '', 'chapter': '', ':': ''}
-            chap_tit = multiple_replace(to_repl, re.sub('\d+', ' ', chap_tit_raw).lower().strip())
-            if 'translator' and 'editor' in chap_tit:
-                print(chap_tit.split('translator')[0])
+
+        chap_tit = re.search(r'(\d+:|\d+ -|\d+ –|\d+)(.*)$', chap_tit_raw.lower())
+        if not chap_tit:
+            chap_tit = 'unnamed'
+            chap_tit_id = 0
+        elif 'translator' in chap_tit.group(2):
+            chap_tit = re.search(r'(.*)(translator(.*))$', chap_tit.group(2))
+            chap_tit = chap_tit.group(1).strip()
             chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
+        else:
+            chap_tit = chap_tit.group(2).strip()
+            chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
+
         chap_content_raw = r_chap.html.find('.reading-content p')
         chap_content_filtered = self.raw_html_text_filter(chap_content_raw)
 
