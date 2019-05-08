@@ -1931,6 +1931,18 @@ main {
   .swiper-button-next {
     right: 10px;
     display: none; }
+  .footer .col-md-3:first-of-type {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1; }
+  .footer__col {
+    margin-bottom: 30px; }
+    .footer__col a:last-of-type {
+      padding-bottom: 0; }
+    .footer__col--title {
+      margin-bottom: 10px; }
+  .footer__col.brand {
+    margin-bottom: 15px; }
   .frontpage__promo {
     min-height: 200px; }
     .frontpage__promo .h1-title {
