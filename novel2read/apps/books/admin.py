@@ -126,7 +126,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
 
 @admin.register(BookChapter)
 class BookChapterAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
-    search_fields = ('title', )
+    search_fields = ('title', 'book__title', )
     fieldsets = (
         (None, {
             'fields': (

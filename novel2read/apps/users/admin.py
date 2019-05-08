@@ -36,7 +36,13 @@ class UserAdmin(auth_admin.UserAdmin):
 
 
 @admin.register(BookProgress)
-class BookProgress(admin.ModelAdmin):
+class BookProgressAdmin(admin.ModelAdmin):
+    search_fields = ('user__username', 'book__title', )
     fields = ('user', 'book', 'c_id')
     list_select_related = ('book',)
     list_display = ('user', 'book', 'c_id')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.prefetch_related('user')
+        return qs
