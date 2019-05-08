@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdminMixin
 from .models import BookGenre, BookTag, Book, BookChapter
@@ -5,14 +6,53 @@ from .models import BookGenre, BookTag, Book, BookChapter
 
 @admin.register(BookGenre)
 class BookGenreAdmin(admin.ModelAdmin):
-    readonly_fields = ('slug', )
-    list_display = ('name', 'created', 'modified', )
+    search_fields = ('name', )
+    list_display = ('name', 'get_bookcount', 'created', 'modified', )
+    readonly_fields = ('slug', 'get_bookcount', 'created', 'modified', )
+
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'slug', 'get_bookcount'),
+        }),
+        (None, {
+            'fields': ('created', 'modified', ),
+        }),
+    )
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.prefetch_related('books').annotate(Count('book'))
+        return qs
+
+    def get_bookcount(self, obj):
+        return obj.book__count
+    get_bookcount.short_description = 'Books Count'
+    get_bookcount.admin_order_field = 'book__count'
 
 
 @admin.register(BookTag)
 class BookTagAdmin(admin.ModelAdmin):
-    readonly_fields = ('slug', )
-    list_display = ('name', 'created', 'modified', )
+    search_fields = ('name', )
+    list_display = ('name', 'get_bookcount', 'created', 'modified', )
+    readonly_fields = ('slug', 'get_bookcount', 'created', 'modified', )
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'slug', 'get_bookcount'),
+        }),
+        (None, {
+            'fields': ('created', 'modified', ),
+        }),
+    )
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.prefetch_related('books').annotate(Count('books'))
+        return qs
+
+    def get_bookcount(self, obj):
+        return obj.books__count
+    get_bookcount.short_description = 'Books Count'
+    get_bookcount.admin_order_field = 'books__count'
 
 
 @admin.register(Book)

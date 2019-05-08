@@ -126,6 +126,8 @@ class Book(TimeStampedModel):
     def save(self, *args, **kwargs):
         self.title = capitalize_str(self.title)
         self.country = capitalize_str(self.country)
+        if not self.title and self.title_sm:
+            self.title = capitalize_str(self.title_sm)
         if not self.poster:
             self.poster = 'posters/default.jpg'
         if not self.slug or self.title != self.tracker.previous('title'):
