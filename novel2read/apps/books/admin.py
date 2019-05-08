@@ -12,10 +12,10 @@ class BookGenreAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'slug', 'get_bookcount'),
+            'fields': (('name', 'slug'), 'get_bookcount'),
         }),
         (None, {
-            'fields': ('created', 'modified', ),
+            'fields': ('created', 'modified'),
         }),
     )
 
@@ -37,10 +37,10 @@ class BookTagAdmin(admin.ModelAdmin):
     readonly_fields = ('slug', 'get_bookcount', 'created', 'modified', )
     fieldsets = (
         (None, {
-            'fields': ('name', 'slug', 'get_bookcount'),
+            'fields': (('name', 'slug'), 'get_bookcount'),
         }),
         (None, {
-            'fields': ('created', 'modified', ),
+            'fields': ('created', 'modified'),
         }),
     )
 
@@ -57,19 +57,32 @@ class BookTagAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
-    fields = (
-        ('title', 'title_sm', 'slug'),
-        ('status', 'status_release'),
-        'bookgenre',
-        'booktag',
-        'allow_comments',
-        ('author', 'country'),
-        'poster',
-        ('rating', 'ranking', 'votes', 'recommended'),
-        'description',
-        ('volumes', 'chapters_count'),
-        ('visit', 'visit_id', 'visited'),
-        ('revisit', 'revisit_id', 'revisited'),
+    search_fields = ('title', 'description', )
+    fieldsets = (
+        (None, {
+            'fields': ((('title', 'title_sm', 'slug')), ),
+        }),
+        (None, {
+            'fields': (('status', 'status_release'), ),
+        }),
+        (None, {
+            'fields': ('bookgenre', 'booktag', ),
+        }),
+        ('Book info', {
+            'classes': ('extrapretty'),
+            'fields': (
+                ('author', 'country'),
+                ('volumes', 'chapters_count'),
+                ('rating', 'ranking', 'votes', 'recommended'),
+                'poster', 'description'
+            ),
+        }),
+        ('Scraping', {
+            'fields': (
+                ('visit', 'visit_id', 'visited'),
+                ('revisit', 'revisit_id', 'revisited'),
+            ),
+        }),
     )
     summernote_fields = ('description', )
     readonly_fields = ('slug', 'chapters_count', )

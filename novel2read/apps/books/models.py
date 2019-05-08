@@ -72,7 +72,12 @@ class Book(TimeStampedModel):
     booktag = models.ManyToManyField(BookTag, related_name='%(class)ss', blank=True)
     author = ArrayField(models.CharField(max_length=112), blank=True, default=list)
     allow_comments = models.BooleanField('allow comments', default=True)
-    country = models.CharField(default='', max_length=255, blank=True)
+    COUNTRY_CHOICES = Choices(
+        ('china', 'China'),
+        ('korea', 'Korea'),
+        ('japan', 'Japan'),
+    )
+    country = models.CharField(choices=COUNTRY_CHOICES, blank=True, default=COUNTRY_CHOICES.china, max_length=55)
     description = models.TextField(_('Description'), blank=True, default='')
     volumes = ArrayField(models.SmallIntegerField(default=1), blank=True, default=list)
     chapters_count = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
