@@ -26,7 +26,7 @@
           <div class="info-row">
             <p>Author: {% for author in book.author %}<span>{{author}}</span>{% endfor %}</p>
             {% if book.country %}
-              <p>Country: {{book.country}}</p>
+              <p>Country: {{book.country|title}}</p>
             {% endif %}
             <p>Chapters: {{book.chapters_count}}</p>
             <!-- <p>Views: 0</p> -->

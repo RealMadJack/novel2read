@@ -404,7 +404,7 @@ a.disabled, button.disabled {
       padding-top: 8px; }
 
 main {
-  min-height: calc(100vh - 720px); }
+  min-height: calc(100vh - 546px); }
 
 .footer {
   min-height: 180px;

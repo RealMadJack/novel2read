@@ -155,7 +155,7 @@ class BookChapterView(DetailView):
             if request.is_ajax():
                 data = {}
                 template_name = 'books/bookchapter_chap_nav.html'
-                context = {'b_chaps': b_chaps}
+                context = {'b_chap': b_chap, 'b_chaps': b_chaps}
                 data['html_chaps'] = render_to_string(
                     template_name,
                     context=context,

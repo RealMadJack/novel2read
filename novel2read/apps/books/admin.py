@@ -55,8 +55,36 @@ class BookTagAdmin(admin.ModelAdmin):
     get_bookcount.admin_order_field = 'books__count'
 
 
+def update_recommended_true(modeladmin, request, qs):
+    qs.update(recommended=True)
+
+
+def update_recommended_false(modeladmin, request, qs):
+    qs.update(recommended=False)
+
+
+def update_status_draft(modeladmin, request, qs):
+    qs.update(status=0)
+
+
+def update_status_published(modeladmin, request, qs):
+    qs.update(status=1)
+
+
+def update_revisited_true(modeladmin, request, qs):
+    qs.update(revisited=True)
+
+
+def update_revisited_false(modeladmin, request, qs):
+    qs.update(revisited=False)
+
+
 @admin.register(Book)
 class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
+    actions = [
+        update_status_draft, update_status_published,
+        update_recommended_true, update_recommended_false,
+        update_revisited_true, update_revisited_false, ]
     search_fields = ('title', 'description', )
     fieldsets = (
         (None, {
@@ -98,8 +126,24 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
 
 @admin.register(BookChapter)
 class BookChapterAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
+    search_fields = ('title', )
+    fieldsets = (
+        (None, {
+            'fields': (
+                'c_id',
+                'book',
+                'title',
+                'slug',
+                'text',
+                'allow_comments',
+            ),
+        }),
+        (None, {
+            'fields': ('created', 'modified'),
+        }),
+    )
     summernote_fields = ('text', )
-    readonly_fields = ('slug', 'c_id', )
+    readonly_fields = ('slug', 'c_id', 'created', 'modified')
     list_select_related = ('book', )
     list_display = ('title', 'c_id', 'get_book', 'created', 'modified', )
 
