@@ -1058,8 +1058,6 @@ main {
   .librowse__title .h1-title {
     margin-bottom: 0; }
   .librowse__title .form-control {
-    position: relative;
-    top: 2px;
     margin: 0;
     max-width: 280px;
     max-height: 35px; }
@@ -2212,16 +2210,25 @@ main {
   .comments__tree .media .media {
     left: -15px;
     width: calc(100% + 15px); }
-  .librowse__title .h1-title {
-    font-size: 1.9rem;
-    margin-right: 10px; }
-  .librowse__title .form-control {
-    max-width: 200px;
-    max-height: 28px;
-    font-size: .9rem;
-    padding: 5px 8px; }
-  .librowse__title input {
-    font-size: 0.8rem !important; }
+  .librowse__title {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    max-width: 240px;
+    margin: 0 auto; }
+    .librowse__title .h1-title {
+      font-size: 1.9rem;
+      margin-bottom: 15px; }
+    .librowse__title .form-control {
+      max-width: 240px;
+      padding: 5px 8px;
+      margin-bottom: 30px; }
+    .librowse__title input {
+      font-size: 0.85rem !important; }
   .libcard {
     max-width: 240px;
     margin-left: auto;
