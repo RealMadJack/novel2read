@@ -1053,9 +1053,15 @@ main {
           justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: center; }
+          align-items: center;
+  margin-bottom: 30px; }
+  .librowse__title .h1-title {
+    margin-bottom: 0; }
   .librowse__title .form-control {
-    max-width: 320px;
+    position: relative;
+    top: 2px;
+    margin: 0;
+    max-width: 280px;
     max-height: 35px; }
 
 .libcard {
@@ -2206,6 +2212,16 @@ main {
   .comments__tree .media .media {
     left: -15px;
     width: calc(100% + 15px); }
+  .librowse__title .h1-title {
+    font-size: 1.9rem;
+    margin-right: 10px; }
+  .librowse__title .form-control {
+    max-width: 200px;
+    max-height: 28px;
+    font-size: .9rem;
+    padding: 5px 8px; }
+  .librowse__title input {
+    font-size: 0.8rem !important; }
   .libcard {
     max-width: 240px;
     margin-left: auto;
