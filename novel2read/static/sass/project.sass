@@ -237,18 +237,18 @@ a.disabled, button.disabled
 
 
 // Scrollbar
-.scrollbar
-  overflow-y: scroll
-  &::-webkit-scrollbar-track
-    border-left: 1px solid rgba(0, 0, 0, .1)
-    background-color: $white
-  &::-webkit-scrollbar
-    width: 12px
-    min-height: 30px
-    background-color: $f5
-  &::-webkit-scrollbar-thumb
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3)
-    background-color: $accent
+// .scrollbar
+//   overflow-y: scroll
+//   &::-webkit-scrollbar-track
+//     border-left: 1px solid rgba(0, 0, 0, .1)
+//     background-color: $white
+//   &::-webkit-scrollbar
+//     width: 12px
+//     min-height: 30px
+//     background-color: $f5
+//   &::-webkit-scrollbar-thumb
+//     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3)
+//     background-color: $accent
 
 // Default
 .h1-title, .h1-title-sm, .h2-title, .h2-title-sm, .h3-title, .h4-title
@@ -925,6 +925,15 @@ main
     position: relative
     top: -3px
 
+.librowse
+  &__title
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    .form-control
+      max-width: 320px
+      max-height: 35px
 
 .libcard
   position: relative

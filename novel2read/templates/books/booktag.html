@@ -22,12 +22,12 @@
       <nav class="js-tags-nav" {% if tag_name %}style="display: none;"{% endif %}>
         <ul>
           <li>
-            <input class="form-control js-tag-input mb-30" type="text" placeholder="Search for tag"></li>
+            <input class="form-control js-livesearch-input mb-30" type="text" placeholder="Search for tag"></li>
           </li>
         </ul>
-        <ul class="js-tag-filter">
+        <ul class="js-livesearch-container">
           {% for tag in tags %}
-            <li class="tag-card{% if request.path == tag.get_absolute_url %} active{% endif %}">
+            <li class="js-livesearch-item tag-card{% if request.path == tag.get_absolute_url %} active{% endif %}">
               <a href="{{tag.get_absolute_url}}">{{tag.name}}</a>
             </li>
           {% endfor %}
