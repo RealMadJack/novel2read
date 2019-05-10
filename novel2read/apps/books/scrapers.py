@@ -29,14 +29,13 @@ class BookScraper:
         }
         self.to_repl = {
             '<p>': '', '</p>': '',
-            '”': '"', '“': '"',
+            # '\u201d': '"', '\u201c': '"',
+            # "\u2018": "'", "\u2019": "'",
+            # '\u2013': ' - ', '\u2014': ' - ',
+            '\u0304': '', '\u0305': '',
+            '\u203d': '?!',
+            '\n': '', '\r': '',
             '  ': '',
-            '\n': '',
-            '‽': '?!',
-            '&#13;': '',
-            '*': '',
-            '<script>': '', '</script>': '',
-            '<?php': '',
         }
 
     def raw_html_text_filter(self, html_text):
@@ -50,7 +49,7 @@ class BookScraper:
         for i, text_node in enumerate(html_text):
             text_node = text_node.html
             node = multiple_replace(self.to_repl, text_node)
-            node = node.encode("ascii", errors="ignore").decode()
+            # node = node.encode("ascii", errors="ignore").decode()
 
             if i <= 5 and node:
                 if node.lower().startswith('chapter'):
@@ -220,8 +219,8 @@ class BookScraper:
         except IndexError:
             chap_tit_raw = r_chap.html.find('.reading-content p')[0].text
 
-        chap_tit_raw = chap_tit_raw.encode("ascii", errors="ignore").decode('utf-8')
-        chap_tit = re.search(r'(\d+:|\d+ -|\d+ –|\d+)(.*)$', chap_tit_raw.lower())
+        chap_tit_raw = chap_tit_raw.replace('\u203d', '?!').encode("ascii", errors="ignore").decode()
+        chap_tit = re.search(r'(\d+\s{0,2}:|\d+\s{0,2}-|\d+\s{0,2}–|\d+)(.*)$', chap_tit_raw.lower())
 
         if not chap_tit:
             chap_tit = 'untitled'
