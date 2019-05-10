@@ -214,10 +214,23 @@ class BookScraper:
         session = HTMLSession()
         r_chap = session.get(bn_chap_url)
 
-        try:
-            chap_tit_raw = r_chap.html.find('.reading-content h3')[0].text
-        except IndexError:
-            chap_tit_raw = r_chap.html.find('.reading-content p')[0].text
+        h1_tit = r_chap.html.find('.reading-content h1')[:1]
+        h2_tit = r_chap.html.find('.reading-content h2')[:1]
+        h3_tit = r_chap.html.find('.reading-content h3')[:1]
+
+        if h1_tit:
+            chap_tit_raw = h1_tit[0].text
+        elif h2_tit:
+            chap_tit_raw = h2_tit[0].text
+        elif h3_tit:
+            chap_tit_raw = h3_tit[0].text
+        else:
+            nodes = r_chap.html.find('.reading-content p')[:5]
+            if len(nodes) >= 4:
+                for node in nodes:
+                    text_node = node.text.lower()
+                    if 'chapter' in text_node and len(text_node) <= 300:
+                        chap_tit_raw = text_node
 
         chap_tit_raw = chap_tit_raw.replace('\u203d', '?!').encode("ascii", errors="ignore").decode()
         chap_tit = re.search(r'(\d+\s{0,2}:|\d+\s{0,2}-|\d+\s{0,2}–|\d+)(.*)$', chap_tit_raw.lower())
