@@ -227,6 +227,7 @@ class BookScraper:
         h1_tit = r_chap.html.find('.reading-content h1')
         h2_tit = r_chap.html.find('.reading-content h2')
         h3_tit = r_chap.html.find('.reading-content h3')
+        h4_tit = r_chap.html.find('.reading-content h4')
         chap_tit_raw = ''
 
         if h1_tit:
@@ -235,6 +236,8 @@ class BookScraper:
             chap_tit_raw = h2_tit[0].text
         elif h3_tit:
             chap_tit_raw = h3_tit[0].text
+        elif h4_tit:
+            chap_tit_raw = h4_tit[0].text
         else:
             nodes = r_chap.html.find('.reading-content p')[:5]
             if len(nodes) >= 4:
@@ -244,11 +247,8 @@ class BookScraper:
                         chap_tit_raw = text_node
                     elif text_node[0].isdigit():
                         chap_tit_raw = text_node
-            else:
-                chap_tit_raw = ''
 
         chap_tit_raw = chap_tit_raw.replace('\u203d', '?!').replace('\n', '').encode("ascii", errors="ignore").decode()
-        print(chap_tit_raw)
         chap_tit = re.search(r'(\d+\s{0,2}:|\d+\s{0,2}-|\d+)(.*)$', chap_tit_raw.lower())
 
         if not chap_tit:
