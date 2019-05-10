@@ -29,6 +29,8 @@ class BookScraper:
         }
         self.to_repl = {
             '<p>': '', '</p>': '',
+            '<p dir="ltr">': '', '<p dir="rtr">': '',
+            '<strong>': '', '</strong>': '',
             # '\u201d': '"', '\u201c': '"',
             # "\u2018": "'", "\u2019": "'",
             # '\u2013': ' - ', '\u2014': ' - ',
@@ -52,11 +54,19 @@ class BookScraper:
             # node = node.encode("ascii", errors="ignore").decode()
 
             if i <= 5 and node:
-                if node.lower().startswith('chapter'):
+                if 'chapter' in node.lower():
                     node = ''
                 elif node[0].isdigit():
                     node = ''
-                elif 'translator' and 'editor' in node.lower():
+                elif 'translator' in node.lower():
+                    node = ''
+                elif 'transator' in node.lower():
+                    node = ''
+                elif 'editor' in node.lower():
+                    node = ''
+                elif 'proofreader' in node.lower():
+                    node = ''
+                elif 'tl check' in node.lower():
                     node = ''
                 elif '<ol' in node.lower():
                     node = ''
@@ -214,9 +224,9 @@ class BookScraper:
         session = HTMLSession()
         r_chap = session.get(bn_chap_url)
 
-        h1_tit = r_chap.html.find('.reading-content h1')[:1]
-        h2_tit = r_chap.html.find('.reading-content h2')[:1]
-        h3_tit = r_chap.html.find('.reading-content h3')[:1]
+        h1_tit = r_chap.html.find('.reading-content h1')
+        h2_tit = r_chap.html.find('.reading-content h2')
+        h3_tit = r_chap.html.find('.reading-content h3')
 
         if h1_tit:
             chap_tit_raw = h1_tit[0].text
