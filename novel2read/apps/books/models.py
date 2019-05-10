@@ -165,7 +165,7 @@ class BookChapter(TimeStampedModel):
         verbose_name_plural = _('Book Chapters')
 
     def __str__(self):
-        return f'Book: {self.book.title} - Chapter: {self.title}'
+        return f'Book: {self.book.title} - Chapter {self.c_id}: {self.title}'
 
     def get_absolute_url(self):
         return reverse('books:bookchapter', kwargs={

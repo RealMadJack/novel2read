@@ -227,6 +227,7 @@ class BookScraper:
         h1_tit = r_chap.html.find('.reading-content h1')
         h2_tit = r_chap.html.find('.reading-content h2')
         h3_tit = r_chap.html.find('.reading-content h3')
+        chap_tit_raw = ''
 
         if h1_tit:
             chap_tit_raw = h1_tit[0].text
@@ -238,12 +239,17 @@ class BookScraper:
             nodes = r_chap.html.find('.reading-content p')[:5]
             if len(nodes) >= 4:
                 for node in nodes:
-                    text_node = node.text.lower()
-                    if 'chapter' in text_node and len(text_node) <= 300:
+                    text_node = node.text.lower().strip()
+                    if 'chapter' in text_node:
                         chap_tit_raw = text_node
+                    elif text_node[0].isdigit():
+                        chap_tit_raw = text_node
+            else:
+                chap_tit_raw = ''
 
-        chap_tit_raw = chap_tit_raw.replace('\u203d', '?!').encode("ascii", errors="ignore").decode()
-        chap_tit = re.search(r'(\d+\s{0,2}:|\d+\s{0,2}-|\d+\s{0,2}–|\d+)(.*)$', chap_tit_raw.lower())
+        chap_tit_raw = chap_tit_raw.replace('\u203d', '?!').replace('\n', '').encode("ascii", errors="ignore").decode()
+        print(chap_tit_raw)
+        chap_tit = re.search(r'(\d+\s{0,2}:|\d+\s{0,2}-|\d+)(.*)$', chap_tit_raw.lower())
 
         if not chap_tit:
             chap_tit = 'untitled'
@@ -253,7 +259,10 @@ class BookScraper:
             chap_tit = chap_tit.group(1).strip()
             chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
         else:
-            chap_tit = chap_tit.group(2).strip()
+            if not chap_tit.group(2).strip():
+                chap_tit = 'untitled'
+            else:
+                chap_tit = chap_tit.group(2).strip()
             chap_tit_id = int(re.findall('\d+', chap_tit_raw)[0])
 
         chap_content_raw = r_chap.html.find('.reading-content p')
