@@ -6,7 +6,30 @@ from novel2read.taskapp.celery import app, save_celery_result
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
 
 from .models import Book
+from .utils import search_multiple_replace
 from .scrapers import BookScraper
+
+
+@app.task(bind=True)
+def model_search_replace(self):
+    try:
+        result = search_multiple_replace()
+        if result:
+            save_celery_result(
+                task_id=self.request.id,
+                task_name=self.name,
+                status=states.SUCCESS,
+                result=result,
+            )
+    except Exception as exc:
+        save_celery_result(
+            task_id=self.request.id,
+            task_name=self.name,
+            status=states.FAILURE,
+            result=exc,
+            traceback=traceback.format_exc(),
+        )
+        raise Ignore()
 
 
 @app.task(bind=True)
