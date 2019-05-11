@@ -7,9 +7,9 @@ from django_comments_xtd.models import TmpXtdComment
 
 class BookSearchForm(forms.Form):
     search_field = forms.CharField(
-        label='Search for book title:', max_length=100,
+        label='Search book:', max_length=100,
         widget=forms.TextInput(attrs={
-            'placeholder': 'Any book info...',
+            'placeholder': 'Search book',
             'class': 'form-control',
         })
     )
