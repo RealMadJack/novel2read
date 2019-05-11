@@ -181,6 +181,9 @@ li, a, button, .btn, ::placeholder {
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
 
+.btn {
+  font-family: "roboto", sans-serif; }
+
 .btn:hover, .btn:focus, .btn:active, .form-control:hover, .form-control:focus, .form-control:active {
   -webkit-box-shadow: none;
           box-shadow: none; }
