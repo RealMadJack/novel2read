@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 # from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View, DetailView, ListView
 
 from novel2read.apps.users.models import BookProgress
@@ -91,6 +92,7 @@ class BookTagView(ListView):
 class BookView(DetailView):
     template_name = 'books/book.html'
 
+    @vary_on_headers('X-Requested-With')
     def get(self, request, *args, **kwargs):
         try:
             book = Book.objects.select_related('bookgenre').prefetch_related('booktag').get(slug=kwargs['book_slug'])
@@ -135,6 +137,7 @@ class BookView(DetailView):
 class BookChapterView(DetailView):
     template_name = 'books/bookchapter.html'
 
+    @vary_on_headers('X-Requested-With')
     def get(self, request, *args, **kwargs):
         try:
             b_chap = BookChapter.objects.select_related('book').get(book__slug=kwargs['book_slug'], c_id=kwargs['c_id'])
