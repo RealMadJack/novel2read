@@ -39,6 +39,11 @@ class BookScraper:
             '\n': '', '\r': '',
             '  ': '',
         }
+        self.driver_opts = webdriver.ChromeOptions()
+        self.driver_opts.add_argument('headless')
+        self.driver_opts.add_argument('disable-gpu')
+        self.driver_opts.add_argument('log-level=3')
+        self.driver_opts.add_argument('silent')
 
     def raw_html_text_filter(self, html_text):
         html_node_3 = ''.join([html_node.text for html_node in html_text[0:3]])
@@ -113,6 +118,8 @@ class BookScraper:
         book.title_sm = data['book_name_sm']
         book.author.append(data['book_info_author']) if data['book_info_author'] not in book.author else False
         book.description = data['book_desc']
+        if len(book.volumes) != len(data['book_volumes']):
+            [book.volumes.append(volume) for volume in data['book_volumes']]
         poster_filename = download_img(data['book_poster_url'], slugify(data['book_name']))
         book.poster = f'posters/{poster_filename}'
         book.rating = data['book_rating']
@@ -132,6 +139,20 @@ class BookScraper:
         return bookchapter
 
     def wn_get_book_data(self, book_url):
+        driver = webdriver.Chrome(chrome_options=self.driver_opts)
+        wait = WebDriverWait(driver, 5)
+        driver.get(book_url)
+        driver.find_element_by_css_selector('a.j_show_contents').click()
+        v_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.volume-item'))
+        book_volumes = [1]
+        for volume in v_list:
+            chap_len = len(driver.find_elements_by_css_selector('.volume-item ol li'))
+            volume_len = len(volume.find_elements_by_css_selector('ol li'))
+            volume_len += book_volumes[-1]
+            if volume_len - 1 != chap_len:
+                book_volumes.append(volume_len)
+        driver.close()
+
         session = HTMLSession()
         r = session.get(book_url)
         book_name_raw = r.html.find('.pt4.pb4.oh.mb4')[0].text
@@ -157,6 +178,7 @@ class BookScraper:
             'chap_release': chap_release,
             'book_info_chap_count': book_info_chap_count,
             'book_info_author': book_info_author,
+            'book_volumes': book_volumes,
             'book_rating': book_rating,
             'book_poster_url': book_poster_url,
             'book_desc': book_desc,
@@ -165,13 +187,7 @@ class BookScraper:
         return book
 
     def wn_get_book_cids(self, book_url, s_from=0, s_to=0):
-        driver_opts = webdriver.ChromeOptions()
-        driver_opts.add_argument('headless')
-        driver_opts.add_argument('disable-gpu')
-        driver_opts.add_argument('log-level=3')
-        driver_opts.add_argument('silent')
-
-        driver = webdriver.Chrome(chrome_options=driver_opts)
+        driver = webdriver.Chrome(chrome_options=self.driver_opts)
         wait = WebDriverWait(driver, 5)
         driver.get(book_url)
         # DOM

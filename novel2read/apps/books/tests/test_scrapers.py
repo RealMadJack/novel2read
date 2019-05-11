@@ -64,7 +64,7 @@ class BookScraperTest(TestCase):
         added = self.scraper.add_book_booktag(self.book, tag_2)
         self.assertFalse(added)
 
-    @tag('slow')  # +2s
+    @tag('slow')  # +12s
     def test_update_db_book_data(self):
         b_data = self.scraper.wn_get_book_data(self.wn_url)[0]
         b_tags = self.book.booktag.all()
@@ -82,7 +82,7 @@ class BookScraperTest(TestCase):
         for b_tag in b_data['book_tag_list']:
             self.scraper.create_book_tag(b_tag)
             self.scraper.add_book_booktag(self.book, b_tag)
-            self.assertIn(b_tag, [tag.name for tag in b_tags])
+            self.assertIn(capitalize_str(b_tag), [tag.name for tag in b_tags])
 
     @factory.django.mute_signals(signals.post_save)
     def test_create_book_chapter(self):
@@ -93,7 +93,7 @@ class BookScraperTest(TestCase):
         self.assertEqual(bookchapters.count(), 3)
         self.assertEqual(bookchapters[1].title, capitalize_str(self.chaps[1]['title']))
 
-    @tag('slow')  # +2s
+    @tag('slow')  # +12s
     def test_wn_get_book_data(self):
         resp = self.scraper.wn_get_book_data(self.wn_url)[0]
         self.assertTrue(isinstance(resp['book_desc'], str))
