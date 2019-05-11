@@ -222,9 +222,11 @@ class BookScraper:
         return chap_tit_raw
 
     def wn_get_update_book_chaps(self, book, book_url, c_ids):
+        b_chap_url = ''
+        b_chap = ''
         for c_id in c_ids[book.chapters_count:]:
-            bn_chap_url = f'{book_url}/{c_id}'
-            b_chap = self.wn_get_book_chap(bn_chap_url)
+            b_chap_url = f'{book_url}/{c_id}'
+            b_chap = self.wn_get_book_chap(b_chap_url)
             if isinstance(b_chap, dict):
                 self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
             else:
@@ -233,6 +235,7 @@ class BookScraper:
         b_chap_info = {
             'Source': 'webnovel',
             'locked_ended_from': b_chap,
+            'locked_ended_from_url': b_chap_url,
         }
         return b_chap_info
 
