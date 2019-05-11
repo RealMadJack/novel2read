@@ -176,3 +176,15 @@ class BookChapter(TimeStampedModel):
             self.slug = get_unique_slug(BookChapter, self.title)
         self.title = capitalize_str(self.title)
         return super().save(*args, **kwargs)
+
+
+class BookChapterReplace(TimeStampedModel):
+    replace = models.CharField(_('Replace'), blank=False, default='', max_length=355)
+    replace_to = models.CharField(_('Replace to'), blank=True, default='', max_length=355)
+
+    class Meta:
+        verbose_name = _('Book Chapter Replace')
+        verbose_name_plural = _('Book Chapter Replaces')
+
+    def __str__(self):
+        return f'{self.id}: {self.replace} -> {self.replace_to}'
