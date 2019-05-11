@@ -292,6 +292,7 @@ function library_post(btn) {
     let data = {
         'lib_in': btn.attr("data-lib-in"),
     }
+    console.log(data)
     $.ajax({
         url: btn.attr("data-lib-url"),
         type: "post",
@@ -340,9 +341,10 @@ $(document).on('click', '.js-lib-btn', function () {
             } else {
                 return false;
             }
+        } else {
+            library_post(btn);
         }
 
-        library_post(btn);
     }, ajaxDelay);
 })
 

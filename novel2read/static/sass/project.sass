@@ -221,19 +221,19 @@ a.disabled, button.disabled
 .alert-info
   color: $white
   background-color: #256ED5
-  border-left: 8px solid #1C52A0
+  // border-left: 8px solid #1C52A0
 .alert-success
   color: $white
   background-color: #4CC639
-  border-left: 8px solid #39942B
+  // border-left: 8px solid #39942B
 .alert-warning
   color: $white
   background-color: #E99011
-  border-left: 8px solid #AF6C0D
+  // border-left: 8px solid #AF6C0D
 .alert-error
   color: $white
   background-color: #F13130
-  border-left: 8px solid #B52524
+  // border-left: 8px solid #B52524
 
 
 // Scrollbar
@@ -935,9 +935,16 @@ main
     .h1-title
       margin-bottom: 0
     .form-control
+      position: relative
+      top: 7px
       margin: 0
       max-width: 280px
       max-height: 35px
+      border: none
+      border-radius: 0
+      border-bottom: 1px solid $f5
+      &:focus, &:active
+        border-color: $accent
 
 .libcard
   position: relative

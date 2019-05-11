@@ -247,23 +247,19 @@ a.disabled, button.disabled {
 
 .alert-info {
   color: #fff;
-  background-color: #256ED5;
-  border-left: 8px solid #1C52A0; }
+  background-color: #256ED5; }
 
 .alert-success {
   color: #fff;
-  background-color: #4CC639;
-  border-left: 8px solid #39942B; }
+  background-color: #4CC639; }
 
 .alert-warning {
   color: #fff;
-  background-color: #E99011;
-  border-left: 8px solid #AF6C0D; }
+  background-color: #E99011; }
 
 .alert-error {
   color: #fff;
-  background-color: #F13130;
-  border-left: 8px solid #B52524; }
+  background-color: #F13130; }
 
 .h1-title, .h1-title-sm, .h2-title, .h2-title-sm, .h3-title, .h4-title {
   font-weight: bold; }
@@ -1058,9 +1054,16 @@ main {
   .librowse__title .h1-title {
     margin-bottom: 0; }
   .librowse__title .form-control {
+    position: relative;
+    top: 7px;
     margin: 0;
     max-width: 280px;
-    max-height: 35px; }
+    max-height: 35px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #f5f5f5; }
+    .librowse__title .form-control:focus, .librowse__title .form-control:active {
+      border-color: #6A57F9; }
 
 .libcard {
   position: relative;
