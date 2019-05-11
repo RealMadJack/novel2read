@@ -11,7 +11,7 @@ body
   min-height: 100vh
   color: $default
   background-color: $white
-  font-family: $roboto
+  font-family: $nunito
   font-weight: normal
 
 
@@ -84,14 +84,18 @@ body.tm-font-arial
   .bookchapter
     &__title, &__body
       font-family: $arial!important
-body.tm-font-lora
+body.tm-font-nunito
   .bookchapter
     &__title, &__body
-      font-family: $lora!important
+      font-family: $nunito!important
 body.tm-font-roboto
   .bookchapter
     &__title, &__body
       font-family: $roboto!important
+body.tm-font-lora
+  .bookchapter
+    &__title, &__body
+      font-family: $lora!important
 
 body.tm-fz-18
   .bookchapter__body
@@ -1285,7 +1289,7 @@ main
 
 .bookchapter
   &__title, &__body
-    font-family: $arial
+    font-family: $nunito
   &__title .h1-title-sm
     font-size: 1.9rem
   &__nav
@@ -1423,6 +1427,14 @@ main
             left: 0.62rem
             margin: 0
             font-size: .8rem
+        .btn#tm-font-arial
+          font-family: $arial!important
+        .btn#tm-font-nunito
+          font-family: $nunito!important
+        .btn#tm-font-roboto
+          font-family: $roboto!important
+        .btn#tm-font-lora
+          font-family: $lora!important
         .btn
           font-size: .85rem
           padding: 3px 10px

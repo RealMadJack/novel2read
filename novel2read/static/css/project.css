@@ -13,6 +13,27 @@
   src: url("../fonts/ArialBold/ArialBold.eot?#iefix") format("embedded-opentype"), url("../fonts/ArialBold/ArialBold.woff") format("woff"), url("../fonts/ArialBold/ArialBold.ttf") format("truetype"); }
 
 @font-face {
+  font-family: "nunito";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/NunitoSansRegular/NunitoSansRegular.eot");
+  src: url("../fonts/NunitoSansRegular/NunitoSansRegular.eot?#iefix") format("embedded-opentype"), url("../fonts/NunitoSansRegular/NunitoSansRegular.woff") format("woff"), url("../fonts/NunitoSansRegular/NunitoSansRegular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "nunito";
+  font-weight: 100;
+  font-style: normal;
+  src: url("../fonts/NunitoSansLight/NunitoSansLight.eot");
+  src: url("../fonts/NunitoSansLight/NunitoSansLight.eot?#iefix") format("embedded-opentype"), url("../fonts/NunitoSansLight/NunitoSansLight.woff") format("woff"), url("../fonts/NunitoSansLight/NunitoSansLight.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "nunito";
+  font-weight: bold;
+  font-style: normal;
+  src: url("../fonts/NunitoSansBold/NunitoSansBold.eot");
+  src: url("../fonts/NunitoSansBold/NunitoSansBold.eot?#iefix") format("embedded-opentype"), url("../fonts/NunitoSansBold/NunitoSansBold.woff") format("woff"), url("../fonts/NunitoSansBold/NunitoSansBold.ttf") format("truetype"); }
+
+@font-face {
   font-family: "lora";
   font-weight: normal;
   font-style: normal;
@@ -54,7 +75,7 @@ body {
   min-height: 100vh;
   color: black;
   background-color: #fff;
-  font-family: "roboto", sans-serif;
+  font-family: "nunito", sans-serif;
   font-weight: normal; }
 
 body.tm-color-dark {
@@ -100,11 +121,14 @@ body.tm-color-dark {
 body.tm-font-arial .bookchapter__title, body.tm-font-arial .bookchapter__body {
   font-family: "arial", sans-serif !important; }
 
-body.tm-font-lora .bookchapter__title, body.tm-font-lora .bookchapter__body {
-  font-family: "lora", serif !important; }
+body.tm-font-nunito .bookchapter__title, body.tm-font-nunito .bookchapter__body {
+  font-family: "nunito", sans-serif !important; }
 
 body.tm-font-roboto .bookchapter__title, body.tm-font-roboto .bookchapter__body {
   font-family: "roboto", sans-serif !important; }
+
+body.tm-font-lora .bookchapter__title, body.tm-font-lora .bookchapter__body {
+  font-family: "lora", serif !important; }
 
 body.tm-fz-18 .bookchapter__body {
   font-size: 18px !important; }
@@ -1465,7 +1489,7 @@ main {
           order: 2; }
 
 .bookchapter__title, .bookchapter__body {
-  font-family: "arial", sans-serif; }
+  font-family: "nunito", sans-serif; }
 
 .bookchapter__title .h1-title-sm {
   font-size: 30.4px;
@@ -1649,6 +1673,14 @@ main {
         margin: 0;
         font-size: 12.8px;
         font-size: .8rem; }
+    .bookchapter__styles .styles--row .btn#tm-font-arial {
+      font-family: "arial", sans-serif !important; }
+    .bookchapter__styles .styles--row .btn#tm-font-nunito {
+      font-family: "nunito", sans-serif !important; }
+    .bookchapter__styles .styles--row .btn#tm-font-roboto {
+      font-family: "roboto", sans-serif !important; }
+    .bookchapter__styles .styles--row .btn#tm-font-lora {
+      font-family: "lora", serif !important; }
     .bookchapter__styles .styles--row .btn {
       font-size: 13.6px;
       font-size: .85rem;

@@ -49,6 +49,7 @@ function setBodyCls(cls) {
   let c_light = 'tm-color-light'
   let c_dark = 'tm-color-dark'
   let f_arial = 'tm-font-arial'
+  let f_nunito = 'tm-font-nunito'
   let f_lora = 'tm-font-lora'
   let f_roboto = 'tm-font-roboto'
   let fz_18 = 'tm-fz-18'
@@ -67,8 +68,8 @@ function setBodyCls(cls) {
     body.add(cls)
   }
   if (cls.includes('font')) {
-    if (body.contains(f_arial) || body.contains(f_lora) || body.contains(f_roboto)) {
-      body.remove(f_arial, f_lora, f_roboto);
+    if (body.contains(f_arial) || body.contains(f_nunito) || body.contains(f_lora) || body.contains(f_roboto)) {
+      body.remove(f_arial, f_nunito, f_lora, f_roboto);
     }
     body.add(cls)
   }
