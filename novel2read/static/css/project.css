@@ -97,6 +97,10 @@ body.tm-color-dark {
           background-color: #6A57F9; }
   body.tm-color-dark .breadcrumb {
     color: #fff; }
+  body.tm-color-dark .bookchapter__nav {
+    background-color: #1B1B1B; }
+  body.tm-color-dark .js-b-chap.hide .bookchapter__nav--link .btn {
+    color: #6A57F9; }
   body.tm-color-dark .bookchapter__title .h1-title-sm {
     color: #b9b9b9; }
   body.tm-color-dark .bookchapter__nav--select .chaps > .btn, body.tm-color-dark .bookchapter__nav--select .chaps form .btn, body.tm-color-dark .bookchapter__nav--select .chaps a .btn, body.tm-color-dark .bookchapter__nav--select .bookmark > .btn, body.tm-color-dark .bookchapter__nav--select .bookmark form .btn, body.tm-color-dark .bookchapter__nav--select .bookmark a .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles > .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles form .btn, body.tm-color-dark .bookchapter__nav--select .chap-styles a .btn {
@@ -574,7 +578,7 @@ main {
     font-size: 1.4rem; }
 
 .mw-swiper {
-  width: calc(100% - 22.5%);
+  width: calc(100% - 22.6%);
   max-width: 1600px; }
   .mw-swiper .row {
     position: relative; }
@@ -1505,8 +1509,29 @@ main {
       -ms-flex-order: 2;
           order: 2; }
 
+.js-b-chap.hide {
+  -webkit-transition: top .2s ease-in-out;
+  transition: top .2s ease-in-out;
+  position: fixed;
+  top: -50px;
+  margin: 0; }
+  .js-b-chap.hide .bookchapter__nav--link .btn {
+    padding: 0 5px;
+    margin: 15px 0;
+    -webkit-transition-duration: 0s;
+            transition-duration: 0s;
+    background-color: transparent;
+    color: #6A57F9; }
+
+.js-b-chap.show {
+  top: 0;
+  margin: 0; }
+
 .bookchapter__title, .bookchapter__body {
   font-family: "nunito", sans-serif; }
+
+.bookchapter__title.mt {
+  margin-top: 120px; }
 
 .bookchapter__title .h1-title-sm {
   font-size: 30.4px;
@@ -1516,6 +1541,7 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  background-color: #fff;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -1945,6 +1971,13 @@ main {
     float: none;
     width: 100%;
     padding: 5px 0; }
+  .js-b-chap.hide {
+    position: fixed;
+    top: -90px; }
+    .js-b-chap.hide .bookchapter__nav--link .btn {
+      margin: 10px 0; }
+  .js-b-chap.show {
+    top: 0; }
   .bookranking__cards__card:nth-of-type(1) {
     -webkit-box-flex: 1;
         -ms-flex: 1 100%;

@@ -21,6 +21,44 @@ function eventNotification(msg='', flag='info') {
     }, alertTime);
 }
 
+
+// Fixed chap nav
+let lastScroll = 0;
+let scrollUpStart = 0;
+let b_chap_top = 190
+
+$(window).on('scroll',function() {
+  let scroll = $(window).scrollTop();
+  let scrollOffset = 200
+  let parentwidth = $('.js-b-chap').width();
+  $('.js-b-chap').width(parentwidth);
+
+  if (scroll > b_chap_top + 100 && scroll < b_chap_top + 200) {
+    $('.bookchapter__title').addClass('mt')
+    $('.js-b-chap').addClass('hide');
+  } else if (scroll < b_chap_top) {
+    $('.bookchapter__title').removeClass('mt')
+    $('.js-b-chap').removeClass('hide show');
+  } else if (lastScroll > scroll) {
+      if (scrollUpStart < scroll) {
+          scrollUpStart = scroll;
+      }
+      if (scrollUpStart - scroll > scrollOffset) {
+          $(".js-b-chap").addClass("hide");
+          $('.bookchapter__title').addClass('mt')
+          setTimeout(() => {
+            $(".js-b-chap").addClass("show");
+          }, 10)
+      }
+  } else {
+      scrollUpStart = 0;
+      $(".js-b-chap").removeClass("show");
+  }
+
+  lastScroll = scroll;
+});
+
+
 // Scroll Position
 let pos = localStorage.getItem('chap_scroll', 0)
 let pos_url = localStorage.getItem('chap_url', '')

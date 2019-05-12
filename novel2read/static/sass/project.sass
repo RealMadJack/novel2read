@@ -43,6 +43,12 @@ body.tm-color-dark
   .breadcrumb
     color: $white
 
+  .bookchapter__nav
+    background-color: $tm-grey-d
+  .js-b-chap.hide
+    .bookchapter__nav--link
+      .btn
+        color: $accent
   .bookchapter
     &__title .h1-title-sm
       color: $tm-grey-tl
@@ -510,7 +516,7 @@ main
 // Sliders
 .mw-swiper
   // changing width makes blurry
-  width: calc(100% - 22.5%)
+  width: calc(100% - 22.6%)
   max-width: 1600px
   .row
     position: relative
@@ -1298,13 +1304,32 @@ main
   .chap-styles
     order: 2
 
+.js-b-chap.hide
+  transition: top .2s ease-in-out
+  position: fixed
+  top: -50px
+  margin: 0
+  .bookchapter__nav--link
+    .btn
+      padding: 0 5px
+      margin: 15px 0
+      transition-duration: 0s
+      background-color: transparent
+      color: $accent
+.js-b-chap.show
+  top: 0
+  margin: 0
+
 .bookchapter
   &__title, &__body
     font-family: $nunito
+  &__title.mt
+    margin-top: 120px
   &__title .h1-title-sm
     font-size: 1.9rem
   &__nav
     display: flex
+    background-color: $white
     flex-direction: row
     justify-content: space-between
     align-items: center
