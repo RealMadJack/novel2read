@@ -14,7 +14,6 @@ urlpatterns = [
     ),
     path("accounts/", include("allauth.urls")),
     path("comments/", include("django_comments_xtd.urls")),
-    re_path(r'^\.well-known/', include('letsencrypt.urls')),
     path("summernote/", include("django_summernote.urls")),
     # Your stuff: custom urls includes go here
     path("", include("novel2read.apps.books.urls"))
