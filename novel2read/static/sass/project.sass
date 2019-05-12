@@ -61,6 +61,14 @@ body.tm-color-dark
       background-color: $f5
   .comments
     color: $tm-grey-tl
+    .form-control
+      color: $tm-grey-tl
+      border-color: $accent-opa5
+      background-color: transparent
+      &::placeholder
+        color: $tm-grey-td
+      &:focus, &:active
+        border-color: $accent
     &__list, &__tree
       .media
         .media-body

@@ -109,6 +109,20 @@ body.tm-color-dark {
     background-color: #f5f5f5; }
   body.tm-color-dark .comments {
     color: #b9b9b9; }
+    body.tm-color-dark .comments .form-control {
+      color: #b9b9b9;
+      border-color: rgba(106, 87, 249, 0.5);
+      background-color: transparent; }
+      body.tm-color-dark .comments .form-control::-webkit-input-placeholder {
+        color: #99999A; }
+      body.tm-color-dark .comments .form-control:-ms-input-placeholder {
+        color: #99999A; }
+      body.tm-color-dark .comments .form-control::-ms-input-placeholder {
+        color: #99999A; }
+      body.tm-color-dark .comments .form-control::placeholder {
+        color: #99999A; }
+      body.tm-color-dark .comments .form-control:focus, body.tm-color-dark .comments .form-control:active {
+        border-color: #6A57F9; }
     body.tm-color-dark .comments__list .media .media-body .comment__title--name, body.tm-color-dark .comments__tree .media .media-body .comment__title--name {
       color: #fff; }
     body.tm-color-dark .comments__list .media .media-body .comment__title--badge, body.tm-color-dark .comments__tree .media .media-body .comment__title--badge {

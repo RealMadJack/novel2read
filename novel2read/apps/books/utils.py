@@ -56,6 +56,7 @@ def multiple_replace(to_repl, text):
 
 
 def search_multiple_replace(to_repl={}, model='BookChapter'):
+    # if not to_repl:
     from .models import BookChapterReplace
     b_chap_repls = BookChapterReplace.objects.all()
 
