@@ -78,6 +78,10 @@ ENV/
 example.env
 .env
 
+# SSL
+*.crt
+*.key
+
 # Rope project settings
 .ropeproject
 
