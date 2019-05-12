@@ -65,6 +65,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'django_comments_xtd',
     'django_comments',
+    'letsencrypt',
     'crispy_forms',
     'allauth',
     'allauth.account',
