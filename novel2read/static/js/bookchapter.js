@@ -29,7 +29,7 @@ let b_chap_top = 190
 
 $(window).on('scroll',function() {
   let scroll = $(window).scrollTop();
-  let scrollOffset = 200
+  let scrollOffset = 150
   let parentwidth = $('.js-b-chap').width();
   $('.js-b-chap').width(parentwidth);
 

@@ -1525,7 +1525,8 @@ main {
 
 .js-b-chap.show {
   top: 0;
-  margin: 0; }
+  margin: 0;
+  z-index: 10; }
 
 .bookchapter__title, .bookchapter__body {
   font-family: "nunito", sans-serif; }
