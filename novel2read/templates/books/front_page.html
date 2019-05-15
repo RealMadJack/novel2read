@@ -31,7 +31,7 @@
           <div class="swiper-slide bookslide">
             <div class="bookslide__hf">
               <div class="bookslide__poster">
-                <img src="{{book.poster.url}}" alt="{{book.title}}">
+                <img src="{{book.poster.url}}" alt="{{book.title}}" loading="lazy">
               </div>
             </div>
             <div class="bookslide__hf">
@@ -97,7 +97,7 @@
         <div class="col-md-6 col-sm-12 infinite-item">
           <a href="{{b_chap.get_absolute_url}}" class="b-chap-card-sm">
             <div class="b-chap-card-sm__poster">
-              <img src="{{b_chap.book.poster.url}}" alt="{{b_chap.book.title}}">
+              <img src="{{b_chap.book.poster.url}}" alt="{{b_chap.book.title}}" loading="lazy">
             </div>
             <div class="b-chap-card-sm__info">
               <h3 class="h3-title-sm">{{b_chap.book.title}}</h3>
