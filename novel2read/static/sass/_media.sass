@@ -168,13 +168,7 @@
         &--chaps
           .chap-latest
           .chap-volume
-            display: block
-            width: 100%
           .chap-nav-card
-            display: block
-            float: none
-            width: 100%
-            padding: 5px 0
             a
               span
               small
@@ -381,9 +375,11 @@
         &--chaps
           .chap-latest
             display: inline-grid
-            grid-template-columns: auto auto
+            grid-template-columns: 110px auto
             small
               grid-column-start: 2
+          .chap-nav-card
+            flex: 0 1 100%
       .votecard
         margin: 40px 0
         padding: 12px

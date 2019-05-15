@@ -1193,7 +1193,11 @@ main
           font-size: 1rem
           margin-bottom: .7rem
       &--chaps
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
         .chap-latest
+          flex: 0 1 100%
           margin-top: 10px
           margin-bottom: 10px
           span
@@ -1203,17 +1207,17 @@ main
             &:hover, &:active, &:focus
               color: $default
         .chap-volume
+          flex: 0 1 100%
           position: relative
-          display: block
-          width: 100%
           font-weight: bold
           margin-top: 20px
           margin-bottom: 10px
         .chap-nav-card
-          float: left
-          width: 50%
+          display: flex
+          flex: 0 1 50%
           padding: 5px
           a
+            width: 100%
             display: grid
             grid-template-columns: 50px 1fr
             grid-gap: 0 5px

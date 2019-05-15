@@ -1378,56 +1378,75 @@ main {
       font-size: 1rem;
       margin-bottom: 11.2px;
       margin-bottom: .7rem; }
-    .book .bookbody__tabs--chaps .chap-latest {
-      margin-top: 10px;
-      margin-bottom: 10px; }
-      .book .bookbody__tabs--chaps .chap-latest span {
-        padding-right: 5px; }
-      .book .bookbody__tabs--chaps .chap-latest a {
-        color: #6A57F9; }
-        .book .bookbody__tabs--chaps .chap-latest a:hover, .book .bookbody__tabs--chaps .chap-latest a:active, .book .bookbody__tabs--chaps .chap-latest a:focus {
-          color: black; }
-    .book .bookbody__tabs--chaps .chap-volume {
-      position: relative;
-      display: block;
-      width: 100%;
-      font-weight: bold;
-      margin-top: 20px;
-      margin-bottom: 10px; }
-    .book .bookbody__tabs--chaps .chap-nav-card {
-      float: left;
-      width: 50%;
-      padding: 5px; }
-      .book .bookbody__tabs--chaps .chap-nav-card a {
-        display: grid;
-        grid-template-columns: 50px 1fr;
-        grid-gap: 0 5px;
-        border: 1px solid rgba(106, 87, 249, 0.5);
-        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        border-radius: 3px;
-        color: black; }
-        .book .bookbody__tabs--chaps .chap-nav-card a:hover, .book .bookbody__tabs--chaps .chap-nav-card a:active, .book .bookbody__tabs--chaps .chap-nav-card a:focus {
+    .book .bookbody__tabs--chaps {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+      .book .bookbody__tabs--chaps .chap-latest {
+        -webkit-box-flex: 0;
+            -ms-flex: 0 1 100%;
+                flex: 0 1 100%;
+        margin-top: 10px;
+        margin-bottom: 10px; }
+        .book .bookbody__tabs--chaps .chap-latest span {
+          padding-right: 5px; }
+        .book .bookbody__tabs--chaps .chap-latest a {
           color: #6A57F9; }
-        .book .bookbody__tabs--chaps .chap-nav-card a span {
-          padding-top: 5px; }
-          .book .bookbody__tabs--chaps .chap-nav-card a span:first-of-type {
-            grid-column-start: 1;
-            grid-row-start: 1;
-            font-weight: bold;
-            padding-left: 10px; }
-          .book .bookbody__tabs--chaps .chap-nav-card a span:last-of-type {
-            white-space: nowrap;
-            overflow: hidden;
-            grid-column-start: 2;
-            padding-right: 10px;
-            margin-right: 10px; }
-        .book .bookbody__tabs--chaps .chap-nav-card a small {
-          opacity: .8;
-          font-size: 11.2px;
-          font-size: .7rem;
-          padding-bottom: 5px;
-          grid-column-start: 2; }
+          .book .bookbody__tabs--chaps .chap-latest a:hover, .book .bookbody__tabs--chaps .chap-latest a:active, .book .bookbody__tabs--chaps .chap-latest a:focus {
+            color: black; }
+      .book .bookbody__tabs--chaps .chap-volume {
+        -webkit-box-flex: 0;
+            -ms-flex: 0 1 100%;
+                flex: 0 1 100%;
+        position: relative;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 10px; }
+      .book .bookbody__tabs--chaps .chap-nav-card {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-flex: 0;
+            -ms-flex: 0 1 50%;
+                flex: 0 1 50%;
+        padding: 5px; }
+        .book .bookbody__tabs--chaps .chap-nav-card a {
+          width: 100%;
+          display: grid;
+          grid-template-columns: 50px 1fr;
+          grid-gap: 0 5px;
+          border: 1px solid rgba(106, 87, 249, 0.5);
+          -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          border-radius: 3px;
+          color: black; }
+          .book .bookbody__tabs--chaps .chap-nav-card a:hover, .book .bookbody__tabs--chaps .chap-nav-card a:active, .book .bookbody__tabs--chaps .chap-nav-card a:focus {
+            color: #6A57F9; }
+          .book .bookbody__tabs--chaps .chap-nav-card a span {
+            padding-top: 5px; }
+            .book .bookbody__tabs--chaps .chap-nav-card a span:first-of-type {
+              grid-column-start: 1;
+              grid-row-start: 1;
+              font-weight: bold;
+              padding-left: 10px; }
+            .book .bookbody__tabs--chaps .chap-nav-card a span:last-of-type {
+              white-space: nowrap;
+              overflow: hidden;
+              grid-column-start: 2;
+              padding-right: 10px;
+              margin-right: 10px; }
+          .book .bookbody__tabs--chaps .chap-nav-card a small {
+            opacity: .8;
+            font-size: 11.2px;
+            font-size: .7rem;
+            padding-bottom: 5px;
+            grid-column-start: 2; }
   .book .bookbody__vote {
     margin: 50px 0; }
     .book .bookbody__vote .votecard {
@@ -1964,14 +1983,6 @@ main {
     .book .bookhead__info--read .btn .fas, .book .bookhead__info--read .btn .far, .book .bookhead__info--read .btn .fal {
       font-size: .9rem;
       padding-right: 5px; }
-  .book .bookbody__tabs--chaps .chap-volume {
-    display: block;
-    width: 100%; }
-  .book .bookbody__tabs--chaps .chap-nav-card {
-    display: block;
-    float: none;
-    width: 100%;
-    padding: 5px 0; }
   .js-b-chap.hide {
     position: fixed;
     top: -90px; }
@@ -2089,9 +2100,13 @@ main {
           font-size: .85rem; }
   .book .bookbody__tabs--chaps .chap-latest {
     display: inline-grid;
-    grid-template-columns: auto auto; }
+    grid-template-columns: 110px auto; }
     .book .bookbody__tabs--chaps .chap-latest small {
       grid-column-start: 2; }
+  .book .bookbody__tabs--chaps .chap-nav-card {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 100%;
+            flex: 0 1 100%; }
   .book .bookbody .votecard {
     margin: 40px 0;
     padding: 12px;
