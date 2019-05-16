@@ -2036,10 +2036,22 @@ main {
   .swiper-button-next {
     right: 10px;
     display: none; }
-  .footer .col-md-3:first-of-type {
+  .footer .col-md-3:nth-of-type(1) {
+    -webkit-box-ordinal-group: 5;
+        -ms-flex-order: 4;
+            order: 4; }
+  .footer .col-md-3:nth-of-type(2) {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2; }
+  .footer .col-md-3:nth-of-type(3) {
     -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
             order: 1; }
+  .footer .col-md-3:nth-of-type(4) {
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3; }
   .footer__col {
     margin-bottom: 30px; }
     .footer__col a:last-of-type {

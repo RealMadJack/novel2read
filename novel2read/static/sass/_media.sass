@@ -272,8 +272,14 @@
 
   .footer
     .col-md-3
-      &:first-of-type
+      &:nth-of-type(1)
+        order: 4
+      &:nth-of-type(2)
+        order: 2
+      &:nth-of-type(3)
         order: 1
+      &:nth-of-type(4)
+        order: 3
     a
       &:hover, &:focus, &:active
     a.active
