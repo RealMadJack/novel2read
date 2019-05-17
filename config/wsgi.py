@@ -37,7 +37,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 application = get_wsgi_application()
-if os.environ.get("DJANGO_SETTINGS_MODULE") == "config.settings.production":
+if os.environ.get("DJANGO_SETTINGS_MODULE") == "config.settings.local":
     application = WhiteNoise(application, root=settings.STATIC_ROOT)
     # application.add_files('/path/to/more/static/files', prefix='more-files/')
 # if os.environ.get('DJANGO_SETTINGS_MODULE') == 'config.settings.production':
