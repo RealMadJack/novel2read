@@ -3,10 +3,10 @@ import os
 import sys
 
 if __name__ == "__main__":
-    if os.environ.get('VENV') == 'novel2read_prod':
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
-    else:
+    if os.environ.get('VENV') == 'novel2read_dev':
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+    else:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 
     try:
         from django.core.management import execute_from_command_line
