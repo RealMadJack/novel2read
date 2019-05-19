@@ -230,5 +230,6 @@ sentry_sdk.init(
     integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()],
 )
 
-# Your stuff...
+# Easy Cron
 # ------------------------------------------------------------------------------
+EASY_CRON_API_KEY = env("EASY_CRON_API_KEY")
