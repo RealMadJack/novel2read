@@ -39,11 +39,16 @@ class BookScraper:
             '\n': '', '\r': '',
             '  ': '',
         }
-        self.driver_opts = webdriver.ChromeOptions()
-        self.driver_opts.add_argument('headless')
-        self.driver_opts.add_argument('disable-gpu')
-        self.driver_opts.add_argument('log-level=3')
-        self.driver_opts.add_argument('silent')
+        # self.driver_opts = webdriver.ChromeOptions()
+        # self.driver_opts.add_argument('headless')
+        # self.driver_opts.add_argument('disable-gpu')
+        # self.driver_opts.add_argument('log-level=3')
+        # self.driver_opts.add_argument('silent')
+        self.driver_opts = webdriver.FirefoxOptions()
+        self.driver_opts.add_argument('--headless')
+        self.driver_opts.add_argument('--disable-gpu')
+        self.driver_opts.add_argument('--log-level=3')
+        self.driver_opts.add_argument('--silent')
 
     def raw_html_text_filter(self, html_text):
         html_node_3 = ''.join([html_node.text for html_node in html_text[0:3]])
@@ -139,7 +144,8 @@ class BookScraper:
         return bookchapter
 
     def wn_get_book_data(self, book_url):
-        driver = webdriver.Chrome(chrome_options=self.driver_opts)
+        # driver = webdriver.Chrome(chrome_options=self.driver_opts)
+        driver = webdriver.Firefox(options=self.driver_opts)
         wait = WebDriverWait(driver, 5)
         driver.get(book_url)
         driver.find_element_by_css_selector('a.j_show_contents').click()
@@ -187,7 +193,8 @@ class BookScraper:
         return book
 
     def wn_get_book_cids(self, book_url, s_from=0, s_to=0):
-        driver = webdriver.Chrome(chrome_options=self.driver_opts)
+        # driver = webdriver.Chrome(chrome_options=self.driver_opts)
+        driver = webdriver.Firefox(options=self.driver_opts)
         wait = WebDriverWait(driver, 5)
         driver.get(book_url)
         # DOM
