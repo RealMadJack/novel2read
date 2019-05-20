@@ -431,10 +431,10 @@ a.disabled, button.disabled {
       padding-top: 8px; }
 
 main {
-  min-height: calc(100vh - 520px); }
+  min-height: calc(100vh - 460px); }
 
 .footer {
-  min-height: 180px;
+  min-height: 300px;
   margin-top: 100px;
   padding: 30px 0;
   color: #fff;
