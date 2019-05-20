@@ -1,6 +1,7 @@
 import os
 import re
 import requests
+import logging
 
 from mimetypes import guess_extension
 from django.core.exceptions import ImproperlyConfigured
@@ -24,6 +25,30 @@ def download_img(url, file_name):
         return f'{file_name}{file_ext}'
     else:
         raise ImproperlyConfigured
+
+
+def upload_to_s3(file_name, bucket_path='', object_name=None, public_read=False):
+    import boto3
+    from botocore.exceptions import ClientError
+    bucket = settings.AWS_STORAGE_BUCKET_NAME
+    ACCESS_ID = settings.AWS_ACCESS_KEY_ID
+    ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
+
+    if object_name is None:
+        object_name = file_name.split('/')[-1].strip()
+        print(object_name)
+
+    s3_client = boto3.client('s3', aws_access_key_id=ACCESS_ID, aws_secret_access_key=ACCESS_KEY)
+
+    try:
+        if public_read:
+            s3_client.upload_file(f'{file_name}', bucket, f'{bucket_path}/{object_name}', ExtraArgs={'ACL': 'public-read'})
+        else:
+            s3_client.upload_file(f'{file_name}', bucket, f'{bucket_path}/{object_name}')
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
 
 
 def get_unique_slug(cls, name):

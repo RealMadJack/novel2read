@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..utils import capitalize_slug, capitalize_str, multiple_replace
+from ..utils import capitalize_slug, capitalize_str, multiple_replace, upload_to_s3
 
 
 class UtilsTest(TestCase):
@@ -22,3 +22,6 @@ class UtilsTest(TestCase):
         self.assertNotIn('</p>', text)
         self.assertNotIn('\n', text)
         self.assertNotIn('  ', text)
+
+    def test_upload_to_s3(self):
+        upload_to_s3('novel2read/media/posters/default.jpg', bucket_path='media/users', public_read=True)

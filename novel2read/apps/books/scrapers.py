@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.webdriver.remote.remote_connection import LOGGER
 
 from .models import Book, BookChapter, BookTag
-from .utils import download_img, multiple_replace
+from .utils import download_img, upload_to_s3, multiple_replace
 
 # Logging restrictions
 # LOGGER.setLevel(logging.WARNING)
