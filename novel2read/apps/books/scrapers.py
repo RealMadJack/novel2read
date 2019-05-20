@@ -5,6 +5,7 @@ from django.conf import settings
 from django.utils.text import slugify
 from datetime import datetime
 from requests_html import HTMLSession
+from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.webdriver.remote.remote_connection import LOGGER
@@ -146,19 +147,24 @@ class BookScraper:
     def wn_get_book_data(self, book_url):
         # driver = webdriver.Chrome(chrome_options=self.driver_opts)
         # driver = webdriver.Firefox(options=self.driver_opts)
-        driver = webdriver.Firefox()
-        wait = WebDriverWait(driver, 5)
-        driver.get(book_url)
-        driver.find_element_by_css_selector('a.j_show_contents').click()
-        v_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.volume-item'))
-        book_volumes = [1]
-        for volume in v_list:
-            chap_len = len(driver.find_elements_by_css_selector('.volume-item ol li'))
-            volume_len = len(volume.find_elements_by_css_selector('ol li'))
-            volume_len += book_volumes[-1]
-            if volume_len - 1 != chap_len:
-                book_volumes.append(volume_len)
-        driver.close()
+        with Display():
+            driver = webdriver.Firefox()
+            wait = WebDriverWait(driver, 5)
+            try:
+                driver.get(book_url)
+                driver.find_element_by_css_selector('a.j_show_contents').click()
+                v_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.volume-item'))
+                book_volumes = [1]
+                for volume in v_list:
+                    chap_len = len(driver.find_elements_by_css_selector('.volume-item ol li'))
+                    volume_len = len(volume.find_elements_by_css_selector('ol li'))
+                    volume_len += book_volumes[-1]
+                    if volume_len - 1 != chap_len:
+                        book_volumes.append(volume_len)
+            except Exception as e:
+                driver.quit()
+            finally:
+                driver.quit()
 
         session = HTMLSession()
         r = session.get(book_url)
@@ -196,17 +202,22 @@ class BookScraper:
     def wn_get_book_cids(self, book_url, s_from=0, s_to=0):
         # driver = webdriver.Chrome(chrome_options=self.driver_opts)
         # driver = webdriver.Firefox(options=self.driver_opts)
-        driver = webdriver.Firefox()
-        wait = WebDriverWait(driver, 5)
-        driver.get(book_url)
-        # DOM
-        driver.find_element_by_css_selector('a.j_show_contents').click()
-        if s_to:
-            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li')[s_from:s_to])
-        else:
-            c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
-        c_ids = [li.get_attribute("data-cid") for li in c_list]
-        driver.close()
+        with Display():
+            driver = webdriver.Firefox()
+            wait = WebDriverWait(driver, 5)
+            try:
+                driver.get(book_url)
+                # DOM
+                driver.find_element_by_css_selector('a.j_show_contents').click()
+                if s_to:
+                    c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li')[s_from:s_to])
+                else:
+                    c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
+                c_ids = [li.get_attribute("data-cid") for li in c_list]
+            except Exception as e:
+                driver.quit()
+            finally:
+                driver.quit()
         return c_ids
 
     def wn_get_book_chap(self, wn_chap_url):
