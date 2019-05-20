@@ -147,6 +147,7 @@ class BookScraper:
     def wn_get_book_data(self, book_url):
         # driver = webdriver.Chrome(chrome_options=self.driver_opts)
         # driver = webdriver.Firefox(options=self.driver_opts)
+        book_volumes = [1]
         with Display():
             driver = webdriver.Firefox()
             wait = WebDriverWait(driver, 5)
@@ -154,7 +155,6 @@ class BookScraper:
                 driver.get(book_url)
                 driver.find_element_by_css_selector('a.j_show_contents').click()
                 v_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.volume-item'))
-                book_volumes = [1]
                 for volume in v_list:
                     chap_len = len(driver.find_elements_by_css_selector('.volume-item ol li'))
                     volume_len = len(volume.find_elements_by_css_selector('ol li'))
