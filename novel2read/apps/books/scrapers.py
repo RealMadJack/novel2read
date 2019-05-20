@@ -202,6 +202,7 @@ class BookScraper:
     def wn_get_book_cids(self, book_url, s_from=0, s_to=0):
         # driver = webdriver.Chrome(chrome_options=self.driver_opts)
         # driver = webdriver.Firefox(options=self.driver_opts)
+        c_ids = []
         with Display():
             driver = webdriver.Firefox()
             wait = WebDriverWait(driver, 5)
