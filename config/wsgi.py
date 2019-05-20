@@ -39,6 +39,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 application = get_wsgi_application()
 if os.environ.get("DJANGO_SETTINGS_MODULE") == "config.settings.production":
     application = WhiteNoise(application, root=settings.STATIC_ROOT)
+    application.add_files('app/staticfiles')
     # application.add_files('/path/to/more/static/files', prefix='more-files/')
 # if os.environ.get('DJANGO_SETTINGS_MODULE') == 'config.settings.production':
 #     application = Sentry(application)
