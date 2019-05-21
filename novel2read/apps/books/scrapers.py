@@ -154,7 +154,7 @@ class BookScraper:
             volume_len += book_volumes[-1]
             if volume_len - 1 != chap_len:
                 book_volumes.append(volume_len)
-        driver.quit()
+        driver.close()
 
         session = HTMLSession()
         r = session.get(book_url)
@@ -200,7 +200,7 @@ class BookScraper:
         else:
             c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
         c_ids = [li.get_attribute("data-cid") for li in c_list]
-        driver.quit()
+        driver.close()
         return c_ids
 
     def wn_get_book_chap(self, wn_chap_url):
