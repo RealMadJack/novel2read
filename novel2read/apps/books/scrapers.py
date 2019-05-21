@@ -122,7 +122,7 @@ class BookScraper:
             [book.volumes.append(volume) for volume in data['book_volumes']]
         poster_filename = download_img(data['book_poster_url'], slugify(data['book_name']))
         book.poster = f'posters/{poster_filename}'
-        s3_uploaded = upload_to_s3(f'novel2read/media/{book.poster}', bucket_path='media/posters', public_read=True)
+        s3_uploaded = upload_to_s3(f'novel2read/media/{book.poster}', bucket_path='media/posters', public_read=True, object_name=slugify(book.title))
         if s3_uploaded:
             print('Poster uploaded to s3')
         book.rating = data['book_rating']
@@ -154,7 +154,7 @@ class BookScraper:
             volume_len += book_volumes[-1]
             if volume_len - 1 != chap_len:
                 book_volumes.append(volume_len)
-        driver.close()
+        driver.quit()
 
         session = HTMLSession()
         r = session.get(book_url)
@@ -200,7 +200,7 @@ class BookScraper:
         else:
             c_list = wait.until(lambda driver: driver.find_elements_by_css_selector('.content-list li'))
         c_ids = [li.get_attribute("data-cid") for li in c_list]
-        driver.close()
+        driver.quit()
         return c_ids
 
     def wn_get_book_chap(self, wn_chap_url):
