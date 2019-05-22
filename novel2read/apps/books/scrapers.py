@@ -267,8 +267,10 @@ class BookScraper:
                     text_node = node.text.lower().strip()
                     if 'chapter' in text_node:
                         chap_tit_raw = text_node
+                        break
                     elif text_node[0].isdigit():
                         chap_tit_raw = text_node
+                        break
 
         chap_tit_raw = chap_tit_raw.replace('\u203d', '?!').replace('\n', '').encode("ascii", errors="ignore").decode()
         chap_tit = re.search(r'(\d+\s{0,2}:|\d+\s{0,2}-|\d+)(.*)$', chap_tit_raw.lower())
