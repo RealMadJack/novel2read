@@ -140,13 +140,14 @@ class BookTasksTest(TestCase):
         self.assertTrue(len(b_chaps[1].text) > 3000)
         self.assertTrue(len(b_chaps[0].text) > 3000)
 
-    # def test_book_scraper_revisit_boxnovel_alo(self):
-    #     self.book.chapters_count = 31
-    #     self.book.visited = True
-    #     self.book.revisit = 'boxnovel'
-    #     self.book.revisit_id = 'cultivation-chat-group'
-    #     self.book.save()
-    #     self.book.refresh_from_db()
-    #     res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 35})
-    #     self.book.refresh_from_db()
-    #     b_chaps = list(self.book.bookchapters.all())
+    @tag('slow')
+    def test_boxnovel_chapter_availability(self):
+        self.book.chapters_count = 552
+        self.book.visited = True
+        self.book.revisit = 'boxnovel'
+        self.book.revisit_id = 'ghost-emperor-wild-wife-dandy-eldest-miss'
+        self.book.save()
+        self.book.refresh_from_db()
+        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 556})
+        self.book.refresh_from_db()
+        b_chaps = list(self.book.bookchapters.all())
