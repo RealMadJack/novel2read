@@ -5,8 +5,8 @@ from celery.exceptions import Ignore
 from novel2read.taskapp.celery import app, save_celery_result
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
 
-from .models import Book
-from .utils import search_multiple_replace
+from .models import Book, BookChapter
+from .utils import search_multiple_replace, get_unique_slug
 from .scrapers import BookScraper
 
 
@@ -27,6 +27,28 @@ def model_search_replace(self):
             task_name=self.name,
             status=states.FAILURE,
             result=exc,
+            traceback=traceback.format_exc(),
+        )
+        raise Ignore()
+
+
+@app.task(bind=True)
+def update_book_title_slug(self):
+    try:
+        b_chaps = BookChapter.objects.all()
+        for b_chap in b_chaps:
+            if len(b_chap.title) >= 200:
+                b_chap.title = 'untitled'
+                b_chap.slug = get_unique_slug(BookChapter, 'untitled')
+            elif len(b_chap.slug) >= 210:
+                b_chap.slug = get_unique_slug(BookChapter, 'untitled')
+            b_chap.save(update_fields=['title', 'slug'])
+    except Exception as exc:
+        save_celery_result(
+            task_id=self.request.id,
+            task_name=self.name,
+            status=states.FAILURE,
+            result='\n'.join([f'BookChapter: {b_chap.c_id} {b_chap.title}', exc]),
             traceback=traceback.format_exc(),
         )
         raise Ignore()

@@ -111,5 +111,5 @@ def search_multiple_replace(to_repl={}, model='BookChapter'):
                         rx_repl = k
                     b_chap.text = re.sub(rx_repl, v, b_chap.text, flags=re.I)
                     b_chap.save()
-        print(result)
+
         return result

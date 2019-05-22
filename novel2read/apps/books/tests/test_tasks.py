@@ -5,6 +5,7 @@ from django.db.models import signals
 
 from ..models import Book, BookGenre, BookChapter
 from ..tasks import (
+    update_book_title_slug,
     update_book_ranking,
     update_book_revisited,
     book_scraper_info,
@@ -20,6 +21,22 @@ class BookTasksTest(TestCase):
         self.book = Book.objects.create(title='test book one', bookgenre=self.bookgenre, votes=134, status=1, visit_id='6831850602000905')
         self.book_1 = Book.objects.create(title='test book two', bookgenre=self.bookgenre, votes=34, status=1, visit_id='7931338406001705')
         self.book_2 = Book.objects.create(title='test book three', bookgenre=self.bookgenre, votes=74, status=1, visit_id='7176992105000305')
+        self.long_title = 'long title' * 25
+        self.b_chap = BookChapter.objects.create(book=self.book, title=self.long_title)
+        self.b_chap_1 = BookChapter.objects.create(book=self.book, title=self.long_title)
+
+    def test_update_book_title_slug(self):
+        self.b_chap_1.title = 'test title'
+        self.b_chap_1.save()
+        res = update_book_title_slug.apply()
+        self.book.refresh_from_db()
+        self.b_chap.refresh_from_db()
+        self.b_chap_1.refresh_from_db()
+        self.assertEqual(res.state, states.SUCCESS)
+        self.assertEqual(self.b_chap.title.lower(), 'untitled')
+        self.assertEqual(self.b_chap.slug.lower(), 'untitled-1')
+        self.assertEqual(self.b_chap_1.title.lower(), 'test title')
+        self.assertEqual(self.b_chap_1.slug.lower(), 'untitled')
 
     def test_update_book_ranking(self):
         self.assertEqual(self.book.ranking, 0)
