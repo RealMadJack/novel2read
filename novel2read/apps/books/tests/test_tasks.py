@@ -4,6 +4,7 @@ from django.test import TestCase, tag
 from django.db.models import signals
 
 from ..models import Book, BookGenre, BookChapter
+from ..scrapers import BookScraper
 from ..tasks import (
     update_book_title_slug,
     update_book_ranking,
@@ -34,9 +35,9 @@ class BookTasksTest(TestCase):
         self.b_chap_1.refresh_from_db()
         self.assertEqual(res.state, states.SUCCESS)
         self.assertEqual(self.b_chap.title.lower(), 'untitled')
-        self.assertEqual(self.b_chap.slug.lower(), 'untitled-1')
+        self.assertEqual(self.b_chap.slug.lower(), 'untitled')
         self.assertEqual(self.b_chap_1.title.lower(), 'test title')
-        self.assertEqual(self.b_chap_1.slug.lower(), 'untitled')
+        self.assertEqual(self.b_chap_1.slug.lower(), 'untitled-1')
 
     def test_update_book_ranking(self):
         self.assertEqual(self.book.ranking, 0)
@@ -159,12 +160,21 @@ class BookTasksTest(TestCase):
 
     @tag('slow')
     def test_boxnovel_chapter_availability(self):
-        self.book.chapters_count = 1710
+        self.book.chapters_count = 1714
         self.book.visited = True
         self.book.revisit = 'boxnovel'
         self.book.revisit_id = 'genius-doctor-black-belly-miss'
         self.book.save()
         self.book.refresh_from_db()
-        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 1712})
+        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 1720})
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
+
+    @tag('slow')
+    def test_boxnovel_chapter_get_content(self):
+        scraper = BookScraper()
+        b_chap_url = 'https://boxnovel.com/novel/genius-doctor-black-belly-miss/chapter-1724-encountering-a-nasty-dog-2'
+        b_chap = scraper.bn_get_book_chap(b_chap_url)
+        # print(b_chap)
+        with open("b_chap.txt", "w+") as f:
+            f.write(str(b_chap))
