@@ -156,7 +156,10 @@ styles.addEventListener('click', manageStyles)
 // ChapNav Toggle
 function toggleChapNav(e) {
   let btn = $(this);
-  btn.next()[0].classList.toggle('visible')
+  btn.next()[0].classList.toggle('show')
+  setTimeout(() => {
+    btn.next()[0].classList.toggle('visible')
+  }, 10)
 }
 $('#chaps-toggle')[0].addEventListener('click', toggleChapNav);
 
@@ -168,6 +171,9 @@ function closeToggles(e) {
   if (chapNav.classList.contains('visible')) {
     if (e.target !== chapToggle && !$(e.target).closest(chapNav).length) {
       chapNav.classList.remove('visible')
+      setTimeout(() => {
+        chapNav.classList.remove('show')
+      }, 300)
     }
   }
   if (stylesMenu.classList.contains('visible')) {

@@ -1632,11 +1632,14 @@ main {
     .bookchapter__nav--select .chaps--nav.visible {
       top: 48px;
       top: 3rem;
-      opacity: 1;
+      opacity: 1; }
+    .bookchapter__nav--select .chaps--nav.show {
+      display: block;
       visibility: visible; }
     .bookchapter__nav--select .chaps--nav {
       opacity: 0;
       visibility: hidden;
+      display: none;
       -webkit-transition: all .2s ease-in-out;
       transition: all .2s ease-in-out;
       position: relative;

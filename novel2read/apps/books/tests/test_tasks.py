@@ -158,15 +158,15 @@ class BookTasksTest(TestCase):
         self.assertTrue(len(b_chaps[1].text) > 3000)
         self.assertTrue(len(b_chaps[0].text) > 3000)
 
-    @tag('slow')
+    # @tag('slow')
     def test_boxnovel_chapter_availability(self):
-        self.book.chapters_count = 1714
+        self.book.chapters_count = 1865
         self.book.visited = True
         self.book.revisit = 'boxnovel'
         self.book.revisit_id = 'genius-doctor-black-belly-miss'
         self.book.save()
         self.book.refresh_from_db()
-        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 1720})
+        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 1867})
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
 
