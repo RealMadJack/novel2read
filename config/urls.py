@@ -3,6 +3,7 @@ from django.urls import include, path, re_path
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
+from django.views.generic import TemplateView
 
 urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
@@ -16,7 +17,13 @@ urlpatterns = [
     path("comments/", include("django_comments_xtd.urls")),
     path("summernote/", include("django_summernote.urls")),
     # Your stuff: custom urls includes go here
-    path("", include("novel2read.apps.books.urls"))
+    path("", include("novel2read.apps.books.urls")),
+    path("contact-us/", TemplateView.as_view(template_name='pages/contact-us.html'), name='contact-us'),
+    path("advertisement/", TemplateView.as_view(template_name='pages/advertisement.html'), name='advertisement'),
+    path("send-feedback/", TemplateView.as_view(template_name='pages/send-feedback.html'), name='send-feedback'),
+    path("report-problem/", TemplateView.as_view(template_name='pages/report-problem.html'), name='report-problem'),
+    path("privacy-policy/", TemplateView.as_view(template_name='pages/privacy-policy.html'), name='privacy'),
+    path("terms-conditions/", TemplateView.as_view(template_name='pages/terms-conditions.html'), name='terms'),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )

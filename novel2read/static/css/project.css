@@ -307,7 +307,9 @@ a.disabled, button.disabled {
   background-color: #F13130; }
 
 .h1-title, .h1-title-sm, .h2-title, .h2-title-sm, .h3-title, .h4-title {
-  font-weight: bold; }
+  font-weight: bold;
+  width: 100%;
+  display: block; }
 
 .h1-title {
   font-size: 40px;
@@ -318,6 +320,9 @@ a.disabled, button.disabled {
   font-size: 32px;
   font-size: 2rem;
   margin-bottom: 15px; }
+  .h1-title-sm small {
+    font-size: 17.6px;
+    font-size: 1.1rem; }
 
 .h2-title {
   font-size: 32px;

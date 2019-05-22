@@ -80,6 +80,9 @@
             </ul>
             <ul class="navbar-nav mr-right">
               {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'users:library' request.user.username %}">Library</a>
+                </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
                     {{request.user.username}}
@@ -89,7 +92,6 @@
                       {# URL provided by django-allauth/account/urls.py #}
                       {% trans "My Profile" %}
                     </a>
-                    <a class="dropdown-item" href="{% url 'users:library' request.user.username %}">Library</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{% url 'account_logout' %}">
                       {# URL provided by django-allauth/account/urls.py #}
@@ -155,11 +157,14 @@
           <div class="col-md-3">
             <div class="footer__col">
               <h4 class="footer__col--title h4-title">Contacts</h4>
-              <a class="{% if request.path == '' %}active{% endif %}" href="">Contact Us</a>
-              <a class="{% if request.path == '' %}active{% endif %}" href="">Advertisement</a>
-              <a class="{% if request.path == '' %}active{% endif %}" href="">Report Problem</a>
-
-              <a class="{% if request.path == '' %}active{% endif %}" href="">Send Feedback</a>
+              {% url 'contact-us' as contact_us_url %}
+              <a class="{% if request.path == contact_us_url %}active{% endif %}" href="{{contact_us_url}}">Contact Us</a>
+              {% url 'advertisement' as advertisement_url %}
+              <a class="{% if request.path == advertisement_url %}active{% endif %}" href="{{advertisement_url}}">Advertisement</a>
+              {% url 'report-problem' as report_problem_url %}
+              <a class="{% if request.path == report_problem_url %}active{% endif %}" href="{{report_problem_url}}">Report Problem</a>
+              {% url 'send-feedback' as send_feedback_url %}
+              <a class="{% if request.path == send_feedback_url %}active{% endif %}" href="{{send_feedback_url}}">Send Feedback</a>
             </div>
           </div>
           <div class="col-md-3">
@@ -176,8 +181,10 @@
               <a class="{% if request.path == '' %}active{% endif %}" href="">Premium</a>
               <a class="{% if request.path == '' %}active{% endif %}" href="">Daily Missions</a>
               <a class="{% if request.path == '' %}active{% endif %}" href="">Referral</a>
-              <a class="{% if request.path == '' %}active{% endif %}" href="">Privacy Policy</a>
-              <a class="{% if request.path == '' %}active{% endif %}" href="">Terms and Conditions</a>
+              {% url 'privacy' as privacy_url %}
+              <a class="{% if request.path == privacy_url %}active{% endif %}" href="{{privacy_url}}">Privacy Policy</a>
+              {% url 'terms' as terms_url %}
+              <a class="{% if request.path == terms_url %}active{% endif %}" href="{{terms_url}}">Terms and Conditions</a>
             </div>
           </div>
         </div>

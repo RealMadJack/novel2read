@@ -142,12 +142,12 @@ class BookTasksTest(TestCase):
 
     @tag('slow')
     def test_boxnovel_chapter_availability(self):
-        self.book.chapters_count = 552
+        self.book.chapters_count = 1710
         self.book.visited = True
         self.book.revisit = 'boxnovel'
-        self.book.revisit_id = 'ghost-emperor-wild-wife-dandy-eldest-miss'
+        self.book.revisit_id = 'genius-doctor-black-belly-miss'
         self.book.save()
         self.book.refresh_from_db()
-        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 556})
+        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 1712})
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())

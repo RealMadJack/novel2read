@@ -23,8 +23,8 @@ class FrontPageView(View):
         books = Book.objects.published().select_related('bookgenre').filter(recommended=True).random_qslist(only=6)
         b_chaps = BookChapter.objects.order_by('book_id', '-created').distinct('book_id').values_list('id', flat=True)
         b_chaps = BookChapter.objects.select_related('book').filter(id__in=b_chaps).order_by('-created')
-        promo_title = 'Read your favourite novels with comfort'
-        promo_subtitle = 'Get access to the latest releases of novels and light-novels.'
+        promo_title = 'Read your favourite novels in one place'
+        promo_subtitle = 'Get access to the latest releases of novels and light-novels'
         paginator = Paginator(b_chaps, 10)
         page = self.request.GET.get('page')
         b_chaps = paginator.get_page(page)
