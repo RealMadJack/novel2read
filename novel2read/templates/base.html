@@ -155,6 +155,11 @@
           <div class="col-md-3">
             <div class="footer__col">
               <h4 class="footer__col--title h4-title">Contacts</h4>
+              <a class="{% if request.path == '' %}active{% endif %}" href="">Contact Us</a>
+              <a class="{% if request.path == '' %}active{% endif %}" href="">Advertisement</a>
+              <a class="{% if request.path == '' %}active{% endif %}" href="">Report Problem</a>
+
+              <a class="{% if request.path == '' %}active{% endif %}" href="">Send Feedback</a>
             </div>
           </div>
           <div class="col-md-3">
@@ -167,7 +172,12 @@
           </div>
           <div class="col-md-3">
             <div class="footer__col">
-              <h4 class="footer__col--title h4-title">Resources</h4>
+              <h4 class="footer__col--title h4-title">Pages</h4>
+              <a class="{% if request.path == '' %}active{% endif %}" href="">Premium</a>
+              <a class="{% if request.path == '' %}active{% endif %}" href="">Daily Missions</a>
+              <a class="{% if request.path == '' %}active{% endif %}" href="">Referral</a>
+              <a class="{% if request.path == '' %}active{% endif %}" href="">Privacy Policy</a>
+              <a class="{% if request.path == '' %}active{% endif %}" href="">Terms and Conditions</a>
             </div>
           </div>
         </div>
