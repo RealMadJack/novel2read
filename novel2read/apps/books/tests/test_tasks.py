@@ -35,9 +35,7 @@ class BookTasksTest(TestCase):
         self.b_chap_1.refresh_from_db()
         self.assertEqual(res.state, states.SUCCESS)
         self.assertEqual(self.b_chap.title.lower(), 'untitled')
-        self.assertEqual(self.b_chap.slug.lower(), 'untitled')
         self.assertEqual(self.b_chap_1.title.lower(), 'test title')
-        self.assertEqual(self.b_chap_1.slug.lower(), 'untitled-1')
 
     def test_update_book_ranking(self):
         self.assertEqual(self.book.ranking, 0)
@@ -170,10 +168,10 @@ class BookTasksTest(TestCase):
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
 
-    @tag('slow')
+    # @tag('slow')
     def test_boxnovel_chapter_get_content(self):
         scraper = BookScraper()
-        b_chap_url = 'https://boxnovel.com/novel/spare-me-great-lord/chapter-143/'
+        b_chap_url = 'https://boxnovel.com/novel/the-wizard-world/chapter-646-end/'
         b_chap = scraper.bn_get_book_chap(b_chap_url)
         # print(b_chap)
         with open("b_chap.txt", "w+") as f:
