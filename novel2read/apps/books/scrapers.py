@@ -61,7 +61,7 @@ class BookScraper:
             if i <= 5 and node:
                 if 'chapter' in node.lower():
                     node = ''
-                if 'episode' in node.lower():
+                elif 'episode' in node.lower():
                     node = ''
                 elif node[0].isdigit():
                     node = ''
