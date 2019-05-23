@@ -170,10 +170,10 @@ class BookTasksTest(TestCase):
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
 
-    # @tag('slow')
+    @tag('slow')
     def test_boxnovel_chapter_get_content(self):
         scraper = BookScraper()
-        b_chap_url = 'https://boxnovel.com/novel/the-99th-divorce/chapter-172-173/'
+        b_chap_url = 'https://boxnovel.com/novel/neet-receives-a-dating-sim-game-leveling-system/chapter-1/'
         b_chap = scraper.bn_get_book_chap(b_chap_url)
         # print(b_chap)
         with open("b_chap.txt", "w+") as f:

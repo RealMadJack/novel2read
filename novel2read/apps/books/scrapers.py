@@ -61,6 +61,8 @@ class BookScraper:
             if i <= 5 and node:
                 if 'chapter' in node.lower():
                     node = ''
+                if 'episode' in node.lower():
+                    node = ''
                 elif node[0].isdigit():
                     node = ''
                 elif 'translator' in node.lower():
@@ -266,6 +268,9 @@ class BookScraper:
                 for node in nodes:
                     text_node = node.text.lower().strip()
                     if 'chapter' in text_node:
+                        chap_tit_raw = text_node
+                        break
+                    elif 'episode' in text_node:
                         chap_tit_raw = text_node
                         break
                     elif text_node[0].isdigit():

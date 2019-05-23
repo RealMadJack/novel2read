@@ -37,10 +37,10 @@ def update_book_title_slug(self):
     try:
         b_chaps = BookChapter.objects.all()
         for b_chap in b_chaps:
-            if len(b_chap.title) >= 150:
+            if len(b_chap.title) >= 130:
                 b_chap.title = 'untitled'
                 b_chap.slug = get_unique_slug(BookChapter, 'untitled')
-            elif len(b_chap.slug) >= 150:
+            elif len(b_chap.slug) >= 130:
                 b_chap.slug = get_unique_slug(BookChapter, 'untitled')
             b_chap.save(update_fields=['title', 'slug'])
     except Exception as exc:

@@ -71,6 +71,14 @@ def update_status_published(modeladmin, request, qs):
     qs.update(status=1)
 
 
+def update_visited_true(modeladmin, request, qs):
+    qs.update(visited=True)
+
+
+def update_visited_false(modeladmin, request, qs):
+    qs.update(visited=False)
+
+
 def update_revisited_true(modeladmin, request, qs):
     qs.update(revisited=True)
 
@@ -84,7 +92,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
     actions = [
         update_status_draft, update_status_published,
         update_recommended_true, update_recommended_false,
-        update_revisited_true, update_revisited_false, ]
+        update_visited_true, update_visited_false, update_revisited_true, update_revisited_false, ]
     search_fields = ('title', 'description', )
     fieldsets = (
         (None, {
