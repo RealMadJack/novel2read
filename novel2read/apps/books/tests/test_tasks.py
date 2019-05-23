@@ -158,7 +158,7 @@ class BookTasksTest(TestCase):
         self.assertTrue(len(b_chaps[1].text) > 3000)
         self.assertTrue(len(b_chaps[0].text) > 3000)
 
-    # @tag('slow')
+    @tag('slow')
     def test_boxnovel_chapter_availability(self):
         self.book.chapters_count = 1865
         self.book.visited = True
@@ -170,10 +170,10 @@ class BookTasksTest(TestCase):
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
 
-    @tag('slow')
+    # @tag('slow')
     def test_boxnovel_chapter_get_content(self):
         scraper = BookScraper()
-        b_chap_url = 'https://boxnovel.com/novel/genius-doctor-black-belly-miss/chapter-1724-encountering-a-nasty-dog-2'
+        b_chap_url = 'https://boxnovel.com/novel/the-99th-divorce/chapter-172-173/'
         b_chap = scraper.bn_get_book_chap(b_chap_url)
         # print(b_chap)
         with open("b_chap.txt", "w+") as f:
