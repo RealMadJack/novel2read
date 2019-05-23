@@ -160,20 +160,20 @@ class BookTasksTest(TestCase):
 
     @tag('slow')
     def test_boxnovel_chapter_availability(self):
-        self.book.chapters_count = 1865
+        self.book.chapters_count = 1212
         self.book.visited = True
         self.book.revisit = 'boxnovel'
-        self.book.revisit_id = 'genius-doctor-black-belly-miss'
+        self.book.revisit_id = 'strongest-abandoned-son'
         self.book.save()
         self.book.refresh_from_db()
-        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 1867})
+        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 1213})
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
 
-    # @tag('slow')
+    @tag('slow')
     def test_boxnovel_chapter_get_content(self):
         scraper = BookScraper()
-        b_chap_url = 'https://boxnovel.com/novel/mr-ceo-spoil-me-100-percent/chapter-992-end/'
+        b_chap_url = 'https://boxnovel.com/novel/spare-me-great-lord/chapter-143/'
         b_chap = scraper.bn_get_book_chap(b_chap_url)
         # print(b_chap)
         with open("b_chap.txt", "w+") as f:
