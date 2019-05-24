@@ -47,10 +47,11 @@ class BookScraper:
 
     def raw_html_text_filter(self, html_text):
         html_node_3 = ''.join([html_node.text for html_node in html_text[0:3]])
-        if html_text[0].text[:100] == html_node_3[:100]:
-            del html_text[0]
-        if len(html_text[0].text) >= 2000:
-            del html_text[0]
+        if len(html_text) > 1:
+            if html_text[0].text[:100] == html_node_3[:100]:
+                del html_text[0]
+            if len(html_text[0].text) >= 2000:
+                del html_text[0]
 
         filtered_html_text = []
         for i, text_node in enumerate(html_text):
@@ -81,9 +82,16 @@ class BookScraper:
                     node = ''
 
             if node:
-                node = f'<p>{node}</p>'
-                filtered_html_text.append(node)
+                if '<br/>' in node:
+                    node_brs = node.split('<br/>')
+                    for node in node_brs:
+                        node = f'<p>{node}</p>'
+                        filtered_html_text.append(node)
+                else:
+                    node = f'<p>{node}</p>'
+                    filtered_html_text.append(node)
 
+        print(filtered_html_text)
         return filtered_html_text
 
     def get_filter_db_books(self, qs, revisit=False):
