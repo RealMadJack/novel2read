@@ -134,6 +134,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
 
 @admin.register(BookChapter)
 class BookChapterAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
+    autocomplete_fields = ['book', ]
     search_fields = ('c_id', 'title', 'book__title', )
     fieldsets = (
         (None, {
