@@ -91,7 +91,6 @@ class BookScraper:
                     node = f'<p>{node}</p>'
                     filtered_html_text.append(node)
 
-        print(filtered_html_text)
         return filtered_html_text
 
     def get_filter_db_books(self, qs, revisit=False):
