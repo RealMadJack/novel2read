@@ -33,7 +33,7 @@ def book_scraper_initial_signal(sender, instance, created=False, **kwargs):
             PeriodicTask.objects.create(
                 one_off=True,
                 interval=schedule,
-                name=f'Update book chapters: {instance.title}',
+                name=f'Update book chapters init: {instance.title}',
                 task='novel2read.apps.books.tasks.book_scraper_chaps',
                 args=json.dumps([instance.pk]),
             )

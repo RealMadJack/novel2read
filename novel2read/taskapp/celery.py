@@ -19,6 +19,7 @@ app = Celery("novel2read")
 # - namespace='CELERY' means all celery-related configuration keys
 #   should have a `CELERY_` prefix.
 app.config_from_object("django.conf:settings", namespace="CELERY")
+# app.conf.broker_transport_options = {"visibility_timeout": max_timeout_in_seconds}
 
 
 class CeleryAppConfig(AppConfig):

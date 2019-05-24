@@ -130,7 +130,6 @@ class Book(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         self.title = capitalize_str(self.title)
-        self.country = capitalize_str(self.country)
         if not self.title and self.title_sm:
             self.title = capitalize_str(self.title_sm)
         if not self.poster:
