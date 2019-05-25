@@ -132,7 +132,7 @@ class BookScraper:
             [book.volumes.append(volume) for volume in data['book_volumes']]
         poster_filename = download_img(data['book_poster_url'], slugify(data['book_name']))
         book.poster = f'posters/{poster_filename}'
-        s3_uploaded = upload_to_s3(f'novel2read/media/{book.poster}', bucket_path='media/posters', public_read=True)
+        s3_uploaded = upload_to_s3(f'novel2read/media/{book.poster}', bucket_path='media/posters', public_read=False)
         if s3_uploaded:
             print('Poster uploaded to s3')
         book.rating = data['book_rating']
