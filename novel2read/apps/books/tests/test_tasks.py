@@ -156,22 +156,22 @@ class BookTasksTest(TestCase):
         self.assertTrue(len(b_chaps[1].text) > 3000)
         self.assertTrue(len(b_chaps[0].text) > 3000)
 
-    @tag('slow')
+    # @tag('slow')
     def test_boxnovel_chapter_availability(self):
-        self.book.chapters_count = 1212
+        self.book.chapters_count = 1410
         self.book.visited = True
         self.book.revisit = 'boxnovel'
-        self.book.revisit_id = 'strongest-abandoned-son'
+        self.book.revisit_id = 'my-youth-began-with-him'
         self.book.save()
         self.book.refresh_from_db()
-        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 1213})
+        res = book_revisit_novel.apply_async(args=[self.book.pk], kwargs={'s_to': 1420})
         self.book.refresh_from_db()
         b_chaps = list(self.book.bookchapters.all())
 
     # @tag('slow')
     def test_boxnovel_chapter_get_content(self):
         scraper = BookScraper()
-        b_chap_url = 'https://boxnovel.com/novel/alchemy-emperor-of-the-divine-dao/chapter-433/'
+        b_chap_url = 'https://boxnovel.com/novel/my-youth-began-with-him/chapter-1'
         b_chap = scraper.bn_get_book_chap(b_chap_url)
         # print(b_chap)
         with open("b_chap.txt", "w+") as f:

@@ -47,7 +47,7 @@ class BookScraper:
 
     def raw_html_text_filter(self, html_text):
         html_node_3 = ''.join([html_node.text for html_node in html_text[0:3]])
-        if len(html_text) > 1:
+        if len(html_text) > 3:
             if html_text[0].text[:100] == html_node_3[:100]:
                 del html_text[0]
             if len(html_text[0].text) >= 2000:
@@ -320,7 +320,10 @@ class BookScraper:
             for c_id in c_ids:
                 bn_chap_url = f'{book_url}/chapter-{c_id}'
                 b_chap = self.bn_get_book_chap(bn_chap_url)
-                self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+                if b_chap['c_title'] and b_chap['c_content']:
+                    self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+                else:
+                    break
             b_chap_info = {
                 'updated': len(c_ids),
                 'last': f'{book_url}/chapter-{c_ids[-1]}',
@@ -334,15 +337,20 @@ class BookScraper:
                 bn_chap_url = f'{book_url}/chapter-{b_chaps_len}'
                 try:
                     b_chap = self.bn_get_book_chap(bn_chap_url)
-                    self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+                    if b_chap['c_title'] and b_chap['c_content']:
+                        self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+                    else:
+                        raise IndexError
                 except IndexError as e:
                     try:
                         b_chaps_len += 1
                         bn_chap_url = f'{book_url}/chapter-{b_chaps_len}'
                         b_chap = self.bn_get_book_chap(bn_chap_url)
-                        if b_chap['c_title']:
+                        if b_chap['c_title'] and b_chap['c_content']:
                             self.create_book_chapter(book, 'blank', '')
-                        self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+                            self.create_book_chapter(book, b_chap['c_title'], b_chap['c_content'])
+                        else:
+                            raise IndexError
                     except IndexError as e:
                         b_chap_info = {
                             'updated': b_chaps_upd,
