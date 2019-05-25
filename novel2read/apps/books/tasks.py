@@ -105,11 +105,12 @@ def book_scraper_info(self, book_id):
             book.status = 1
             book.save()
         except Exception as exc:
+            print(exc)
             save_celery_result(
                 task_id=self.request.id,
                 task_name=self.name,
                 status=states.FAILURE,
-                result='\n'.join([f'Book: {book.title}', exc]),
+                result='\n'.join([f'Book: {book.title}', str(exc)]),
                 traceback=traceback.format_exc(),
             )
             raise Ignore()

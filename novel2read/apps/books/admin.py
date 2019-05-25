@@ -108,7 +108,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
             'classes': ('extrapretty'),
             'fields': (
                 ('author', 'country'),
-                ('volumes', 'chapters_count'),
+                ('volumes', 'chapters_release', 'chapters_count'),
                 ('rating', 'ranking', 'votes', 'recommended'),
                 'poster', 'description'
             ),

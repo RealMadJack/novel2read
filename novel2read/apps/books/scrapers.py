@@ -126,7 +126,8 @@ class BookScraper:
         book.title = data['book_name']
         book.title_sm = data['book_name_sm']
         book.author.append(data['book_info_author']) if data['book_info_author'] not in book.author else False
-        book.description = data['book_desc']
+        if len(book.description) < 100:
+            book.description = data['book_desc']
         if len(book.volumes) != len(data['book_volumes']):
             [book.volumes.append(volume) for volume in data['book_volumes']]
         poster_filename = download_img(data['book_poster_url'], slugify(data['book_name']))

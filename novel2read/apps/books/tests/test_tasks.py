@@ -156,7 +156,7 @@ class BookTasksTest(TestCase):
         self.assertTrue(len(b_chaps[1].text) > 3000)
         self.assertTrue(len(b_chaps[0].text) > 3000)
 
-    # @tag('slow')
+    @tag('slow')
     def test_boxnovel_chapter_availability(self):
         self.book.chapters_count = 1410
         self.book.visited = True

@@ -140,7 +140,7 @@ class BookScraperTest(TestCase):
     @tag('slow')  # +20s
     def test_wn_get_update_book_chaps(self):
         c_ids = self.scraper.wn_get_book_cids(self.wn_url)
-        res = self.scraper.wn_get_update_book_chaps(self.book, self.wn_url, c_ids, s_to=5)
+        res = self.scraper.wn_get_update_book_chaps(self.book, self.wn_url, c_ids)
         b_chaps = list(self.book.bookchapters.all())
         self.assertTrue(isinstance(res, dict))
         self.assertEqual(len(b_chaps), 5)
