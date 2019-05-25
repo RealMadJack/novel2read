@@ -1790,6 +1790,10 @@ main {
     margin-bottom: 15px; }
   .bookchapter__body em {
     padding-right: 8px; }
+  .bookchapter__body img {
+    max-width: 15px;
+    max-height: 20px;
+    margin-right: 10px; }
 
 .booksearch {
   margin-bottom: 30px; }
