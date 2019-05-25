@@ -1396,6 +1396,8 @@ main {
               flex-direction: row;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
+      .book .bookbody__tabs--chaps .loading {
+        margin: auto; }
       .book .bookbody__tabs--chaps .chap-latest {
         -webkit-box-flex: 0;
             -ms-flex: 0 1 100%;
@@ -1899,7 +1901,14 @@ main {
     color: black;
     opacity: .8; }
   .searchcard-lg__info--stars {
-    padding-right: 20px; }
+    padding-right: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row; }
 
 /*==========  Desktop First  ==========*/
 /* Large Devices, Wide Screens */
