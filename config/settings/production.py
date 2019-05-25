@@ -35,11 +35,7 @@ CACHES = {
             # http://niwinz.github.io/django-redis/latest/#_memcached_exceptions_behavior
             'IGNORE_EXCEPTIONS': True,
         }
-    },
-    # 'staticfiles': {
-    #     'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    #     'LOCATION': 'staticfiles'
-    # }
+    }
 }
 
 # SECURITY
