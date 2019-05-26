@@ -14,13 +14,13 @@ from .scrapers import BookScraper
 def model_search_replace(self):
     try:
         result = search_multiple_replace()
-        if result:
-            save_celery_result(
-                task_id=self.request.id,
-                task_name=self.name,
-                status=states.SUCCESS,
-                result=result,
-            )
+        # if result:
+        #     save_celery_result(
+        #         task_id=self.request.id,
+        #         task_name=self.name,
+        #         status=states.SUCCESS,
+        #         result=result,
+        #     )
     except Exception as exc:
         save_celery_result(
             task_id=self.request.id,
@@ -105,7 +105,6 @@ def book_scraper_info(self, book_id):
             book.status = 1
             book.save()
         except Exception as exc:
-            print(exc)
             save_celery_result(
                 task_id=self.request.id,
                 task_name=self.name,
@@ -128,13 +127,13 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
             c_ids = scraper.wn_get_book_cids(book_url)
             c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
             b_chap_info = scraper.wn_get_update_book_chaps(book, book_url, c_ids)
-            b_result = ' - '.join([f'{k}: {v},' for k, v in b_chap_info.items()])
-            save_celery_result(
-                task_id=self.request.id,
-                task_name=self.name,
-                status=states.SUCCESS,
-                result=f'Updated book: {book.title} - {b_result}',
-            )
+            # b_result = ' - '.join([f'{k}: {v},' for k, v in b_chap_info.items()])
+            # save_celery_result(
+            #     task_id=self.request.id,
+            #     task_name=self.name,
+            #     status=states.SUCCESS,
+            #     result=f'Updated book: {book.title} - {b_result}',
+            # )
         except Exception as exc:
             exc_result = '\n'.join([f'Book: {book.title}', f'{exc}'])
             save_celery_result(
@@ -159,14 +158,14 @@ def book_revisit_novel(self, book_id, s_from=0, s_to=0):
         if book.revisit == 'webnovel':
             c_ids = scraper.wn_get_book_cids(book_url, s_from=s_from, s_to=s_to)
             b_chap_info = scraper.wn_get_update_book_chaps(book, book_url, c_ids)
-            if b_chap_info['locked_ended_from']:
-                b_result = ' - '.join([f'{k}: {v},' for k, v in b_chap_info.items()])
-                save_celery_result(
-                    task_id=self.request.id,
-                    task_name=self.name,
-                    status=states.SUCCESS,
-                    result=f"Updated book: {book.title} - {b_result}",
-                )
+            # if b_chap_info['locked_ended_from']:
+            #     b_result = ' - '.join([f'{k}: {v},' for k, v in b_chap_info.items()])
+            #     save_celery_result(
+            #         task_id=self.request.id,
+            #         task_name=self.name,
+            #         status=states.SUCCESS,
+            #         result=f"Updated book: {book.title} - {b_result}",
+            #     )
         elif book.revisit == 'boxnovel':
             b_chap_info = scraper.bn_get_update_book_chaps(book, book_url, s_to=s_to)
             if b_chap_info['updated'] >= 10:
