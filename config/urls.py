@@ -2,12 +2,34 @@ from django.conf import settings
 from django.urls import include, path, re_path
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.views import defaults as default_views
+from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
+
+from config.sitemaps import (
+    BookSitemap,
+    BookGenreSitemap,
+    BookTagSitemap,
+    BookChapterSitemap,
+    StaticViewSitemap,
+)
+
+sitemaps = {
+    'books': BookSitemap,
+    'bookgenres': BookGenreSitemap,
+    'booktags': BookTagSitemap,
+    'bookchapters': BookChapterSitemap,
+    'static_urls': StaticViewSitemap,
+}
 
 urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
+    # Sitemap
+    # path('sitemap.xml', cache_page(86400)(sitemap), {'sitemaps': sitemaps},
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+     name='django.contrib.sitemaps.views.sitemap'),
     # User management
     path(
         "users/",
@@ -22,8 +44,8 @@ urlpatterns = [
     path("advertisement/", TemplateView.as_view(template_name='pages/advertisement.html'), name='advertisement'),
     path("send-feedback/", TemplateView.as_view(template_name='pages/send-feedback.html'), name='send-feedback'),
     path("report-problem/", TemplateView.as_view(template_name='pages/report-problem.html'), name='report-problem'),
-    path("privacy-policy/", TemplateView.as_view(template_name='pages/privacy-policy.html'), name='privacy'),
-    path("terms-conditions/", TemplateView.as_view(template_name='pages/terms-conditions.html'), name='terms'),
+    path("privacy-policy/", TemplateView.as_view(template_name='pages/privacy-policy.html'), name='privacy-policy'),
+    path("terms-conditions/", TemplateView.as_view(template_name='pages/terms-conditions.html'), name='terms-conditions'),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
