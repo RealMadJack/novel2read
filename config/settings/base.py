@@ -310,3 +310,7 @@ SOCIALACCOUNT_ADAPTER = 'novel2read.apps.users.adapters.SocialAccountAdapter'
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+WEBMASTER_VERIFICATION = {
+    'google': env('GOOGLE_SEARCH_CODE'),
+    'yandex': env('YANDEX_SEARCH_CODE'),
+}

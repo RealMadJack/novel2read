@@ -171,7 +171,7 @@ class BookTasksTest(TestCase):
     # @tag('slow')
     def test_boxnovel_chapter_get_content(self):
         scraper = BookScraper()
-        b_chap_url = 'https://boxnovel.com/novel/the-magus-era/chapter-634/'
+        b_chap_url = 'https://boxnovel.com/novel/the-magus-era/chapter-1901-end/'
         b_chap = scraper.bn_get_book_chap(b_chap_url)
         # print(b_chap)
         with open("b_chap.txt", "w+") as f:

@@ -178,10 +178,12 @@
           <div class="col-md-3">
             <div class="footer__col">
               <h4 class="footer__col--title h4-title">Pages</h4>
+              {% comment %}
               <a class="{% if request.path == '' %}active{% endif %}" href="">Premium</a>
               <a class="{% if request.path == '' %}active{% endif %}" href="">Daily Missions</a>
               <a class="{% if request.path == '' %}active{% endif %}" href="">Referral</a>
-              {% url 'privac-policy' as privacy_url %}
+              {% endcomment %}
+              {% url 'privacy-policy' as privacy_url %}
               <a class="{% if request.path == privacy_url %}active{% endif %}" href="{{privacy_url}}">Privacy Policy</a>
               {% url 'terms-conditions' as terms_url %}
               <a class="{% if request.path == terms_url %}active{% endif %}" href="{{terms_url}}">Terms and Conditions</a>
