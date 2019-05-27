@@ -50,7 +50,7 @@ class StaticViewSitemap(Sitemap):
     protocol = "https"
 
     def items(self):
-        static_urls = ['contact-us', 'advertisement', 'send-feedback', 'report-problem', 'privacy-policy', 'terms-conditions']
+        static_urls = ['books:front_page', 'contact-us', 'advertisement', 'send-feedback', 'report-problem', 'privacy-policy', 'terms-conditions']
         return static_urls
 
     def location(self, item):
