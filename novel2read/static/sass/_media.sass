@@ -17,12 +17,18 @@
         &--image
       &__info
         &--title
+          .h1-title-sm
+            font-size: 1.6rem
+            margin-bottom: 10px
         &--row
           flex-direction: column
           justify-content: auto
           align-items: flex-start
           .info-row
             margin-bottom: 10px
+            p
+              font-size: .9rem
+              margin-right: 12px
           .stars-rating-sm
         &--tags
         &--read
@@ -148,6 +154,8 @@
         &--image
       &__info
         &--title
+          .h1-title-sm
+            font-size: 1.4rem
         &--row
           .info-row
             flex-direction: column
@@ -333,11 +341,14 @@
             max-height: 530px
         &__info
           &--title
+            font-size: 1.2rem
           &--tags
           &--stars
             img
             span
           &--desc
+            max-height: 100px
+            overflow: hidden
 
   .book
     .bookhead
@@ -563,7 +574,6 @@
         padding-right: 20px
 
 
-/* Extra Small Devices, Phones */
 @media only screen and (max-width : 660px)
   .breadcrumb
     font-size: .9rem
@@ -744,6 +754,27 @@
               font-size: 1rem
             small
               font-size: .7rem
+
+  .browsebooks
+    &__title
+    &__filters
+    &__books
+      .book-lg-wide
+        max-width: 320px
+        &__poster
+          &--image
+            height: auto
+            max-width: 100%
+            max-height: 430px
+        &__info
+          &--title
+          &--tags
+          &--stars
+            img
+            span
+          &--desc
+            max-height: auto
+            overflow: visible
 
   .bookchapter
     &__title .h1-title-sm
