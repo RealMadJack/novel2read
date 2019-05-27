@@ -26,7 +26,7 @@ def model_search_replace(self):
         raise Ignore()
 
 
-@app.task(bind=True)
+@app.task(bind=True, ignore_result=True)
 def update_book_title_slug(self):
     try:
         b_chaps = BookChapter.objects.all()
@@ -48,7 +48,7 @@ def update_book_title_slug(self):
         raise Ignore()
 
 
-@app.task(bind=True)
+@app.task(bind=True, ignore_result=True)
 def update_book_ranking(self):
     try:
         books = Book.objects.published().order_by('-votes')
@@ -66,7 +66,7 @@ def update_book_ranking(self):
         raise Ignore()
 
 
-@app.task(bind=True)
+@app.task(bind=True, ignore_result=True)
 def update_book_revisited(self):
     try:
         books = Book.objects.filter(status_release=0)
@@ -82,7 +82,7 @@ def update_book_revisited(self):
         raise Ignore()
 
 
-@app.task(bind=True)
+@app.task(bind=True, ignore_result=True)
 def book_scraper_info(self, book_id):
     """
     TODO: smart_scraper(book, url)
@@ -121,7 +121,8 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
             c_ids = scraper.wn_get_book_cids(book_url)
             c_ids = c_ids[s_from:s_to] if s_to else c_ids[s_from:]
             b_chap_info = scraper.wn_get_update_book_chaps(book, book_url, c_ids)
-            return b_chap_info
+            b_result = ' - '.join([f'{k}: {v},' for k, v in b_chap_info.items()])
+            return b_result
         except Exception as exc:
             exc_result = '\n'.join([f'Book: {book.title}', f'{exc}'])
             save_celery_result(
@@ -136,7 +137,7 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
         raise Ignore()
 
 
-@app.task(bind=True)
+@app.task(bind=True, ignore_result=True)
 def book_revisit_novel(self, book_id, s_from=0, s_to=0):
     try:
         scraper = BookScraper()
@@ -146,20 +147,16 @@ def book_revisit_novel(self, book_id, s_from=0, s_to=0):
         if book.revisit == 'webnovel':
             c_ids = scraper.wn_get_book_cids(book_url, s_from=s_from, s_to=s_to)
             b_chap_info = scraper.wn_get_update_book_chaps(book, book_url, c_ids)
-            return b_chap_info
+            b_result = ' - '.join([f'{k}: {v},' for k, v in b_chap_info.items()])
+            return b_result
         elif book.revisit == 'boxnovel':
             b_chap_info = scraper.bn_get_update_book_chaps(book, book_url, s_to=s_to)
-            if b_chap_info['updated'] >= 10:
-                save_celery_result(
-                    task_id=self.request.id,
-                    task_name=self.name,
-                    status=states.SUCCESS,
-                    result=f"""
-                        Updated book: {book.title};
-                        Updated len: {b_chap_info['updated']}
-                        Updated last: {b_chap_info['last']}
-                    """,
-                )
+            b_result = f"""
+                Updated book: {book.title};
+                Updated len: {b_chap_info['updated']}
+                Updated last: {b_chap_info['last']}
+            """
+            return b_result
     except Exception as exc:
         exc_result = '\n'.join([f'Book: {book.title}', f'{exc}'])
         save_celery_result(
@@ -172,14 +169,14 @@ def book_revisit_novel(self, book_id, s_from=0, s_to=0):
         raise Ignore()
 
 
-@app.task(bind=True)
+@app.task(bind=True, ignore_result=True)
 def book_scraper_chaps_update(self, s_from=0, s_to=0):
     books = Book.objects.filter(visited=True).exclude(visit_id__iexact='')
     interval = 15
     for book in books:
         if book.chapters_count and book.revisit_id and not book.revisited:
             try:
-                interval += 3
+                interval += 5
                 book.revisited = True
                 book.save()
                 schedule, created = IntervalSchedule.objects.get_or_create(

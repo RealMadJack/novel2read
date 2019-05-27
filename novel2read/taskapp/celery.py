@@ -62,7 +62,7 @@ def save_celery_result(*args, **kwargs):
         raise e
 
 
-@app.task(bind=True)
+@app.task(bind=True, ignore_result=True)
 def clean_oneoff_tasks(self):
     try:
         from django_celery_beat.models import PeriodicTask
@@ -78,7 +78,7 @@ def clean_oneoff_tasks(self):
         raise Ignore()
 
 
-@app.task(bind=True)
+@app.task(bind=True, ignore_result=True)
 def clean_success_result_tasks(self):
     try:
         from django_celery_results.models import TaskResult
