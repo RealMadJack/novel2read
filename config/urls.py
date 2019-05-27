@@ -14,6 +14,7 @@ from config.sitemaps import (
     BookChapterSitemap,
     StaticViewSitemap,
 )
+from .views import GoogleSearchVerif, YandexSearchVerif
 
 sitemaps = {
     'books': BookSitemap,
@@ -30,9 +31,9 @@ urlpatterns = [
     # path('sitemap.xml', cache_page(86400)(sitemap), {'sitemaps': sitemaps},
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
      name='django.contrib.sitemaps.views.sitemap'),
-    # Searches verification
-    path(f'google{settings.WEBMASTER_VERIFICATION["google"]}.html', TemplateView.as_view(template_name='google-verification.html')),
-    path(f'yandex_{settings.WEBMASTER_VERIFICATION["yandex"]}.html', TemplateView.as_view(template_name='yandex-verification.html')),
+    # Search verification
+    path(f'google{settings.WEBMASTER_VERIFICATION["google"]}.html', GoogleSearchVerif.as_view()),
+    path(f'yandex_{settings.WEBMASTER_VERIFICATION["yandex"]}.html', YandexSearchVerif.as_view()),
     # User management
     path(
         "users/",
