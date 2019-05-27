@@ -1,4 +1,5 @@
 import os
+import gc
 import re
 import requests
 import logging
@@ -78,6 +79,14 @@ def multiple_replace(to_repl, text):
     pattern = re.compile("|".join(rep.keys()))
     text = pattern.sub(lambda m: rep[re.escape(m.group(0))], text)
     return text.strip()
+
+
+def spoon_feed(qs, func, chunk=1000, start=0):
+    while start < qs.order_by('pk').last().pk:
+        for o in qs.filter(pk__gt=start, pk__lte=start + chunk):
+            yield func(o)
+        start += chunk
+        # gc.collect()
 
 
 def search_multiple_replace(to_repl={}, model='BookChapter'):

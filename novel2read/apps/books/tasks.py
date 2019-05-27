@@ -85,8 +85,7 @@ def update_book_revisited(self):
 @app.task(bind=True, ignore_result=True)
 def book_scraper_info(self, book_id):
     """
-    TODO: smart_scraper(book, url)
-          if book.visit == 'webnovel'...
+        When new novel created - task initialised
     """
     book = Book.objects.get(pk=book_id)
     if not book.visited and book.visit_id:
@@ -113,6 +112,9 @@ def book_scraper_info(self, book_id):
 
 @app.task(bind=True)
 def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
+    """
+        When new novel created - task initialised
+    """
     book = Book.objects.get(pk=book_id)
     if book.visited and book.visit_id:
         try:
@@ -139,6 +141,9 @@ def book_scraper_chaps(self, book_id, s_from=0, s_to=0):
 
 @app.task(bind=True, ignore_result=True)
 def book_revisit_novel(self, book_id, s_from=0, s_to=0):
+    """
+        Execute novel update task
+    """
     try:
         scraper = BookScraper()
         book = Book.objects.get(pk=book_id)
@@ -171,12 +176,15 @@ def book_revisit_novel(self, book_id, s_from=0, s_to=0):
 
 @app.task(bind=True, ignore_result=True)
 def book_scraper_chaps_update(self, s_from=0, s_to=0):
+    """
+        Create update task for each novel with revisit=True
+    """
     books = Book.objects.filter(visited=True).exclude(visit_id__iexact='')
     interval = 15
     for book in books:
         if book.chapters_count and book.revisit_id and not book.revisited:
             try:
-                interval += 5
+                interval += 3
                 book.revisited = True
                 book.save()
                 schedule, created = IntervalSchedule.objects.get_or_create(

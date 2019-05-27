@@ -14,7 +14,6 @@
     <div class="booksearch__form">
 
       <form method="get" action="{% url 'books:search' %}" class="booksearch__form--form" id="search-form">
-        {% csrf_token %}
         {% for field in form %}
           <div class="form-group">
               <label for="{{field.id_for_label}}">{{field.label}}</label>

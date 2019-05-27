@@ -146,14 +146,14 @@ class BookSearchViewTest(TestCase):
         self.assertEqual(self.resp.status_code, 200)
 
     def test_book_search_result(self):
-        resp = self.client.post(reverse('books:search'), {'search_field': 'test'})
+        resp = self.client.get(reverse('books:search'), {'search_field': 'test'})
         self.assertIn(self.book.title, resp.content.decode('utf-8'))
         self.assertIn(self.book_1.title, resp.content.decode('utf-8'))
-        resp = self.client.post(reverse('books:search'), {'search_field': 'moniqu'})
+        resp = self.client.get(reverse('books:search'), {'search_field': 'moniqu'})
         self.assertIn(self.book_2.title, resp.content.decode('utf-8'))
 
     def test_book_search_ajax(self):
-        resp = self.client.post(reverse('books:search'), {'search_field': 'test'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        resp = self.client.get(reverse('books:search'), {'search_field': 'test'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         resp_content = str(resp.content, encoding='utf8')
         self.assertEqual(resp.status_code, 200)
         self.assertIn('html_search_form_result', resp_content)

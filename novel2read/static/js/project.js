@@ -390,7 +390,14 @@ $('#search-form').on('change paste keyup', function(e){
     }
     return false;
 });
-$('#id_search_field').focus();
+
+$.fn.focusTextToEnd = function(){
+    this.focus();
+    var $thisVal = this.val();
+    this.val('').val($thisVal);
+    return this;
+}
+$('#id_search_field').focusTextToEnd();
 
 
 })();
