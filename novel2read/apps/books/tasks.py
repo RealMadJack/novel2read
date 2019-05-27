@@ -27,10 +27,10 @@ def model_search_replace(self):
 
 
 @app.task(bind=True, ignore_result=True)
-def update_book_title_slug(self):
+def update_bookchapter_title_slug(self):
     try:
-        b_chaps = BookChapter.objects.all()
-        for b_chap in b_chaps:
+        b_chaps = BookChapter.objects.order_by('pk')
+        for b_chap in b_chaps.iterator(chunk_size=1000):
             if len(b_chap.title) >= 130:
                 b_chap.title = 'untitled'
                 b_chap.slug = get_unique_slug(BookChapter, 'untitled')

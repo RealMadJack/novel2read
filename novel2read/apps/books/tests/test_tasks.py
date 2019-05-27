@@ -6,7 +6,7 @@ from django.db.models import signals
 from ..models import Book, BookGenre, BookChapter
 from ..scrapers import BookScraper
 from ..tasks import (
-    update_book_title_slug,
+    update_bookchapter_title_slug,
     update_book_ranking,
     update_book_revisited,
     book_scraper_info,
@@ -26,10 +26,10 @@ class BookTasksTest(TestCase):
         self.b_chap = BookChapter.objects.create(book=self.book, title=self.long_title)
         self.b_chap_1 = BookChapter.objects.create(book=self.book, title=self.long_title)
 
-    def test_update_book_title_slug(self):
+    def test_update_bookchapter_title_slug(self):
         self.b_chap_1.title = 'test title'
         self.b_chap_1.save()
-        res = update_book_title_slug.apply()
+        res = update_bookchapter_title_slug.apply()
         self.book.refresh_from_db()
         self.b_chap.refresh_from_db()
         self.b_chap_1.refresh_from_db()
