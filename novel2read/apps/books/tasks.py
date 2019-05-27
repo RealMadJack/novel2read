@@ -26,17 +26,24 @@ def model_search_replace(self):
         raise Ignore()
 
 
-@app.task(bind=True, ignore_result=True)
+@app.task(bind=True)
 def update_bookchapter_title_slug(self):
     try:
         b_chaps = BookChapter.objects.order_by('pk')
+        counter = 0
         for b_chap in b_chaps.iterator(chunk_size=1000):
-            if len(b_chap.title) >= 130:
+            if len(b_chap.title) >= 145:
                 b_chap.title = 'untitled'
                 b_chap.slug = get_unique_slug(BookChapter, 'untitled')
-            elif len(b_chap.slug) >= 130:
+                b_chap.save(update_fields=['title', 'slug'])
+                counter += 1
+            elif len(b_chap.slug) >= 145:
                 b_chap.slug = get_unique_slug(BookChapter, 'untitled')
-            b_chap.save(update_fields=['title', 'slug'])
+                b_chap.save(update_fields=['title', 'slug'])
+                counter += 1
+        result = f'Done checking long b_chap titles. Updated: {counter}'
+        print(result)
+        return result
     except Exception as exc:
         save_celery_result(
             task_id=self.request.id,
