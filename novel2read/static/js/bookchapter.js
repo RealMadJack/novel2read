@@ -53,6 +53,8 @@ $(window).on('scroll',function() {
   } else {
       scrollUpStart = 0;
       $(".js-b-chap").removeClass("show");
+      $('.js-chap-container').removeClass('visible show');
+      $('#stylesMenu').removeClass('visible');
   }
 
   lastScroll = scroll;
