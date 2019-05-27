@@ -42,7 +42,6 @@ def update_bookchapter_title_slug(self):
                 b_chap.save(update_fields=['title', 'slug'])
                 counter += 1
         result = f'Done checking long b_chap titles. Updated: {counter}'
-        print(result)
         return result
     except Exception as exc:
         save_celery_result(

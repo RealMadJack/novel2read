@@ -82,7 +82,7 @@ def clean_oneoff_tasks(self):
 def clean_success_result_tasks(self):
     try:
         from django_celery_results.models import TaskResult
-        TaskResult.objects.filter(state=states.SUCCESS).delete()
+        TaskResult.objects.filter(status='SUCCESS').delete()
     except Exception as exc:
         save_celery_result(
             task_id=self.request.id,
