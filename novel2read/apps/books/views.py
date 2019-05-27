@@ -221,17 +221,14 @@ class BookSearchView(ListView):
     context = {'form': form, 'page_title': 'Search Books'}
 
     def get(self, request, **kwargs):
-        return render(request, template_name=self.template_name, context=self.context)
-
-    def post(self, request, **kwargs):
-        form = self.form(request.POST)
+        form = self.form(request.GET)
         context = dict(self.context)  # update get view context
         context['form'] = form
 
         if request.is_ajax():
             data = {}
             template_name = 'books/booksearch-result.html'
-            search_field = request.POST.get('search_field', None)
+            search_field = request.GET.get('search_field', None)
 
             if not search_field:
                 # handle ajax error
@@ -256,7 +253,9 @@ class BookSearchView(ListView):
             ).filter(search=search_field)
             context['s_result'] = f"<p>Didn't find book: <b>{search_field}</b></p>" if not books else ''
             context['books'] = books
-        return render(request, template_name=self.template_name, context=context)
+            return render(request, template_name=self.template_name, context=context)
+        else:
+            return render(request, template_name=self.template_name, context=self.context)
 
 
 @login_required

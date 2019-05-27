@@ -353,7 +353,7 @@ $(document).on('click', '.js-lib-btn', function () {
 function search_post(form) {
     $.ajax({
         url : form.attr('action'),
-        type : "post",
+        type : "get",
         dataType: "json",
         data : {
             'search_field': $('#id_search_field').val()
@@ -390,6 +390,7 @@ $('#search-form').on('change paste keyup', function(e){
     }
     return false;
 });
+$('#id_search_field').focus();
 
 
 })();
