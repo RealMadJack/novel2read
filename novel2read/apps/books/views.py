@@ -20,7 +20,7 @@ from .utils import capitalize_slug
 
 class FrontPageView(View):
     def get(self, request, *args, **kwargs):
-        books = Book.objects.published().select_related('bookgenre').filter(recommended=True).random_qslist(only=6)
+        books = Book.objects.published().select_related('bookgenre').filter(recommended=True).random_qslist(only=12)
         b_chaps = BookChapter.objects.order_by('book_id', '-created').distinct('book_id').values_list('id', flat=True)
         b_chaps = BookChapter.objects.select_related('book').filter(id__in=b_chaps).order_by('-created')
         promo_title = 'Read your favourite novels in one place'
@@ -38,7 +38,7 @@ class BookGenreView(ListView):
 
     def get(self, request, *args, **kwargs):
         p = 'page'
-        p_num = 15
+        p_num = 16
         try:
             # query params without page
             f_params = '&'.join({f'{k}={v}' if k != p else '' for (k, v) in request.GET.items()})
@@ -65,7 +65,7 @@ class BookTagView(ListView):
 
     def get(self, request, *args, **kwargs):
         p = 'page'
-        p_num = 15
+        p_num = 16
         try:
             tags = BookTag.objects.all()
             context = {'tags': tags}
