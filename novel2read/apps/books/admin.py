@@ -107,7 +107,7 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
         ('Book info', {
             'classes': ('extrapretty'),
             'fields': (
-                ('author', 'country'),
+                ('author', 'country', 'similar'),
                 ('volumes', 'chapters_release', 'chapters_count'),
                 ('rating', 'ranking', 'votes', 'recommended'),
                 'poster', 'description'
@@ -124,7 +124,8 @@ class BookAdmin(SummernoteModelAdminMixin, admin.ModelAdmin):
     readonly_fields = ('slug', 'chapters_count', )
     filter_horizontal = ('booktag', )
     list_select_related = ('bookgenre', )
-    list_display = ('title', 'get_bookgenre', 'recommended', 'chapters_count', 'status', 'visited', 'visit_id', 'revisited', 'revisit_id', 'created', 'modified', )
+    list_display = ('pk', 'title', 'get_bookgenre', 'recommended', 'chapters_count', 'status', 'visited', 'visit_id', 'revisited', 'revisit_id', 'created', 'modified', )
+    list_display_links = ('pk', 'title')
 
     def get_bookgenre(self, obj):
         return obj.bookgenre.name

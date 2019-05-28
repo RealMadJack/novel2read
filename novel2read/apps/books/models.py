@@ -78,6 +78,7 @@ class Book(TimeStampedModel):
         ('japan', 'Japan'),
     )
     country = models.CharField(choices=COUNTRY_CHOICES, blank=True, default=COUNTRY_CHOICES.china, max_length=55)
+    similar = ArrayField(models.IntegerField(), blank=True, default=list)
     description = models.TextField(_('Description'), blank=True, default='')
     volumes = ArrayField(models.SmallIntegerField(default=1), blank=True, default=list)
     chapters_count = models.PositiveIntegerField(_('Chapters'), blank=True, null=True, default=0)
