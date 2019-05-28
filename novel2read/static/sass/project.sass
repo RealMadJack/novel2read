@@ -521,48 +521,76 @@ main
 
 
 // Sliders
+.swiper-pagination-bullet-active
+  background-color: $accent
+
 .mw-swiper
   // changing width makes blurry
   width: calc(100% - 22.6%)
   max-width: 1600px
   .row
     position: relative
+  .swiper-slide
+    width: 640px
+    height: 350px
+    opacity: .0
+    transition: all .3s ease
+    &-active, &-prev, &-next
+      opacity: 1
+  .swiper-button-prev, .swiper-button-next
+    color: $accent
+    padding: 0
+    transition: all .3s ease-in-out
+    border-radius: 50%
+    background-image: none
+    .fas, .far, .fal
+      font-size: 3rem
+    &:hover
+      color: $accent-hot
+    &:focus, &:active
+      outline: none
+  .swiper-button-prev
+    left: -2rem
+  .swiper-button-next
+    right: -2rem
 
-.swiper-container
-  width: 100%
-  margin: 0 12px
-  padding-top: 50px
-  padding-bottom: 50px
+  .swiper-container
+    width: 100%
+    margin: 0 12px
+    padding-top: 50px
+    padding-bottom: 50px
+    opacity: 0
+
+.swiper-tape-container
+  padding-top: 5px
+  overflow: hidden
   opacity: 0
+  .swiper-slide
+  .swiper-pagination
+    bottom: -45px
 
-.swiper-slide
-  width: 640px
-  height: 350px
-  opacity: .0
-  transition: all .3s ease
-  &-active, &-prev, &-next
-    opacity: 1
-.swiper-button-prev, .swiper-button-next
-  color: $accent
-  padding: 0
-  transition: all .3s ease-in-out
-  border-radius: 50%
-  background-image: none
-  .fas, .far, .fal
-    font-size: 3rem
-  &:hover
-    color: $accent-hot
-  &:focus, &:active
-    outline: none
-.swiper-button-prev
-  left: -2rem
-.swiper-button-next
-  right: -2rem
 
 .d-lg
   display: block
 .d-sm
   display: none
+
+.bookslide-sm
+  max-width: 540px
+  display: flex
+  flex-direction: row
+  a
+    color: $default
+  &__poster
+    min-width: 180px
+    max-height: 240px
+    margin-right: 12px
+    &--image
+      max-width: 220px
+  &__info
+    flex-direction: column
+    &--title
+      font-size: 1.5rem
 
 .bookslide
   display: grid
@@ -1297,7 +1325,12 @@ main
               font-size: .75rem
               display: block!important
     &__review
-    &__promo
+    &__similar
+      position: relative
+      &--title
+      &--slider
+        position: relative
+        margin-bottom: 60px
 
 
 .bookchapter__nav--select

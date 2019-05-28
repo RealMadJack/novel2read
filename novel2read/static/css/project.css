@@ -584,56 +584,87 @@ main {
     font-size: 22.4px;
     font-size: 1.4rem; }
 
+.swiper-pagination-bullet-active {
+  background-color: #6A57F9; }
+
 .mw-swiper {
   width: calc(100% - 22.6%);
   max-width: 1600px; }
   .mw-swiper .row {
     position: relative; }
+  .mw-swiper .swiper-slide {
+    width: 640px;
+    height: 350px;
+    opacity: .0;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease; }
+    .mw-swiper .swiper-slide-active, .mw-swiper .swiper-slide-prev, .mw-swiper .swiper-slide-next {
+      opacity: 1; }
+  .mw-swiper .swiper-button-prev, .mw-swiper .swiper-button-next {
+    color: #6A57F9;
+    padding: 0;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    border-radius: 50%;
+    background-image: none; }
+    .mw-swiper .swiper-button-prev .fas, .mw-swiper .swiper-button-prev .far, .mw-swiper .swiper-button-prev .fal, .mw-swiper .swiper-button-next .fas, .mw-swiper .swiper-button-next .far, .mw-swiper .swiper-button-next .fal {
+      font-size: 48px;
+      font-size: 3rem; }
+    .mw-swiper .swiper-button-prev:hover, .mw-swiper .swiper-button-next:hover {
+      color: #FF0099; }
+    .mw-swiper .swiper-button-prev:focus, .mw-swiper .swiper-button-prev:active, .mw-swiper .swiper-button-next:focus, .mw-swiper .swiper-button-next:active {
+      outline: none; }
+  .mw-swiper .swiper-button-prev {
+    left: -32px;
+    left: -2rem; }
+  .mw-swiper .swiper-button-next {
+    right: -32px;
+    right: -2rem; }
+  .mw-swiper .swiper-container {
+    width: 100%;
+    margin: 0 12px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    opacity: 0; }
 
-.swiper-container {
-  width: 100%;
-  margin: 0 12px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+.swiper-tape-container {
+  padding-top: 5px;
+  overflow: hidden;
   opacity: 0; }
-
-.swiper-slide {
-  width: 640px;
-  height: 350px;
-  opacity: .0;
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease; }
-  .swiper-slide-active, .swiper-slide-prev, .swiper-slide-next {
-    opacity: 1; }
-
-.swiper-button-prev, .swiper-button-next {
-  color: #6A57F9;
-  padding: 0;
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
-  border-radius: 50%;
-  background-image: none; }
-  .swiper-button-prev .fas, .swiper-button-prev .far, .swiper-button-prev .fal, .swiper-button-next .fas, .swiper-button-next .far, .swiper-button-next .fal {
-    font-size: 48px;
-    font-size: 3rem; }
-  .swiper-button-prev:hover, .swiper-button-next:hover {
-    color: #FF0099; }
-  .swiper-button-prev:focus, .swiper-button-prev:active, .swiper-button-next:focus, .swiper-button-next:active {
-    outline: none; }
-
-.swiper-button-prev {
-  left: -32px;
-  left: -2rem; }
-
-.swiper-button-next {
-  right: -32px;
-  right: -2rem; }
+  .swiper-tape-container .swiper-pagination {
+    bottom: -45px; }
 
 .d-lg {
   display: block; }
 
 .d-sm {
   display: none; }
+
+.bookslide-sm {
+  max-width: 540px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row; }
+  .bookslide-sm a {
+    color: black; }
+  .bookslide-sm__poster {
+    min-width: 180px;
+    max-height: 240px;
+    margin-right: 12px; }
+    .bookslide-sm__poster--image {
+      max-width: 220px; }
+  .bookslide-sm__info {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    .bookslide-sm__info--title {
+      font-size: 24px;
+      font-size: 1.5rem; }
 
 .bookslide {
   display: grid;
@@ -1515,6 +1546,11 @@ main {
             font-size: 12px;
             font-size: .75rem;
             display: block !important; }
+  .book .bookbody__similar {
+    position: relative; }
+    .book .bookbody__similar--slider {
+      position: relative;
+      margin-bottom: 60px; }
 
 .bookchapter__nav--select .bookmark .btn:focus, .bookchapter__nav--select .bookmark .btn:active, .bookchapter__nav--select a .btn:focus, .bookchapter__nav--select a .btn:active {
   opacity: 1 !important; }
@@ -1924,10 +1960,14 @@ main {
 @media only screen and (max-width: 1200px) {
   .mw-swiper {
     width: 91vw; }
-  .swiper-button-prev {
-    left: -1.9rem; }
-  .swiper-button-next {
-    right: -1.9rem; }
+    .mw-swiper .swiper-button-prev {
+      left: -1.9rem; }
+    .mw-swiper .swiper-button-next {
+      right: -1.9rem; }
+  .bookslide-sm {
+    max-width: 460px; }
+    .bookslide-sm__info--title {
+      font-size: 1.3rem; }
   .book .bookhead__info--title .h1-title-sm {
     font-size: 1.6rem;
     margin-bottom: 10px; }
@@ -2067,14 +2107,14 @@ main {
     padding: 0; }
   .mw-swiper {
     width: 100vw; }
-  .swiper-pagination.swiper-pagination-bullets {
-    bottom: 10px; }
-  .swiper-button-prev {
-    left: 10px;
-    display: none; }
-  .swiper-button-next {
-    right: 10px;
-    display: none; }
+    .mw-swiper .swiper-pagination.swiper-pagination-bullets {
+      bottom: 10px; }
+    .mw-swiper .swiper-button-prev {
+      left: 10px;
+      display: none; }
+    .mw-swiper .swiper-button-next {
+      right: 10px;
+      display: none; }
   .footer .col-md-3:nth-of-type(1) {
     -webkit-box-ordinal-group: 5;
         -ms-flex-order: 4;
@@ -2301,14 +2341,14 @@ main {
     display: none !important; }
   .d-sm {
     display: block !important; }
-  .swiper-pagination.swiper-pagination-bullets {
+  .mw-swiper .swiper-pagination.swiper-pagination-bullets {
     bottom: -5px; }
-  .swiper-container {
+  .mw-swiper .swiper-container {
     padding: 30px 20px; }
-  .swiper-slide.bookslide {
+  .mw-swiper .swiper-slide.bookslide {
     width: 100%;
     max-width: 370px;
-    height: 425px;
+    height: 430px;
     position: relative; }
   .bookslide {
     display: block;
@@ -2358,6 +2398,8 @@ main {
 @media only screen and (max-width: 575px) {
   .container {
     padding: 0 15px; }
+  .bookslide-sm__poster {
+    min-width: 150px; }
   .media img, .comments__list .media img, .comments__tree .media img {
     max-width: 30px;
     height: 30px;
@@ -2463,6 +2505,10 @@ main {
 @media only screen and (max-width: 480px) {
   .breadcrumb {
     font-size: .8rem; }
+  .bookslide-sm {
+    max-width: 350px; }
+    .bookslide-sm__poster {
+      min-width: 50px; }
   .frontpage__promo {
     min-height: 190px; }
     .frontpage__promo .h1-title {

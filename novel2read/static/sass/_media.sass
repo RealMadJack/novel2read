@@ -6,10 +6,20 @@
 @media only screen and (max-width : 1200px)
   .mw-swiper
     width: 91vw
-  .swiper-button-prev
-    left: -1.9rem
-  .swiper-button-next
-    right: -1.9rem
+    .swiper-button-prev
+      left: -1.9rem
+    .swiper-button-next
+      right: -1.9rem
+
+  .bookslide-sm
+    max-width: 460px
+    &__poster
+      &--image
+    &__info
+      &--title
+        font-size: 1.3rem
+
+
 
   .book
     .bookhead
@@ -182,7 +192,7 @@
               small
       &__vote
       &__review
-      &__promo
+      &__similar
 
   .js-b-chap.hide
     position: fixed
@@ -268,14 +278,14 @@
 
   .mw-swiper
     width: 100vw
-  .swiper-pagination.swiper-pagination-bullets
-    bottom: 10px
-  .swiper-button-prev
-    left: 10px
-    display: none
-  .swiper-button-next
-    right: 10px
-    display: none
+    .swiper-pagination.swiper-pagination-bullets
+      bottom: 10px
+    .swiper-button-prev
+      left: 10px
+      display: none
+    .swiper-button-next
+      right: 10px
+      display: none
 
 
   .footer
@@ -418,7 +428,7 @@
               small
                 font-size: .7rem
       &__review
-      &__promo
+      &__similar
 
   .rankcard
     &__rank
@@ -583,15 +593,17 @@
   .d-sm
     display: block!important
 
-  .swiper-pagination.swiper-pagination-bullets
-    bottom: -5px
-  .swiper-container
-    padding: 30px 20px
-  .swiper-slide.bookslide
-    width: 100%
-    max-width: 370px
-    height: 425px
-    position: relative
+  .mw-swiper
+    .swiper-pagination.swiper-pagination-bullets
+      bottom: -5px
+    .swiper-container
+      padding: 30px 20px
+    .swiper-slide.bookslide
+      width: 100%
+      max-width: 370px
+      height: 430px
+      position: relative
+
   .bookslide
     display: block
     position: relative
@@ -617,7 +629,6 @@
         width: 100%
         height: auto
         max-height: 230px
-
     &__info
       display: block
       padding: 0 5px
@@ -643,6 +654,13 @@
 @media only screen and (max-width : 575px)
   .container
     padding: 0 15px
+
+  .bookslide-sm
+    &__poster
+      min-width: 150px
+      &--image
+    &__info
+      &--title
 
 
   .media, .comments__list .media, .comments__tree .media
@@ -791,6 +809,14 @@
 @media only screen and (max-width : 480px)
   .breadcrumb
     font-size: .8rem
+
+  .bookslide-sm
+    max-width: 350px
+    &__poster
+      min-width: 50px
+      &--image
+    &__info
+      &--title
 
   .frontpage
     &__promo

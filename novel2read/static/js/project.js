@@ -46,7 +46,7 @@ $('.selectize-input > input').prop('disabled', 'disabled');
 // Swiper Slider config
 let slides = window.innerWidth > 1750 ? 'auto' : 'auto'
 let slideDepth = window.innerWidth > 2020 ? 300 : 500
-let swiperOptions = {
+let swiperOpts = {
     // pagination: {
     //     el: '.swiper-pagination',
     //     dynamicBullets: true,
@@ -75,8 +75,18 @@ let swiperOptions = {
     //preventClicksPropagation: false,
     slideToClickedSlide: true,
 }
-let swiper = new Swiper('.swiper-container', swiperOptions);
-$('.swiper-container').animate({opacity: 1.0}, 300)
+let swiper = new Swiper('.swiper-container', swiperOpts);
+$('.swiper-fadein').animate({opacity: 1.0}, 300)
+
+let swiper_tape = new Swiper('.swiper-tape-container', {
+    slidesPerView: 'auto',
+    roundLengths: true,
+    spaceBetween: 15,
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+});
 
 
 

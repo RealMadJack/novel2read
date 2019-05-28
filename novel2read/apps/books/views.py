@@ -121,6 +121,9 @@ class BookView(DetailView):
                 'next': reverse('comments-xtd-sent'),
                 'user_auth': user_auth
             }
+            if book.similar:
+                similar_books = Book.objects.filter(id__in=book.similar)
+                context.update({'similar_books': similar_books})
             if user_auth:
                 book_prog = False
                 context['user_lib'] = list(request.user.library.book.all())
